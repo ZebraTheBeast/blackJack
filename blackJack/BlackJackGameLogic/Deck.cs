@@ -13,39 +13,7 @@ namespace blackJack
         public Deck()
         {
             _fullDeck = FillDeck();
-        }
         
-        public void GiveCard(Player player)
-        {
-            player._hand._handCard.Add(_playingDeck[0]);
-            _playingDeck.Remove(_playingDeck[0]);
-            player._hand.CountCardsValue();
-        }
-
-        public void Shuffle()
-        {
-            _playingDeck = _fullDeck;
-            int n = _playingDeck.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = rng.Next(n + 1);
-                CardEntity value = _playingDeck[k];
-                _playingDeck[k] = _playingDeck[n];
-                _playingDeck[n] = value;
-            }
-        }
-
-        public List<CardEntity> FillDeck()
-        {
-            var deck = new List<CardEntity>();
-            int colorValue = 0;
-            int colorSize = Enum.GetNames(typeof(Color)).Length - 1;
-            int titleValue = 2;
-            int titleSize = Enum.GetNames(typeof(Title)).Length;
-            int maxCardValue = 11;
-            int imageCardValue = 10;
-            int deckSize = titleSize * 4;
 
             for (int i = 0; i < deckSize; i++)
             {
