@@ -8,7 +8,7 @@ namespace blackJack
 {
     public abstract class HandEntity
     {
-        public List<CardEntity> _handCard;
-        public int _handCardValue;
+        public List<CardEntity> HandCard;
+        public int HandCardValue;
     }
 }

@@ -6,19 +6,26 @@ using System.Threading.Tasks;
 
 namespace blackJack
 {
+    //еnum в отдельные файлы, 1 enum - 1 класс
+    //создать сервисы, а туда все переменные
+    //изменить создание карт, с 2 по 10
+    //хуйня с наследованиями
     public enum Color
     {
-        diamonds, hearts, spades, clubs
+        Diamonds = 0,
+        Hearts = 1,
+        Spades = 2,
+        Clubs = 3
     }
-
+    
     public enum Title
     {
-       two = 2, three = 3, four = 4, five = 5, six = 6, seven = 7, eight = 8, nine = 9, ten = 10, Jack = 12, Queen = 13, King = 14, Ace = 11
+       Jack = 0, Queen = 1, King = 2, Ace = 11
     }
     public class CardEntity
     {
-        public Title _title { get; set; }
-        public int _value { get; set; }
-        public Color _cardColor { get; set; }
+        public Title Title { get; set; }
+        public int Value { get; set; }
+        public Color CardColor { get; set; }
     }
 }

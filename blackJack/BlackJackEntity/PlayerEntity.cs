@@ -8,8 +8,8 @@ namespace blackJack
 {
     public abstract class PlayerEntity
     {
-        public string _name { get; set; }
-        public int _points { get; set; }
-        public Hand _hand { get; set; }
+        public string Name { get; set; }
+        public int Points { get; set; }
+        public Hand Hand { get; set; }
     }
 }

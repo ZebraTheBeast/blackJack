@@ -10,6 +10,7 @@ namespace blackJack
     {
         public void CountCardsValue()
         {
+            //переменные в отдельный слой
             int aceThreshold = 21;
             _handCardValue = 0;
 
