@@ -12,6 +12,7 @@ namespace blackJack
 
         public Deck()
         {
+<<<<<<< HEAD
             FullDeck = FillDeck();
         }
          
@@ -46,6 +47,10 @@ namespace blackJack
 -            int maxCardValue = 11;
 -            int imageCardValue = 10;
 -            int deckSize = titleSize * 4;
+=======
+            _fullDeck = FillDeck();
+        
+>>>>>>> 3b893e3b0356d27ea70f35cdc90430d0c4d2123a
 
             for (int i = 0; i < deckSize; i++)
             {
