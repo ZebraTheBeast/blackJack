@@ -12,5 +12,7 @@ namespace Services.BlackJackConstant
         public const int AceCardValue = 11;
         public const int ImageCardValue = 10;
         public const int DeckSize = 52;
+        public const int NumberStartCard = 2;
+        public const int CountNumberCard = 9;
     }
 }

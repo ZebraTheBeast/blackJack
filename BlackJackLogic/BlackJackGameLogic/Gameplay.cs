@@ -9,7 +9,7 @@ namespace BlackJackLogic
 {
     public class Gameplay
     {
-        
+        //TODO - minus solid, zhostko zavisit ot Deck, DeckEntity
         public Deck _deck;
         public DeckEntity _playingDeck = new DeckEntity();
         public List<Player> _players = new List<Player>();
@@ -26,6 +26,8 @@ namespace BlackJackLogic
         
         public void Dealing()
         {
+            _deck.ShuffleDeck(_playingDeck);
+
             foreach (Player player in _players)
             {
                 _deck.GiveCard(player, _playingDeck);

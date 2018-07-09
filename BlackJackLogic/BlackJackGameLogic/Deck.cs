@@ -16,9 +16,11 @@ namespace BlackJackLogic
 
         public Deck()
         {
-            _fullDeck = FillDeck();
+            _fullDeck = GetNewDeck();
         }
 
+        // TODO - подумать как избавиться от hand, нужен ли он
+        // скорее всего отправить его в gameplay, но это не точно.
         public void GiveCard(Player player, DeckEntity deck)
         {
             var hand = new Hand();
@@ -28,7 +30,7 @@ namespace BlackJackLogic
             hand.CountHandValue(player);
         }
 
-        public void Shuffle(DeckEntity deck)
+        public void ShuffleDeck(DeckEntity deck)
         {
             deck = _fullDeck;
             int n = deck.CardList.Count;
@@ -51,9 +53,13 @@ namespace BlackJackLogic
 
             for (int i = 0; i < end; i++)
             {
-                deck.CardList[i].Title = cardNames[cardTitleValue];
-                deck.CardList[i].Value = cardValues[cardTitleValue];
-                deck.CardList[i].CardColor = (CardColor)cardColorValue++;
+                var card = new CardEntity();
+
+                card.Title = cardNames[cardTitleValue];
+                card.Value = cardValues[cardTitleValue];
+                card.CardColor = (CardColor)cardColorValue++;
+
+                deck.CardList.Add(card);
 
                 if (cardColorValue > cardColorSize)
                 {
@@ -63,19 +69,11 @@ namespace BlackJackLogic
             }
         }
 
-
-
-        public DeckEntity FillDeck()
+        public DeckEntity GetNewDeck()
         {
             var deck = new DeckEntity();
-            var valueList = Enumerable.Range(2, 9).ToList();
+            var valueList = Enumerable.Range(BlackJackConstant.NumberStartCard, BlackJackConstant.CountNumberCard).ToList();
             var titleList = valueList.ConvertAll<string>(delegate (int i) { return i.ToString(); });
-
-            for (int i = 0; i < BlackJackConstant.DeckSize; i++)
-            {
-                var card = new CardEntity();
-                deck.CardList.Add(card);
-            }
 
             foreach (var value in Enum.GetNames(typeof(CardTitle)))
             {
@@ -88,7 +86,6 @@ namespace BlackJackLogic
             }
 
             FillDeckWithCard(deck, BlackJackConstant.DeckSize, titleList, valueList);
-
             return deck;
         }
     }

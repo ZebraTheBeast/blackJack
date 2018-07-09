@@ -42,10 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlackJackGameLogic\Deck.cs" />
-    <Compile Include="BlackJackGameLogic\Gameplay.cs" />
-    <Compile Include="BlackJackGameLogic\Hand.cs" />
-    <Compile Include="BlackJackGameLogic\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,6 +49,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlackJackLogic\BlackJackLogic.csproj">
+      <Project>{3008db2b-95f5-4f4d-86ab-85f6ead3ec68}</Project>
+      <Name>BlackJackLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClassLibrary1\BlackJackEntity.csproj">
       <Project>{252680b3-1e9b-40f4-a5e4-eb8f3baf4cd9}</Project>
       <Name>BlackJackEntity</Name>

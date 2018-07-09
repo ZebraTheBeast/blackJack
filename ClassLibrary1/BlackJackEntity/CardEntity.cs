@@ -7,7 +7,6 @@ using Services.BlackJackEnum;
 
 namespace BlackJackEntity
 {
- 
     public class CardEntity
     {
         public string Title { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlackJackEntity
 {
-    public abstract class HandEntity
+    public class HandEntity
     {
         public List<CardEntity> HandCard;
         public int HandCardValue;
