@@ -1,0 +1,11 @@
+C:\Users\Anuitex\source\repos\blackJack\Services\bin\Debug\Services.dll
+C:\Users\Anuitex\source\repos\blackJack\Services\bin\Debug\Services.pdb
+C:\Users\Anuitex\source\repos\blackJack\Services\obj\Debug\BlackJackServices.csprojAssemblyReference.cache
+C:\Users\Anuitex\source\repos\blackJack\Services\obj\Debug\BlackJackServices.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex\source\repos\blackJack\Services\obj\Debug\Services.dll
+C:\Users\Anuitex\source\repos\blackJack\Services\obj\Debug\Services.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJackServices\bin\Debug\BlackJackServices.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJackServices\bin\Debug\BlackJackServices.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJackServices\obj\Debug\BlackJackServices.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJackServices\obj\Debug\BlackJackServices.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJackServices\obj\Debug\BlackJackServices.pdb

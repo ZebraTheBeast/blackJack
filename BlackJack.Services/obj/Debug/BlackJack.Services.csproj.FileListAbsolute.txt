@@ -1,0 +1,11 @@
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJackServices.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJackServices.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.Configuration.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\ClassLibrary1.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.Configuration.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\ClassLibrary1.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\obj\Debug\BlackJack.Services.csprojAssemblyReference.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\obj\Debug\BlackJack.Services.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\obj\Debug\BlackJack.Services.csproj.CopyComplete
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\obj\Debug\BlackJackServices.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\obj\Debug\BlackJackServices.pdb
