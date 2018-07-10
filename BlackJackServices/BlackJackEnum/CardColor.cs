@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.BlackJackEnum
+namespace BlackJackServices.BlackJackEnum
 {
     public enum CardColor
     {

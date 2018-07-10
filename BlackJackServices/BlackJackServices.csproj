@@ -7,8 +7,8 @@
     <ProjectGuid>{1F237B7B-88A0-4409-AA81-E8E3EE61B016}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Services</RootNamespace>
-    <AssemblyName>Services</AssemblyName>
+    <RootNamespace>BlackJackServices</RootNamespace>
+    <AssemblyName>BlackJackServices</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

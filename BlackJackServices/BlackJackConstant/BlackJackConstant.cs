@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.BlackJackConstant
+namespace BlackJackServices.BlackJackConstant
 {
     public class BlackJackConstant
     {
@@ -14,5 +14,7 @@ namespace Services.BlackJackConstant
         public const int DeckSize = 52;
         public const int NumberStartCard = 2;
         public const int CountNumberCard = 9;
+        public const int NumberCardForBlackJack = 2;
+        public const string NameCardForBlackJack = "Ace";
     }
 }

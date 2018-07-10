@@ -53,11 +53,11 @@
       <Project>{3008db2b-95f5-4f4d-86ab-85f6ead3ec68}</Project>
       <Name>BlackJackLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ClassLibrary1\BlackJackEntity.csproj">
+    <ProjectReference Include="..\BlackJackEntity\BlackJackEntity.csproj">
       <Project>{252680b3-1e9b-40f4-a5e4-eb8f3baf4cd9}</Project>
       <Name>BlackJackEntity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services\BlackJackServices.csproj">
+    <ProjectReference Include="..\BlackJackServices\BlackJackServices.csproj">
       <Project>{1f237b7b-88a0-4409-aa81-e8e3ee61b016}</Project>
       <Name>BlackJackServices</Name>
     </ProjectReference>

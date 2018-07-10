@@ -7,3 +7,12 @@ C:\Users\Anuitex\source\repos\blackJack\ClassLibrary1\obj\Debug\BlackJackEntity.
 C:\Users\Anuitex\source\repos\blackJack\ClassLibrary1\obj\Debug\BlackJackEntity.csproj.CopyComplete
 C:\Users\Anuitex\source\repos\blackJack\ClassLibrary1\obj\Debug\ClassLibrary1.dll
 C:\Users\Anuitex\source\repos\blackJack\ClassLibrary1\obj\Debug\ClassLibrary1.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJackEntity\bin\Debug\ClassLibrary1.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJackEntity\bin\Debug\ClassLibrary1.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJackEntity\bin\Debug\BlackJackServices.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJackEntity\bin\Debug\BlackJackServices.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJackEntity\obj\Debug\BlackJackEntity.csprojAssemblyReference.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJackEntity\obj\Debug\BlackJackEntity.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJackEntity\obj\Debug\BlackJackEntity.csproj.CopyComplete
+C:\Users\Anuitex\source\repos\blackJack\BlackJackEntity\obj\Debug\ClassLibrary1.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJackEntity\obj\Debug\ClassLibrary1.pdb

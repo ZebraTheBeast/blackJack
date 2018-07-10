@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJackEntity;
-using Services.BlackJackConstant;
+using BlackJackServices.BlackJackConstant;
 
-namespace BlackJackLogic.BlackJackGameLogic
+namespace BlackJackLogic.BlackJackGameLogicElement
 {
     public static class CombinationChecker
     {
         public static bool IsBlackJack(PlayerEntity player)
         {
-            if(player.Hand.HandCard.Count() != 2)
+            if(player.Hand.HandCard.Count() != BlackJackConstant.NumberCardForBlackJack)
             {
                 return false;
             }
 
             foreach(var card in player.Hand.HandCard)
             {
-                if(card.Title != "Ace")
+                if(card.Title != BlackJackConstant.NameCardForBlackJack)
                 {
                     return false;
                 }

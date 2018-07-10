@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Services.BlackJackEnum;
-using Services.BlackJackConstant;
+using BlackJackServices.BlackJackEnum;
+using BlackJackServices.BlackJackConstant;
 using BlackJackEntity;
 
-namespace BlackJackLogic
+namespace BlackJackLogic.BlackJackGameLogicElement
 {
     public static class Deck
     {

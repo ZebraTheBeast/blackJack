@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlackJackEntity;
 
-namespace BlackJackLogic.BlackJackGameLogic
+namespace BlackJackLogic.BlackJackGameLogicElement
 {
     public static class Point
     {

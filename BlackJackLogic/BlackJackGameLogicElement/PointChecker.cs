@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJackEntity;
-using Services.BlackJackConstant;
+using BlackJackServices.BlackJackConstant;
 
-namespace BlackJackLogic.BlackJackGameLogic
+namespace BlackJackLogic.BlackJackGameLogicElement
 {
     public class PointChecker
     {
         public void CheckPlayerWithDealer(PlayerEntity player, PlayerEntity dealer)
         { 
             if((player.Hand.HandCardValue > dealer.Hand.HandCardValue) && (CombinationChecker.IsLess(player, BlackJackConstant.WinValue))
-                ||(CombinationChecker.IsLess(player, BlackJackConstant.WinValue) && (!CombinationChecker.IsLess(dealer, BlackJackConstant.WinValue))
+                || ((CombinationChecker.IsLess(player, BlackJackConstant.WinValue)) && (!CombinationChecker.IsLess(dealer, BlackJackConstant.WinValue))))
             {
                 Point.WinPoints(player);
             }
 
-            if((player.Hand.HandCardValue < dealer.Hand.HandCardValue) || (!CombinationChecker.IsLess(player, BlackJackConstant.WinValue)))
+            if((player.Hand.HandCardValue < dealer.Hand.HandCardValue) 
+                || (!CombinationChecker.IsLess(player, BlackJackConstant.WinValue)))
             {
                 Point.LosePoints(player);
             }
