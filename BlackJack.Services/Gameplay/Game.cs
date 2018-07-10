@@ -7,24 +7,23 @@ using BlackJack.ViewModel;
 
 namespace BlackJack.Services.Gameplay
 {
-    public class Gameplay
+    public class Game
     {
-        public List<Card> _playingDeck = new List<Card>();
-        public List<Player> _players = new List<Player>();
+        public InGame _inGame = new InGame();
 
         public void PlayerAdd(Player player)
         {
-            _players.Add(player);
+            _inGame.Players.Add(player);
         }
 
         public void Dealing()
         {
-            Deck.ShuffleDeck(_playingDeck);
+            Deck.ShuffleDeck(_inGame.Deck);
 
-            foreach (Player player in _players)
+            foreach (Player player in _inGame.Players)
             {
-                Deck.GiveCard(player, _playingDeck);
-                Deck.GiveCard(player, _playingDeck);
+                Deck.GiveCard(player, _inGame);
+                _inGame = Deck.GiveCard2(player, _inGame.Deck, _inGame.Players);
             }
         }
     }

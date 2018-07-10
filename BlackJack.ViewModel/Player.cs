@@ -12,5 +12,10 @@ namespace BlackJack.ViewModel
         public string Name { get; set; }
         public int Points { get; set; }
         public Hand Hand { get; set; }
+
+        public Player()
+        {
+            Hand = new Hand();
+        }
     }
 }

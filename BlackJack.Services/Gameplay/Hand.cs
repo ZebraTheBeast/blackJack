@@ -10,27 +10,29 @@ namespace BlackJack.Services.Gameplay
 {
     public static class Hand
     {
-        public static void CountHandValue(Player player)
+        public static int GetHandValue(Player player)
         {
-            player.Hand.CardListValue = 0;
+            int cardValue = 0;
 
             foreach (Card card in player.Hand.CardList)
             {
-                player.Hand.CardListValue += card.Value;
+                cardValue += card.Value;
             }
 
             foreach (Card card in player.Hand.CardList)
             {
-                if ((card.Title.ToString() == Constant.NameCardForBlackJack) && (player.Hand.CardListValue > Constant.WinValue))
+                if ((card.Title.ToString() == Constant.NameCardForBlackJack) && (cardValue > Constant.WinValue))
                 {
-                    player.Hand.CardListValue -= Constant.ImageCardValue;
+                    cardValue -= Constant.ImageCardValue;
                 }
             }
 
             if (CombinationChecker.PlayerHandCardListIsBlackJack(player))
             {
-                player.Hand.CardListValue = Constant.WinValue;
+                cardValue = Constant.WinValue;
             }
+
+            return cardValue;
         }
     }
 }

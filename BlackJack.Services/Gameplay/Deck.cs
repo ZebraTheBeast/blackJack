@@ -14,14 +14,30 @@ namespace BlackJack.Services.Gameplay
     {
         private static Random _rng = new Random();
 
-        public static void GiveCard(Player player, List<Card> deck)
+        public static void GiveCard(Player player, InGame inGame)
         {
+            player.Hand.CardList.Add(inGame.Deck[0]);
+            inGame.Deck.Remove(inGame.Deck[0]);
+            player.Hand.CardListValue = Hand.GetHandValue(player);
+            inGame.Players.Find(x => x.Id == player.Id).Hand = player.Hand;
+        }
+        
+        public static InGame GiveCard2(Player player, List<Card> deck, List<Player> players)
+        {
+            InGame inGame = new InGame();
+
             player.Hand.CardList.Add(deck[0]);
             deck.Remove(deck[0]);
-            Hand.CountHandValue(player);
-        }
+            player.Hand.CardListValue = Hand.GetHandValue(player);
+            players.Find(x => x.Id == player.Id).Hand = player.Hand;
 
-        public static void ShuffleDeck(List<Card> deck)
+            inGame.Deck = deck;
+            inGame.Players = players;
+
+            return inGame;
+        }
+        
+        public static List<Card> ShuffleDeck(List<Card> deck)
         {
             deck = GetNewDeck();
             int n = deck.Count;
@@ -34,6 +50,7 @@ namespace BlackJack.Services.Gameplay
                 deck[k] = deck[n];
                 deck[n] = value;
             }
+            return deck;
         }
 
         public static void FillDeckWithCard(List<Card> deck, int end, List<string> cardNames, List<int> cardValues)
@@ -77,6 +94,7 @@ namespace BlackJack.Services.Gameplay
             }
 
             FillDeckWithCard(deck, Constant.DeckSize, titleList, valueList);
+
             return deck;
         }
     }
