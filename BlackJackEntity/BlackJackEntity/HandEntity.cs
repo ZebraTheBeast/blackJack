@@ -10,5 +10,6 @@ namespace BlackJackEntity
     {
         public List<CardEntity> HandCard;
         public int HandCardValue;
+        public int HandPoints;
     }
 }

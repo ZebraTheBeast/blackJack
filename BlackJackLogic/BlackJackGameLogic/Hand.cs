@@ -21,7 +21,7 @@ namespace BlackJackLogic
 
             foreach (CardEntity card in player.Hand.HandCard)
             {
-                if ((card.Title.ToString() == "Ace") && (player.Hand.HandCardValue > BlackJackConstant.AceThreshold))
+                if ((card.Title.ToString() == "Ace") && (player.Hand.HandCardValue > BlackJackConstant.WinValue))
                 {
                     player.Hand.HandCardValue -= BlackJackConstant.ImageCardValue;
                 }

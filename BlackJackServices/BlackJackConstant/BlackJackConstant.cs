@@ -8,7 +8,7 @@ namespace Services.BlackJackConstant
 {
     public class BlackJackConstant
     {
-        public const int AceThreshold = 21;
+        public const int WinValue = 21;
         public const int AceCardValue = 11;
         public const int ImageCardValue = 10;
         public const int DeckSize = 52;
