@@ -14,6 +14,7 @@ namespace BlackJack.Services.Gameplay
     {
         private static Random _rng = new Random();
 
+        // TODO - подумать нужно оно тут или сделать у игрока DrawCard
         public static void GiveCard(Player player, InGame inGame)
         {
             player.Hand.CardList.Add(inGame.Deck[0]);
@@ -21,7 +22,8 @@ namespace BlackJack.Services.Gameplay
             player.Hand.CardListValue = Hand.GetHandValue(player);
             inGame.Players.Find(x => x.Id == player.Id).Hand = player.Hand;
         }
-        
+
+        // TODO - подумать нужно оно тут или сделать в игроке DrawCard, если нет, то какой вариант лучше
         public static InGame GiveCard2(Player player, List<Card> deck, List<Player> players)
         {
             InGame inGame = new InGame();

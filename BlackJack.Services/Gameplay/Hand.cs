@@ -10,6 +10,7 @@ namespace BlackJack.Services.Gameplay
 {
     public static class Hand
     {
+        // TODO - mozh v playeraction
         public static int GetHandValue(Player player)
         {
             int cardValue = 0;

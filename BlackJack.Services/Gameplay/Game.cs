@@ -11,6 +11,7 @@ namespace BlackJack.Services.Gameplay
     {
         public InGame _inGame = new InGame();
 
+        // TODO - mozh v playerАction
         public void PlayerAdd(Player player)
         {
             _inGame.Players.Add(player);

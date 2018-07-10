@@ -9,6 +9,7 @@ namespace BlackJack.Services.Gameplay
 {
     public static class Point
     {
+        // TODO - поставить очки, скорее всего, перенести в действия пользователя
         public static bool PutPoints(Player player, int pointsValue)
         {
             if (player.Points >= pointsValue)
