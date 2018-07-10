@@ -9,30 +9,20 @@ using BlackJackEntity;
 
 namespace BlackJackLogic
 {
-    public class Deck
+    public static class Deck
     {
         private static Random rng = new Random();
-        private DeckEntity _fullDeck = new DeckEntity();
 
-        public Deck()
+        public static void GiveCard(PlayerEntity player, DeckEntity deck)
         {
-            _fullDeck = GetNewDeck();
-        }
-
-        // TODO - подумать как избавиться от hand, нужен ли он
-        // скорее всего отправить его в gameplay, но это не точно.
-        public void GiveCard(Player player, DeckEntity deck)
-        {
-            var hand = new Hand();
-
             player.Hand.HandCard.Add(deck.CardList[0]);
             deck.CardList.Remove(deck.CardList[0]);
-            hand.CountHandValue(player);
+            Hand.CountHandValue(player);
         }
 
-        public void ShuffleDeck(DeckEntity deck)
+        public static void ShuffleDeck(DeckEntity deck)
         {
-            deck = _fullDeck;
+            deck = GetNewDeck();
             int n = deck.CardList.Count;
 
             while (n > 1)
@@ -45,7 +35,7 @@ namespace BlackJackLogic
             }
         }
 
-        public void FillDeckWithCard(DeckEntity deck, int end, List<string> cardNames, List<int> cardValues)
+        public static void FillDeckWithCard(DeckEntity deck, int end, List<string> cardNames, List<int> cardValues)
         {
             int cardColorValue = 0;
             int cardTitleValue = 0;
@@ -69,7 +59,7 @@ namespace BlackJackLogic
             }
         }
 
-        public DeckEntity GetNewDeck()
+        public static DeckEntity GetNewDeck()
         {
             var deck = new DeckEntity();
             var valueList = Enumerable.Range(BlackJackConstant.NumberStartCard, BlackJackConstant.CountNumberCard).ToList();

@@ -1,13 +1,13 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJackConsoleApp", "blackJack\BlackJackConsoleApp.csproj", "{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJackConsoleApp", "BlackJackConsoleApp\BlackJackConsoleApp.csproj", "{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJackEntity", "ClassLibrary1\BlackJackEntity.csproj", "{252680B3-1E9B-40F4-A5E4-EB8F3BAF4CD9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJackEntity", "BlackJackEntity\BlackJackEntity.csproj", "{252680B3-1E9B-40F4-A5E4-EB8F3BAF4CD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJackServices", "Services\BlackJackServices.csproj", "{1F237B7B-88A0-4409-AA81-E8E3EE61B016}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJackServices", "BlackJackServices\BlackJackServices.csproj", "{1F237B7B-88A0-4409-AA81-E8E3EE61B016}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJackLogic", "BlackJackLogic\BlackJackLogic.csproj", "{3008DB2B-95F5-4F4D-86AB-85F6EAD3EC68}"
 EndProject

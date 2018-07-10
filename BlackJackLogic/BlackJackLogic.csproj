@@ -44,7 +44,6 @@
     <Compile Include="BlackJackGameLogic\Gameplay.cs" />
     <Compile Include="BlackJackGameLogic\Hand.cs" />
     <Compile Include="BlackJackGameLogic\Player.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,9 +8,9 @@ using Services.BlackJackConstant;
 
 namespace BlackJackLogic
 {
-    public class Hand 
+    public static class Hand 
     {
-        public void CountHandValue(Player player)
+        public static void CountHandValue(PlayerEntity player)
         {
             player.Hand.HandCardValue = 0;
 
@@ -23,7 +23,7 @@ namespace BlackJackLogic
             {
                 if ((card.Title.ToString() == "Ace") && (player.Hand.HandCardValue > BlackJackConstant.AceThreshold))
                 {
-                    player.Hand.HandCardValue -= 10;
+                    player.Hand.HandCardValue -= BlackJackConstant.ImageCardValue;
                 }
             }
         }

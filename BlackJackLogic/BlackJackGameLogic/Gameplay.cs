@@ -8,34 +8,32 @@ using BlackJackEntity;
 namespace BlackJackLogic
 {
     public class Gameplay
-    {
-        //TODO - minus solid, zhostko zavisit ot Deck, DeckEntity
-        public Deck _deck;
+    {     
         public DeckEntity _playingDeck = new DeckEntity();
-        public List<Player> _players = new List<Player>();
+        public List<PlayerEntity> _players = new List<PlayerEntity>();
 
         public Gameplay()
         {
-            _deck = new Deck();
+        
         }
 
-        public void PlayerAdd(Player player)
+        public void PlayerAdd(PlayerEntity player)
         {
             _players.Add(player);
         }
         
         public void Dealing()
         {
-            _deck.ShuffleDeck(_playingDeck);
+            Deck.ShuffleDeck(_playingDeck);
 
-            foreach (Player player in _players)
+            foreach (PlayerEntity player in _players)
             {
-                _deck.GiveCard(player, _playingDeck);
-                _deck.GiveCard(player, _playingDeck);
+                Deck.GiveCard(player, _playingDeck);
+                Deck.GiveCard(player, _playingDeck);
             }
         }
        
-        public void Turn(Player player)
+        public void Turn(PlayerEntity player)
         {
             ConsoleKeyInfo consoleKeyInfo;
             bool continueTurn = true;
@@ -44,7 +42,7 @@ namespace BlackJackLogic
                 consoleKeyInfo = Console.ReadKey();
                 if(consoleKeyInfo.Key == ConsoleKey.Enter)
                 {
-                    _deck.GiveCard(player, _playingDeck);
+                    Deck.GiveCard(player, _playingDeck);
                 }
                 if (consoleKeyInfo.Key == ConsoleKey.Escape)
                 {
