@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlackJack.Entity.Enum;
 
-namespace BlackJack.Entity
+namespace BlackJack.ViewModel
 {
     public class Card
     {

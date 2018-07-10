@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlackJack.Entity
+namespace BlackJack.ViewModel
 {
-    public class Player
+    public class Hand
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public List<Card> CardList { get; set; }
+        public int CardListValue { get; set; }
         public int Points { get; set; }
     }
 }
