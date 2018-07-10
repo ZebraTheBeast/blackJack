@@ -8,7 +8,7 @@ using BlackJackEntity;
 namespace BlackJackLogic.BlackJackGameLogicElement
 {
     public class Gameplay
-    {     
+    {
         public DeckEntity _playingDeck;
         public List<PlayerEntity> _players;
 
@@ -22,7 +22,7 @@ namespace BlackJackLogic.BlackJackGameLogicElement
         {
             _players.Add(player);
         }
-        
+
         public void Dealing()
         {
             Deck.ShuffleDeck(_playingDeck);

@@ -12,14 +12,14 @@ namespace BlackJackLogic.BlackJackGameLogicElement
     {
         public static bool IsBlackJack(PlayerEntity player)
         {
-            if(player.Hand.HandCard.Count() != BlackJackConstant.NumberCardForBlackJack)
+            if (player.Hand.HandCard.Count() != BlackJackConstant.NumberCardForBlackJack)
             {
                 return false;
             }
 
-            foreach(var card in player.Hand.HandCard)
+            foreach (var card in player.Hand.HandCard)
             {
-                if(card.Title != BlackJackConstant.NameCardForBlackJack)
+                if (card.Title != BlackJackConstant.NameCardForBlackJack)
                 {
                     return false;
                 }
@@ -30,7 +30,7 @@ namespace BlackJackLogic.BlackJackGameLogicElement
 
         public static bool IsLess(PlayerEntity player, int pointsValue)
         {
-            if(player.Hand.HandCardValue <= pointsValue)
+            if (player.Hand.HandCardValue <= pointsValue)
             {
                 return true;
             }
@@ -40,7 +40,7 @@ namespace BlackJackLogic.BlackJackGameLogicElement
 
         public static bool IsTO(PlayerEntity player)
         {
-            if(player.Hand.HandCardValue == BlackJackConstant.WinValue)
+            if (player.Hand.HandCardValue == BlackJackConstant.WinValue)
             {
                 return true;
             }

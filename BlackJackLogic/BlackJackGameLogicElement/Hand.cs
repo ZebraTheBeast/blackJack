@@ -8,7 +8,7 @@ using BlackJackServices.BlackJackConstant;
 
 namespace BlackJackLogic.BlackJackGameLogicElement
 {
-    public static class Hand 
+    public static class Hand
     {
         public static void CountHandValue(PlayerEntity player)
         {
@@ -18,7 +18,7 @@ namespace BlackJackLogic.BlackJackGameLogicElement
             {
                 player.Hand.HandCardValue += card.Value;
             }
-            
+
             foreach (CardEntity card in player.Hand.HandCard)
             {
                 if ((card.Title.ToString() == BlackJackConstant.NameCardForBlackJack) && (player.Hand.HandCardValue > BlackJackConstant.WinValue))

@@ -9,17 +9,15 @@ namespace BlackJackLogic.BlackJackGameLogicElement
 {
     public static class Point
     {
-        public static void PutPoints(PlayerEntity player, int pointsValue)
+        public static bool PutPoints(PlayerEntity player, int pointsValue)
         {
-            if(player.Points >= pointsValue)
+            if (player.Points >= pointsValue)
             {
                 player.Hand.HandPoints = pointsValue;
+                return true;
             }
 
-            if(player.Points < pointsValue)
-            {
-                // TODO - нельзя поставить поинтов больше, чем есть в наличии
-            }
+            return false;
         }
 
         public static void LosePoints(PlayerEntity player)
