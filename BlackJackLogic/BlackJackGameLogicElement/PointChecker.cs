@@ -29,7 +29,6 @@ namespace BlackJackLogic.BlackJackGameLogicElement
             {
                 Point.AnnulPoints(player);
             }
-
         }
     }
 }

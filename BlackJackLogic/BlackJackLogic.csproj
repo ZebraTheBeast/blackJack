@@ -40,22 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlackJackGameLogic\CombinationChecker.cs" />
-    <Compile Include="BlackJackGameLogic\Deck.cs" />
-    <Compile Include="BlackJackGameLogic\Gameplay.cs" />
-    <Compile Include="BlackJackGameLogic\Hand.cs" />
-    <Compile Include="BlackJackGameLogic\Point.cs" />
-    <Compile Include="BlackJackGameLogic\PointChecker.cs" />
+    <Compile Include="BlackJackGameLogicElement\CombinationChecker.cs" />
+    <Compile Include="BlackJackGameLogicElement\Deck.cs" />
+    <Compile Include="BlackJackGameLogicElement\Gameplay.cs" />
+    <Compile Include="BlackJackGameLogicElement\Hand.cs" />
+    <Compile Include="BlackJackGameLogicElement\Human.cs" />
+    <Compile Include="BlackJackGameLogicElement\Point.cs" />
+    <Compile Include="BlackJackGameLogicElement\PointChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BlackJackEntity\BlackJackEntity.csproj">
+    <ProjectReference Include="..\BlackJackEntity\BlackJack.Entity.csproj">
       <Project>{252680b3-1e9b-40f4-a5e4-eb8f3baf4cd9}</Project>
-      <Name>BlackJackEntity</Name>
+      <Name>BlackJack.Entity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlackJackServices\BlackJackServices.csproj">
+    <ProjectReference Include="..\BlackJackServices\BlackJack.Services.csproj">
       <Project>{1f237b7b-88a0-4409-aa81-e8e3ee61b016}</Project>
-      <Name>BlackJackServices</Name>
+      <Name>BlackJack.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

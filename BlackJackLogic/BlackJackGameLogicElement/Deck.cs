@@ -11,7 +11,7 @@ namespace BlackJackLogic.BlackJackGameLogicElement
 {
     public static class Deck
     {
-        private static Random rng = new Random();
+        private static Random _rng = new Random();
 
         public static void GiveCard(PlayerEntity player, DeckEntity deck)
         {
