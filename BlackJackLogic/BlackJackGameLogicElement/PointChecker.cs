@@ -19,7 +19,8 @@ namespace BlackJackLogic.BlackJackGameLogicElement
             }
 
             if ((player.Hand.HandCardValue < dealer.Hand.HandCardValue)
-                || (!CombinationChecker.IsLess(player, BlackJackConstant.WinValue)))
+                || (!CombinationChecker.IsLess(player, BlackJackConstant.WinValue))
+                || ((CombinationChecker.IsBlackJack(dealer)) && (!CombinationChecker.IsBlackJack(player))))
             {
                 Point.LosePoints(player);
             }
