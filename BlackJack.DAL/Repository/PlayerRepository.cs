@@ -10,7 +10,7 @@ using BlackJack.DAL.EF;
 
 namespace BlackJack.DAL.Repository
 {
-    public class PlayerRepository : IRepository<Player>
+    public class PlayerRepository : IPlayerRepository
     {
         private GameContext _gameContext;
 
@@ -24,9 +24,9 @@ namespace BlackJack.DAL.Repository
             _gameContext.Players.Add(entity);
         }
 
-        public void Delete(int id)
+        public void DeleteById(int id)
         {
-            Player player = _gameContext.Players.Find(id);
+            var player = _gameContext.Players.Find(id);
             var hands = _gameContext.Hands.Where(x => x.IdPlayer == id);
             if (player != null)
             {
