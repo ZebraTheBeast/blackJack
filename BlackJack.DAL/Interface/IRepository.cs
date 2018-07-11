@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DAL.Interface
 {
-    public interface IRepository<T>
+    public interface IRepository<T> 
+        where T : class
     {
-        void Add(T entity);
         IEnumerable<T> GetAll();
-        T GetById(int id);
+        T Get(int id);
+        void Create(T entity);
         void Update(T entity);
-        void Remove(T entity);
+        void Delete(int id);
     }
 }
