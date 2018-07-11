@@ -7,11 +7,11 @@ using BlackJack.Entity;
 
 namespace BlackJack.DAL.Interface
 {
-    interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
-        IRepository<Player> Players { get; }
-        IRepository<Card> Cards { get; }
-        IRepository<Hand> Hands { get; }
+        IPlayerRepository Players { get; }
+        ICardRepository Cards { get; }
+        IHandRepository Hands { get; }
 
         void Save();
     }

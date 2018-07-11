@@ -10,7 +10,7 @@ using BlackJack.DAL.EF;
 
 namespace BlackJack.DAL.Repository
 {
-    public class HandRepository : IRepository<Hand>
+    public class HandRepository : IHandRepository
     {
         private GameContext _gameContext;
 
@@ -24,9 +24,16 @@ namespace BlackJack.DAL.Repository
             _gameContext.Hands.Add(entity);
         }
 
-        public void Delete(int id)
+        public void DeleteByCardId(int id)
         {
-            throw new NotImplementedException();
+            var hands = _gameContext.Hands.Where(x => x.IdCard == id);
+            _gameContext.Hands.RemoveRange(hands);
+        }
+
+        public void DeleteByPlayerId(int id)
+        {
+            var hands = _gameContext.Hands.Where(x => x.IdPlayer == id);
+            _gameContext.Hands.RemoveRange(hands);
         }
 
         public Hand Get(int id)

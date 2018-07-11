@@ -7,7 +7,7 @@ using BlackJack.Entity;
 
 namespace BlackJack.DAL.Interface
 {
-    interface IHandRepository : IRepository<Hand>
+    public interface IHandRepository : IRepository<Hand>
     {
         void DeleteByPlayerId(int id);
         void DeleteByCardId(int id);
