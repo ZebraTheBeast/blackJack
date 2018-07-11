@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using BlackJack.ViewModel;
 using BlackJack.Configuration.Constant;
 
-namespace BlackJack.Services.Gameplay
+namespace BlackJack.BLL.Services
 {
     public class PointChecker
     {
-        public void CheckPlayerWithDealer(Player player, Player dealer)
+        public void CheckPlayerWithDealer(PlayerModel player, PlayerModel dealer)
         {
             if ((player.Hand.CardListValue > dealer.Hand.CardListValue) && (CombinationChecker.PlayerHandCardListValueLessThenPointsValue(player, Constant.WinValue))
                 || ((CombinationChecker.PlayerHandCardListValueLessThenPointsValue(player, Constant.WinValue)) && (!CombinationChecker.PlayerHandCardListValueLessThenPointsValue(dealer, Constant.WinValue))))

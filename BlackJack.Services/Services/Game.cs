@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
 
-namespace BlackJack.Services.Gameplay
+namespace BlackJack.BLL.Services
 {
     public class Game
     {

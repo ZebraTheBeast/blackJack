@@ -30,8 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,12 +50,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gameplay\CombinationChecker.cs" />
-    <Compile Include="Gameplay\Deck.cs" />
-    <Compile Include="Gameplay\Game.cs" />
-    <Compile Include="Gameplay\Hand.cs" />
-    <Compile Include="Gameplay\Point.cs" />
-    <Compile Include="Gameplay\PointChecker.cs" />
+    <Compile Include="Infrastructure\ValidationException.cs" />
+    <Compile Include="Services\CombinationChecker.cs" />
+    <Compile Include="Services\Deck.cs" />
+    <Compile Include="Services\Game.cs" />
+    <Compile Include="Services\Hand.cs" />
+    <Compile Include="Services\Play.cs" />
+    <Compile Include="Services\Point.cs" />
+    <Compile Include="Services\PointChecker.cs" />
     <Compile Include="Interface\IPlay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,6 +65,10 @@
     <ProjectReference Include="..\BlackJack.Configuration\BlackJack.Configuration.csproj">
       <Project>{27874526-a998-4554-a169-ddb47350bebf}</Project>
       <Name>BlackJack.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlackJack.DAL\BlackJack.DAL.csproj">
+      <Project>{56480f4e-8f8f-451d-a656-443ff78d32fc}</Project>
+      <Name>BlackJack.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlackJack.Entity\BlackJack.Entity.csproj">
       <Project>{252680b3-1e9b-40f4-a5e4-eb8f3baf4cd9}</Project>
@@ -62,6 +78,9 @@
       <Project>{31d2c4ff-61a3-4a12-9d0f-975839e02e80}</Project>
       <Name>BlackJack.ViewModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

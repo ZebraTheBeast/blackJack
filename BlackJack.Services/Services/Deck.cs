@@ -8,45 +8,18 @@ using BlackJack.Configuration.Constant;
 using BlackJack.Entity.Enum;
 
 
-namespace BlackJack.Services.Gameplay
+namespace BlackJack.BLL.Services
 {
     public class Deck
     {
         private static Random _rng = new Random();
         public List<Card> _deck;
+        public List<Card> CardList { get { return _deck; } }
 
         public Deck()
         {
             _deck = GetShuffledDeck();
         }
-
-        public List<Card> CardList { get { return _deck; } }
-
-
-        //// TODO - zalupa
-        //public static void GiveCard(Player player, InGame inGame)
-        //{
-        //    player.Hand.CardList.Add(inGame.Deck[0]);
-        //    inGame.Deck.Remove(inGame.Deck[0]);
-        //    player.Hand.CardListValue = Hand.GetHandValue(player);
-        //    inGame.Players.Find(x => x.Id == player.Id).Hand = player.Hand;
-        //}
-
-        //// TODO - zalupa2
-        //public static InGame GiveCard2(Player player, List<Card> deck, List<Player> players)
-        //{
-        //    InGame inGame = new InGame();
-
-        //    player.Hand.CardList.Add(deck[0]);
-        //    deck.Remove(deck[0]);
-        //    player.Hand.CardListValue = Hand.GetHandValue(player);
-        //    players.Find(x => x.Id == player.Id).Hand = player.Hand;
-
-        //    inGame.Deck = deck;
-        //    inGame.Players = players;
-
-        //    return inGame;
-        //}
         
         public static List<Card> GetShuffledDeck()
         {

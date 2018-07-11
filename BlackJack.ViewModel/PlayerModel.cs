@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace BlackJack.ViewModel
 {
-    public class Player
+    public class PlayerModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public int Points { get; set; }
-        public Hand Hand { get; set; }
+        public HandModel Hand { get; set; }
 
-        public Player()
+        public PlayerModel()
         {
-            Hand = new Hand();
+            Hand = new HandModel();
         }
     }
 }

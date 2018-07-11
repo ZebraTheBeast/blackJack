@@ -9,12 +9,12 @@ namespace BlackJack.Services.Interface
 {
     public interface IPlay
     {
-        void TakeCard(Player player, List<Card> deck);
-        int GetCardValue(Player player);
-        List<Card> GetCardsInHand(Player player);
-        void PutPoints(Player player, int value);
-        void WinPoints(Player player);
-        void LosePoints(Player player);
+        void TakeCard(PlayerModel player, List<Card> deck);
+        int GetCardValue(PlayerModel player);
+        List<Card> GetCardsInHand(PlayerModel player);
+        void PutPoints(PlayerModel player, int value);
+        void WinPoints(PlayerModel player);
+        void LosePoints(PlayerModel player);
         
 
     }

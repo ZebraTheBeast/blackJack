@@ -8,13 +8,13 @@ namespace BlackJack.ViewModel
 {
     public class InGame
     {
-        public List<Player> Players { get; set; }
-        public List<Card> Deck { get; set; }
+        public List<PlayerModel> Players { get; set; }
+        public List<CardModel> Deck { get; set; }
 
         public InGame()
         {
-            Players = new List<Player>();
-            Deck = new List<Card>();
+            Players = new List<PlayerModel>();
+            Deck = new List<CardModel>();
         }
     }
 }

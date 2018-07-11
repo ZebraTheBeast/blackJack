@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using BlackJack.ViewModel;
 using BlackJack.Configuration.Constant;
 
-namespace BlackJack.Services.Gameplay
+namespace BlackJack.BLL.Services
 {
     public static class CombinationChecker
     {
-        public static bool PlayerHandCardListIsBlackJack(Player player)
+        public static bool PlayerHandCardListIsBlackJack(PlayerModel player)
         {
             if (player.Hand.CardList.Count() != Constant.NumberCardForBlackJack)
             {
@@ -33,7 +33,7 @@ namespace BlackJack.Services.Gameplay
             return true;
         }
 
-        public static bool PlayerHandCardListValueLessThenPointsValue(Player player, int pointsValue)
+        public static bool PlayerHandCardListValueLessThenPointsValue(PlayerModel player, int pointsValue)
         {
             if (player.Hand.CardListValue <= pointsValue)
             {
@@ -43,7 +43,7 @@ namespace BlackJack.Services.Gameplay
             return false;
         }
 
-        public static bool PlayerHandCardListValueIsTwentyOne(Player player)
+        public static bool PlayerHandCardListValueIsTwentyOne(PlayerModel player)
         {
             if (player.Hand.CardListValue == Constant.WinValue)
             {

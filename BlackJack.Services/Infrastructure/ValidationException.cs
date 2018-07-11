@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlackJack.Services.Infrastructure
+namespace BlackJack.BLL.Infrastructure
 {
     class ValidationException : Exception
     {
