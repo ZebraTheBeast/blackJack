@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.ConsoleApp", "Bla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Entity", "BlackJack.Entity\BlackJack.Entity.csproj", "{252680B3-1E9B-40F4-A5E4-EB8F3BAF4CD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Services", "BlackJack.Services\BlackJack.Services.csproj", "{1F237B7B-88A0-4409-AA81-E8E3EE61B016}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.BLL", "BlackJack.Services\BlackJack.BLL.csproj", "{1F237B7B-88A0-4409-AA81-E8E3EE61B016}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Configuration", "BlackJack.Configuration\BlackJack.Configuration.csproj", "{27874526-A998-4554-A169-DDB47350BEBF}"
 EndProject

@@ -7,8 +7,8 @@
     <ProjectGuid>{1F237B7B-88A0-4409-AA81-E8E3EE61B016}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BlackJack.Services</RootNamespace>
-    <AssemblyName>BlackJack.Services</AssemblyName>
+    <RootNamespace>BlackJack.BLL</RootNamespace>
+    <AssemblyName>BlackJack.BLL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -51,10 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\ValidationException.cs" />
+    <Compile Include="Interface\IPoint.cs" />
     <Compile Include="Services\CombinationChecker.cs" />
     <Compile Include="Services\Deck.cs" />
     <Compile Include="Services\Game.cs" />
-    <Compile Include="Services\Hand.cs" />
     <Compile Include="Services\Play.cs" />
     <Compile Include="Services\Point.cs" />
     <Compile Include="Services\PointChecker.cs" />

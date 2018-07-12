@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BlackJack.Services.Interface;
+using BlackJack.BLL.Interface;
 using BlackJack.DAL.Interface;
 using BlackJack.ViewModel;
 using BlackJack.BLL.Infrastructure;
 using BlackJack.Entity;
 using BlackJack.Configuration.Constant;
+using AutoMapper;
+using BlackJack.BLL.Helper;
 
 namespace BlackJack.BLL.Services
 {
@@ -19,33 +21,6 @@ namespace BlackJack.BLL.Services
         public Play(IUnitOfWork unitOfWork)
         {
             DataBase = unitOfWork;
-        }
-
-        public void TakeCard(PlayerModel playerModel, List<Card> deck)
-        {
-            var player = DataBase.Players.Get(playerModel.Id);
-
-            if (player == null)
-            {
-                throw new ValidationException("Player not found", "");
-            }
-
-            var card = DataBase.Cards.Get(deck[0].Id);
-
-            if (player == null)
-            {
-                throw new ValidationException("Card not found", "");
-            }
-
-            deck.Remove(deck[0]);
-            var hand = new Hand
-            {
-                IdCard = card.Id,
-                IdPlayer = player.Id
-            };
-
-            DataBase.Hands.Create(hand);
-            DataBase.Save();
         }
 
         public int GetCardValue(PlayerModel playerModel)
@@ -83,10 +58,76 @@ namespace BlackJack.BLL.Services
 
         public List<CardModel> GetCardsInHand(PlayerModel playerModel)
         {
+            var cardIdList = DataBase.Hands.GetAll().Where(x => x.IdPlayer == playerModel.Id);
+
+            if (cardIdList == null)
+            {
+                throw new ValidationException("Player hasn't card in hand", "");
+            }
+
             var cardList = new List<CardModel>();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Card, CardModel>()).CreateMapper();
             
+            foreach(var card in cardIdList)
+            {
+                cardList.Add(mapper.Map<Card, CardModel>(DataBase.Cards.Get(card.IdCard)));
+            }
             return cardList;
         }
 
+        public void PutPoints(PlayerModel playerModel, int pointsValue)
+        {
+            var player = DataBase.Players.Get(playerModel.Id);
+
+            if (player == null)
+            {
+                throw new ValidationException("Player not found", "");
+            }
+
+            if (player.Points >= pointsValue)
+            {
+                playerModel.Hand.Points = pointsValue;
+            }
+        }
+
+        public void EmptyHand(PlayerModel playerModel)
+        {
+            var player = DataBase.Players.Get(playerModel.Id);
+
+            if (player == null)
+            {
+                throw new ValidationException("Player not found", "");
+            }
+
+            DataBase.Hands.DeleteByPlayerId(playerModel.Id);
+            DataBase.Save();
+        }
+
+        public void TakeCard(PlayerModel playerModel, List<CardModel> deck)
+        {
+            var player = DataBase.Players.Get(playerModel.Id);
+
+            if (player == null)
+            {
+                throw new ValidationException("Player not found", "");
+            }
+
+            var card = DataBase.Cards.Get(deck[0].Id);
+
+            if (player == null)
+            {
+                throw new ValidationException("Card not found", "");
+            }
+
+            deck.Remove(deck[0]);
+            var hand = new Hand
+            {
+                IdCard = card.Id,
+                IdPlayer = player.Id
+            };
+
+            DataBase.Hands.Create(hand);
+            DataBase.Save();
+        }
     }
 }

@@ -4,35 +4,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
+using BlackJack.BLL.Interface;
+using BlackJack.DAL.Interface;
+using BlackJack.BLL.Infrastructure;
 
 namespace BlackJack.BLL.Services
 {
-    public static class Point
+    public class Point : IPoint
     {
-        // TODO -eto
-        public static void PutPoints(Player player, int pointsValue)
+        IUnitOfWork DataBase { get; set; }
+
+        public Point(IUnitOfWork unitOfWork)
         {
-            if (player.Points >= pointsValue)
+            DataBase = unitOfWork;
+        }
+
+        public void LosePoints(PlayerModel playerModel)
+        {
+            var player = DataBase.Players.Get(playerModel.Id);
+
+            if (player == null)
             {
-                player.Hand.CardListValue = pointsValue;     
-            }           
+                throw new ValidationException("Player not found", "");
+            }
+
+            player.Points -= playerModel.Hand.Points;
+            playerModel.Hand.Points = 0;
+            DataBase.Players.Update(player);
+            DataBase.Save();
         }
 
-        public static void LosePoints(Player player)
+        public void WinPoints(PlayerModel playerModel)
         {
-            player.Points -= player.Hand.CardListValue;
-            AnnulPoints(player);
+            var player = DataBase.Players.Get(playerModel.Id);
+
+            if (player == null)
+            {
+                throw new ValidationException("Player not found", "");
+            }
+
+            player.Points += playerModel.Hand.Points;
+            playerModel.Hand.Points = 0;
+            DataBase.Players.Update(player);
+            DataBase.Save();
         }
 
-        public static void WinPoints(Player player)
+        public void AnnulPoints(PlayerModel playerModel)
         {
-            player.Points += player.Hand.CardListValue;
-            AnnulPoints(player);
-        }
-
-        public static void AnnulPoints(Player player)
-        {
-            player.Hand.CardListValue = 0;
+            playerModel.Hand.CardListValue = 0;
         }
     }
 }

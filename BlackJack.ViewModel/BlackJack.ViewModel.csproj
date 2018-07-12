@@ -40,7 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardModel.cs" />
+    <Compile Include="HandModel.cs" />
+    <Compile Include="InGame.cs" />
+    <Compile Include="PlayerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlackJack.Entity\BlackJack.Entity.csproj">
+      <Project>{252680b3-1e9b-40f4-a5e4-eb8f3baf4cd9}</Project>
+      <Name>BlackJack.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

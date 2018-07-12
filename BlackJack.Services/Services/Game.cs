@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
+using BlackJack.DAL.Interface;
+using BlackJack.BLL.Helper;
 
 namespace BlackJack.BLL.Services
 {
@@ -11,19 +13,25 @@ namespace BlackJack.BLL.Services
     {
         public InGame _inGame = new InGame();
 
-        public void PlayerAdd(Player player)
+        public Play _play;
+
+        public Game(IUnitOfWork unitOfWork)
+        {
+            _play = new Play(unitOfWork);
+        }
+
+        public void PlayerAdd(PlayerModel player)
         {
             _inGame.Players.Add(player);
         }
 
         public void Dealing()
         {
-            Deck.GetShuffledDeck(_inGame.Deck);
+            _inGame.Deck = Deck.GetShuffledDeck();
 
-            foreach (Player player in _inGame.Players)
+            foreach (PlayerModel player in _inGame.Players)
             {
-                Deck.GiveCard(player, _inGame);
-                _inGame = Deck.GiveCard2(player, _inGame.Deck, _inGame.Players);
+                _play.TakeCard(player, _inGame.Deck);
             }
         }
     }

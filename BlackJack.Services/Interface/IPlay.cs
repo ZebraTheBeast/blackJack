@@ -5,17 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
 
-namespace BlackJack.Services.Interface
+namespace BlackJack.BLL.Interface
 {
     public interface IPlay
     {
-        void TakeCard(PlayerModel player, List<Card> deck);
+        void TakeCard(PlayerModel player, List<CardModel> deck);
         int GetCardValue(PlayerModel player);
-        List<Card> GetCardsInHand(PlayerModel player);
+        List<CardModel> GetCardsInHand(PlayerModel player);
         void PutPoints(PlayerModel player, int value);
-        void WinPoints(PlayerModel player);
-        void LosePoints(PlayerModel player);
-        
-
+        void EmptyHand(PlayerModel player);
     }
 }
