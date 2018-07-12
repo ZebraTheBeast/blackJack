@@ -5,13 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
 using BlackJack.DAL.Interface;
+using BlackJack.BLL.Interface;
 using BlackJack.BLL.Helper;
 
 namespace BlackJack.BLL.Services
 {
-    public class Game
+    public class Game : IGame
     {
-        public InGame _inGame = new InGame();
+        // TODO - может во всех методах выводить и принимать GameModel, или принимать не обязательно
+        public GameModel _gameModel = new GameModel();
 
         public Play _play;
 
@@ -20,19 +22,25 @@ namespace BlackJack.BLL.Services
             _play = new Play(unitOfWork);
         }
 
-        public void PlayerAdd(PlayerModel player)
+        public void AddPlayer(PlayerModel player)
         {
-            _inGame.Players.Add(player);
+            _gameModel.Players.Add(player);
         }
 
         public void Dealing()
         {
-            _inGame.Deck = Deck.GetShuffledDeck();
+            _gameModel.Deck = Deck.GetShuffledDeck();
 
-            foreach (PlayerModel player in _inGame.Players)
+            foreach (PlayerModel player in _gameModel.Players)
             {
-                _play.TakeCard(player, _inGame.Deck);
+                _play.TakeCard(player, _gameModel.Deck);
+                _play.TakeCard(player, _gameModel.Deck);
             }
+        }
+
+        public void MakeTurn(PlayerModel playerModel, bool answer)
+        {   
+            
         }
     }
 }

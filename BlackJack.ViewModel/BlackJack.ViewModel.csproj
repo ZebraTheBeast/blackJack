@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="CardModel.cs" />
     <Compile Include="HandModel.cs" />
-    <Compile Include="InGame.cs" />
+    <Compile Include="GameModel.cs" />
     <Compile Include="PlayerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,0 +1,14 @@
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.DAL.dll.config
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.DAL.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.DAL.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\ClassLibrary1.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\EntityFramework.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\ClassLibrary1.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\EntityFramework.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.csprojAssemblyReference.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.csproj.CopyComplete
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.pdb
