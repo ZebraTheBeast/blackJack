@@ -12,7 +12,6 @@ namespace BlackJack.BLL.Services
 {
     public class Game : IGame
     {
-        // TODO - может во всех методах выводить и принимать GameModel, или принимать не обязательно
         public GameModel _gameModel = new GameModel();
 
         public Play _play;
@@ -38,9 +37,11 @@ namespace BlackJack.BLL.Services
             }
         }
 
-        public void MakeTurn(PlayerModel playerModel, bool answer)
-        {   
-            
+        public LoginPlayersModel Test()
+        {
+            LoginPlayersModel loginPlayerModel = new LoginPlayersModel();
+            loginPlayerModel.PlayerList.Add(new PlayerModel { Id = 0, Name = "Dealer", Hand = new HandModel(), Points = 100 });
+            return loginPlayerModel;
         }
     }
 }

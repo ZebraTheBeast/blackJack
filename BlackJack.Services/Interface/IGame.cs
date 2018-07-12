@@ -11,5 +11,6 @@ namespace BlackJack.BLL.Interface
     {
         void AddPlayer(PlayerModel player);
         void Dealing();
+        LoginPlayersModel Test();
     }
 }
