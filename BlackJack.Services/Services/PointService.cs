@@ -25,7 +25,7 @@ namespace BlackJack.BLL.Services
 
             if (player == null)
             {
-                throw new ValidationException("Player not found", "");
+                throw new ValidationException("Player not found");
             }
 
             player.Points -= playerModel.Hand.Points;
@@ -40,7 +40,7 @@ namespace BlackJack.BLL.Services
 
             if (player == null)
             {
-                throw new ValidationException("Player not found", "");
+                throw new ValidationException("Player not found");
             }
 
             player.Points += playerModel.Hand.Points;

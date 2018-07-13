@@ -10,15 +10,15 @@ using BlackJack.BLL.Infrastructure;
 using BlackJack.Entity;
 using BlackJack.Configuration.Constant;
 using AutoMapper;
-using BlackJack.BLL.Helper;
 
 namespace BlackJack.BLL.Services
 {
-    public class Play : IPlay
+    public class PlayService : IPlay
     {
+        // TODO - s bd ne rabotat, a s repositoriyami
         IUnitOfWork DataBase { get; set; }
 
-        public Play(IUnitOfWork unitOfWork)
+        public PlayService(IUnitOfWork unitOfWork)
         {
             DataBase = unitOfWork;
         }
@@ -30,7 +30,8 @@ namespace BlackJack.BLL.Services
 
             if (player == null)
             {
-                throw new ValidationException("Player not found", "");
+                // TODO - v helper zasunut stringHelper, shob izmenit "Player not found" i ne ebatsa
+                throw new ValidationException("Player not found");
             }
 
             var cards = DataBase.Hands.GetAll().Where(x => x.IdPlayer == player.Id);
@@ -48,7 +49,7 @@ namespace BlackJack.BLL.Services
                 }
             }
 
-            if (CombinationChecker.PlayerHandCardListIsBlackJack(playerModel))
+            if (CombinationCheckerService.PlayerHandCardListIsBlackJack(playerModel))
             {
                 cardsValue = Constant.WinValue;
             }
@@ -62,7 +63,7 @@ namespace BlackJack.BLL.Services
 
             if (cardIdList == null)
             {
-                throw new ValidationException("Player hasn't card in hand", "");
+                throw new ValidationException("Player hasn't card in hand");
             }
 
             var cardList = new List<CardModel>();
@@ -81,7 +82,7 @@ namespace BlackJack.BLL.Services
 
             if (player == null)
             {
-                throw new ValidationException("Player not found", "");
+                throw new ValidationException("Player not found");
             }
 
             if (player.Points >= pointsValue)
@@ -96,7 +97,7 @@ namespace BlackJack.BLL.Services
 
             if (player == null)
             {
-                throw new ValidationException("Player not found", "");
+                throw new ValidationException("Player not found");
             }
 
             DataBase.Hands.DeleteByPlayerId(playerModel.Id);
@@ -109,14 +110,14 @@ namespace BlackJack.BLL.Services
 
             if (player == null)
             {
-                throw new ValidationException("Player not found", "");
+                throw new ValidationException("Player not found");
             }
 
             var card = DataBase.Cards.Get(deck[0].Id);
 
             if (player == null)
             {
-                throw new ValidationException("Card not found", "");
+                throw new ValidationException("Card not found");
             }
 
             deck.Remove(deck[0]);

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DAL.Interface
 {
+    // TODO - nahui generic repository
     public interface IRepository<T>
         where T : class
     {

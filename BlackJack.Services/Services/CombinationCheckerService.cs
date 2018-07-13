@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using BlackJack.ViewModel;
 using BlackJack.Configuration.Constant;
 
-namespace BlackJack.BLL.Helper
+namespace BlackJack.BLL.Services
 {
-    public static class CombinationChecker
+    public static class CombinationCheckerService
     {
         public static bool PlayerHandCardListIsBlackJack(PlayerModel player)
         {

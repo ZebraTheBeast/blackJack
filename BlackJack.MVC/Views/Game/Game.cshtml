@@ -1,0 +1,36 @@
+﻿@model BlackJack.ViewModel.GameModel
+@{
+    ViewBag.Title = "Game";
+}
+
+<h2>Game</h2>
+<ul class="list-group">
+    @foreach (var player in Model.Players)
+    {
+        <li class="list-group-item">@player.Id @player.Name @player.Points</li>
+    }
+</ul>
+<h3>Cards in deck: @Model.Deck.Count</h3>
+<div class="row">
+    @foreach (var player in Model.Players)
+    {
+        <div class="col-md-2">
+            <h3>@player.Name</h3>
+            <ul class="list-group">
+                @foreach (var card in player.Hand.CardList)
+                {
+                    <li class="list-group-item">@card.Title of @card.Color.ToString()</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+<div class="row">
+    @using (Html.BeginForm("Draw", "Game", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+        <input type="hidden" value="dadad" name="name" />
+        <input type="submit" value="Draw" class="btn btn-default" />
+    }
+</div>

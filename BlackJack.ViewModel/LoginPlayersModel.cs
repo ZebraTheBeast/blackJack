@@ -10,10 +10,5 @@ namespace BlackJack.ViewModel
     {
         public List<PlayerModel> PlayerList { get; set; }
         public PlayerModel Player { get; set; }
-
-        public LoginPlayersModel()
-        {
-            PlayerList = new List<PlayerModel>();
-        }
     }
 }

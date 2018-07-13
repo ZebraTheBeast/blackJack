@@ -8,18 +8,11 @@ using BlackJack.Configuration.Constant;
 using BlackJack.Entity.Enum;
 
 
-namespace BlackJack.BLL.Helper
+namespace BlackJack.BLL.Services
 {
-    public class Deck
+    public static class DeckService
     {
         private static Random _rng = new Random();
-        public List<CardModel> _deck;
-        public List<CardModel> CardList { get { return _deck; } }
-
-        public Deck()
-        {
-            _deck = GetShuffledDeck();
-        }
         
         public static List<CardModel> GetShuffledDeck()
         {

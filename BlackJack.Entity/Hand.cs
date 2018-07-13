@@ -8,7 +8,7 @@ namespace BlackJack.Entity
 {
     public class Hand
     {
-        public int IdPlayer;
-        public int IdCard;
+        public int IdPlayer { get; set; }
+        public int IdCard { get; set; }
     }
 }
