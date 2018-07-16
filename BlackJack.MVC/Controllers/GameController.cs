@@ -20,34 +20,18 @@ namespace BlackJack.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Game(LoginPlayersModel loginPlayersModel, string playerName)
+        public ActionResult Game(PlayerModel player)
         {
-            // TODO - vremennoe reshenie(navsegda)
-            var player = new PlayerModel();
-            player.Name = playerName;
-            player.Id = loginPlayersModel.PlayerList.Count;
-            player.Points = 3333;
-            loginPlayersModel.PlayerList.Add(player);
-
-            //_gameService.AddPlayers(loginPlayersModel.PlayerList);
-
-            _gameService.Dealing();
-            return View();
+            var gameModel = new GameModel();
+            gameModel = _gameService.PlayerTest(gameModel, player);
+            gameModel = _gameService.Dealing(gameModel);
+            return View(gameModel);
         }
 
-        public ActionResult Game(/*GameModel gameModel*/string name)
+        public ActionResult Game()
         {
-            //if(gameModel.Players.Count == 0)
-            //{
-            //    //gameModel = _gameService.PlayerTest();
-            //    gameModel = _gameService.AddPlayers(new List<PlayerModel>());
-            //    gameModel = _gameService.Dealing();
-            //}
-            
-            var x = new GameModel();
-            x = _gameService.AddPlayers(name);
-            //x = _gameService.AddPlayers(name);
-            return View(x);
+
+           return View();
         }
         
         [HttpPost]

@@ -12,7 +12,6 @@ namespace BlackJack.MVC.Controllers
     public class LoginController : Controller
     {
         IGame _gameService;
-        // TODO - snachala ebashim vhod, a s botami pohui
 
         public LoginController(IGame gameService)
         {
@@ -21,16 +20,16 @@ namespace BlackJack.MVC.Controllers
 
         public ActionResult Login()
         {
-            var loginPlayersModel = _gameService.GetStartPlayers();
-            return View(loginPlayersModel);
+            return View();
         }
 
 
         [HttpPost]
-        public ActionResult Login(LoginPlayersModel loginPlayersModel)
+        public ActionResult Login(PlayerModel player)
         {
-            loginPlayersModel.PlayerList.Add(loginPlayersModel.Player);
-            return View(loginPlayersModel);
+            
+
+            return View();
         }
     }
 }

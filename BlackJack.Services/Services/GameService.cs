@@ -22,33 +22,25 @@ namespace BlackJack.BLL.Services
             _cardList = new List<CardModel>();
         }
 
-        public LoginPlayersModel GetStartPlayers()
+        public GameModel Dealing(GameModel gameModel)
         {
-            LoginPlayersModel loginPlayerModel = new LoginPlayersModel();
-            loginPlayerModel.PlayerList.Add(new PlayerModel { Id = 0, Name = "Dealer", Hand = new HandModel(), Points = 10000 });
-            return loginPlayerModel;
-        }
-
-        public GameModel Dealing()
-        {
-            GameModel gameModel = new GameModel();
-            _cardList = DeckService.GetShuffledDeck();
-
-            foreach (var player in _playerList)
+            gameModel.Deck = DeckService.GetShuffledDeck();
+            и 
+            foreach (var player in gameModel.Players)
             {
-                GiveCard(player);
-                GiveCard(player);
+                gameModel = GiveCard(player, gameModel);
+                gameModel = GiveCard(player, gameModel);
             }
-
-            gameModel.Players = _playerList;
-            gameModel.Deck = _cardList;
+            
             return gameModel;
         }
 
-        public void GiveCard(PlayerModel player)
+        public GameModel GiveCard(PlayerModel player, GameModel gameModel)
         {
-            _playerList.First(p => p.Id == player.Id).Hand.CardList.Add(_cardList[0]);
-            _cardList.Remove(_cardList[0]);
+            //gameModel.Players.First(p => p.Id == player.Id).Hand.CardList.Add(gameModel.Deck[0]);
+            gameModel.Players.Find(p => p == player).Hand.CardList.Add(gameModel.Deck[0]);
+            gameModel.Deck.Remove(gameModel.Deck[0]);
+            return gameModel;
         }
 
         public GameModel AddPlayers(string name)
@@ -67,20 +59,19 @@ namespace BlackJack.BLL.Services
         }
 
 
-        public GameModel PlayerTest()
+        public GameModel PlayerTest(GameModel gameModel, PlayerModel player)
         {
-            var gameModel = new GameModel();
-
-            var players = new List<PlayerModel>
+           var players = new List<PlayerModel>
             {
                 new PlayerModel { Id = 0, Name = "Dealer", Hand = new HandModel(), Points = 10000 },
                 new PlayerModel { Id = 1, Name = "Хена", Hand = new HandModel(), Points = 1000 },
                 new PlayerModel { Id = 2, Name = "Ихарь", Hand = new HandModel(), Points = 1000 },
                 new PlayerModel { Id = 3, Name = "Ондрей", Hand = new HandModel(), Points = 1000 }
             };
-            _playerList = players;
 
-            gameModel.Players = _playerList;
+            gameModel.Players = players;
+            gameModel.Players.Add(player);
+
             return gameModel;
         }
 
@@ -88,7 +79,7 @@ namespace BlackJack.BLL.Services
         {
             var gameModel = new GameModel();
             var player = _playerList.Find(p => p.Id == id);
-            GiveCard(player);
+            //GiveCard(player);
 
             gameModel.Players = _playerList;
             gameModel.Deck = _cardList;

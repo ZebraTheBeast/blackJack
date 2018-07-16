@@ -1,4 +1,4 @@
-﻿@model BlackJack.ViewModel.LoginPlayersModel
+﻿@model BlackJack.ViewModel.PlayerModel
 @{
     ViewBag.Title = "Login";
 }
@@ -11,69 +11,29 @@
     <div class="col-md-10">
         <div class="row">
             <div class="form-group">
-                @using (Html.BeginForm())
+                @using (Html.BeginForm("Game", "Game", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
 
-                    for (int i = 0; i < Model.PlayerList.Count; i++)
-                    {
-                        @Html.HiddenFor(m => m.PlayerList[i].Id)
-                        @Html.HiddenFor(m => m.PlayerList[i].Name)
-                        @Html.HiddenFor(m => m.PlayerList[i].Points)
-                    }
-
-                    <input type="hidden" id="Player_Id" name="Player.Id" value="@Model.PlayerList.Count" class="form-control" />
-                    <input type="hidden" id="Player_Points" name="Player.Points" value="1000" class="form-control" />
+                    <input type="hidden" name="Points" value="1000" class="form-control" />
+                    <input type="hidden" name="Id" value="4" class="form-control" />
 
                     <div class="form-group">
                         <div class="col-md-2">
-                            @Html.LabelFor(model => model.Player.Name, "Имя", htmlAttributes: new { @class = "control-label" })
+                            @Html.LabelFor(model => model.Name, "Name", htmlAttributes: new { @class = "control-label" })
                         </div>
                         <div class="col-md-4">
-                            <input type="text" id="Player_Name" class="form-control" name="Player.Name" autocomplete="off" />
+                            <input type="text" id="Name" class="form-control" name="Player.Name" autocomplete="off" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-6">
-                            <input type="submit" value="Добавить игрока" class="btn btn-default" />
+                            <input type="submit" value="Play" class="btn btn-default" />
                         </div>
                     </div>
                 }
             </div>
         </div>
-        <div class="row">
-            @using (Html.BeginForm("Game", "Game", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-
-                for (int i = 0; i < Model.PlayerList.Count; i++)
-                {
-                    @Html.HiddenFor(m => m.PlayerList[i].Id)
-                    @Html.HiddenFor(m => m.PlayerList[i].Name)
-                    @Html.HiddenFor(m => m.PlayerList[i].Points)
-                }
-
-                <div class="col-md-2">
-                    @Html.Label("Введите ваше имя", htmlAttributes: new { @class = "control-label" })
-                </div>
-
-                <div class="col-md-4">
-                    <input type="text" name="playerName" class="form-control" />
-                </div>
-
-                <div class="col-md-6">
-                    <input type="submit" value="Играть" class="btn btn-default" />
-                </div>
-            }
-        </div>
-    </div>
-    <div class="col-md-2">
-        <ul class="list-group">
-            @foreach (var player in Model.PlayerList)
-            {
-                <li class="list-group-item">@player.Name</li>
-            }
-        </ul>
     </div>
 </div>

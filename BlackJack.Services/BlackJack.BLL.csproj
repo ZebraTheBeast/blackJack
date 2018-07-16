@@ -54,12 +54,12 @@
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interface\IGame.cs" />
     <Compile Include="Interface\IPoint.cs" />
-    <Compile Include="Helper\CombinationChecker.cs" />
-    <Compile Include="Helper\Deck.cs" />
-    <Compile Include="Services\Game.cs" />
-    <Compile Include="Services\Play.cs" />
-    <Compile Include="Services\Point.cs" />
-    <Compile Include="Services\PointChecker.cs" />
+    <Compile Include="Services\CombinationCheckerService.cs" />
+    <Compile Include="Services\DeckService.cs" />
+    <Compile Include="Services\GameService.cs" />
+    <Compile Include="Services\PlayService.cs" />
+    <Compile Include="Services\PointService.cs" />
+    <Compile Include="Services\PointCheckerService.cs" />
     <Compile Include="Interface\IPlay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -83,6 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helper\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

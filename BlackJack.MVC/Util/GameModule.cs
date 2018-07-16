@@ -12,7 +12,7 @@ namespace BlackJack.MVC.Util
     {
         public override void Load()
         {
-            Bind<IGame>().To<Game>();
+            Bind<IGame>().To<GameService>();
         }
     }
 }

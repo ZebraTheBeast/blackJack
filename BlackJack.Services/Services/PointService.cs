@@ -10,11 +10,11 @@ using BlackJack.BLL.Infrastructure;
 
 namespace BlackJack.BLL.Services
 {
-    public class Point : IPoint
+    public class PointService : IPoint
     {
         IUnitOfWork DataBase { get; set; }
 
-        public Point(IUnitOfWork unitOfWork)
+        public PointService(IUnitOfWork unitOfWork)
         {
             DataBase = unitOfWork;
         }

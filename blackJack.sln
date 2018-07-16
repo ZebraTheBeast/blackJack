@@ -2,8 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.ConsoleApp", "BlackJack.ConsoleApp\BlackJack.ConsoleApp.csproj", "{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Entity", "BlackJack.Entity\BlackJack.Entity.csproj", "{252680B3-1E9B-40F4-A5E4-EB8F3BAF4CD9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.BLL", "BlackJack.Services\BlackJack.BLL.csproj", "{1F237B7B-88A0-4409-AA81-E8E3EE61B016}"
@@ -28,22 +26,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Debug|ARM.Build.0 = Debug|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Debug|x64.Build.0 = Debug|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Debug|x86.Build.0 = Debug|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Release|ARM.ActiveCfg = Release|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Release|ARM.Build.0 = Release|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Release|x64.ActiveCfg = Release|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Release|x64.Build.0 = Release|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Release|x86.ActiveCfg = Release|Any CPU
-		{3C66EFA8-EA90-4074-9A1E-076DEE75E4D2}.Release|x86.Build.0 = Release|Any CPU
 		{252680B3-1E9B-40F4-A5E4-EB8F3BAF4CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{252680B3-1E9B-40F4-A5E4-EB8F3BAF4CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{252680B3-1E9B-40F4-A5E4-EB8F3BAF4CD9}.Debug|ARM.ActiveCfg = Debug|Any CPU

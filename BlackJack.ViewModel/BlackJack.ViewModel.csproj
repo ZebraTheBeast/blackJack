@@ -43,7 +43,6 @@
     <Compile Include="CardModel.cs" />
     <Compile Include="HandModel.cs" />
     <Compile Include="GameModel.cs" />
-    <Compile Include="LoginPlayersModel.cs" />
     <Compile Include="PlayerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
