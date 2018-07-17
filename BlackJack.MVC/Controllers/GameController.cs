@@ -29,22 +29,17 @@ namespace BlackJack.MVC.Controllers
             return View(gameModel);
         }
 
-        public ActionResult Game()
+        public ActionResult Game(GameModel gameModel)
         {
-           return View();
+           return View(gameModel);
         }
         
         [HttpPost]
-        public ActionResult PlayersHand(string json, int playerId)
+        public ActionResult Draw(string json, int playerId)
         {
             var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(json);
             gameModel = _gameService.GiveCard(playerId, gameModel);
-            return PartialView(gameModel);
-        }
-
-        public ActionResult ShowCard(GameModel gameModel)
-        {
-            return PartialView(gameModel);
+            return View("Game", gameModel);
         }
     }
 }
