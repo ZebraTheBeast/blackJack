@@ -10,9 +10,8 @@ namespace BlackJack.BLL.Interface
     public interface IGame
     {
         GameModel Dealing(GameModel gameModel);
-        GameModel GiveCard(PlayerModel player, GameModel gameModel);
+        GameModel GiveCard(int playerId, GameModel gameModel);
         GameModel AddPlayers(string name);
         GameModel PlayerTest(GameModel gameModel, PlayerModel player);
-        GameModel PullCard(int id);
     }
 }

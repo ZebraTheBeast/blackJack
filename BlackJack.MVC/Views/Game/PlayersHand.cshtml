@@ -1,0 +1,18 @@
+﻿@model BlackJack.ViewModel.GameModel
+
+
+<div class="row">
+    @foreach (var player in Model.Players)
+    {
+        <div class="col-md-2">
+            <h3>@player.Name</h3>
+            <ul class="list-group">
+                @foreach (BlackJack.ViewModel.CardModel card in player.Hand.CardList)
+                {
+                    <li class="list-group-item">@card.Title of @card.Color.ToString()</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+

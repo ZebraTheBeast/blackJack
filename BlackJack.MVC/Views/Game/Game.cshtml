@@ -1,6 +1,7 @@
 ﻿@model BlackJack.ViewModel.GameModel
 @{
     ViewBag.Title = "Game";
+    var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model);
 }
 
 <h2>Game</h2>
@@ -11,26 +12,20 @@
     }
 </ul>
 <h3>Cards in deck: </h3>
+@Html.Partial("PlayersHand")
+
+<div id="PlayersStats"></div>
 <div class="row">
-    @foreach (var player in Model.Players)
+    @using (Ajax.BeginForm("PlayersHand", new AjaxOptions { UpdateTargetId = "PlayersStats" }))
     {
-        <div class="col-md-2">
-            <h3>@player.Name</h3>
-            <ul class="list-group">
-                @foreach (var card in player.Hand.CardList)
-                {
-                    <li class="list-group-item">@card.Title of @card.Color.ToString()</li>
-                }
-            </ul>
-        </div>
+        @Html.AntiForgeryToken();
+        @Html.Hidden("json", json);
+        @Html.Hidden("playerId", Model.Players.Last().Id);
+        <input type="submit" value="Draw" class="btn btn-default" />
     }
 </div>
 
+
 <div class="row">
-    @using (Html.BeginForm("Draw", "Game", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken();
-        <input type="hidden" value="dadad" name="name" />
-        <input type="submit" value="Draw" class="btn btn-default" />
-    }
+
 </div>

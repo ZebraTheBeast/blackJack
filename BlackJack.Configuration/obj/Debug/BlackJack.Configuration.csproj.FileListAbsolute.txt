@@ -4,3 +4,9 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\obj\Debug\BlackJ
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.csproj.CoreCompileInputs.cache
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Configuration\bin\Debug\BlackJack.Configuration.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Configuration\bin\Debug\BlackJack.Configuration.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.csprojAssemblyReference.cache
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.csproj.CoreCompileInputs.cache
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.pdb

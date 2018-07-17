@@ -22,14 +22,5 @@ namespace BlackJack.MVC.Controllers
         {
             return View();
         }
-
-
-        [HttpPost]
-        public ActionResult Login(PlayerModel player)
-        {
-            
-
-            return View();
-        }
     }
 }

@@ -41,6 +41,7 @@ namespace BlackJack.BLL.Services
             {
                 var card = new CardModel();
 
+                card.Id = i;
                 card.Title = cardNames[cardTitleValue];
                 card.Value = cardValues[cardTitleValue];
                 card.Color = (CardColor)cardColorValue++;

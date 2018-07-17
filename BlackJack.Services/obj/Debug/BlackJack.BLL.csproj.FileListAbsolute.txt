@@ -23,3 +23,28 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\obj\Debug\BlackJack.B
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\obj\Debug\BlackJack.BLL.csproj.CopyComplete
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\obj\Debug\BlackJack.BLL.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\obj\Debug\BlackJack.BLL.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\obj\Debug\BlackJack.BLL.csprojAssemblyReference.cache
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\obj\Debug\BlackJack.BLL.csproj.CoreCompileInputs.cache
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\obj\Debug\BlackJack.BLL.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\obj\Debug\BlackJack.BLL.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\BlackJack.BLL.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\BlackJack.BLL.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\AutoMapper.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\BlackJack.Configuration.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\BlackJack.DAL.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\BlackJack.ViewModel.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\ClassLibrary1.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\Ninject.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\System.ValueTuple.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\EntityFramework.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\BlackJack.Configuration.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\BlackJack.DAL.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\BlackJack.DAL.dll.config
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\ClassLibrary1.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\BlackJack.ViewModel.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\AutoMapper.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\AutoMapper.xml
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\Ninject.xml
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\System.ValueTuple.xml
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\EntityFramework.xml
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\obj\Debug\BlackJack.BLL.csproj.CopyComplete

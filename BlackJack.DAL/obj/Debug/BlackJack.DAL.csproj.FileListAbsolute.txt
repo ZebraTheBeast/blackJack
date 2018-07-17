@@ -12,3 +12,17 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.cs
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.csproj.CopyComplete
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\BlackJack.DAL.dll.config
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\BlackJack.DAL.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\BlackJack.DAL.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\ClassLibrary1.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\EntityFramework.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\ClassLibrary1.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\EntityFramework.xml
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.csprojAssemblyReference.cache
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.csproj.CoreCompileInputs.cache
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.csproj.CopyComplete
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.pdb

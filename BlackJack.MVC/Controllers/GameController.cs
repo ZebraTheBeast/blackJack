@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BlackJack.BLL.Interface;
 using BlackJack.BLL.Services;
 using BlackJack.ViewModel;
+using System.Web.Script.Serialization;
 
 namespace BlackJack.MVC.Controllers
 {
@@ -30,18 +31,20 @@ namespace BlackJack.MVC.Controllers
 
         public ActionResult Game()
         {
-
            return View();
         }
         
         [HttpPost]
-        public ActionResult Draw(string name)
+        public ActionResult PlayersHand(string json, int playerId)
         {
+            var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(json);
+            gameModel = _gameService.GiveCard(playerId, gameModel);
+            return PartialView(gameModel);
+        }
 
-            var x = new GameModel();
-            x = _gameService.AddPlayers(name);
-            //gameModel = _gameService.AddPlayers(new List<PlayerModel>());
-            return View("Game", x);
+        public ActionResult ShowCard(GameModel gameModel)
+        {
+            return PartialView(gameModel);
         }
     }
 }

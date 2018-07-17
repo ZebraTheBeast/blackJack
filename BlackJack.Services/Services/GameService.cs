@@ -25,20 +25,19 @@ namespace BlackJack.BLL.Services
         public GameModel Dealing(GameModel gameModel)
         {
             gameModel.Deck = DeckService.GetShuffledDeck();
-            и 
+             
             foreach (var player in gameModel.Players)
             {
-                gameModel = GiveCard(player, gameModel);
-                gameModel = GiveCard(player, gameModel);
+                gameModel = GiveCard(player.Id, gameModel);
+                gameModel = GiveCard(player.Id, gameModel);
             }
             
             return gameModel;
         }
 
-        public GameModel GiveCard(PlayerModel player, GameModel gameModel)
+        public GameModel GiveCard(int playerId, GameModel gameModel)
         {
-            //gameModel.Players.First(p => p.Id == player.Id).Hand.CardList.Add(gameModel.Deck[0]);
-            gameModel.Players.Find(p => p == player).Hand.CardList.Add(gameModel.Deck[0]);
+            gameModel.Players.Find(p => p.Id == playerId).Hand.CardList.Add(gameModel.Deck[0]);
             gameModel.Deck.Remove(gameModel.Deck[0]);
             return gameModel;
         }
@@ -63,26 +62,16 @@ namespace BlackJack.BLL.Services
         {
            var players = new List<PlayerModel>
             {
-                new PlayerModel { Id = 0, Name = "Dealer", Hand = new HandModel(), Points = 10000 },
-                new PlayerModel { Id = 1, Name = "Хена", Hand = new HandModel(), Points = 1000 },
-                new PlayerModel { Id = 2, Name = "Ихарь", Hand = new HandModel(), Points = 1000 },
-                new PlayerModel { Id = 3, Name = "Ондрей", Hand = new HandModel(), Points = 1000 }
+                new PlayerModel { Id = 0, Name = "Dealer", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = 10000 },
+                new PlayerModel { Id = 1, Name = "Хена", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = 1000 },
+                new PlayerModel { Id = 2, Name = "Ихарь", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = 1000 },
+                new PlayerModel { Id = 3, Name = "Ондрей", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = 1000 }
             };
-
+            player.Hand = new HandModel();
+            player.Hand.CardList = new List<CardModel>();
             gameModel.Players = players;
             gameModel.Players.Add(player);
 
-            return gameModel;
-        }
-
-        public GameModel PullCard(int id)
-        {
-            var gameModel = new GameModel();
-            var player = _playerList.Find(p => p.Id == id);
-            //GiveCard(player);
-
-            gameModel.Players = _playerList;
-            gameModel.Deck = _cardList;
             return gameModel;
         }
     }
