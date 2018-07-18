@@ -53,15 +53,16 @@
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interface\IGame.cs" />
-    <Compile Include="Interface\IPoint.cs" />
+    <Compile Include="Trash\IPoint.cs" />
     <Compile Include="Services\CombinationCheckerService.cs" />
     <Compile Include="Services\DeckService.cs" />
     <Compile Include="Services\GameService.cs" />
-    <Compile Include="Services\PlayService.cs" />
-    <Compile Include="Services\PointService.cs" />
+    <Compile Include="Trash\PlayService.cs" />
+    <Compile Include="Trash\DbPointService.cs" />
     <Compile Include="Services\PointCheckerService.cs" />
-    <Compile Include="Interface\IPlay.cs" />
+    <Compile Include="Trash\IPlay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PointService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlackJack.Configuration\BlackJack.Configuration.csproj">

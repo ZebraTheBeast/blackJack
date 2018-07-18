@@ -4,14 +4,8 @@
     var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model);
 }
 
-<h2>Game</h2>
-<ul class="list-group">
-    @foreach (var player in Model.Players)
-    {
-        <li class="list-group-item">@player.Id @player.Name @player.Points</li>
-    }
-</ul>
-<h3>Cards in deck: @Model.Deck.Count()</h3>
+<h2 class="text-center">Game</h2>
+
 @Html.Partial("PlayersHand")
 
 <div id="PlayersStats"></div>

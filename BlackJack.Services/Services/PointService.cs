@@ -4,54 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
-using BlackJack.BLL.Interface;
-using BlackJack.DAL.Interface;
-using BlackJack.BLL.Infrastructure;
 
 namespace BlackJack.BLL.Services
 {
-    public class PointService : IPoint
+    public static class PointService
     {
-        IUnitOfWork DataBase { get; set; }
-
-        public PointService(IUnitOfWork unitOfWork)
+        public static GameModel WinPoints(GameModel gameModel, int playerId)
         {
-            DataBase = unitOfWork;
+            gameModel.Players.First(p => p.Id == playerId).Points += gameModel.Players.First(p => p.Id == playerId).Hand.Points;
+            gameModel = AnnulPoints(gameModel, playerId);
+            return gameModel;
         }
 
-        public void LosePoints(PlayerModel playerModel)
+        public static GameModel AnnulPoints(GameModel gameModel, int playerId)
         {
-            var player = DataBase.Players.Get(playerModel.Id);
-
-            if (player == null)
-            {
-                throw new ValidationException("Player not found");
-            }
-
-            player.Points -= playerModel.Hand.Points;
-            playerModel.Hand.Points = 0;
-            DataBase.Players.Update(player);
-            DataBase.Save();
+            gameModel.Players.First(p => p.Id == playerId).Hand.Points = 0;
+            return gameModel;
         }
 
-        public void WinPoints(PlayerModel playerModel)
+        public static GameModel LosePoints(GameModel gameModel, int playerId)
         {
-            var player = DataBase.Players.Get(playerModel.Id);
-
-            if (player == null)
-            {
-                throw new ValidationException("Player not found");
-            }
-
-            player.Points += playerModel.Hand.Points;
-            playerModel.Hand.Points = 0;
-            DataBase.Players.Update(player);
-            DataBase.Save();
-        }
-
-        public void AnnulPoints(PlayerModel playerModel)
-        {
-            playerModel.Hand.CardListValue = 0;
+            gameModel.Players.First(p => p.Id == playerId).Points -= gameModel.Players.First(p => p.Id == playerId).Hand.Points;
+            gameModel = AnnulPoints(gameModel, playerId);
+            return gameModel;
         }
     }
 }

@@ -11,32 +11,28 @@ namespace BlackJack.BLL.Services
 {
     public class PointCheckerService
     {
-        PointService _point;
-        
-        public PointCheckerService(IUnitOfWork unitOfWork)
-        {
-            _point = new PointService(unitOfWork);
-        }
 
-        public void CheckPlayerWithDealer(PlayerModel player, PlayerModel dealer)
+        public GameModel CheckPlayerWithDealer(PlayerModel player, PlayerModel dealer, GameModel gameModel)
         {
             if ((player.Hand.CardListValue > dealer.Hand.CardListValue) && (CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(player, Constant.WinValue))
                 || ((CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(player, Constant.WinValue)) && (!CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(dealer, Constant.WinValue))))
             {
-                _point.WinPoints(player);
+                gameModel = PointService.WinPoints(gameModel, player.Id);
             }
 
             if ((player.Hand.CardListValue < dealer.Hand.CardListValue)
                 || (!CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(player, Constant.WinValue))
                 || ((CombinationCheckerService.PlayerHandCardListIsBlackJack(dealer)) && (!CombinationCheckerService.PlayerHandCardListIsBlackJack(player))))
             {
-                _point.LosePoints(player);
+                gameModel = PointService.LosePoints(gameModel, player.Id);
             }
 
             if (player.Hand.CardListValue == dealer.Hand.CardListValue)
             {
-                _point.AnnulPoints(player);
+                gameModel = PointService.AnnulPoints(gameModel, player.Id);
             }
+
+            return gameModel;
         }
     }
 }

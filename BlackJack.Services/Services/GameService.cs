@@ -6,57 +6,35 @@ using System.Threading.Tasks;
 using BlackJack.ViewModel;
 using BlackJack.DAL.Interface;
 using BlackJack.BLL.Interface;
+using BlackJack.Configuration.Constant;
 
 namespace BlackJack.BLL.Services
 {
     public class GameService : IGame
     {
-        public List<PlayerModel> _playerList;
-        public List<CardModel> _cardList;
-        
-        // TODO - peredavat to sho vozvrashaesh
-
-        public GameService()
-        {
-            _playerList = new List<PlayerModel>();
-            _cardList = new List<CardModel>();
-        }
 
         public GameModel Dealing(GameModel gameModel)
         {
             gameModel.Deck = DeckService.GetShuffledDeck();
              
-            foreach (var player in gameModel.Players)
+            foreach (var player in gameModel.Players.ToArray())
             {
                 gameModel = GiveCard(player.Id, gameModel);
                 gameModel = GiveCard(player.Id, gameModel);
             }
+
             
             return gameModel;
         }
 
         public GameModel GiveCard(int playerId, GameModel gameModel)
         {
+            var index = gameModel.Players.FindIndex(p => p.Id == playerId);
             gameModel.Players.Find(p => p.Id == playerId).Hand.CardList.Add(gameModel.Deck[0]);
             gameModel.Deck.Remove(gameModel.Deck[0]);
+            gameModel.Players[index] = CountPlayerCardsValue(gameModel.Players[index]);
             return gameModel;
         }
-
-        public GameModel AddPlayers(string name)
-        {
-            var gameModel = new GameModel();
-
-            //foreach (var player in playerList)
-            //{
-            //    _playerList.Add(player);
-            //}
-
-            _playerList.Add(new PlayerModel() { Id = 0, Name = name, Hand = new HandModel(), Points = 333 });
-
-            gameModel.Players = _playerList;
-            return gameModel;
-        }
-
 
         public GameModel PlayerTest(GameModel gameModel, PlayerModel player)
         {
@@ -74,5 +52,35 @@ namespace BlackJack.BLL.Services
 
             return gameModel;
         }
+
+        private PlayerModel CountPlayerCardsValue(PlayerModel player)
+        {
+            player.Hand.CardListValue = 0;
+            foreach (var card in player.Hand.CardList)
+            {
+                player.Hand.CardListValue += card.Value;
+            }
+
+            foreach (var card in player.Hand.CardList)
+            {
+                if ((card.Title == Constant.NameCardForBlackJack) && (player.Hand.CardListValue > Constant.WinValue))
+                {
+                    player.Hand.CardListValue -= Constant.ImageCardValue;
+                }
+            }
+            return player;
+        }
+
+        public GameModel BotTurn(GameModel gameModel, PlayerModel player, int minValue)
+        {
+            if (true)
+            { }
+
+
+
+            return gameModel;
+        }
+
+
     }
 }
