@@ -79,6 +79,11 @@ namespace BlackJack.BLL.Services
                     player.Hand.CardListValue -= Constant.ImageCardValue;
                 }
             }
+
+            if(CombinationCheckerService.PlayerHandCardListIsBlackJack(player))
+            {
+                player.Hand.CardListValue = Constant.WinValue;
+            }
             return player;
         }
 

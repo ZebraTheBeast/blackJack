@@ -44,6 +44,7 @@ namespace BlackJack.MVC.Controllers
             {
                 gameModel = _gameService.PlayerTest(gameModel, player);
                 gameModel.Deck = new List<CardModel>();
+                gameModel.ButtonPushed = 0;
             }
 
             if(Request.Form["BotTurn"] != null)
@@ -53,6 +54,7 @@ namespace BlackJack.MVC.Controllers
                 { 
                     gameModel = _gameService.BotTurn(gameModel, gameModel.Players[i], 16);
                 }
+                gameModel.ButtonPushed = 2;
             }
 
             if (Request.Form["DealerTurn"] != null)
@@ -60,19 +62,21 @@ namespace BlackJack.MVC.Controllers
                 gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
                 gameModel = _gameService.BotTurn(gameModel, gameModel.Players[0], 16);
                 gameModel = _gameService.EditPoints(gameModel);
+                gameModel.ButtonPushed = 3;
             }
 
             if (Request.Form["EndTurn"] != null)
             {
                 gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
                 gameModel = _gameService.EndTurn(gameModel);
-                
+                gameModel.ButtonPushed = 0;
             }
             if (Request.Form["PlaceBet"] != null)
             {
                 gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
                 gameModel = _gameService.PlaceBet(gameModel, 4, pointsValue ?? 0);
                 gameModel = _gameService.Dealing(gameModel);
+                gameModel.ButtonPushed = 1;
             }
 
             return View(gameModel);

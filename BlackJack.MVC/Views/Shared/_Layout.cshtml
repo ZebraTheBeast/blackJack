@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body onload="disableButtons()">
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -19,7 +19,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jquery.ajax")
-
+    @Scripts.Render("~/Scripts/blackjack.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

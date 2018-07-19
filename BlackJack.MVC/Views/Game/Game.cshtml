@@ -1,35 +1,89 @@
 ﻿@model BlackJack.ViewModel.GameModel
 @{
-    ViewBag.Title = "Game";
     var jsonModel = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model);
 }
 
-<script>
-    function placeBet() {
-        value = document.getElementById("betValue").value;
-        document.getElementById("imageBetValue").innerHTML = value;
-    }
-</script>
-
 <h2 class="text-center">Game</h2>
 
-@Html.Partial("~/Views/Game/PlayersHand.cshtml")
-
-<div id="PlayersStats"></div>
-<div class="row">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken();
-
-        <input type="hidden" name="jsonModel" value="@jsonModel" />
-        @Html.Hidden("playerId", Model.Players.Last().Id);
-        <input type="submit" name="Draw" value="Draw" class="btn btn-default" />
-        <input type="submit" name="BotTurn" value="Bots Turn" class="btn btn-default" />
-        <input type="submit" name="DealerTurn" value="Dealer Turn" class="btn btn-default" />
-        <input type="submit" name="EndTurn" value="End Turn" class="btn btn-default" />
-        <span id="imageBetValue"></span>
-        <input type="range" id="betValue" min="10" max="@Model.Players[4].Points" oninput="placeBet()" step="10" name="pointsValue" />
-        <input type="submit" name="PlaceBet" value="Place a bet" class="btn btn-default" />
-    }
+<div class="container" onload="disableButtons()">
+    <div class="row">
+        <div class="col-md-3">
+            <h2 class="text-center">@Model.Players[0].Name</h2>
+            <ul class="list-group">
+                @foreach (var card in Model.Players[0].Hand.CardList)
+                {
+                    <li class="list-group-item">@card.Title of @card.Color</li>
+                }
+            </ul>
+            <h4> Value: @Model.Players[0].Hand.CardListValue</h4>
+        </div>
+        <div id="GameStat" class="col-md-6 form-control" style="overflow-y: scroll; height: 238px;">
+            @if (Model.GameStat != null)
+            {
+                foreach (var post in Model.GameStat)
+                {
+                    <p>@post</p>
+                }
+            }
+        </div>
+        <div class="col-md-3">
+            <ul class="list-group">
+                @for (var i = 1; i < Model.Players.Count; i++)
+                {
+                    <li class="list-group-item">@Model.Players[i].Name @Model.Players[i].Points</li>
+                }
+            </ul>
+            <h3>Cards in deck: @Model.Deck.Count()</h3>
+        </div>
+    </div>
 </div>
+<div class="row">
+    @for (var i = 1; i < Model.Players.Count; i++)
+    {
+        <div class="col-md-2">
+            <h3 class="text-center">
+                @Model.Players[i].Name
+            </h3>
+            <ul class="list-group">
+                @foreach (var card in Model.Players[i].Hand.CardList)
+                {
+                    <li class="list-group-item">@card.Title of @card.Color.ToString()</li>
+                }
+            </ul>
+            <h4>Value: @Model.Players[i].Hand.CardListValue</h4>
+        </div>
+    }
+    <input id="playerValue" type="hidden" value="@Model.Players[Model.Players.Count-1].Hand.CardListValue" />
+    <input id="idButton" type="hidden" value="@Model.ButtonPushed" />
+    <div class="col-md-4 ">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken();
 
+            <input type="hidden" name="jsonModel" value="@jsonModel" />
+
+            @Html.Hidden("playerId", Model.Players.Last().Id);
+            <div class="row">
+                <input id="drawButton" type="submit" name="Draw" value="Draw" class="custombutton btn btn-default" />
+            </div>
+            <div class="row">
+                <input id="botTurnButton" type="submit" name="BotTurn" value="Stand(Bots Turn)" class="btn btn-default custombutton" />
+            </div>
+            <div class="row">
+                <input id="dealerTurnButton" type="submit" name="DealerTurn" value="Dealer Turn" class="btn btn-default custombutton" />
+            </div>
+            <div class="row">
+                <input id="endTurnButton" type="submit" name="EndTurn" value="End Turn" class="btn btn-default custombutton" />
+            </div>
+            <div class="row">
+                <input type="range" id="betValue" class="custombutton custom-range" min="10" value="10" max="@Model.Players[4].Points" oninput="placeBet()" step="10" name="pointsValue" />
+            </div>
+            <div class="row">
+                <input type="number" id="imageBetValue" class="custombutton text-center" value="10" readonly="readonly" />
+            </div>
+            <div class="row">
+                <input id="placeBetButton" type="submit" name="PlaceBet" value="Place a bet" class="btn btn-default custombutton" />
+            </div>
+        }
+    </div>
+</div>
