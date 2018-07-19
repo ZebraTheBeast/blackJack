@@ -19,9 +19,9 @@ namespace BlackJack.DAL.Repository
             this._gameContext = gameContext;
         }
 
-        public void Create(Card entity)
+        public void Create(Card card)
         {
-            _gameContext.Cards.Add(entity);
+            _gameContext.Cards.Add(card);
         }
 
         public void DeleteById(int id)
@@ -35,7 +35,7 @@ namespace BlackJack.DAL.Repository
             }
         }
 
-        public Card Get(int id)
+        public Card GetById(int id)
         {
             return _gameContext.Cards.Find(id);
         }
@@ -45,9 +45,14 @@ namespace BlackJack.DAL.Repository
             return _gameContext.Cards;
         }
 
-        public void Update(Card entity)
+        public void Update(Card card)
         {
-            _gameContext.Entry(entity).State = EntityState.Modified;
+            _gameContext.Entry(card).State = EntityState.Modified;
+        }
+
+        public void Delete(Card card)
+        {
+            _gameContext.Cards.Remove(card);
         }
     }
 }

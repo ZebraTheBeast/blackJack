@@ -35,14 +35,14 @@ namespace BlackJack.DAL.Repository
             }
         }
 
-        public Player Get(int id)
-        {
-            return _gameContext.Players.Find(id);
-        }
-
         public IEnumerable<Player> GetAll()
         {
             return _gameContext.Players;
+        }
+
+        public Player GetById(int id)
+        {
+            return _gameContext.Players.Find(id);
         }
 
         public void Update(Player entity)

@@ -119,6 +119,7 @@ namespace BlackJack.BLL.Services
 
         public GameModel PlaceBet(GameModel gameModel, int playerId, int pointsValue)
         {
+            // TODO - create StringService
             gameModel.GameStat.Add($"Player {gameModel.Players.Find(p => p.Id == playerId).Name} bet {pointsValue} points.");
             gameModel.Players.Find(p => p.Id == playerId).Hand.Points = pointsValue;
             return gameModel;

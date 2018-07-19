@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 using BlackJack.Entity;
 namespace BlackJack.DAL.Interface
 {
-    public interface IPlayerRepository : IRepository<Player>
+    public interface IPlayerRepository
     {
+        Player GetById(int id);
+        IEnumerable<Player> GetAll();
+        void Create(Player player);
+        void Update(Player player);
         void DeleteById(int id);
     }
 }

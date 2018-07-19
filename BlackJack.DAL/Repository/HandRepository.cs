@@ -19,9 +19,9 @@ namespace BlackJack.DAL.Repository
             this._gameContext = gameContext;
         }
 
-        public void Create(Hand entity)
+        public void Create(Hand hand)
         {
-            _gameContext.Hands.Add(entity);
+            _gameContext.Hands.Add(hand);
         }
 
         public void DeleteByCardId(int id)
@@ -36,19 +36,15 @@ namespace BlackJack.DAL.Repository
             _gameContext.Hands.RemoveRange(hands);
         }
 
-        public Hand Get(int id)
+        public IEnumerable<Card> GetByPlayerId(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Hand> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Hand entity)
-        {
-            throw new NotImplementedException();
+            var hand = _gameContext.Hands.Where(h => h.IdPlayer == id);
+            var cards = new List<Card>();
+            foreach (var card in hand)
+            {
+                cards.Add(_gameContext.Cards.First(c => c.Id == card.IdCard));
+            }
+            return cards;
         }
     }
 }
