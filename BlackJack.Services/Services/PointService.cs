@@ -25,6 +25,7 @@ namespace BlackJack.BLL.Services
         public static GameModel LosePoints(GameModel gameModel, int playerId)
         {
             gameModel.Players.First(p => p.Id == playerId).Points -= gameModel.Players.First(p => p.Id == playerId).Hand.Points;
+            var zp = gameModel.Players.First(p => p.Id == playerId).Points;
             gameModel = AnnulPoints(gameModel, playerId);
             return gameModel;
         }

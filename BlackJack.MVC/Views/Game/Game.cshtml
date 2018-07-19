@@ -1,26 +1,35 @@
 ﻿@model BlackJack.ViewModel.GameModel
 @{
     ViewBag.Title = "Game";
-    var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model);
+    var jsonModel = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model);
 }
+
+<script>
+    function placeBet() {
+        value = document.getElementById("betValue").value;
+        document.getElementById("imageBetValue").innerHTML = value;
+    }
+</script>
 
 <h2 class="text-center">Game</h2>
 
-@Html.Partial("PlayersHand")
+@Html.Partial("~/Views/Game/PlayersHand.cshtml")
 
 <div id="PlayersStats"></div>
 <div class="row">
-    @using (Html.BeginForm("Draw", "Game", FormMethod.Post))
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken();
-       
-        <input type="hidden" name="json" value="@json" />
+
+        <input type="hidden" name="jsonModel" value="@jsonModel" />
         @Html.Hidden("playerId", Model.Players.Last().Id);
-        <input type="submit" value="Draw" class="btn btn-default" />
+        <input type="submit" name="Draw" value="Draw" class="btn btn-default" />
+        <input type="submit" name="BotTurn" value="Bots Turn" class="btn btn-default" />
+        <input type="submit" name="DealerTurn" value="Dealer Turn" class="btn btn-default" />
+        <input type="submit" name="EndTurn" value="End Turn" class="btn btn-default" />
+        <span id="imageBetValue"></span>
+        <input type="range" id="betValue" min="10" max="@Model.Players[4].Points" oninput="placeBet()" step="10" name="pointsValue" />
+        <input type="submit" name="PlaceBet" value="Place a bet" class="btn btn-default" />
     }
 </div>
 
-
-<div class="row">
-
-</div>

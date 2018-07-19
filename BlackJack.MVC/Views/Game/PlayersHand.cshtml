@@ -11,15 +11,20 @@
             </ul>
             <h4> Value: @Model.Players[0].Hand.CardListValue</h4>
         </div>
-        <div class="col-md-6">
-            <h1 class="text-center">TEXT OF GAMEPLAY</h1>
-            <h1 class="text-center">COOMING SOON</h1>
+        <div class="col-md-6" style="overflow-y: scroll; height: 238px;">
+            @if (Model.GameStat != null)
+            {
+                foreach (var post in Model.GameStat)
+                {
+                    <p>@post</p>
+                }
+            }
         </div>
         <div class="col-md-3">
             <ul class="list-group">
-                @foreach (var player in Model.Players)
+                @for (var i = 1; i < Model.Players.Count; i++)
                 {
-                    <li class="list-group-item">@player.Id @player.Name @player.Points</li>
+                    <li class="list-group-item">@Model.Players[i].Name @Model.Players[i].Points</li>
                 }
             </ul>
             <h3>Cards in deck: @Model.Deck.Count()</h3>

@@ -3,37 +3,31 @@
     ViewBag.Title = "Login";
 }
 <div class="row">
-    <div class="col-md-2 col-md-offset-10">
-        <h3>Игроки:</h3>
+    <div class="col-md-12">
+        <h3>Input your name:</h3>
     </div>
 </div>
+
+
 <div class="row">
-    <div class="col-md-10">
-        <div class="row">
-            <div class="form-group">
-                @using (Html.BeginForm("Game", "Game", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
+    <div class="col-md-12">
+        @using (Html.BeginForm("Game", "Game", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
 
-                    <input type="hidden" name="Player.Points" value="1000" class="form-control" />
-                    <input type="hidden" name="Player.Id" value="4" class="form-control" />
+            <input type="hidden" name="Player.Points" value="1000" class="form-control" />
+            <input type="hidden" name="Player.Id" value="4" class="form-control" />
 
-                    <div class="form-group">
-                        <div class="col-md-2">
-                            @Html.LabelFor(model => model.Name, "Name", htmlAttributes: new { @class = "control-label" })
-                        </div>
-                        <div class="col-md-4">
-                            <input type="text" id="Name" class="form-control" name="Player.Name" autocomplete="off" />
-                        </div>
-                    </div>
+            <div class="form-group ">
 
-                    <div class="form-group">
-                        <div class="col-md-6">
-                            <input type="submit" value="Play" class="btn btn-default" />
-                        </div>
-                    </div>
-                }
+                @Html.LabelFor(model => model.Name, "Name", htmlAttributes: new { @class = "control-label" })
+
+                <input type="text" id="Name" class="form-control" name="Player.Name" autocomplete="off" />
             </div>
-        </div>
+
+            <input type="submit" name="Play" value="Play" class="btn btn-default" />
+        }
     </div>
 </div>
+
+
