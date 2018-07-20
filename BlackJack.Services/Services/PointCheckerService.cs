@@ -40,5 +40,6 @@ namespace BlackJack.BLL.Services
 
             return gameModel;
         }
+
     }
 }

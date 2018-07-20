@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BlackJack.BLL.Interface;
 using BlackJack.BLL.Services;
 using BlackJack.ViewModel;
 using System.Web.Script.Serialization;
@@ -11,26 +10,11 @@ using System.Web.Script.Serialization;
 namespace BlackJack.MVC.Controllers
 {
     public class GameController : Controller
-    {
-        IGame _gameService;
-
-        public GameController(IGame gameService)
-        {
-            _gameService = gameService;
-          
-        }
-
-        
-        public ActionResult Game(GameModel gameModel)
-        {
-           
-            return View(gameModel);
-        }
-
+    { 
         [HttpPost, ActionName("StartGame")]
         public ActionResult StartGame(PlayerModel player)
         {
-            var gameModel = _gameService.StartGame(player);
+            var gameModel = GameService.StartGame(player);
 
             gameModel.ButtonPushed = 0;
 
@@ -42,8 +26,12 @@ namespace BlackJack.MVC.Controllers
         {
             var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
             var humanId = gameModel.Players.Count() - 1;
-            gameModel = _gameService.GiveCard(humanId, gameModel);
-
+            gameModel = GameService.GiveCard(humanId, gameModel);
+            if (gameModel.Players[gameModel.Players.Count - 1].Hand.CardListValue >= 21)
+            {
+                var newJsonModel = new JavaScriptSerializer().Serialize(gameModel);
+                return BotTurn(newJsonModel);
+            }
             return View("Game", gameModel);
         }
 
@@ -53,31 +41,17 @@ namespace BlackJack.MVC.Controllers
             var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
             for (var i = 1; i < gameModel.Players.Count - 1; i++)
             {
-                gameModel = _gameService.BotTurn(gameModel, gameModel.Players[i], 16);
+                gameModel = GameService.BotTurn(gameModel, gameModel.Players[i], 16);
             }
 
-            gameModel.ButtonPushed = 2;
-
-            return View("Game", gameModel);
+            return DealerTurn(gameModel);
         }
 
         [HttpPost, ActionName("DealerTurn")]
-        public ActionResult DealerTurn(string jsonModel)
+        public ActionResult DealerTurn(GameModel gameModel)
         {
-            var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
-            gameModel = _gameService.BotTurn(gameModel, gameModel.Players[0], 16);
-            gameModel = _gameService.EditPoints(gameModel);
-
-            gameModel.ButtonPushed = 3;
-
-            return View("Game", gameModel);
-        }
-
-        [HttpPost, ActionName("EndTurn")]
-        public ActionResult EndTurn(string jsonModel)
-        {
-            var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
-            gameModel = _gameService.EndTurn(gameModel);
+            gameModel = GameService.BotTurn(gameModel, gameModel.Players[0], 16);
+            gameModel = GameService.EditPoints(gameModel);
 
             gameModel.ButtonPushed = 0;
 
@@ -88,11 +62,16 @@ namespace BlackJack.MVC.Controllers
         public ActionResult PlaceBet(string jsonModel, int pointsValue)
         {
             var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
-            gameModel = _gameService.PlaceBet(gameModel, gameModel.Players.Count - 1, pointsValue);
-            gameModel = _gameService.Dealing(gameModel);
-
+            gameModel = GameService.EndTurn(gameModel);
+            gameModel = GameService.PlaceBet(gameModel, gameModel.Players.Count - 1, pointsValue);
+            gameModel = GameService.Dealing(gameModel);
+            
             gameModel.ButtonPushed = 1;
-
+            if(gameModel.Players[gameModel.Players.Count-1].Hand.CardListValue >= 21)
+            {
+                var newJsonModel = new JavaScriptSerializer().Serialize(gameModel);
+                return BotTurn(newJsonModel);
+            }
             return View("Game", gameModel);
         }
 
@@ -101,7 +80,7 @@ namespace BlackJack.MVC.Controllers
         {
             var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
 
-            gameModel = _gameService.StartGame(gameModel.Players[gameModel.Players.Count - 1]);
+            gameModel = GameService.StartGame(gameModel.Players[gameModel.Players.Count - 1]);
 
             gameModel.ButtonPushed = 0;
 

@@ -64,10 +64,6 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AspNet.Telem
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Newtonsoft.Json.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Common.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Common.WebHost.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Mvc.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Diagnostics.DiagnosticSource.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Helpers.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Mvc.dll
@@ -77,15 +73,9 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.De
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.Razor.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\WebGrease.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DAL.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\ClassLibrary1.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\EntityFramework.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.BLL.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.ViewModel.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.xml
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Common.xml
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Common.WebHost.xml
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Mvc.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Helpers.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Mvc.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Optimization.xml
@@ -101,10 +91,7 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AI.Dependenc
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AI.Web.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DAL.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DAL.dll.config
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\ClassLibrary1.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\EntityFramework.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\obj\Debug\BlackJack.MVC.csproj.CopyComplete
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\obj\Debug\BlackJack.MVC.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\obj\Debug\BlackJack.MVC.pdb

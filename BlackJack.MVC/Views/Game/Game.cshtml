@@ -70,13 +70,7 @@
                 <input id="drawButton" type="submit" value="Draw" class="custombutton btn btn-default" formaction="@Url.Action("Draw")" />
             </div>
             <div class="row">
-                <input id="botTurnButton" type="submit" value="Stand(Bots Turn)" class="btn btn-default custombutton" formaction="@Url.Action("BotTurn")" />
-            </div>
-            <div class="row">
-                <input id="dealerTurnButton" type="submit" value="Dealer Turn" class="btn btn-default custombutton" formaction="@Url.Action("DealerTurn")" />
-            </div>
-            <div class="row">
-                <input id="endTurnButton" type="submit" value="End Turn" class="btn btn-default custombutton" formaction="@Url.Action("EndTurn")" />
+                <input id="botTurnButton" type="submit" value="Stand" class="btn btn-default custombutton" formaction="@Url.Action("BotTurn")" />
             </div>
             <div class="row">
                 <input type="range" id="betValue" class="custombutton custom-range" min="10" value="10" max="@Model.Players[Model.Players.Count-1].Points" oninput="placeBet()" step="10" name="pointsValue" />

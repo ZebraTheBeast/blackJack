@@ -5,11 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Ninject.Modules;
-using BlackJack.MVC.Util;
 using BlackJack.BLL.Infrastructure;
-using Ninject;
-using Ninject.Web.Mvc;
 
 
 
@@ -24,10 +20,7 @@ namespace BlackJack.MVC
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            NinjectModule gameModule = new GameModule();
-            NinjectModule serviceModule = new ServiceModule("DefaultConnection");
-            var kernel = new StandardKernel(gameModule, serviceModule);
-            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+            
         }
     }
 }

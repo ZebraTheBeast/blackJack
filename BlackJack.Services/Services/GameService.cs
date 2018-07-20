@@ -5,16 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
 using BlackJack.DAL.Interface;
-using BlackJack.BLL.Interface;
 using BlackJack.Configuration.Constant;
 
 
 namespace BlackJack.BLL.Services
 {
-    public class GameService : IGame
+    public static class GameService
     {
 
-        public GameModel Dealing(GameModel gameModel)
+        public static GameModel Dealing(GameModel gameModel)
         {
             gameModel.Deck = DeckService.GetShuffledDeck();
 
@@ -32,7 +31,7 @@ namespace BlackJack.BLL.Services
             return gameModel;
         }
 
-        public GameModel GiveCard(int playerId, GameModel gameModel)
+        public static GameModel GiveCard(int playerId, GameModel gameModel)
         {
             var index = gameModel.Players.FindIndex(p => p.Id == playerId);
             StringService.PlayerDrawCard(gameModel, index);
@@ -43,7 +42,7 @@ namespace BlackJack.BLL.Services
             return gameModel;
         }
 
-        public GameModel StartGame(PlayerModel player)
+        public static GameModel StartGame(PlayerModel player)
         {
             var players = new List<PlayerModel>();
             var gameModel = new GameModel();
@@ -63,7 +62,7 @@ namespace BlackJack.BLL.Services
             return gameModel;
         }
 
-        private PlayerModel CountPlayerCardsValue(PlayerModel player)
+        private static PlayerModel CountPlayerCardsValue(PlayerModel player)
         {
             player.Hand.CardListValue = 0;
 
@@ -88,7 +87,7 @@ namespace BlackJack.BLL.Services
             return player;
         }
 
-        public GameModel BotTurn(GameModel gameModel, PlayerModel player, int minValue)
+        public static GameModel BotTurn(GameModel gameModel, PlayerModel player, int minValue)
         {
             do
             {
@@ -102,7 +101,7 @@ namespace BlackJack.BLL.Services
             } while (true);
         }
 
-        public GameModel EditPoints(GameModel gameModel)
+        public static GameModel EditPoints(GameModel gameModel)
         {
             for (var i = 1; i < gameModel.Players.Count; i++)
             {
@@ -112,7 +111,7 @@ namespace BlackJack.BLL.Services
             return gameModel;
         }
 
-        public GameModel EndTurn(GameModel gameModel)
+        public static GameModel EndTurn(GameModel gameModel)
         {
             for (var i = 0; i < gameModel.Players.Count; i++)
             {
@@ -125,12 +124,13 @@ namespace BlackJack.BLL.Services
             return gameModel;
         }
 
-        public GameModel PlaceBet(GameModel gameModel, int playerId, int pointsValue)
+        public static GameModel PlaceBet(GameModel gameModel, int playerId, int pointsValue)
         {      
             gameModel.Players.Find(p => p.Id == playerId).Hand.Points = pointsValue;
             gameModel = StringService.PlayerBetPoint(gameModel, playerId);
 
             return gameModel;
         }
+
     }
 }
