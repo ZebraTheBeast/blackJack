@@ -1,5 +1,5 @@
 ﻿@model BlackJack.ViewModel.GameModel
-@{ 
+@{
     var jsonModel = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model);
 }
 <h2 class="text-center">Game</h2>
@@ -66,16 +66,16 @@
             @Html.Hidden("playerId", Model.Players.Last().Id);
 
             <div class="row">
-                <input id="drawButton" type="submit" name="Draw" value="Draw" class="custombutton btn btn-default" formaction="@Url.Action("Draw")" />
+                <input id="drawButton" type="submit" value="Draw" class="custombutton btn btn-default" formaction="@Url.Action("Draw")" />
             </div>
             <div class="row">
-                <input id="botTurnButton" type="submit" name="BotTurn" value="Stand(Bots Turn)" class="btn btn-default custombutton" formaction="@Url.Action("BotTurn")" />
+                <input id="botTurnButton" type="submit" value="Stand(Bots Turn)" class="btn btn-default custombutton" formaction="@Url.Action("BotTurn")" />
             </div>
             <div class="row">
-                <input id="dealerTurnButton" type="submit" name="DealerTurn" value="Dealer Turn" class="btn btn-default custombutton"formaction="@Url.Action("DealerTurn")" />
+                <input id="dealerTurnButton" type="submit" value="Dealer Turn" class="btn btn-default custombutton" formaction="@Url.Action("DealerTurn")" />
             </div>
             <div class="row">
-                <input id="endTurnButton" type="submit" name="EndTurn" value="End Turn" class="btn btn-default custombutton" formaction="@Url.Action("EndTurn")" />
+                <input id="endTurnButton" type="submit" value="End Turn" class="btn btn-default custombutton" formaction="@Url.Action("EndTurn")" />
             </div>
             <div class="row">
                 <input type="range" id="betValue" class="custombutton custom-range" min="10" value="10" max="@Model.Players[Model.Players.Count-1].Points" oninput="placeBet()" step="10" name="pointsValue" />
@@ -84,7 +84,7 @@
                 <input type="number" id="imageBetValue" class="custombutton text-center" value="10" readonly="readonly" />
             </div>
             <div class="row">
-                <input id="placeBetButton" type="submit" name="PlaceBet" value="Place a bet" class="btn btn-default custombutton" formaction="@Url.Action("PlaceBet")"/>
+                <input id="placeBetButton" type="submit" value="Place a bet" class="btn btn-default custombutton" formaction="@Url.Action("PlaceBet")" />
             </div>
         }
     </div>

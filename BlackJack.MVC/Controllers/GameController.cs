@@ -26,62 +26,6 @@ namespace BlackJack.MVC.Controllers
            
             return View(gameModel);
         }
-        /*
-        [HttpPost]
-        public ActionResult Game(PlayerModel player, string jsonModel, int? pointsValue)
-        {
-            
-            var gameModel = new GameModel();
-
-            if (Request.Form["Play"] != null)
-            {
-                gameModel = _gameService.StartGame(player);
-                gameModel.Deck = new List<CardModel>();
-                gameModel.ButtonPushed = 0;
-            }
-
-            if (Request.Form["Draw"] != null)
-            {
-                gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
-                var humanId = gameModel.Players.Count() - 1;
-                gameModel = _gameService.GiveCard(humanId, gameModel); 
-            }
-
-            if(Request.Form["BotTurn"] != null)
-            {
-                gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
-                for (var i = 1; i < gameModel.Players.Count - 1; i++)
-                { 
-                    gameModel = _gameService.BotTurn(gameModel, gameModel.Players[i], 16);
-                }
-                gameModel.ButtonPushed = 2;
-            }
-
-            if (Request.Form["DealerTurn"] != null)
-            {
-                gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
-                gameModel = _gameService.BotTurn(gameModel, gameModel.Players[0], 16);
-                gameModel = _gameService.EditPoints(gameModel);
-                gameModel.ButtonPushed = 3;
-            }
-
-            if (Request.Form["EndTurn"] != null)
-            {
-                gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
-                gameModel = _gameService.EndTurn(gameModel);
-                gameModel.ButtonPushed = 0;
-            }
-
-            if (Request.Form["PlaceBet"] != null)
-            {
-                gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
-                gameModel = _gameService.PlaceBet(gameModel, gameModel.Players.Count - 1, pointsValue ?? 0);
-                gameModel = _gameService.Dealing(gameModel);
-                gameModel.ButtonPushed = 1;
-            }
-
-            return View(gameModel);
-        }*/
 
         [HttpPost, ActionName("StartGame")]
         public ActionResult StartGame(PlayerModel player)
