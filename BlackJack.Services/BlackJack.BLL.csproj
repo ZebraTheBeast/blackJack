@@ -59,6 +59,7 @@
     <Compile Include="Services\PointCheckerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\PointService.cs" />
+    <Compile Include="Services\StringService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlackJack.Configuration\BlackJack.Configuration.csproj">

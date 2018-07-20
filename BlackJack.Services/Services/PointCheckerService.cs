@@ -17,7 +17,7 @@ namespace BlackJack.BLL.Services
             if ((player.Hand.CardListValue > dealer.Hand.CardListValue) && (CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(player, Constant.WinValue))
                 || ((CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(player, Constant.WinValue)) && (!CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(dealer, Constant.WinValue))))
             {
-                gameModel.GameStat.Add($"Player {player.Name} has won.");
+                StringService.PlayerWon(gameModel, player.Name);
                 gameModel = PointService.WinPoints(gameModel, player.Id);
             }
 
@@ -25,13 +25,13 @@ namespace BlackJack.BLL.Services
                 || (!CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(player, Constant.WinValue))
                 || ((CombinationCheckerService.PlayerHandCardListIsBlackJack(dealer)) && (!CombinationCheckerService.PlayerHandCardListIsBlackJack(player))))
             {
-                gameModel.GameStat.Add($"Player {player.Name} has lost.");
+                StringService.PlayerLost(gameModel, player.Name);
                 gameModel = PointService.LosePoints(gameModel, player.Id);
             }
 
             if (player.Hand.CardListValue == dealer.Hand.CardListValue)
             {
-                gameModel.GameStat.Add($"Player {player.Name} has draw with Dealer.");
+                StringService.PlayerDraw(gameModel, player.Name);
                 gameModel = PointService.AnnulPoints(gameModel, player.Id);
             }
 

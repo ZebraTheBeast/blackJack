@@ -43,5 +43,11 @@
     <Compile Include="Constant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlackJack.ViewModel\BlackJack.ViewModel.csproj">
+      <Project>{31d2c4ff-61a3-4a12-9d0f-975839e02e80}</Project>
+      <Name>BlackJack.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

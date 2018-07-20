@@ -11,7 +11,7 @@ namespace BlackJack.BLL.Interface
     {
         GameModel Dealing(GameModel gameModel);
         GameModel GiveCard(int playerId, GameModel gameModel);
-        GameModel PlayerTest(GameModel gameModel, PlayerModel player);
+        GameModel StartGame(PlayerModel player);
         GameModel BotTurn(GameModel gameModel, PlayerModel player, int minValue);
         GameModel EditPoints(GameModel gameModel);
         GameModel EndTurn(GameModel gameModel);

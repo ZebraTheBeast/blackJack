@@ -1,11 +1,10 @@
 ﻿@model BlackJack.ViewModel.GameModel
-@{
+@{ 
     var jsonModel = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model);
 }
-
 <h2 class="text-center">Game</h2>
 
-<div class="container" onload="disableButtons()">
+<div class="container">
     <div class="row">
         <div class="col-md-3">
             <h2 class="text-center">@Model.Players[0].Name</h2>
@@ -17,7 +16,7 @@
             </ul>
             <h4> Value: @Model.Players[0].Hand.CardListValue</h4>
         </div>
-        <div id="GameStat" class="col-md-6 form-control" style="overflow-y: scroll; height: 238px;">
+        <div id="GameStat" class="col-md-6 form-control game-stat">
             @if (Model.GameStat != null)
             {
                 foreach (var post in Model.GameStat)
@@ -53,8 +52,10 @@
             <h4>Value: @Model.Players[i].Hand.CardListValue</h4>
         </div>
     }
+
     <input id="playerValue" type="hidden" value="@Model.Players[Model.Players.Count-1].Hand.CardListValue" />
     <input id="idButton" type="hidden" value="@Model.ButtonPushed" />
+
     <div class="col-md-4 ">
         @using (Html.BeginForm())
         {
@@ -63,26 +64,27 @@
             <input type="hidden" name="jsonModel" value="@jsonModel" />
 
             @Html.Hidden("playerId", Model.Players.Last().Id);
+
             <div class="row">
-                <input id="drawButton" type="submit" name="Draw" value="Draw" class="custombutton btn btn-default" />
+                <input id="drawButton" type="submit" name="Draw" value="Draw" class="custombutton btn btn-default" formaction="@Url.Action("Draw")" />
             </div>
             <div class="row">
-                <input id="botTurnButton" type="submit" name="BotTurn" value="Stand(Bots Turn)" class="btn btn-default custombutton" />
+                <input id="botTurnButton" type="submit" name="BotTurn" value="Stand(Bots Turn)" class="btn btn-default custombutton" formaction="@Url.Action("BotTurn")" />
             </div>
             <div class="row">
-                <input id="dealerTurnButton" type="submit" name="DealerTurn" value="Dealer Turn" class="btn btn-default custombutton" />
+                <input id="dealerTurnButton" type="submit" name="DealerTurn" value="Dealer Turn" class="btn btn-default custombutton"formaction="@Url.Action("DealerTurn")" />
             </div>
             <div class="row">
-                <input id="endTurnButton" type="submit" name="EndTurn" value="End Turn" class="btn btn-default custombutton" />
+                <input id="endTurnButton" type="submit" name="EndTurn" value="End Turn" class="btn btn-default custombutton" formaction="@Url.Action("EndTurn")" />
             </div>
             <div class="row">
-                <input type="range" id="betValue" class="custombutton custom-range" min="10" value="10" max="@Model.Players[4].Points" oninput="placeBet()" step="10" name="pointsValue" />
+                <input type="range" id="betValue" class="custombutton custom-range" min="10" value="10" max="@Model.Players[Model.Players.Count-1].Points" oninput="placeBet()" step="10" name="pointsValue" />
             </div>
             <div class="row">
                 <input type="number" id="imageBetValue" class="custombutton text-center" value="10" readonly="readonly" />
             </div>
             <div class="row">
-                <input id="placeBetButton" type="submit" name="PlaceBet" value="Place a bet" class="btn btn-default custombutton" />
+                <input id="placeBetButton" type="submit" name="PlaceBet" value="Place a bet" class="btn btn-default custombutton" formaction="@Url.Action("PlaceBet")"/>
             </div>
         }
     </div>

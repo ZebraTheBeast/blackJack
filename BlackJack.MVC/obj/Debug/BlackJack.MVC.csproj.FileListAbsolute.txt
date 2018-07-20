@@ -223,3 +223,5 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.MVC\ob
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.MVC\obj\Debug\BlackJack.MVC.csproj.CopyComplete
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.MVC\obj\Debug\BlackJack.MVC.dll
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.MVC\obj\Debug\BlackJack.MVC.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Configuration.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Configuration.pdb
