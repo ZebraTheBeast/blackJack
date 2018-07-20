@@ -55,6 +55,7 @@
 
     <input id="playerValue" type="hidden" value="@Model.Players[Model.Players.Count-1].Hand.CardListValue" />
     <input id="idButton" type="hidden" value="@Model.ButtonPushed" />
+    <input id="playerPoints" type="hidden" value="@Model.Players[Model.Players.Count-1].Points" />
 
     <div class="col-md-4 ">
         @using (Html.BeginForm())
@@ -85,6 +86,9 @@
             </div>
             <div class="row">
                 <input id="placeBetButton" type="submit" value="Place a bet" class="btn btn-default custombutton" formaction="@Url.Action("PlaceBet")" />
+            </div>
+            <div class="row">
+                <input type="submit" value="Refresh game" class="btn btn-default custombutton" formaction="@Url.Action("RefreshGame")" />
             </div>
         }
     </div>

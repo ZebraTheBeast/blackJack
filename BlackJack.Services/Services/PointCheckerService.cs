@@ -19,6 +19,7 @@ namespace BlackJack.BLL.Services
             {
                 StringService.PlayerWon(gameModel, player.Name);
                 gameModel = PointService.WinPoints(gameModel, player.Id);
+                return gameModel;
             }
 
             if ((player.Hand.CardListValue < dealer.Hand.CardListValue)
@@ -27,12 +28,14 @@ namespace BlackJack.BLL.Services
             {
                 StringService.PlayerLost(gameModel, player.Name);
                 gameModel = PointService.LosePoints(gameModel, player.Id);
+                return gameModel;
             }
 
             if (player.Hand.CardListValue == dealer.Hand.CardListValue)
             {
                 StringService.PlayerDraw(gameModel, player.Name);
                 gameModel = PointService.AnnulPoints(gameModel, player.Id);
+                return gameModel;
             }
 
             return gameModel;

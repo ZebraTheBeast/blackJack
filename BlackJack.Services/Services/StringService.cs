@@ -38,5 +38,11 @@ namespace BlackJack.BLL.Services
             gameModel.GameStat.Add($"Player {playerName} has draw with Dealer.");
             return gameModel;
         }
+
+        public static GameModel NewGame(GameModel gameModel)
+        {
+            gameModel.GameStat.Add("New game!");
+            return gameModel;
+        }
     }
 }

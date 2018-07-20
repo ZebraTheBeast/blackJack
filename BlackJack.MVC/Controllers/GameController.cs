@@ -95,5 +95,17 @@ namespace BlackJack.MVC.Controllers
 
             return View("Game", gameModel);
         }
+
+        [HttpPost, ActionName("RefreshGame")]
+        public ActionResult RefreshGame(string jsonModel)
+        {
+            var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
+
+            gameModel = _gameService.StartGame(gameModel.Players[gameModel.Players.Count - 1]);
+
+            gameModel.ButtonPushed = 0;
+
+            return View("Game", gameModel);
+        }
     }
 }

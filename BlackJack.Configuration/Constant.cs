@@ -17,12 +17,13 @@ namespace BlackJack.Configuration.Constant
         public const int CountNumberCard = 9;
         public const int NumberCardForBlackJack = 2;
         public const string NameCardForBlackJack = "Ace";
+        public const int DefaultPointsValue = 1000;
         public static List<PlayerModel> StartPlayers = new List<PlayerModel>
             {
-                new PlayerModel { Id = 0, Name = "Dealer", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = 0 },
-                new PlayerModel { Id = 1, Name = "Isaac Clarke", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = 1000 },
-                new PlayerModel { Id = 2, Name = "Shredder", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = 1000 },
-                new PlayerModel { Id = 3, Name = "Kun Lao", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = 1000 }
+                new PlayerModel { Id = 0, Name = "Dealer", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = DefaultPointsValue },
+                new PlayerModel { Id = 1, Name = "Isaac Clarke", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = DefaultPointsValue },
+                new PlayerModel { Id = 2, Name = "Shredder", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = DefaultPointsValue },
+                new PlayerModel { Id = 3, Name = "Kun Lao", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = DefaultPointsValue }
             };
     }
 }
