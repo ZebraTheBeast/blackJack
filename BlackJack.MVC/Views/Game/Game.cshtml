@@ -6,8 +6,11 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <h2 class="text-center">@Model.Players[0].Name</h2>
+        <div class="col-md-3 text-center">
+            <h2>
+                <i class="fa fa-black-tie"></i>
+            @Model.Players[0].Name
+            </h2>
             <ul class="list-group">
                 @foreach (var card in Model.Players[0].Hand.CardList)
                 {
@@ -17,9 +20,9 @@
             <h4> Value: @Model.Players[0].Hand.CardListValue</h4>
         </div>
         <div id="GameStat" class="col-md-6 form-control game-stat">
-            @if (Model.GameStat != null)
+            @if (Model.GameStats != null)
             {
-                foreach (var post in Model.GameStat)
+                foreach (var post in Model.GameStats)
                 {
                     <p>@post</p>
                 }
@@ -36,11 +39,19 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row text-center">
     @for (var i = 1; i < Model.Players.Count; i++)
     {
         <div class="col-md-2">
             <h3 class="text-center">
+                @if (i == Model.Players.Count - 1)
+                {
+                    <i class="fa fa-user"></i>
+                }
+                @if(i != Model.Players.Count - 1)
+                {
+                    <i class="fa fa-desktop"></i>
+                }
                 @Model.Players[i].Name
             </h3>
             <ul class="list-group">

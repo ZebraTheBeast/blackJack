@@ -17,7 +17,7 @@ namespace BlackJack.BLL.Services
         {
             gameModel.Deck = DeckService.GetShuffledDeck();
 
-            for(var i = 1; i < gameModel.Players.Count - 1; i++)
+            for (var i = 1; i < gameModel.Players.Count - 1; i++)
             {
                 gameModel = PlaceBet(gameModel, gameModel.Players[i].Id, 100);
             }
@@ -55,13 +55,14 @@ namespace BlackJack.BLL.Services
             };
 
             var player = new PlayerModel();
+            player.Id = 4;
             player.Name = playerName;
             player.Hand = new HandModel();
             player.Hand.CardList = new List<CardModel>();
             player.Points = Constant.DefaultPointsValue;
 
             gameModel.Players = players;
-            gameModel.GameStat = new List<string>();
+            gameModel.GameStats = new List<string>();
             gameModel.Players.Add(player);
 
             gameModel.Deck = new List<CardModel>();
@@ -85,7 +86,7 @@ namespace BlackJack.BLL.Services
                 }
             }
 
-            if(CombinationCheckerService.PlayerHandCardListIsBlackJack(player))
+            if (CombinationCheckerService.PlayerHandCardListIsBlackJack(player))
             {
                 player.Hand.CardListValue = Constant.WinValue;
             }
@@ -131,7 +132,7 @@ namespace BlackJack.BLL.Services
         }
 
         public static GameModel PlaceBet(GameModel gameModel, int playerId, int pointsValue)
-        {      
+        {
             gameModel.Players.Find(p => p.Id == playerId).Hand.Points = pointsValue;
             gameModel = StringService.PlayerBetPoint(gameModel, playerId);
 

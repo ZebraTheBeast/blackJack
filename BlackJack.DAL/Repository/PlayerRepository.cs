@@ -6,48 +6,30 @@ using System.Threading.Tasks;
 using BlackJack.Entity;
 using System.Data.Entity;
 using BlackJack.DAL.Interface;
-using BlackJack.DAL.EF;
+
 
 namespace BlackJack.DAL.Repository
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private GameContext _gameContext;
-
-        public PlayerRepository(GameContext gameContext)
+        public void Create(Player player)
         {
-            this._gameContext = gameContext;
-        }
-
-        public void Create(Player entity)
-        {
-            _gameContext.Players.Add(entity);
-        }
-
-        public void DeleteById(int id)
-        {
-            var player = _gameContext.Players.Find(id);
-            var hands = _gameContext.Hands.Where(x => x.IdPlayer == id);
-            if (player != null)
-            {
-                _gameContext.Players.Remove(player);
-                _gameContext.Hands.RemoveRange(_gameContext.Hands.Where(x => x.IdPlayer == id));   
-            }
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Player> GetAll()
         {
-            return _gameContext.Players;
+            throw new NotImplementedException();
         }
 
-        public Player GetById(int id)
+        public Player GetByName(string name)
         {
-            return _gameContext.Players.Find(id);
+            throw new NotImplementedException();
         }
 
-        public void Update(Player entity)
+        public void Update(Player player)
         {
-            _gameContext.Entry(entity).State = EntityState.Modified;
+            throw new NotImplementedException();
         }
     }
 }

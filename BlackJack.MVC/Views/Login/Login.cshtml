@@ -15,13 +15,11 @@
         {
             @Html.AntiForgeryToken()
 
-            <input type="hidden" name="Player.Id" value="4" class="form-control" />
-
             <div class="form-group ">
 
                 @Html.LabelFor(model => model.Name, "Name", htmlAttributes: new { @class = "control-label" })
 
-                <input type="text" id="Name" class="form-control" name="Player.Name" autocomplete="off" />
+                <input type="text" id="Name" class="form-control" name="playerName" autocomplete="off" />
             </div>
 
             <input type="submit" name="Play" value="Play" class="btn btn-default" />

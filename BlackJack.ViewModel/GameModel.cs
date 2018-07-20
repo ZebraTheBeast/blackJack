@@ -10,7 +10,7 @@ namespace BlackJack.ViewModel
     {
         public List<PlayerModel> Players { get; set; }
         public List<CardModel> Deck { get; set; }
-        public List<string> GameStat { get; set; }
+        public List<string> GameStats { get; set; }
         public int ButtonPushed { get; set; }
     }
 }

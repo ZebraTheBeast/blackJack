@@ -6,7 +6,7 @@
 function disableButtons() {
     draw = document.getElementById("drawButton");
     botTurn = document.getElementById("botTurnButton");
-    
+
     betValue = document.getElementById("betValue");
     imageBetValue = document.getElementById("imageBetValue");
     placeBetButton = document.getElementById("placeBetButton");
@@ -15,16 +15,9 @@ function disableButtons() {
     playerValue = document.getElementById("playerValue");
     idButton = document.getElementById("idButton").value;
 
-    if (playerValue.value >= 21) {
-        draw.disabled = true;
-    }
-
-
-
     if (idButton == 0) {
         draw.disabled = true;
         botTurn.disabled = true;
-        
     }
 
     if (idButton == 1) {
@@ -33,21 +26,13 @@ function disableButtons() {
         placeBetButton.disabled = true;
     }
 
-    if (idButton == 3) {
-        botTurn.disabled = true;
-        draw.disabled = true;
-       
-        betValue.disabled = true;
-        imageBetValue.disabled = true;
-        placeBetButton.disabled = true;
-    }
-   
+
     if (playerPoits < 10) {
         betValue.disabled = true;
         imageBetValue.disabled = true;
         placeBetButton.disabled = true;
     }
-    
+
     var objDiv = document.getElementById("GameStat");
     objDiv.scrollTop = objDiv.scrollHeight;
 

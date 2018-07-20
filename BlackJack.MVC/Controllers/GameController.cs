@@ -39,14 +39,13 @@ namespace BlackJack.MVC.Controllers
         public ActionResult BotTurn(string jsonModel)
         {
             var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
-            for (var i = 1; i < gameModel.Players.Count - 1; i++)
+
+            for (var i = gameModel.Players.Count - 2; i >- 1; i--)
             {
                 gameModel = GameService.BotTurn(gameModel, gameModel.Players[i], 16);
             }
 
-            gameModel = GameService.BotTurn(gameModel, gameModel.Players[0], 16);
-
-            gameModel = GameService.EditPoints(gameModel);
+           gameModel = GameService.EditPoints(gameModel);
 
             gameModel.ButtonPushed = 0;
 
@@ -62,7 +61,7 @@ namespace BlackJack.MVC.Controllers
             gameModel = GameService.Dealing(gameModel);
             
             gameModel.ButtonPushed = 1;
-            if(gameModel.Players[gameModel.Players.Count-1].Hand.CardListValue >= 21)
+            if((gameModel.Players[gameModel.Players.Count-1].Hand.CardListValue >= 21) ||(gameModel.Players[0].Hand.CardListValue >= 21))
             {
                 var newJsonModel = new JavaScriptSerializer().Serialize(gameModel);
                 return BotTurn(newJsonModel);
@@ -75,7 +74,7 @@ namespace BlackJack.MVC.Controllers
         {
             var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
 
-            gameModel = GameService.StartGame(gameModel.Players[gameModel.Players.Count - 1]);
+            gameModel = GameService.StartGame(gameModel.Players[gameModel.Players.Count - 1].Name);
 
             gameModel.ButtonPushed = 0;
 
