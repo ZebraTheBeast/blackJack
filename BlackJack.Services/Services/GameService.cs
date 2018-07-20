@@ -42,14 +42,20 @@ namespace BlackJack.BLL.Services
             return gameModel;
         }
 
-        public static GameModel StartGame(PlayerModel player)
+        public static GameModel StartGame(string playerName)
         {
             var players = new List<PlayerModel>();
             var gameModel = new GameModel();
-            foreach(var newPlayer in Constant.StartPlayers)
+            players = new List<PlayerModel>
             {
-                players.Add(newPlayer);
-            }
+                new PlayerModel { Id = 0, Name = "Dealer", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = Constant.DefaultPointsValue },
+                new PlayerModel { Id = 1, Name = "Isaac Clarke", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = Constant.DefaultPointsValue },
+                new PlayerModel { Id = 2, Name = "Shredder", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = Constant.DefaultPointsValue },
+                new PlayerModel { Id = 3, Name = "Kun Lao", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = Constant.DefaultPointsValue }
+            };
+
+            var player = new PlayerModel();
+            player.Name = playerName;
             player.Hand = new HandModel();
             player.Hand.CardList = new List<CardModel>();
             player.Points = Constant.DefaultPointsValue;

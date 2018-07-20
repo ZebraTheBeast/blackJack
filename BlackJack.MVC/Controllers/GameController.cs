@@ -12,9 +12,9 @@ namespace BlackJack.MVC.Controllers
     public class GameController : Controller
     { 
         [HttpPost, ActionName("StartGame")]
-        public ActionResult StartGame(PlayerModel player)
+        public ActionResult StartGame(string playerName)
         {
-            var gameModel = GameService.StartGame(player);
+            var gameModel = GameService.StartGame(playerName);
 
             gameModel.ButtonPushed = 0;
 
@@ -44,13 +44,8 @@ namespace BlackJack.MVC.Controllers
                 gameModel = GameService.BotTurn(gameModel, gameModel.Players[i], 16);
             }
 
-            return DealerTurn(gameModel);
-        }
-
-        [HttpPost, ActionName("DealerTurn")]
-        public ActionResult DealerTurn(GameModel gameModel)
-        {
             gameModel = GameService.BotTurn(gameModel, gameModel.Players[0], 16);
+
             gameModel = GameService.EditPoints(gameModel);
 
             gameModel.ButtonPushed = 0;
