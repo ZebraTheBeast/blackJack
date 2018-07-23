@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace BlackJack.Entity
 {
-    public class Player
+    public class PlayerInGame
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Points { get; set; }
+        public int PlayerId { get; set; }
+        public int Bet { get; set; }
     }
 }

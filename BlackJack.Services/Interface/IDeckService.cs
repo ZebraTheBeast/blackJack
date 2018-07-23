@@ -10,7 +10,8 @@ namespace BlackJack.BLL.Interface
 {
     public interface IDeckService
     {
-        void ShuffleDeck();
+        void SaveCardsToDb();
+        void RefreshAndShuffleDeck();
         void GiveCardFromDeck(int playerId);
         List<CardViewModel> GetDeck();
     }

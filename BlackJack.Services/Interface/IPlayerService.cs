@@ -10,6 +10,5 @@ namespace BlackJack.BLL.Interface
     {
         void PlayerAdd(string playerName);
         List<PlayerViewModel> GetPlayers();
-        
     }
 }

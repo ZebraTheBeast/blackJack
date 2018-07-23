@@ -12,7 +12,7 @@ using BlackJack.Entity;
 
 namespace BlackJack.DAL.Repository
 {
-    class DeckRepository : IDeckRepository
+    public class DeckRepository : IDeckRepository
     {
         string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
