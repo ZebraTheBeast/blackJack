@@ -12,7 +12,7 @@ function disableButtons() {
     placeBetButton = document.getElementById("placeBetButton");
 
     playerPoits = document.getElementById("playerPoints").value;
-    
+   
     idButton = document.getElementById("idButton").value;
 
     if (idButton == 0) {

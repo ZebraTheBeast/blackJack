@@ -18,5 +18,6 @@ namespace BlackJack.Configuration.Constant
         public const int NumberCardForBlackJack = 2;
         public const string NameCardForBlackJack = "Ace";
         public const int DefaultPointsValue = 1000;
+        public const int ValueToStopDraw = 16;
     }
 }

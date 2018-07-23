@@ -27,7 +27,7 @@ namespace BlackJack.MVC.Controllers
             var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
             var humanId = gameModel.Players.Last().Id;
             gameModel = GameService.GiveCard(humanId, gameModel);
-            if (gameModel.Players[gameModel.Players.Count - 1].Hand.CardListValue >= 21)
+            if (gameModel.Players[gameModel.Players.Count - 1].Hand.CardListValue >= Constant.WinValue)
             {
                 var newJsonModel = new JavaScriptSerializer().Serialize(gameModel);
                 return BotTurn(newJsonModel);
