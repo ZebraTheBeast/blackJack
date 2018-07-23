@@ -42,7 +42,7 @@ namespace BlackJack.MVC.Controllers
 
             for (var i = gameModel.Players.Count - 2; i > -1; i--)
             {
-                gameModel = GameService.BotTurn(gameModel, gameModel.Players[i], 16);
+                gameModel = GameService.BotTurn(gameModel, gameModel.Players[i], Constant.ValueToStopDraw);
             }
 
             gameModel = GameService.EditPoints(gameModel);

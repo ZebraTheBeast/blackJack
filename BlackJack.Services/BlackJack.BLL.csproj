@@ -53,7 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Services\CombinationCheckerService.cs" />
     <Compile Include="Services\DeckService.cs" />
     <Compile Include="Services\GameService.cs" />
@@ -86,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helper\" />
+    <Folder Include="Infrastructure\" />
     <Folder Include="Interface\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
