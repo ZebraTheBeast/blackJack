@@ -26,7 +26,7 @@ namespace BlackJack.BLL.Services
                 || (!CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(player, Constant.WinValue))
                 || ((CombinationCheckerService.PlayerHandCardListIsBlackJack(dealer)) && (!CombinationCheckerService.PlayerHandCardListIsBlackJack(player))))
             {
-                StringService.PlayerLost(gameModel, player.Name);
+                StringService.PlayerLose(gameModel, player.Name);
                 gameModel = PointService.LosePoints(gameModel, player.Id);
                 return gameModel;
             }

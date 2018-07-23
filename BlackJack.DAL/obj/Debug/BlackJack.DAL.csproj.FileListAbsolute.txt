@@ -26,3 +26,7 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\ob
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.csproj.CopyComplete
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.dll
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\Dapper.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\Dapper.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.Configuration.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.Configuration.pdb

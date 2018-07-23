@@ -24,24 +24,21 @@ namespace BlackJack.BLL.Services
         public static GameModel PlayerWon(GameModel gameModel, string playerName)
         {
             gameModel.GameStats.Add($"{playerName} has won.");
+            gameModel = OptionService.OptionWin(gameModel);
             return gameModel;
         }
 
-        public static GameModel PlayerLost(GameModel gameModel, string playerName)
+        public static GameModel PlayerLose(GameModel gameModel, string playerName)
         {
-            gameModel.GameStats.Add($"{playerName} has lost.");
+            gameModel.GameStats.Add($"{playerName} has lose.");
+            gameModel = OptionService.OptionLose(gameModel);
             return gameModel;
         }
 
         public static GameModel PlayerDraw(GameModel gameModel, string playerName)
         {
             gameModel.GameStats.Add($"{playerName} has draw with Dealer.");
-            return gameModel;
-        }
-
-        public static GameModel NewGame(GameModel gameModel)
-        {
-            gameModel.GameStats.Add("New game!");
+            gameModel = OptionService.OptionDraw(gameModel);
             return gameModel;
         }
     }

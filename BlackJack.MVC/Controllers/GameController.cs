@@ -6,16 +6,16 @@ using System.Web.Mvc;
 using BlackJack.BLL.Services;
 using BlackJack.ViewModel;
 using System.Web.Script.Serialization;
+using BlackJack.Configuration.Constant;
 
 namespace BlackJack.MVC.Controllers
 {
     public class GameController : Controller
-    { 
+    {
         [HttpPost, ActionName("StartGame")]
         public ActionResult StartGame(string playerName)
         {
             var gameModel = GameService.StartGame(playerName);
-
             gameModel.ButtonPushed = 0;
 
             return View("Game", gameModel);
@@ -25,7 +25,7 @@ namespace BlackJack.MVC.Controllers
         public ActionResult Draw(string jsonModel)
         {
             var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
-            var humanId = gameModel.Players.Count() - 1;
+            var humanId = gameModel.Players.Last().Id;
             gameModel = GameService.GiveCard(humanId, gameModel);
             if (gameModel.Players[gameModel.Players.Count - 1].Hand.CardListValue >= 21)
             {
@@ -40,12 +40,12 @@ namespace BlackJack.MVC.Controllers
         {
             var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
 
-            for (var i = gameModel.Players.Count - 2; i >- 1; i--)
+            for (var i = gameModel.Players.Count - 2; i > -1; i--)
             {
                 gameModel = GameService.BotTurn(gameModel, gameModel.Players[i], 16);
             }
 
-           gameModel = GameService.EditPoints(gameModel);
+            gameModel = GameService.EditPoints(gameModel);
 
             gameModel.ButtonPushed = 0;
 
@@ -57,11 +57,11 @@ namespace BlackJack.MVC.Controllers
         {
             var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
             gameModel = GameService.EndTurn(gameModel);
-            gameModel = GameService.PlaceBet(gameModel, gameModel.Players.Count - 1, pointsValue);
+            gameModel = GameService.PlaceBet(gameModel, gameModel.Players.Last().Id, pointsValue);
             gameModel = GameService.Dealing(gameModel);
-            
+
             gameModel.ButtonPushed = 1;
-            if((gameModel.Players[gameModel.Players.Count-1].Hand.CardListValue >= 21) ||(gameModel.Players[0].Hand.CardListValue >= 21))
+            if ((gameModel.Players[gameModel.Players.Count - 1].Hand.CardListValue >= Constant.WinValue) || (gameModel.Players[0].Hand.CardListValue >= Constant.WinValue))
             {
                 var newJsonModel = new JavaScriptSerializer().Serialize(gameModel);
                 return BotTurn(newJsonModel);

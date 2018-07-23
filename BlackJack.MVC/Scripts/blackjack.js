@@ -12,7 +12,7 @@ function disableButtons() {
     placeBetButton = document.getElementById("placeBetButton");
 
     playerPoits = document.getElementById("playerPoints").value;
-    playerValue = document.getElementById("playerValue");
+    
     idButton = document.getElementById("idButton").value;
 
     if (idButton == 0) {
@@ -26,7 +26,6 @@ function disableButtons() {
         placeBetButton.disabled = true;
     }
 
-
     if (playerPoits < 10) {
         betValue.disabled = true;
         imageBetValue.disabled = true;
@@ -35,5 +34,4 @@ function disableButtons() {
 
     var objDiv = document.getElementById("GameStat");
     objDiv.scrollTop = objDiv.scrollHeight;
-
 }

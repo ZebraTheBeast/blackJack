@@ -46,3 +46,5 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Servic
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\System.ValueTuple.xml
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\EntityFramework.xml
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\obj\Debug\BlackJack.BLL.csproj.CopyComplete
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Dapper.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Dapper.xml

@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 using BlackJack.ViewModel;
 using BlackJack.DAL.Interface;
 using BlackJack.Configuration.Constant;
+using BlackJack.DAL.Repository;
+using AutoMapper;
+using BlackJack.Entity;
 
 
 namespace BlackJack.BLL.Services
 {
     public static class GameService
     {
+        static PlayerRepository _playerRepository = new PlayerRepository();
 
         public static GameModel Dealing(GameModel gameModel)
         {
@@ -46,26 +50,31 @@ namespace BlackJack.BLL.Services
         {
             var players = new List<PlayerModel>();
             var gameModel = new GameModel();
-            players = new List<PlayerModel>
-            {
-                new PlayerModel { Id = 0, Name = "Dealer", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = Constant.DefaultPointsValue },
-                new PlayerModel { Id = 1, Name = "Isaac Clarke", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = Constant.DefaultPointsValue },
-                new PlayerModel { Id = 2, Name = "Shredder", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = Constant.DefaultPointsValue },
-                new PlayerModel { Id = 3, Name = "Kun Lao", Hand = new HandModel(){ CardList = new List<CardModel>() }, Points = Constant.DefaultPointsValue }
-            };
 
-            var player = new PlayerModel();
-            player.Id = 4;
-            player.Name = playerName;
-            player.Hand = new HandModel();
-            player.Hand.CardList = new List<CardModel>();
-            player.Points = Constant.DefaultPointsValue;
+            Mapper.Reset();
+            Mapper.Initialize(cfg => cfg.CreateMap<Player, PlayerModel>());
+
+            var playerEntity = _playerRepository.GetByName(playerName);
+            var humanPlayer = Mapper.Map<Player, PlayerModel>(playerEntity);
+            var playersEntity = _playerRepository.GetBots();
+
+            foreach(var item in playersEntity)
+            {
+                players.Add(Mapper.Map<Player, PlayerModel>(item));
+            }
+
+            players.Add(humanPlayer);
+
+            for(var i = 0; i < players.Count; i++)
+            {
+                players[i].Hand = new HandModel {CardList = new List<CardModel>() };
+            }
 
             gameModel.Players = players;
             gameModel.GameStats = new List<string>();
-            gameModel.Players.Add(player);
-
             gameModel.Deck = new List<CardModel>();
+            gameModel = OptionService.OptionSetBet(gameModel);
+
             return gameModel;
         }
 
@@ -113,8 +122,10 @@ namespace BlackJack.BLL.Services
             for (var i = 1; i < gameModel.Players.Count; i++)
             {
                 gameModel = PointCheckerService.CheckPlayerWithDealer(gameModel.Players[i], gameModel.Players[0], gameModel);
+                _playerRepository.Update(Mapper.Map<PlayerModel, Player>(gameModel.Players[i]));
             }
 
+            gameModel = OptionService.OptionSetBet(gameModel);
             return gameModel;
         }
 
@@ -135,6 +146,8 @@ namespace BlackJack.BLL.Services
         {
             gameModel.Players.Find(p => p.Id == playerId).Hand.Points = pointsValue;
             gameModel = StringService.PlayerBetPoint(gameModel, playerId);
+
+            gameModel = OptionService.OptionDrawCard(gameModel);
 
             return gameModel;
         }

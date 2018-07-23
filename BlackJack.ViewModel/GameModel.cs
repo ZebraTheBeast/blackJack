@@ -12,5 +12,6 @@ namespace BlackJack.ViewModel
         public List<CardModel> Deck { get; set; }
         public List<string> GameStats { get; set; }
         public int ButtonPushed { get; set; }
+        public string Options { get; set; }
     }
 }
