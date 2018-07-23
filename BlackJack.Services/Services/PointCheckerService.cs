@@ -12,7 +12,7 @@ namespace BlackJack.BLL.Services
     public static class PointCheckerService
     {
 
-        public static GameModel CheckPlayerWithDealer(PlayerModel player, PlayerModel dealer, GameModel gameModel)
+        public static GameViewModel CheckPlayerWithDealer(PlayerViewModel player, PlayerViewModel dealer, GameViewModel gameModel)
         {
             if ((player.Hand.CardListValue > dealer.Hand.CardListValue) && (CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(player, Constant.WinValue))
                 || ((CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(player, Constant.WinValue)) && (!CombinationCheckerService.PlayerHandCardListValueLessThenPointsValue(dealer, Constant.WinValue))))

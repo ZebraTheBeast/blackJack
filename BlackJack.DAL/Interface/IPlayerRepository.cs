@@ -11,7 +11,9 @@ namespace BlackJack.DAL.Interface
         Player GetByName(string Name);
         IEnumerable<Player> GetBots();
         Player Create(Player player);
-        void Update(Player player);
-
+        void MakeBet(int playerId, int bet);
+        void AnnulPoints(int playerId);
+        void WinPoints(int playerId);
+        void LosePoints(int playerId);
     }
 }

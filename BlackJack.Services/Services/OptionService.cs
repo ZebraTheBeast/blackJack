@@ -9,37 +9,37 @@ namespace BlackJack.BLL.Services
 {
     static public class OptionService
     {
-        static public GameModel OptionSetBet(GameModel gameModel)
+        static public GameViewModel OptionSetBet(GameViewModel gameModel)
         {
             gameModel.Options += "Please, make a bet.";
             return gameModel;
         }
 
-        static public GameModel OptionDrawCard(GameModel gameModel)
+        static public GameViewModel OptionDrawCard(GameViewModel gameModel)
         {
             gameModel.Options = "Draw card or stand.";
             return gameModel;
         }
 
-        static public GameModel OptionWin(GameModel gameModel)
+        static public GameViewModel OptionWin(GameViewModel gameModel)
         {
             gameModel.Options = "You win! ";
             return gameModel;
         }
 
-        static public GameModel OptionLose(GameModel gameModel)
+        static public GameViewModel OptionLose(GameViewModel gameModel)
         {
             gameModel.Options = "You lose! ";
             return gameModel;
         }
 
-        static public GameModel OptionDraw(GameModel gameModel)
+        static public GameViewModel OptionDraw(GameViewModel gameModel)
         {
             gameModel.Options = "You have draw! ";
             return gameModel;
         }
 
-        static public GameModel OptionRefreshGame(GameModel gameModel)
+        static public GameViewModel OptionRefreshGame(GameViewModel gameModel)
         {
             gameModel.Options += "You haven't enough point! Please, refresh the game!";
             return gameModel;

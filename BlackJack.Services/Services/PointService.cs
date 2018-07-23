@@ -9,20 +9,20 @@ namespace BlackJack.BLL.Services
 {
     public static class PointService
     {
-        public static GameModel WinPoints(GameModel gameModel, int playerId)
+        public static GameViewModel WinPoints(GameViewModel gameModel, int playerId)
         {
             gameModel.Players.First(p => p.Id == playerId).Points += gameModel.Players.First(p => p.Id == playerId).Hand.Points;
             gameModel = AnnulPoints(gameModel, playerId);
             return gameModel;
         }
 
-        public static GameModel AnnulPoints(GameModel gameModel, int playerId)
+        public static GameViewModel AnnulPoints(GameViewModel gameModel, int playerId)
         {
             gameModel.Players.First(p => p.Id == playerId).Hand.Points = 0;
             return gameModel;
         }
 
-        public static GameModel LosePoints(GameModel gameModel, int playerId)
+        public static GameViewModel LosePoints(GameViewModel gameModel, int playerId)
         {
             gameModel.Players.First(p => p.Id == playerId).Points -= gameModel.Players.First(p => p.Id == playerId).Hand.Points;
             var zp = gameModel.Players.First(p => p.Id == playerId).Points;

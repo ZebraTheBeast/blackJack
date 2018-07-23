@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BlackJack.ViewModel
 {
-    public class HandModel
+    public class HandViewModel
     {
-        public List<CardModel> CardList { get; set; }
+        public List<CardViewModel> CardList { get; set; }
         public int CardListValue { get; set; }
         public int Points { get; set; }
     }

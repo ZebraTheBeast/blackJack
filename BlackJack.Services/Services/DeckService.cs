@@ -14,9 +14,9 @@ namespace BlackJack.BLL.Services
     {
         private static Random _rng = new Random();
         
-        public static List<CardModel> GetShuffledDeck()
+        public static List<CardViewModel> GetShuffledDeck()
         {
-            List<CardModel> deck = new List<CardModel>();
+            List<CardViewModel> deck = new List<CardViewModel>();
             deck = GetNewDeck();
             int n = deck.Count;
 
@@ -24,14 +24,14 @@ namespace BlackJack.BLL.Services
             {
                 n--;
                 int k = _rng.Next(n + 1);
-                CardModel value = deck[k];
+                CardViewModel value = deck[k];
                 deck[k] = deck[n];
                 deck[n] = value;
             }
             return deck;
         }
 
-        public static void FillDeckWithCard(List<CardModel> deck, int end, List<string> cardNames, List<int> cardValues)
+        public static void FillDeckWithCard(List<CardViewModel> deck, int end, List<string> cardNames, List<int> cardValues)
         {
             int cardColorValue = 0;
             int cardTitleValue = 0;
@@ -39,7 +39,7 @@ namespace BlackJack.BLL.Services
 
             for (int i = 0; i < end; i++)
             {
-                var card = new CardModel();
+                var card = new CardViewModel();
 
                 card.Id = i;
                 card.Title = cardNames[cardTitleValue];
@@ -56,9 +56,9 @@ namespace BlackJack.BLL.Services
             }
         }
 
-        public static List<CardModel> GetNewDeck()
+        public static List<CardViewModel> GetNewDeck()
         {
-            var deck = new List<CardModel>();
+            var deck = new List<CardViewModel>();
             var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.CountNumberCard).ToList();
             var titleList = valueList.ConvertAll<string>(delegate (int i) { return i.ToString(); });
 

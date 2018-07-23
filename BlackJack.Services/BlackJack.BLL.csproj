@@ -53,6 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\IDeckService.cs" />
+    <Compile Include="Interface\IGameService.cs" />
+    <Compile Include="Interface\IPlayerService.cs" />
+    <Compile Include="Interface\IScoreService.cs" />
     <Compile Include="Services\CombinationCheckerService.cs" />
     <Compile Include="Services\DeckService.cs" />
     <Compile Include="Services\GameService.cs" />
@@ -83,10 +87,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helper\" />
-    <Folder Include="Infrastructure\" />
-    <Folder Include="Interface\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -11,7 +11,7 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Config
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.dll
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\BlackJack.ViewModel.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\ClassLibrary1.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\BlackJack.ViewModel.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\ClassLibrary1.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.csproj.CopyComplete
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\BlackJack.Entity.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\BlackJack.Entity.pdb

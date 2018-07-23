@@ -32,6 +32,7 @@ namespace BlackJack.DAL.Repository
         public IEnumerable<Player> GetBots()
         {
             var players = new List<Player>();
+
             using (var db = new SqlConnection(connectionString))
             {
                 players = db.Query<Player>("SELECT TOP(4) * FROM Player").ToList();
@@ -73,11 +74,46 @@ namespace BlackJack.DAL.Repository
             return player;
         }
 
-        public void Update(Player player)
+        public void MakeBet(int playerId, int bet)
         {
             using (var db = new SqlConnection(connectionString))
             {
-                var sqlQuery = $"UPDATE Player SET Points = {player.Points} WHERE Id = {player.Id}";
+                var sqlQuery = $"UPDATE Player SET Bet = {bet} WHERE Id = {playerId}";
+                db.Execute(sqlQuery);
+            }
+        }
+
+        public void WinPoints(int playerId)
+        {
+            using (var db = new SqlConnection(connectionString))
+            {
+                var sqlQuery = $"SELECT * FROM Player WHERE playerId = {playerId}";
+                var player = db.Query<Player>(sqlQuery).First();
+                var playerPoints = player.Points + player.Bet;
+                sqlQuery = $"UPDATE Player SET Points = {playerPoints}, Bet = 0 WHERE Id = {player.Id}";
+                db.Execute(sqlQuery);
+            }
+        }
+
+        public void LosePoints(int playerId)
+        {
+            using (var db = new SqlConnection(connectionString))
+            {
+                var sqlQuery = $"SELECT * FROM Player WHERE playerId = {playerId}";
+                var player = db.Query<Player>(sqlQuery).First();
+                var playerPoints = player.Points - player.Bet;
+                sqlQuery = $"UPDATE Player SET Points = {playerPoints}, Bet = 0 WHERE Id = {player.Id}";
+                db.Execute(sqlQuery);
+            }
+        }
+
+        public void AnnulPoints(int playerId)
+        {
+            using (var db = new SqlConnection(connectionString))
+            {
+                var sqlQuery = $"SELECT * FROM Player WHERE playerId = {playerId}";
+                var player = db.Query<Player>(sqlQuery).First();
+                sqlQuery = $"UPDATE Player SET Bet = 0 WHERE Id = {player.Id}";
                 db.Execute(sqlQuery);
             }
         }

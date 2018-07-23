@@ -8,9 +8,9 @@ namespace BlackJack.Entity.Enum
 {
     public enum CardTitle
     {
-        Jack = 10,
-        Queen = 10,
-        King = 10,
-        Ace = 11
+        Jack = 0,
+        Queen = 1,
+        King = 2,
+        Ace = 3
     }
 }

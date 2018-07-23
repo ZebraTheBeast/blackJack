@@ -17,7 +17,7 @@ namespace BlackJack.BLL.Services
     {
         static PlayerRepository _playerRepository = new PlayerRepository();
 
-        public static GameModel Dealing(GameModel gameModel)
+        public static GameViewModel Dealing(GameViewModel gameModel)
         {
             gameModel.Deck = DeckService.GetShuffledDeck();
 
@@ -35,7 +35,7 @@ namespace BlackJack.BLL.Services
             return gameModel;
         }
 
-        public static GameModel GiveCard(int playerId, GameModel gameModel)
+        public static GameViewModel GiveCard(int playerId, GameViewModel gameModel)
         {
             var index = gameModel.Players.FindIndex(p => p.Id == playerId);
             StringService.PlayerDrawCard(gameModel, index);
@@ -46,39 +46,39 @@ namespace BlackJack.BLL.Services
             return gameModel;
         }
 
-        public static GameModel StartGame(string playerName)
+        public static GameViewModel StartGame(string playerName)
         {
-            var players = new List<PlayerModel>();
-            var gameModel = new GameModel();
+            var players = new List<PlayerViewModel>();
+            var gameModel = new GameViewModel();
 
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<Player, PlayerModel>());
+            Mapper.Initialize(cfg => cfg.CreateMap<Player, PlayerViewModel>());
 
             var playerEntity = _playerRepository.GetByName(playerName);
-            var humanPlayer = Mapper.Map<Player, PlayerModel>(playerEntity);
+            var humanPlayer = Mapper.Map<Player, PlayerViewModel>(playerEntity);
             var playersEntity = _playerRepository.GetBots();
 
             foreach (var item in playersEntity)
             {
-                players.Add(Mapper.Map<Player, PlayerModel>(item));
+                players.Add(Mapper.Map<Player, PlayerViewModel>(item));
             }
 
             players.Add(humanPlayer);
 
             for (var i = 0; i < players.Count; i++)
             {
-                players[i].Hand = new HandModel { CardList = new List<CardModel>() };
+                players[i].Hand = new HandViewModel { CardList = new List<CardViewModel>() };
             }
 
             gameModel.Players = players;
             gameModel.GameStats = new List<string>();
-            gameModel.Deck = new List<CardModel>();
+            gameModel.Deck = new List<CardViewModel>();
             gameModel = OptionService.OptionSetBet(gameModel);
 
             return gameModel;
         }
 
-        private static PlayerModel CountPlayerCardsValue(PlayerModel player)
+        private static PlayerViewModel CountPlayerCardsValue(PlayerViewModel player)
         {
             player.Hand.CardListValue = 0;
 
@@ -103,7 +103,7 @@ namespace BlackJack.BLL.Services
             return player;
         }
 
-        public static GameModel BotTurn(GameModel gameModel, PlayerModel player, int minValue)
+        public static GameViewModel BotTurn(GameViewModel gameModel, PlayerViewModel player, int minValue)
         {
             do
             {
@@ -117,39 +117,39 @@ namespace BlackJack.BLL.Services
             } while (true);
         }
 
-        public static GameModel EditPoints(GameModel gameModel)
+        public static GameViewModel EditPoints(GameViewModel gameModel)
         {
             for (var i = 1; i < gameModel.Players.Count; i++)
             {
                 gameModel = PointCheckerService.CheckPlayerWithDealer(gameModel.Players[i], gameModel.Players[0], gameModel);
-                _playerRepository.Update(Mapper.Map<PlayerModel, Player>(gameModel.Players[i]));
+                _playerRepository.Update(Mapper.Map<PlayerViewModel, Player>(gameModel.Players[i]));
             }
 
-            if (gameModel.Players.Last().Points < 10)
+            if (gameModel.Players.Last().Points < Constant.MinPointsValueToPlay)
             {
                 gameModel = OptionService.OptionRefreshGame(gameModel);
             }
-            if (gameModel.Players.Last().Points >= 10)
+            if (gameModel.Players.Last().Points >= Constant.MinPointsValueToPlay)
             {
                 gameModel = OptionService.OptionSetBet(gameModel);
             }
             return gameModel;
         }
 
-        public static GameModel EndTurn(GameModel gameModel)
+        public static GameViewModel EndTurn(GameViewModel gameModel)
         {
             for (var i = 0; i < gameModel.Players.Count; i++)
             {
-                gameModel.Players[i].Hand.CardList = new List<CardModel>();
+                gameModel.Players[i].Hand.CardList = new List<CardViewModel>();
                 gameModel.Players[i] = CountPlayerCardsValue(gameModel.Players[i]);
             }
 
-            gameModel.Deck = new List<CardModel>();
+            gameModel.Deck = new List<CardViewModel>();
 
             return gameModel;
         }
 
-        public static GameModel PlaceBet(GameModel gameModel, int playerId, int pointsValue)
+        public static GameViewModel PlaceBet(GameViewModel gameModel, int playerId, int pointsValue)
         {
             gameModel.Players.Find(p => p.Id == playerId).Hand.Points = pointsValue;
             gameModel = StringService.PlayerBetPoint(gameModel, playerId);

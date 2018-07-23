@@ -3,7 +3,7 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.ViewModel.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\ClassLibrary1.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\ClassLibrary1.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.csprojAssemblyReference.cache
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.csproj.CopyComplete
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entity.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entity.pdb

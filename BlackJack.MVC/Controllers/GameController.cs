@@ -24,7 +24,7 @@ namespace BlackJack.MVC.Controllers
         [HttpPost, ActionName("Draw")]
         public ActionResult Draw(string jsonModel)
         {
-            var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
+            var gameModel = new JavaScriptSerializer().Deserialize<GameViewModel>(jsonModel);
             var humanId = gameModel.Players.Last().Id;
             gameModel = GameService.GiveCard(humanId, gameModel);
             if (gameModel.Players[gameModel.Players.Count - 1].Hand.CardListValue >= Constant.WinValue)
@@ -38,7 +38,7 @@ namespace BlackJack.MVC.Controllers
         [HttpPost, ActionName("BotTurn")]
         public ActionResult BotTurn(string jsonModel)
         {
-            var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
+            var gameModel = new JavaScriptSerializer().Deserialize<GameViewModel>(jsonModel);
 
             for (var i = gameModel.Players.Count - 2; i > -1; i--)
             {
@@ -55,7 +55,7 @@ namespace BlackJack.MVC.Controllers
         [HttpPost, ActionName("PlaceBet")]
         public ActionResult PlaceBet(string jsonModel, int pointsValue)
         {
-            var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
+            var gameModel = new JavaScriptSerializer().Deserialize<GameViewModel>(jsonModel);
             gameModel = GameService.EndTurn(gameModel);
             gameModel = GameService.PlaceBet(gameModel, gameModel.Players.Last().Id, pointsValue);
             gameModel = GameService.Dealing(gameModel);
@@ -72,7 +72,7 @@ namespace BlackJack.MVC.Controllers
         [HttpPost, ActionName("RefreshGame")]
         public ActionResult RefreshGame(string jsonModel)
         {
-            var gameModel = new JavaScriptSerializer().Deserialize<GameModel>(jsonModel);
+            var gameModel = new JavaScriptSerializer().Deserialize<GameViewModel>(jsonModel);
 
             gameModel = GameService.StartGame(gameModel.Players[gameModel.Players.Count - 1].Name);
 

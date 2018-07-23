@@ -10,7 +10,7 @@ namespace BlackJack.BLL.Services
 {
     public static class CombinationCheckerService
     {
-        public static bool PlayerHandCardListIsBlackJack(PlayerModel player)
+        public static bool PlayerHandCardListIsBlackJack(PlayerViewModel player)
         {
             if (player.Hand.CardList.Count() != Constant.NumberCardForBlackJack)
             {
@@ -33,7 +33,7 @@ namespace BlackJack.BLL.Services
             return true;
         }
 
-        public static bool PlayerHandCardListValueLessThenPointsValue(PlayerModel player, int pointsValue)
+        public static bool PlayerHandCardListValueLessThenPointsValue(PlayerViewModel player, int pointsValue)
         {
             if (player.Hand.CardListValue <= pointsValue)
             {
@@ -43,7 +43,7 @@ namespace BlackJack.BLL.Services
             return false;
         }
 
-        public static bool PlayerHandCardListValueIsTwentyOne(PlayerModel player)
+        public static bool PlayerHandCardListValueIsTwentyOne(PlayerViewModel player)
         {
             if (player.Hand.CardListValue == Constant.WinValue)
             {
