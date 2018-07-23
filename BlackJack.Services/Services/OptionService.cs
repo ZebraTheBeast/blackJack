@@ -38,5 +38,11 @@ namespace BlackJack.BLL.Services
             gameModel.Options = "You have draw! ";
             return gameModel;
         }
+
+        static public GameModel OptionRefreshGame(GameModel gameModel)
+        {
+            gameModel.Options += "You haven't enough point! Please, refresh the game!";
+            return gameModel;
+        }
     }
 }

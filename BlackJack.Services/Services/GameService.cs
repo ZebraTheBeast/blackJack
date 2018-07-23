@@ -58,16 +58,16 @@ namespace BlackJack.BLL.Services
             var humanPlayer = Mapper.Map<Player, PlayerModel>(playerEntity);
             var playersEntity = _playerRepository.GetBots();
 
-            foreach(var item in playersEntity)
+            foreach (var item in playersEntity)
             {
                 players.Add(Mapper.Map<Player, PlayerModel>(item));
             }
 
             players.Add(humanPlayer);
 
-            for(var i = 0; i < players.Count; i++)
+            for (var i = 0; i < players.Count; i++)
             {
-                players[i].Hand = new HandModel {CardList = new List<CardModel>() };
+                players[i].Hand = new HandModel { CardList = new List<CardModel>() };
             }
 
             gameModel.Players = players;
@@ -125,7 +125,14 @@ namespace BlackJack.BLL.Services
                 _playerRepository.Update(Mapper.Map<PlayerModel, Player>(gameModel.Players[i]));
             }
 
-            gameModel = OptionService.OptionSetBet(gameModel);
+            if (gameModel.Players.Last().Points < 10)
+            {
+                gameModel = OptionService.OptionRefreshGame(gameModel);
+            }
+            if (gameModel.Players.Last().Points >= 10)
+            {
+                gameModel = OptionService.OptionSetBet(gameModel);
+            }
             return gameModel;
         }
 
