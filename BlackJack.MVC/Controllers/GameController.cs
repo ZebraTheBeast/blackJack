@@ -17,12 +17,12 @@ namespace BlackJack.MVC.Controllers
         {
             var gameService = new GameService();
             gameService.StartGame(playerName);
-            var gameModel = gameService.GetGameViewModel();
-            gameModel.ButtonPushed = 0;
+            var gameViewModel = gameService.GetGameViewModel();
+            gameViewModel.ButtonPushed = 0;
 
-            gameModel.Options = OptionService.OptionSetBet("");
+            gameViewModel.Options = OptionService.OptionSetBet("");
 
-            return View("Game", gameModel);
+            return View("Game", gameViewModel);
         }
 
         [HttpPost]
@@ -32,23 +32,23 @@ namespace BlackJack.MVC.Controllers
 
             gameService.HumanDrawCard(humanId);
 
-            var gameModel = gameService.GetGameViewModel();
-            gameModel.ButtonPushed = 1;
-            gameModel.Options = OptionService.OptionDrawCard();
+            var gameViewModel = gameService.GetGameViewModel();
+            gameViewModel.ButtonPushed = 1;
+            gameViewModel.Options = OptionService.OptionDrawCard();
 
-            if (gameModel.Human.Hand.CardListValue >= Constant.WinValue)
+            if (gameViewModel.Human.Hand.CardListValue >= Constant.WinValue)
             {
-                gameModel = BotTurn();
+                gameViewModel = BotTurn();
             }
 
-            return View("Game", gameModel);
+            return View("Game", gameViewModel);
         }
 
         [HttpPost]
         public ActionResult Stand()
         {
-            var gameModel = BotTurn();
-            return View("Game", gameModel);
+            var gameViewModel = BotTurn();
+            return View("Game", gameViewModel);
         }
 
         [HttpPost]
@@ -61,45 +61,46 @@ namespace BlackJack.MVC.Controllers
             gameService.MakeBet(humanId, pointsValue);
             gameService.Dealing();
 
-            var gameModel = gameService.GetGameViewModel();
+            var gameViewModel = gameService.GetGameViewModel();
 
-            gameModel.ButtonPushed = 1;
-            gameModel.Options = OptionService.OptionDrawCard();
-            if ((gameModel.Human.Hand.CardListValue >= Constant.WinValue) || (gameModel.Dealer.Hand.CardListValue >= Constant.WinValue))
+            gameViewModel.ButtonPushed = 1;
+            gameViewModel.Options = OptionService.OptionDrawCard();
+
+            if ((gameViewModel.Human.Hand.CardListValue >= Constant.WinValue) || (gameViewModel.Dealer.Hand.CardListValue >= Constant.WinValue))
             {
-                gameModel = BotTurn();
+                gameViewModel = BotTurn();
             }
 
-            return View("Game", gameModel);
+            return View("Game", gameViewModel);
         }
 
         private GameViewModel BotTurn()
         {
             var gameService = new GameService();
-            var gameModel = gameService.GetGameViewModel();
+            var gameViewModel = gameService.GetGameViewModel();
 
-            for (var i = 0; i > gameModel.Bots.Count(); i++)
+            for (var i = 0; i > gameViewModel.Bots.Count(); i++)
             {
-                gameService.BotTurn(gameModel.Bots[i].Id);
+                gameService.BotTurn(gameViewModel.Bots[i].Id);
             }
 
             gameService.BotTurn(Constant.DealerId);
 
-            gameModel = gameService.GetGameViewModel();
+            gameViewModel = gameService.GetGameViewModel();
 
-            for (var i = 0; i < gameModel.Bots.Count(); i++)
+            for (var i = 0; i < gameViewModel.Bots.Count(); i++)
             {
-                gameService.UpdateScore(gameModel.Bots[i].Id, gameModel.Bots[i].Hand.CardListValue, gameModel.Dealer.Hand.CardListValue);
+                gameService.UpdateScore(gameViewModel.Bots[i].Id, gameViewModel.Bots[i].Hand.CardListValue, gameViewModel.Dealer.Hand.CardListValue);
             }
 
-            var message = gameService.UpdateScore(gameModel.Human.Id, gameModel.Human.Hand.CardListValue, gameModel.Dealer.Hand.CardListValue);
+            var message = gameService.UpdateScore(gameViewModel.Human.Id, gameViewModel.Human.Hand.CardListValue, gameViewModel.Dealer.Hand.CardListValue);
 
-            gameModel = gameService.GetGameViewModel();
-            gameModel.Options = message;
-            gameModel.Options = OptionService.OptionSetBet(message);
+            gameViewModel = gameService.GetGameViewModel();
+            gameViewModel.Options = message;
+            gameViewModel.Options = OptionService.OptionSetBet(message);
 
-            gameModel.ButtonPushed = 0;
-            return gameModel;
+            gameViewModel.ButtonPushed = 0;
+            return gameViewModel;
         }
 
     }

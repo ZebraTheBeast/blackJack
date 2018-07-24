@@ -63,10 +63,12 @@ namespace BlackJack.BLL.Services
         {
             var playersId = _playerService.GetPlayersIdInGame();
             var bots = _playerService.GetBotsInGame();
+
             for(var i = 0; i < bots.Count(); i ++)
             {
                 _playerService.MakeBet(bots[i].Id, Constant.BotsBetValue);
             }
+
             foreach(var playerId in playersId)
             {
                 _deckService.GiveCardFromDeck(playerId);

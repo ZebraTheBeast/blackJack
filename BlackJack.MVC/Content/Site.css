@@ -27,8 +27,3 @@ textarea {
     margin: 5px auto;
     width: 40%;
 }
-
-.game-stat {
-    overflow: auto;
-    height: 238px;
-}

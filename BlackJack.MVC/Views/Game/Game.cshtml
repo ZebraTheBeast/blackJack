@@ -1,6 +1,6 @@
 ﻿@model BlackJack.ViewModel.GameViewModel
 
-<h2 class="text-center">Game</h2>
+<h2 class="text-center">Black Jack</h2>
 
 <div class="container">
     <div class="row">
@@ -17,7 +17,8 @@
             </ul>
             <h4> Value: @Model.Dealer.Hand.CardListValue</h4>
         </div>
-        <div id="GameStat" class="col-md-6 game-stat">
+        <div id="GameStat" class="col-md-6 text-center">
+            <h1 class="alert alert-info">@Model.Options</h1>
         </div>
         <div class="col-md-3">
             <ul class="list-group">
@@ -29,12 +30,6 @@
             </ul>
             <h3>Cards in deck: @Model.Deck.Count()</h3>
         </div>
-    </div>
-</div>
-<div class="row text-center">
-    <div class="col-md-12">
-
-        <h1 class="alert alert-info">@Model.Options</h1>
     </div>
 </div>
 <div class="row text-center">
