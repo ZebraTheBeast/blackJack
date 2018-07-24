@@ -25,22 +25,53 @@ namespace BlackJack.DAL.Repository
             }
         }
 
-        public List<int> GetAll()
+        public void AddHuman(int playerId)
         {
             using (var db = new SqlConnection(connectionString))
             {
-                var sqlQuery = $"SELECT* FROM PlayerInGame";
+                var sqlQuery = $"INSERT INTO PlayerInGame (PlayerId, Humanity) VALUES({playerId}, 1)";
+                db.Execute(sqlQuery);
+            }
+        }
+
+        public List<int> GetBots()
+        {
+            using (var db = new SqlConnection(connectionString))
+            {
+                var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 0 AND PlayerId > 1";
                 var players = db.Query<int>(sqlQuery).ToList();
 
                 return players;
             }
         }
 
-        public void RemoveAll(int playerId)
+        public List<int> GetAll()
         {
             using (var db = new SqlConnection(connectionString))
             {
-                var sqlQuery = $"DELETE FROM PlayerInGame WHERE PlayerId = {playerId}";
+                var sqlQuery = $"SELECT PlayerId FROM PlayerInGame";
+                var players = db.Query<int>(sqlQuery).ToList();
+
+                return players;
+            }
+        }
+
+        public int GetHuman()
+        {
+            using (var db = new SqlConnection(connectionString))
+            {
+                var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 1";
+                var playerId = db.Query<int>(sqlQuery).First();
+
+                return playerId;
+            }
+        }
+        
+        public void RemoveAll()
+        {
+            using (var db = new SqlConnection(connectionString))
+            {
+                var sqlQuery = $"DELETE FROM PlayerInGame WHERE PlayerId > 0";
                 db.Execute(sqlQuery);
             }
         }
@@ -69,6 +100,16 @@ namespace BlackJack.DAL.Repository
             {
                 var sqlQuery = $"UPDATE PlayerInGame SET Bet = 0 WHERE PlayerId = {playerId}";
                 db.Execute(sqlQuery);
+            }
+        }
+
+        public int GetBetByPlayerId(int playerId)
+        {
+            using (var db = new SqlConnection(connectionString))
+            {
+                var sqlQuery = $"SELECT Bet FROM PlayerInGame WHERE PlayerId = {playerId}";
+                var betValue = db.Query<int>(sqlQuery).FirstOrDefault();
+                return betValue;
             }
         }
     }

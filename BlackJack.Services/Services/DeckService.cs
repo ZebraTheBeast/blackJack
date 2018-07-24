@@ -39,7 +39,7 @@ namespace BlackJack.BLL.Services
                 var viewCard = new CardViewModel();
 
                 viewCard.Title = card.Title;
-                viewCard.Color = card.Color;
+                viewCard.Color = card.Color.ToString();
                 viewCard.Value = card.Value;
 
                 deck.Add(viewCard);
@@ -47,7 +47,6 @@ namespace BlackJack.BLL.Services
 
             return deck;
         }
-
 
         public void RefreshAndShuffleDeck()
         {
@@ -59,7 +58,7 @@ namespace BlackJack.BLL.Services
 
             for (var i = 0; i < n; i++)
             {
-                int k = _rng.Next(n + 1);
+                int k = _rng.Next(n);
                 var value = deck[i];
                 deck[i] = deck[k];
                 deck[k] = value;
@@ -87,6 +86,7 @@ namespace BlackJack.BLL.Services
             _handRepository.GiveCardToPlayer(playerId, cardId);
         }
 
+
         private List<Card> GetFullDeck()
         {
             var deck = new List<Card>();
@@ -99,11 +99,6 @@ namespace BlackJack.BLL.Services
             foreach (var value in Enum.GetNames(typeof(CardTitle)))
             {
                 titleList.Add(value);
-            }
-
-            foreach (var value in Enum.GetValues(typeof(CardTitle)))
-            {
-                valueList.Add((int)value);
             }
 
             for (var i = 0; i < Enum.GetValues(typeof(CardTitle)).Length - 1; i++)

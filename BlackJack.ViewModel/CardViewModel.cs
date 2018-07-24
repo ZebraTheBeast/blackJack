@@ -9,8 +9,9 @@ namespace BlackJack.ViewModel
 {
     public class CardViewModel
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public int Value { get; set; }
-        public CardColor Color { get; set; }
+        public string Color { get; set; }
     }
 }

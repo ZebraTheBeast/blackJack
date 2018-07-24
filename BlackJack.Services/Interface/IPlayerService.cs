@@ -8,7 +8,12 @@ namespace BlackJack.BLL.Interface
 {
     public interface IPlayerService
     {
-        void PlayerAdd(string playerName);
-        List<PlayerViewModel> GetPlayers();
+        List<PlayerViewModel> GetBotsInGame();
+        PlayerViewModel GetHumanInGame();
+        DealerViewModel GetDealer();
+        void SetPlayerToGame(string playerName);   
+        List<int> GetPlayersIdInGame();
+        void RemoveAllPlayers();
+        void MakeBet(int playerId, int betValue);
     }
 }

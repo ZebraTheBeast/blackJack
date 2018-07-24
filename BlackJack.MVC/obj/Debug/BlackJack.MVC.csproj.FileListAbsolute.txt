@@ -73,7 +73,6 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.De
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.Razor.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\WebGrease.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\ClassLibrary1.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.BLL.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.ViewModel.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Helpers.xml
@@ -91,7 +90,6 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AI.Dependenc
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AI.Web.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\ClassLibrary1.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\obj\Debug\BlackJack.MVC.csproj.CopyComplete
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\obj\Debug\BlackJack.MVC.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\obj\Debug\BlackJack.MVC.pdb
@@ -213,12 +211,9 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.MVC\ob
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Dapper.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Dapper.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DAL.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\AutoMapper.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.ValueTuple.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DAL.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DAL.dll.config
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\AutoMapper.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\AutoMapper.xml
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.ValueTuple.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Configuration.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Configuration.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Entity.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Entity.pdb

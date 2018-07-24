@@ -66,8 +66,9 @@ namespace BlackJack.DAL.Repository
                 Create(player);
             }
 
-            if(player.Points <= 0)
+            if(player.Points < Constant.MinPointsValueToPlay)
             {
+                RestorePoints(player.Id);
                 player.Points = Constant.DefaultPointsValue;
             }
 
@@ -89,6 +90,21 @@ namespace BlackJack.DAL.Repository
             {
                 var sqlQuery = $"UPDATE Player SET Points = {Constant.DefaultPointsValue} WHERE Id = {playerId}";
                 db.Execute(sqlQuery);
+            }
+        }
+
+        public Player GetById(int id)
+        {
+            using (var db = new SqlConnection(connectionString))
+            {
+                var sqlQuery = $"SELECT * FROM Player WHERE Id = {id}";
+                var player = db.Query<Player>(sqlQuery).FirstOrDefault();
+                if(player.Points < Constant.MinPointsValueToPlay)
+                {
+                    RestorePoints(player.Id);
+                    player.Points = Constant.DefaultPointsValue;
+                }
+                return player;
             }
         }
     }

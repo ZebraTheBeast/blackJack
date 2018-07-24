@@ -1,7 +1,5 @@
 ﻿@model BlackJack.ViewModel.GameViewModel
-@{
-    var jsonModel = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model);
-}
+
 <h2 class="text-center">Game</h2>
 
 <div class="container">
@@ -9,15 +7,15 @@
         <div class="col-md-3 text-center">
             <h2>
                 <i class="fa fa-black-tie"></i>
-            @Model.Players[0].Name
+                @Model.Dealer.Name
             </h2>
             <ul class="list-group">
-                @foreach (var card in Model.Players[0].Hand.CardList)
+                @foreach (var card in Model.Dealer.Hand.CardList)
                 {
                     <li class="list-group-item">@card.Title of @card.Color</li>
                 }
             </ul>
-            <h4> Value: @Model.Players[0].Hand.CardListValue</h4>
+            <h4> Value: @Model.Dealer.Hand.CardListValue</h4>
         </div>
         <div id="GameStat" class="col-md-6 game-stat">
             @if (Model.GameStats != null)
@@ -30,10 +28,11 @@
         </div>
         <div class="col-md-3">
             <ul class="list-group">
-                @for (var i = 1; i < Model.Players.Count; i++)
+                @for (var i = 0; i < Model.Bots.Count; i++)
                 {
-                    <li class="list-group-item">@Model.Players[i].Name @Model.Players[i].Points</li>
+                    <li class="list-group-item">@Model.Bots[i].Name @Model.Bots[i].Points</li>
                 }
+                <li class="list-group-item">@Model.Human.Name @Model.Human.Points</li>
             </ul>
             <h3>Cards in deck: @Model.Deck.Count()</h3>
         </div>
@@ -41,55 +40,64 @@
 </div>
 <div class="row text-center">
     <div class="col-md-12">
-        <h1 class="alert alert-info">@Model.Options</h1>
+        <h1 class="alert alert-info">zhopa</h1>
     </div>
 </div>
 <div class="row text-center">
-    @for (var i = 1; i < Model.Players.Count; i++)
+    @for (var i = 0; i < Model.Bots.Count; i++)
     {
         <div class="col-md-2">
             <h3 class="text-center">
-                @if (i == Model.Players.Count - 1)
-                {
-                    <i class="fa fa-user"></i>
-                }
-                @if(i != Model.Players.Count - 1)
-                {
-                    <i class="fa fa-desktop"></i>
-                }
-                @Model.Players[i].Name
+                <i class="fa fa-desktop"></i>
+                @Model.Bots[i].Name
             </h3>
             <ul class="list-group">
-                @foreach (var card in Model.Players[i].Hand.CardList)
+                @foreach (var card in Model.Bots[i].Hand.CardList)
                 {
                     <li class="list-group-item">@card.Title of @card.Color.ToString()</li>
                 }
             </ul>
-            <h4>Value: @Model.Players[i].Hand.CardListValue</h4>
+            <h4>Value: @Model.Bots[i].Hand.CardListValue</h4>
         </div>
     }
 
-    <input id="playerValue" type="hidden" value="@Model.Players[Model.Players.Count-1].Hand.CardListValue" />
+    <div class="col-md-2">
+        <h3 class="text-center">
+            <i class="fa fa-user"></i>
+            @Model.Human.Name
+        </h3>
+        <ul class="list-group">
+            @foreach (var card in Model.Human.Hand.CardList)
+            {
+                <li class="list-group-item">@card.Title of @card.Color.ToString()</li>
+            }
+        </ul>
+        <h4>Value: @Model.Human.Hand.CardListValue</h4>
+    </div>
+   
+
+
+    <input id="playerValue" type="hidden" value="@Model.Human.Hand.CardListValue" />
     <input id="idButton" type="hidden" value="@Model.ButtonPushed" />
-    <input id="playerPoints" type="hidden" value="@Model.Players[Model.Players.Count-1].Points" />
+    <input id="playerPoints" type="hidden" value="@Model.Human.Points" />
 
     <div class="col-md-4 ">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken();
 
-            <input type="hidden" name="jsonModel" value="@jsonModel" />
+         
 
-            @Html.Hidden("playerId", Model.Players.Last().Id);
+            @Html.Hidden("humanId", Model.Human.Id);
 
             <div class="row">
                 <input id="drawButton" type="submit" value="Draw" class="custombutton btn btn-default" formaction="@Url.Action("Draw")" />
             </div>
             <div class="row">
-                <input id="botTurnButton" type="submit" value="Stand" class="btn btn-default custombutton" formaction="@Url.Action("BotTurn")" />
+                <input id="standButton" type="submit" value="Stand" class="btn btn-default custombutton" formaction="@Url.Action("Stand")" />
             </div>
             <div class="row">
-                <input type="range" id="betValue" class="custombutton custom-range" min="10" value="10" max="@Model.Players[Model.Players.Count-1].Points" oninput="placeBet()" step="10" name="pointsValue" />
+                <input type="range" id="betValue" class="custombutton custom-range" min="10" value="10" max="@Model.Human.Points" oninput="placeBet()" step="10" name="pointsValue" />
             </div>
             <div class="row">
                 <input type="number" id="imageBetValue" class="custombutton text-center" value="10" readonly="readonly" />

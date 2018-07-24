@@ -4,13 +4,11 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\AutoMapper.
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.Configuration.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.DAL.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.ViewModel.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\ClassLibrary1.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Ninject.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\System.ValueTuple.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.Configuration.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.DAL.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.DAL.dll.config
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\ClassLibrary1.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.ViewModel.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\AutoMapper.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\AutoMapper.xml
@@ -48,3 +46,5 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Servic
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\obj\Debug\BlackJack.BLL.csproj.CopyComplete
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Dapper.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Dapper.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.Entity.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.Entity.pdb

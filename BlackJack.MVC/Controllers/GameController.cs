@@ -12,73 +12,88 @@ namespace BlackJack.MVC.Controllers
 {
     public class GameController : Controller
     {
-        [HttpPost, ActionName("StartGame")]
+        [HttpPost]
         public ActionResult StartGame(string playerName)
         {
-            var gameModel = GameService.StartGame(playerName);
+            var gameService = new GameService();
+            gameService.StartGame(playerName);
+            var gameModel = gameService.GetGameViewModel();
             gameModel.ButtonPushed = 0;
 
             return View("Game", gameModel);
         }
 
-        [HttpPost, ActionName("Draw")]
-        public ActionResult Draw(string jsonModel)
+        [HttpPost]
+        public ActionResult Draw(int humanId)
         {
-            var gameModel = new JavaScriptSerializer().Deserialize<GameViewModel>(jsonModel);
-            var humanId = gameModel.Players.Last().Id;
-            gameModel = GameService.GiveCard(humanId, gameModel);
-            if (gameModel.Players[gameModel.Players.Count - 1].Hand.CardListValue >= Constant.WinValue)
+            var gameService = new GameService();
+
+            gameService.HumanDrawCard(humanId);
+
+            var gameModel = gameService.GetGameViewModel();
+            gameModel.ButtonPushed = 1;
+
+            if (gameModel.Human.Hand.CardListValue >= Constant.WinValue)
             {
-                var newJsonModel = new JavaScriptSerializer().Serialize(gameModel);
-                return BotTurn(newJsonModel);
+
+                RedirectToAction("BotTurn");
             }
+
             return View("Game", gameModel);
         }
 
-        [HttpPost, ActionName("BotTurn")]
-        public ActionResult BotTurn(string jsonModel)
+        [HttpPost]
+        public ActionResult Stand()
         {
-            var gameModel = new JavaScriptSerializer().Deserialize<GameViewModel>(jsonModel);
+            
+            var gameService = new GameService();
+            var gameModel = gameService.GetGameViewModel();
 
-            for (var i = gameModel.Players.Count - 2; i > -1; i--)
+            for (var i = 0; i > gameModel.Bots.Count(); i++)
             {
-                gameModel = GameService.BotTurn(gameModel, gameModel.Players[i], Constant.ValueToStopDraw);
+                gameService.BotTurn(gameModel.Bots[i].Id);
             }
 
-            gameModel = GameService.EditPoints(gameModel);
+            gameService.BotTurn(Constant.DealerId);
+
+            gameModel = gameService.GetGameViewModel();
+
+            for (var i = 0; i < gameModel.Bots.Count(); i++)
+            {
+                gameService.UpdateScore(gameModel.Bots[i].Id, gameModel.Bots[i].Hand.CardListValue, gameModel.Dealer.Hand.CardListValue);
+            }
+
+            gameService.UpdateScore(gameModel.Human.Id, gameModel.Human.Hand.CardListValue, gameModel.Dealer.Hand.CardListValue);
+
+            gameModel = gameService.GetGameViewModel();
 
             gameModel.ButtonPushed = 0;
 
             return View("Game", gameModel);
         }
 
-        [HttpPost, ActionName("PlaceBet")]
-        public ActionResult PlaceBet(string jsonModel, int pointsValue)
+        [HttpPost]
+        public ActionResult PlaceBet(int humanId, int pointsValue)
         {
-            var gameModel = new JavaScriptSerializer().Deserialize<GameViewModel>(jsonModel);
-            gameModel = GameService.EndTurn(gameModel);
-            gameModel = GameService.PlaceBet(gameModel, gameModel.Players.Last().Id, pointsValue);
-            gameModel = GameService.Dealing(gameModel);
+            
+            var gameService = new GameService();
+
+            gameService.EndTurn();
+            gameService.MakeBet(humanId, pointsValue);
+            gameService.Dealing();
+
+            var gameModel = gameService.GetGameViewModel();
 
             gameModel.ButtonPushed = 1;
-            if ((gameModel.Players[gameModel.Players.Count - 1].Hand.CardListValue >= Constant.WinValue) || (gameModel.Players[0].Hand.CardListValue >= Constant.WinValue))
+
+            if ((gameModel.Human.Hand.CardListValue >= Constant.WinValue) || (gameModel.Dealer.Hand.CardListValue >= Constant.WinValue))
             {
-                var newJsonModel = new JavaScriptSerializer().Serialize(gameModel);
-                return BotTurn(newJsonModel);
+                RedirectToAction("BotTurn");
             }
-            return View("Game", gameModel);
-        }
-
-        [HttpPost, ActionName("RefreshGame")]
-        public ActionResult RefreshGame(string jsonModel)
-        {
-            var gameModel = new JavaScriptSerializer().Deserialize<GameViewModel>(jsonModel);
-
-            gameModel = GameService.StartGame(gameModel.Players[gameModel.Players.Count - 1].Name);
-
-            gameModel.ButtonPushed = 0;
 
             return View("Game", gameModel);
         }
+
+
     }
 }

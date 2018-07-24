@@ -5,7 +5,7 @@
 
 function disableButtons() {
     draw = document.getElementById("drawButton");
-    botTurn = document.getElementById("botTurnButton");
+    standButton = document.getElementById("standButton");
 
     betValue = document.getElementById("betValue");
     imageBetValue = document.getElementById("imageBetValue");
@@ -17,7 +17,7 @@ function disableButtons() {
 
     if (idButton == 0) {
         draw.disabled = true;
-        botTurn.disabled = true;
+        standButton.disabled = true;
     }
 
     if (idButton == 1) {

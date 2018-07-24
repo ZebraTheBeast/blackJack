@@ -32,7 +32,7 @@ namespace BlackJack.DAL.Repository
                 var sqlQuery = $"SELECT TOP(1) * FROM Deck";
                 var card = db.Query<Deck>(sqlQuery).First();
 
-                sqlQuery = $"DELETE FROM Deck WHERE Id = {card.CardId}";
+                sqlQuery = $"DELETE FROM Deck WHERE CardId = {card.CardId}";
                 db.Execute(sqlQuery);
 
                 return card.CardId;
