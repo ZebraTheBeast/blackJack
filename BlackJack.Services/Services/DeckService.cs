@@ -71,15 +71,6 @@ namespace BlackJack.BLL.Services
 
         }
 
-        public void SaveCardsToDb()
-        {
-            var cardList = GetFullDeck();
-            foreach (var card in cardList)
-            {
-                _cardRepository.Create(card);
-            }
-        }
-
         public void GiveCardFromDeck(int playerId)
         {
             var cardId = _deckRepository.GetFirstCardIdAndRemove();

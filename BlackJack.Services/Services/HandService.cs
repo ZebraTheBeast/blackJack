@@ -14,11 +14,13 @@ namespace BlackJack.BLL.Services
     {
         IHandRepository _handRepository;
         ICardRepository _cardRepository;
+        IPlayerInGameRepository _playerInGameRepository;
 
-        public HandService(IHandRepository handRepository, ICardRepository cardRepository)
+        public HandService(IHandRepository handRepository, ICardRepository cardRepository, IPlayerInGameRepository playerInGameRepository)
         {
             _handRepository = handRepository;
             _cardRepository = cardRepository;
+            _playerInGameRepository = playerInGameRepository;
         }
 
         public HandViewModel GetPlayerHand(int playerId)
@@ -40,6 +42,7 @@ namespace BlackJack.BLL.Services
                 hand.CardList.Add(cardViewModel);
             }
 
+            hand.Points = _playerInGameRepository.GetBetByPlayerId(playerId);
             hand.CardListValue = CountPlayerCardsValue(hand.CardList);
 
             return hand;

@@ -18,13 +18,6 @@
             <h4> Value: @Model.Dealer.Hand.CardListValue</h4>
         </div>
         <div id="GameStat" class="col-md-6 game-stat">
-            @if (Model.GameStats != null)
-            {
-                foreach (var post in Model.GameStats)
-                {
-                    <p>@post</p>
-                }
-            }
         </div>
         <div class="col-md-3">
             <ul class="list-group">
@@ -40,25 +33,27 @@
 </div>
 <div class="row text-center">
     <div class="col-md-12">
-        <h1 class="alert alert-info">zhopa</h1>
+
+        <h1 class="alert alert-info">@Model.Options</h1>
     </div>
 </div>
 <div class="row text-center">
     @for (var i = 0; i < Model.Bots.Count; i++)
     {
-        <div class="col-md-2">
-            <h3 class="text-center">
-                <i class="fa fa-desktop"></i>
-                @Model.Bots[i].Name
-            </h3>
-            <ul class="list-group">
-                @foreach (var card in Model.Bots[i].Hand.CardList)
-                {
-                    <li class="list-group-item">@card.Title of @card.Color.ToString()</li>
-                }
-            </ul>
-            <h4>Value: @Model.Bots[i].Hand.CardListValue</h4>
-        </div>
+    <div class="col-md-2">
+        <h3 class="text-center">
+            <i class="fa fa-desktop"></i>
+            @Model.Bots[i].Name
+        </h3>
+        <ul class="list-group">
+            @foreach (var card in Model.Bots[i].Hand.CardList)
+            {
+                <li class="list-group-item">@card.Title of @card.Color.ToString()</li>
+            }
+        </ul>
+        <h4>Value: @Model.Bots[i].Hand.CardListValue</h4>
+        <h4>Bet: @Model.Bots[i].Hand.Points</h4>
+    </div>
     }
 
     <div class="col-md-2">
@@ -73,9 +68,8 @@
             }
         </ul>
         <h4>Value: @Model.Human.Hand.CardListValue</h4>
+        <h4>Bet: @Model.Human.Hand.Points</h4>
     </div>
-   
-
 
     <input id="playerValue" type="hidden" value="@Model.Human.Hand.CardListValue" />
     <input id="idButton" type="hidden" value="@Model.ButtonPushed" />
@@ -85,8 +79,6 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken();
-
-         
 
             @Html.Hidden("humanId", Model.Human.Id);
 
@@ -104,9 +96,6 @@
             </div>
             <div class="row">
                 <input id="placeBetButton" type="submit" value="Place a bet" class="btn btn-default custombutton" formaction="@Url.Action("PlaceBet")" />
-            </div>
-            <div class="row">
-                <input type="submit" value="Refresh game" class="btn btn-default custombutton" formaction="@Url.Action("RefreshGame")" />
             </div>
         }
     </div>

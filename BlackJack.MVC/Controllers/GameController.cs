@@ -20,6 +20,8 @@ namespace BlackJack.MVC.Controllers
             var gameModel = gameService.GetGameViewModel();
             gameModel.ButtonPushed = 0;
 
+            gameModel.Options = OptionService.OptionSetBet("");
+
             return View("Game", gameModel);
         }
 
@@ -32,11 +34,11 @@ namespace BlackJack.MVC.Controllers
 
             var gameModel = gameService.GetGameViewModel();
             gameModel.ButtonPushed = 1;
+            gameModel.Options = OptionService.OptionDrawCard();
 
             if (gameModel.Human.Hand.CardListValue >= Constant.WinValue)
             {
-
-                RedirectToAction("BotTurn");
+                gameModel = BotTurn();
             }
 
             return View("Game", gameModel);
@@ -45,7 +47,34 @@ namespace BlackJack.MVC.Controllers
         [HttpPost]
         public ActionResult Stand()
         {
+            var gameModel = BotTurn();
+            return View("Game", gameModel);
+        }
+
+        [HttpPost]
+        public ActionResult PlaceBet(int humanId, int pointsValue)
+        {
             
+            var gameService = new GameService();
+
+            gameService.EndTurn();
+            gameService.MakeBet(humanId, pointsValue);
+            gameService.Dealing();
+
+            var gameModel = gameService.GetGameViewModel();
+
+            gameModel.ButtonPushed = 1;
+            gameModel.Options = OptionService.OptionDrawCard();
+            if ((gameModel.Human.Hand.CardListValue >= Constant.WinValue) || (gameModel.Dealer.Hand.CardListValue >= Constant.WinValue))
+            {
+                gameModel = BotTurn();
+            }
+
+            return View("Game", gameModel);
+        }
+
+        private GameViewModel BotTurn()
+        {
             var gameService = new GameService();
             var gameModel = gameService.GetGameViewModel();
 
@@ -63,37 +92,15 @@ namespace BlackJack.MVC.Controllers
                 gameService.UpdateScore(gameModel.Bots[i].Id, gameModel.Bots[i].Hand.CardListValue, gameModel.Dealer.Hand.CardListValue);
             }
 
-            gameService.UpdateScore(gameModel.Human.Id, gameModel.Human.Hand.CardListValue, gameModel.Dealer.Hand.CardListValue);
+            var message = gameService.UpdateScore(gameModel.Human.Id, gameModel.Human.Hand.CardListValue, gameModel.Dealer.Hand.CardListValue);
 
             gameModel = gameService.GetGameViewModel();
+            gameModel.Options = message;
+            gameModel.Options = OptionService.OptionSetBet(message);
 
             gameModel.ButtonPushed = 0;
-
-            return View("Game", gameModel);
+            return gameModel;
         }
-
-        [HttpPost]
-        public ActionResult PlaceBet(int humanId, int pointsValue)
-        {
-            
-            var gameService = new GameService();
-
-            gameService.EndTurn();
-            gameService.MakeBet(humanId, pointsValue);
-            gameService.Dealing();
-
-            var gameModel = gameService.GetGameViewModel();
-
-            gameModel.ButtonPushed = 1;
-
-            if ((gameModel.Human.Hand.CardListValue >= Constant.WinValue) || (gameModel.Dealer.Hand.CardListValue >= Constant.WinValue))
-            {
-                RedirectToAction("BotTurn");
-            }
-
-            return View("Game", gameModel);
-        }
-
 
     }
 }

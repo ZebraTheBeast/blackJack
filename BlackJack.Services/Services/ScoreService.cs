@@ -20,38 +20,43 @@ namespace BlackJack.BLL.Services
             _playerRepository = playerRepository;
         }
 
-        public void UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue)
+        public string UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue)
         {
             if ((playerCardsValue > dealerCardsValue) && (playerCardsValue <= Constant.WinValue))
             {
                 PlayerWinPoints(playerId);
-                //win
+                _playerInGameRepository.AnnulBet(playerId);
+                return OptionService.OptionWin();
             }
 
             if ((playerCardsValue <= Constant.WinValue) && (dealerCardsValue > Constant.WinValue))
             {
                 PlayerWinPoints(playerId);
-                //win
+                _playerInGameRepository.AnnulBet(playerId);
+                return OptionService.OptionWin();
             }
 
             if (playerCardsValue > Constant.WinValue)
             {
                 PlayerLosePoints(playerId);
-                //lose
+                _playerInGameRepository.AnnulBet(playerId);
+                return OptionService.OptionLose();
             }
 
             if ((dealerCardsValue > playerCardsValue) && (dealerCardsValue <= Constant.WinValue))
             {
                 PlayerLosePoints(playerId);
-                //lose
+                _playerInGameRepository.AnnulBet(playerId);
+                return OptionService.OptionLose();
             }
 
             if ((dealerCardsValue == playerCardsValue) && (playerCardsValue <= Constant.WinValue))
             {
-                //draw
+                _playerInGameRepository.AnnulBet(playerId);
+                return OptionService.OptionDraw();
             }
 
-            _playerInGameRepository.AnnulBet(playerId);
+            return "Error!";
         }
 
         private void PlayerLosePoints(int playerId)

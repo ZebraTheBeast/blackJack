@@ -12,8 +12,7 @@ namespace BlackJack.BLL.Interface
         void StartGame(string humanName);
         bool BotTurn(int botId);
         void HumanDrawCard(int humanId);
-        void RefreshGame();
-        void UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue);
+        string UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue);
         void EndTurn();
         void Dealing();
     }

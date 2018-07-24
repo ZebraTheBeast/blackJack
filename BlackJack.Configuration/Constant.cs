@@ -21,5 +21,6 @@ namespace BlackJack.Configuration.Constant
         public const int DefaultPointsValue = 1000;
         public const int ValueToStopDraw = 17;
         public const int MinPointsValueToPlay = 10;
+        public const int BotsBetValue = 50;
     }
 }

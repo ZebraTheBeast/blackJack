@@ -62,11 +62,9 @@
     <Compile Include="Services\HandService.cs" />
     <Compile Include="Services\ScoreService.cs" />
     <Compile Include="Services\DeckService.cs" />
-    <Compile Include="Temp\GameService.cs" />
-    <Compile Include="Temp\OptionService.cs" />
+    <Compile Include="Services\OptionService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Temp\StringService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlackJack.Configuration\BlackJack.Configuration.csproj">

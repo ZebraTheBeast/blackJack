@@ -26,7 +26,7 @@ namespace BlackJack.BLL.Services
             var playerInGameRepository = new PlayerInGameRepository();
 
             _deckService = new DeckService(deckRepository, cardRepository, handRepository);
-            _handService = new HandService(handRepository, cardRepository);
+            _handService = new HandService(handRepository, cardRepository, playerInGameRepository);
             _playerService = new PlayerService(playerRepository, playerInGameRepository);
             _scoreService = new ScoreService(playerInGameRepository, playerRepository);
         }
@@ -48,14 +48,8 @@ namespace BlackJack.BLL.Services
             gameViewModel.Dealer.Hand = _handService.GetPlayerHand(gameViewModel.Dealer.Id);
 
             gameViewModel.Deck = _deckService.GetDeck();
-            return gameViewModel;
-        }
 
-        public void RefreshGame()
-        {
-            _handService.RemoveAllCardsInHand();
-            _deckService.RefreshAndShuffleDeck();
-            _playerService.RemoveAllPlayers();
+            return gameViewModel;
         }
 
         public void StartGame(string humanName)
@@ -68,7 +62,11 @@ namespace BlackJack.BLL.Services
         public void Dealing()
         {
             var playersId = _playerService.GetPlayersIdInGame();
-
+            var bots = _playerService.GetBotsInGame();
+            for(var i = 0; i < bots.Count(); i ++)
+            {
+                _playerService.MakeBet(bots[i].Id, Constant.BotsBetValue);
+            }
             foreach(var playerId in playersId)
             {
                 _deckService.GiveCardFromDeck(playerId);
@@ -81,9 +79,10 @@ namespace BlackJack.BLL.Services
             _deckService.GiveCardFromDeck(humanId);
         }
 
-        public void UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue)
+        public string UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue)
         {
-            _scoreService.UpdateScore(playerId, playerCardsValue, dealerCardsValue);
+            var message = _scoreService.UpdateScore(playerId, playerCardsValue, dealerCardsValue);
+            return message;
         }
 
         public void EndTurn()
@@ -95,7 +94,7 @@ namespace BlackJack.BLL.Services
         public bool BotTurn(int botId)
         {
             var value = _handService.GetPlayerHandValue(botId);
-            if (value > Constant.ValueToStopDraw)
+            if (value >= Constant.ValueToStopDraw)
             {
                 return false;
             }
