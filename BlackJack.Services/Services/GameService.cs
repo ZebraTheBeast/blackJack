@@ -104,9 +104,10 @@ namespace BlackJack.BLL.Services
             return BotTurn(botId);
         }
 
-        public void MakeBet(int playerId, int betValue)
+        public bool MakeBet(int playerId, int betValue)
         {
-            _playerService.MakeBet(playerId, betValue);
+            var response = _playerService.MakeBet(playerId, betValue);
+            return response;
         }
     }
 }

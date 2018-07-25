@@ -14,6 +14,6 @@ namespace BlackJack.BLL.Interface
         void SetPlayerToGame(string playerName);   
         List<int> GetPlayersIdInGame();
         void RemoveAllPlayers();
-        void MakeBet(int playerId, int betValue);
+        bool MakeBet(int playerId, int betValue);
     }
 }

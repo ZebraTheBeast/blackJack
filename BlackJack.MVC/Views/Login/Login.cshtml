@@ -1,8 +1,4 @@
-﻿@model BlackJack.ViewModel.PlayerViewModel
-@{
-    ViewBag.Title = "Login";
-}
-<div class="row">
+﻿<div class="row">
     <div class="col-md-12">
         <h3>Input your name:</h3>
     </div>
@@ -15,10 +11,7 @@
             @Html.AntiForgeryToken()
 
             <div class="form-group ">
-
-                @Html.LabelFor(model => model.Name, "Name", htmlAttributes: new { @class = "control-label" })
-
-                <input type="text" id="Name" class="form-control" name="playerName" autocomplete="off" />
+                <input required type="text" id="Name" class="form-control" name="playerName" autocomplete="off" />
             </div>
 
             <input type="submit" name="Play" value="Play" class="btn btn-default" />

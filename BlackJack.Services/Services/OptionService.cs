@@ -39,5 +39,10 @@ namespace BlackJack.BLL.Services
             return message;
         }
 
+        static public string OptionErrorBet()
+        {
+            var message = "You don't have enough points!";
+            return message;
+        }
     }
 }

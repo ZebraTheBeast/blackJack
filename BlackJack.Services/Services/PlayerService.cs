@@ -67,9 +67,15 @@ namespace BlackJack.BLL.Services
             return playerIdList;
         }
 
-        public void MakeBet(int playerId, int betValue)
+        public bool MakeBet(int playerId, int betValue)
         {
+            var player = _playerRepository.GetById(playerId);
+            if(player.Points < betValue)
+            {
+                return false;
+            }
             _playerInGameRepository.MakeBet(playerId, betValue);
+            return true;
         }
 
         public PlayerViewModel GetHumanInGame()

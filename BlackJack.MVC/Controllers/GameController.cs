@@ -58,7 +58,17 @@ namespace BlackJack.MVC.Controllers
             var gameService = new GameService();
 
             gameService.EndTurn();
-            gameService.MakeBet(humanId, pointsValue);
+
+            var response = gameService.MakeBet(humanId, pointsValue);
+
+            if(!response)
+            {
+                var errorGameViewModel = gameService.GetGameViewModel();
+                errorGameViewModel.Options = OptionService.OptionErrorBet();
+                return View("Game", errorGameViewModel);
+            }
+
+
             gameService.Dealing();
 
             var gameViewModel = gameService.GetGameViewModel();
