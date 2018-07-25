@@ -86,6 +86,20 @@ namespace BlackJack.BLL.Services
                 }
             }
 
+            if(cards.Count() != Constant.NumberCardForBlackJack)
+            {
+                return cardListValue;
+            }
+
+            foreach(var card in cards)
+            {
+                if(card.Title != Constant.NameCardForBlackJack)
+                {
+                    return cardListValue;
+                }
+            }
+
+            cardListValue = Constant.WinValue;
             return cardListValue;
         }
 
