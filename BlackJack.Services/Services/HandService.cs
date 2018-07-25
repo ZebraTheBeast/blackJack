@@ -10,7 +10,7 @@ using BlackJack.Configuration.Constant;
 
 namespace BlackJack.BLL.Services
 {
-    public class HandService : IHandService
+    public class HandService
     {
         IHandRepository _handRepository;
         ICardRepository _cardRepository;

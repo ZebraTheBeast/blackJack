@@ -34,7 +34,7 @@ namespace BlackJack.DAL.Repository
             }
         }
 
-        public List<int> GetBots()
+        public IEnumerable<int> GetBots()
         {
             using (var db = new SqlConnection(connectionString))
             {
@@ -45,7 +45,7 @@ namespace BlackJack.DAL.Repository
             }
         }
 
-        public List<int> GetAll()
+        public IEnumerable<int> GetAll()
         {
             using (var db = new SqlConnection(connectionString))
             {

@@ -9,7 +9,7 @@ namespace BlackJack.DAL.Interface
     public interface IHandRepository
     {
         void GiveCardToPlayer(int playerId, int cardId);
-        List<int> GetIdCardsByPlayerId(int playerId);
+        IEnumerable<int> GetIdCardsByPlayerId(int playerId);
         void RemoveAll();
     }
 }

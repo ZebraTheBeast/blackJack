@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
 
-namespace BlackJack.BLL.Services
+namespace BlackJack.BLL.Helper
 {
-    static public class OptionService
+    static public class OptionHelper
     {
         static public string OptionSetBet(string message)
         {

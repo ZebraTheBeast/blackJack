@@ -217,3 +217,11 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Configuratio
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Configuration.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Entity.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Entity.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Common.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Common.WebHost.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Mvc.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Common.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Common.WebHost.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Mvc.xml

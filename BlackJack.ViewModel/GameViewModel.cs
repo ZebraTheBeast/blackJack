@@ -11,7 +11,7 @@ namespace BlackJack.ViewModel
         public DealerViewModel Dealer { get; set; }
         public PlayerViewModel Human { get; set; }
         public List<PlayerViewModel> Bots { get; set; }
-        public List<CardViewModel> Deck { get; set; }
+        public List<int> Deck { get; set; }
         public int ButtonPushed { get; set; }
         public string Options { get; set; }
     }

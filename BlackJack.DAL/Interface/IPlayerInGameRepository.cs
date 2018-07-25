@@ -12,8 +12,8 @@ namespace BlackJack.DAL.Interface
         void AddHuman(int playerId);
         void RemovePlayer(int playerId);
         void RemoveAll();
-        List<int> GetAll();
-        List<int> GetBots();
+        IEnumerable<int> GetAll();
+        IEnumerable<int> GetBots();
         int GetHuman();
         int GetBetByPlayerId(int playerId);
         void MakeBet(int playerId, int bet);

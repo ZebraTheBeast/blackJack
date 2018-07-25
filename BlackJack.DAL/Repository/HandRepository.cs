@@ -16,7 +16,7 @@ namespace BlackJack.DAL.Repository
     {
         string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-        public List<int> GetIdCardsByPlayerId(int playerId)
+        public IEnumerable<int> GetIdCardsByPlayerId(int playerId)
         {
             using (var db = new SqlConnection(connectionString))
             {

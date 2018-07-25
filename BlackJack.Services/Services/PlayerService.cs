@@ -9,7 +9,7 @@ using BlackJack.DAL.Interface;
 
 namespace BlackJack.BLL.Services
 {
-    public class PlayerService : IPlayerService
+    public class PlayerService
     {
         IPlayerRepository _playerRepository;
         IPlayerInGameRepository _playerInGameRepository;
@@ -39,31 +39,21 @@ namespace BlackJack.BLL.Services
             return playerViewModelList;
         }
 
-        private void SetBotsToGame()
+        public void SetPlayerToGame(string playerName)
         {
+            _playerInGameRepository.RemoveAll();
+            var player = _playerRepository.GetByName(playerName);
             var bots = _playerRepository.GetBots();
             foreach (var bot in bots)
             {
                 _playerInGameRepository.AddPlayer(bot.Id);
             }
-        }
-
-        public void SetPlayerToGame(string playerName)
-        {
-            _playerInGameRepository.RemoveAll();
-            var player = _playerRepository.GetByName(playerName);
-            SetBotsToGame();
             _playerInGameRepository.AddHuman(player.Id);
-        }
-
-        public void RemoveAllPlayers()
-        {
-            _playerInGameRepository.RemoveAll();
         }
 
         public List<int> GetPlayersIdInGame()
         {
-            var playerIdList = _playerInGameRepository.GetAll();
+            var playerIdList = _playerInGameRepository.GetAll().ToList();
             return playerIdList;
         }
 

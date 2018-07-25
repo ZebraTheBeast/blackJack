@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using BlackJack.ViewModel;
 using BlackJack.Configuration.Constant;
 using BlackJack.Entity.Enum;
@@ -13,52 +14,31 @@ using BlackJack.BLL.Interface;
 
 namespace BlackJack.BLL.Services
 {
-    public class DeckService : IDeckService
+    public class DeckService
     {
-        private static Random _rng = new Random();
-        IDeckRepository _deckRepository;
+
         ICardRepository _cardRepository;
         IHandRepository _handRepository;
 
-        public DeckService(IDeckRepository deckRepository, ICardRepository cardRepository, IHandRepository handRepository)
+        public DeckService( ICardRepository cardRepository, IHandRepository handRepository)
         {
-            _deckRepository = deckRepository;
+
             _cardRepository = cardRepository;
             _handRepository = handRepository;
         }
 
-        public List<CardViewModel> GetDeck()
+        public List<int> RefreshAndShuffleDeck()
         {
-            var deck = new List<CardViewModel>();
-
-            var cardIdList = _deckRepository.GetDeck();
-
-            foreach (var cardId in cardIdList)
-            {
-                var card = _cardRepository.GetById(cardId);
-                var viewCard = new CardViewModel();
-
-                viewCard.Title = card.Title;
-                viewCard.Color = card.Color.ToString();
-                viewCard.Value = card.Value;
-
-                deck.Add(viewCard);
-            }
-
-            return deck;
-        }
-
-        public void RefreshAndShuffleDeck()
-        {
+            Random rng = new Random();
             var deck = new List<Card>();
+            var cardIdList = new List<int>();
             deck = GetFullDeck();
+            
             int n = deck.Count;
-
-            _deckRepository.RemoveAll();
 
             for (var i = 0; i < n; i++)
             {
-                int k = _rng.Next(n);
+                int k = rng.Next(n);
                 var value = deck[i];
                 deck[i] = deck[k];
                 deck[k] = value;
@@ -66,14 +46,14 @@ namespace BlackJack.BLL.Services
 
             foreach (var card in deck)
             {
-                _deckRepository.Add(card.Id);
+                cardIdList.Add(card.Id);
             }
+            return cardIdList;
 
         }
 
-        public void GiveCardFromDeck(int playerId)
+        public void GiveCardFromDeck(int playerId, int cardId)
         {
-            var cardId = _deckRepository.GetFirstCardIdAndRemove();
             _handRepository.GiveCardToPlayer(playerId, cardId);
         }
 

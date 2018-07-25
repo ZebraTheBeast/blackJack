@@ -1,5 +1,7 @@
 ﻿@model BlackJack.ViewModel.GameViewModel
-
+@{
+    var jsonDeck =  new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Deck);
+}
 <h2 class="text-center">Black Jack</h2>
 
 <div class="container">
@@ -76,6 +78,7 @@
             @Html.AntiForgeryToken();
 
             @Html.Hidden("humanId", Model.Human.Id);
+            @Html.Hidden("jsonDeck", jsonDeck);
 
             <div class="row">
                 <input id="drawButton" type="submit" value="Draw" class="custombutton btn btn-default" formaction="@Url.Action("Draw")" />

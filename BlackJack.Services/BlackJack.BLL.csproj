@@ -53,16 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\IDeckService.cs" />
-    <Compile Include="Interface\IGameService.cs" />
-    <Compile Include="Interface\IHandService.cs" />
-    <Compile Include="Interface\IPlayerService.cs" />
-    <Compile Include="Interface\IScoreService.cs" />
-    <Compile Include="Services\GameService.cs" />
+    <Compile Include="Interface\IGameHelper.cs" />
+    <Compile Include="Helper\GameHelper.cs" />
     <Compile Include="Services\HandService.cs" />
     <Compile Include="Services\ScoreService.cs" />
     <Compile Include="Services\DeckService.cs" />
-    <Compile Include="Services\OptionService.cs" />
+    <Compile Include="Helper\OptionHelper.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

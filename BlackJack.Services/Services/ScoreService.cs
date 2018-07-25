@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJack.BLL.Interface;
+using BlackJack.BLL.Helper;
 using BlackJack.DAL.Interface;
 using BlackJack.Configuration.Constant;
 
 namespace BlackJack.BLL.Services
 {
-    public class ScoreService : IScoreService
+    public class ScoreService 
     {
         IPlayerInGameRepository _playerInGameRepository;
         IPlayerRepository _playerRepository;
@@ -26,34 +27,34 @@ namespace BlackJack.BLL.Services
             {
                 PlayerWinPoints(playerId);
                 _playerInGameRepository.AnnulBet(playerId);
-                return OptionService.OptionWin();
+                return OptionHelper.OptionWin();
             }
 
             if ((playerCardsValue <= Constant.WinValue) && (dealerCardsValue > Constant.WinValue))
             {
                 PlayerWinPoints(playerId);
                 _playerInGameRepository.AnnulBet(playerId);
-                return OptionService.OptionWin();
+                return OptionHelper.OptionWin();
             }
 
             if (playerCardsValue > Constant.WinValue)
             {
                 PlayerLosePoints(playerId);
                 _playerInGameRepository.AnnulBet(playerId);
-                return OptionService.OptionLose();
+                return OptionHelper.OptionLose();
             }
 
             if ((dealerCardsValue > playerCardsValue) && (dealerCardsValue <= Constant.WinValue))
             {
                 PlayerLosePoints(playerId);
                 _playerInGameRepository.AnnulBet(playerId);
-                return OptionService.OptionLose();
+                return OptionHelper.OptionLose();
             }
 
             if ((dealerCardsValue == playerCardsValue) && (playerCardsValue <= Constant.WinValue))
             {
                 _playerInGameRepository.AnnulBet(playerId);
-                return OptionService.OptionDraw();
+                return OptionHelper.OptionDraw();
             }
 
             return "Error!";
