@@ -17,25 +17,25 @@ namespace BlackJack.DAL.Repository
     {
         string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-        public Player Create(Player player)
+        public async Task<Player> Create(Player player)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"INSERT INTO Player (Name) VALUES('{player.Name}')";
-                db.Execute(sqlQuery);
+                await db.ExecuteAsync(sqlQuery);
 
-                player = GetByName(player.Name);
+                player = await GetByName(player.Name);
             }
             return player;
         }
 
-        public IEnumerable<Player> GetBots()
+        public async Task<IEnumerable<Player>> GetBots()
         {
-            var players = new List<Player>();
-
+            IEnumerable<Player> players = new List<Player>();
+            
             using (var db = new SqlConnection(connectionString))
             {
-                players = db.Query<Player>("SELECT TOP(4) * FROM Player").ToList();
+                players = await db.QueryAsync<Player>("SELECT TOP(4) * FROM Player");
             }
 
             foreach(var player in players)
@@ -49,56 +49,56 @@ namespace BlackJack.DAL.Repository
             return players;
         }
 
-        public Player GetByName(string name)
+        public async Task<Player> GetByName(string name)
         {
             var player = new Player();
 
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"SELECT * FROM Player WHERE Name = '{name}'";
-                player = db.Query<Player>(sqlQuery).FirstOrDefault();
+                player = (await db.QueryAsync<Player>(sqlQuery)).First();
             }
 
             if (player == null)
             {
                 player = new Player();
                 player.Name = name;
-                Create(player);
+                await Create(player);
             }
 
             if(player.Points < Constant.MinPointsValueToPlay)
             {
-                RestorePoints(player.Id);
+                await RestorePoints(player.Id);
                 player.Points = Constant.DefaultPointsValue;
             }
 
             return player;
         }
 
-        public void UpdatePoints(int playerId, int newPointsValue)
+        public async Task UpdatePoints(int playerId, int newPointsValue)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"UPDATE Player SET Points = {newPointsValue} WHERE Id = {playerId}";
-                db.Execute(sqlQuery);
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
-        public void RestorePoints(int playerId)
+        public async Task RestorePoints(int playerId)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"UPDATE Player SET Points = {Constant.DefaultPointsValue} WHERE Id = {playerId}";
-                db.Execute(sqlQuery);
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
-        public Player GetById(int id)
+        public async Task<Player> GetById(int id)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"SELECT * FROM Player WHERE Id = {id}";
-                var player = db.Query<Player>(sqlQuery).FirstOrDefault();
+                var player = (await db.QueryAsync<Player>(sqlQuery)).FirstOrDefault();
                 if(player.Points < Constant.MinPointsValueToPlay)
                 {
                     RestorePoints(player.Id);

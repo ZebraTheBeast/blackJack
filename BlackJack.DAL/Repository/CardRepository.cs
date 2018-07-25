@@ -16,23 +16,23 @@ namespace BlackJack.DAL.Repository
     {
         string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-        public void Create(Card card)
+        public async Task Create(Card card)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"INSERT INTO Card (Id, Title, Color, Value) VALUES({card.Id}, '{card.Title}', '{card.Color}', {card.Value})";
-                db.Execute(sqlQuery);
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
-        public Card GetById(int cardId)
+        public async Task<Card> GetById(int cardId)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"SELECT * FROM Card WHERE Id = {cardId}";
-                var card = db.Query<Card>(sqlQuery).First();
+                var card = await db.QueryAsync<Card>(sqlQuery);
 
-                return card;
+                return card.First();
             }
         }
     }

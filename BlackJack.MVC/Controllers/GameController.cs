@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 using BlackJack.BLL.Interface;
 using BlackJack.ViewModel;
 using System.Web.Script.Serialization;
@@ -21,36 +22,38 @@ namespace BlackJack.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult StartGame(string playerName)
+        public async Task<ActionResult> StartGame(string playerName)
         {
             var gameViewModel = new GameViewModel();
-            gameViewModel = _gameHelper.StartGame(playerName);
+            
+            gameViewModel = await _gameHelper.StartGame(playerName);
+            
             return View("Game", gameViewModel);
         }
 
         [HttpPost]
-        public ActionResult Draw(int humanId, string jsonDeck)
+        public async Task<ActionResult> Draw(int humanId, string jsonDeck)
         {
             var deck = new JavaScriptSerializer().Deserialize<List<int>>(jsonDeck);
             var gameViewModel = new GameViewModel();
-            gameViewModel = _gameHelper.Draw(humanId, deck);
+            gameViewModel = await _gameHelper.Draw(humanId, deck);
             return View("Game", gameViewModel);
         }
 
         [HttpPost]
-        public ActionResult Stand(string  jsonDeck)
+        public async Task<ActionResult> Stand(string  jsonDeck)
         {
             var deck = new JavaScriptSerializer().Deserialize<List<int>>(jsonDeck);
             var gameViewModel = new GameViewModel();
-            gameViewModel = _gameHelper.BotTurn(deck);
+            gameViewModel = await _gameHelper.BotTurn(deck);
             return View("Game", gameViewModel);
         }
 
         [HttpPost]
-        public ActionResult PlaceBet(int humanId, int pointsValue)
+        public async Task<ActionResult> PlaceBet(int humanId, int pointsValue)
         {
             var gameViewModel = new GameViewModel();
-            gameViewModel = _gameHelper.PlaceBet(humanId, pointsValue);
+            gameViewModel = await _gameHelper.PlaceBet(humanId, pointsValue);
             return View("Game", gameViewModel);
         }
         // asinchron, exception

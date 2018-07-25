@@ -9,7 +9,7 @@ namespace BlackJack.DAL.Interface
 {
     public interface ICardRepository
     {
-        void Create(Card card);
-        Card GetById(int cardId);
+        Task Create(Card card);
+        Task<Card> GetById(int cardId);
     }
 }

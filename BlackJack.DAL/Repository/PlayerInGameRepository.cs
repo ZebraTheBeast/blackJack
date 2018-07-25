@@ -16,100 +16,101 @@ namespace BlackJack.DAL.Repository
     {
         string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-        public void AddPlayer(int playerId)
+        public async Task AddPlayer(int playerId)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"INSERT INTO PlayerInGame (PlayerId) VALUES({playerId})";
-                db.Execute(sqlQuery);
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
-        public void AddHuman(int playerId)
+        public async Task AddHuman(int playerId)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"INSERT INTO PlayerInGame (PlayerId, Humanity) VALUES({playerId}, 1)";
-                db.Execute(sqlQuery);
+                Console.WriteLine("zhep");
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
-        public IEnumerable<int> GetBots()
+        public async Task<IEnumerable<int>> GetBots()
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 0 AND PlayerId > 1";
-                var players = db.Query<int>(sqlQuery).ToList();
+                var players = await db.QueryAsync<int>(sqlQuery);
 
                 return players;
             }
         }
 
-        public IEnumerable<int> GetAll()
+        public async Task<IEnumerable<int>> GetAll()
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"SELECT PlayerId FROM PlayerInGame";
-                var players = db.Query<int>(sqlQuery).ToList();
+                var players = await db.QueryAsync<int>(sqlQuery);
 
                 return players;
             }
         }
 
-        public int GetHuman()
+        public async Task<int> GetHuman()
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 1";
-                var playerId = db.Query<int>(sqlQuery).First();
+                var playerId = await db.QueryAsync<int>(sqlQuery);
 
-                return playerId;
+                return playerId.First();
             }
         }
         
-        public void RemoveAll()
+        public async Task RemoveAll()
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"DELETE FROM PlayerInGame WHERE PlayerId > 0";
-                db.Execute(sqlQuery);
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
-        public void RemovePlayer(int playerId)
+        public async Task RemovePlayer(int playerId)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"DELETE FROM PlayerInGame WHERE PlayerId > 0";
-                db.Execute(sqlQuery);
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
-        public void MakeBet(int playerId, int betValue)
+        public async Task MakeBet(int playerId, int betValue)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"UPDATE PlayerInGame SET Bet = {betValue} WHERE PlayerId = {playerId}";
-                db.Execute(sqlQuery);
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
-        public void AnnulBet(int playerId)
+        public async Task AnnulBet(int playerId)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"UPDATE PlayerInGame SET Bet = 0 WHERE PlayerId = {playerId}";
-                db.Execute(sqlQuery);
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
-        public int GetBetByPlayerId(int playerId)
+        public async Task<int> GetBetByPlayerId(int playerId)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"SELECT Bet FROM PlayerInGame WHERE PlayerId = {playerId}";
-                var betValue = db.Query<int>(sqlQuery).FirstOrDefault();
-                return betValue;
+                var betValue = await db.QueryAsync<int>(sqlQuery);
+                return betValue.First();
             }
         }
     }

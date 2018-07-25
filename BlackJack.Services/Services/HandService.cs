@@ -23,15 +23,15 @@ namespace BlackJack.BLL.Services
             _playerInGameRepository = playerInGameRepository;
         }
 
-        public HandViewModel GetPlayerHand(int playerId)
+        public async Task<HandViewModel> GetPlayerHand(int playerId)
         {
             var hand = new HandViewModel { CardList = new List<CardViewModel>() };
 
-            var cardsId = _handRepository.GetIdCardsByPlayerId(playerId);
+            var cardsId = await _handRepository.GetIdCardsByPlayerId(playerId);
 
             foreach (var cardId in cardsId)
             {
-                var card = _cardRepository.GetById(cardId);
+                var card = await _cardRepository.GetById(cardId);
 
                 var cardViewModel = new CardViewModel();
                 cardViewModel.Id = card.Id;
@@ -42,20 +42,20 @@ namespace BlackJack.BLL.Services
                 hand.CardList.Add(cardViewModel);
             }
 
-            hand.Points = _playerInGameRepository.GetBetByPlayerId(playerId);
+            hand.Points = await _playerInGameRepository.GetBetByPlayerId(playerId);
             hand.CardListValue = CountPlayerCardsValue(hand.CardList);
 
             return hand;
         }
 
-        public int GetPlayerHandValue(int playerId)
+        public async Task<int> GetPlayerHandValue(int playerId)
         {
-            var cardsId = _handRepository.GetIdCardsByPlayerId(playerId);
+            var cardsId = await _handRepository.GetIdCardsByPlayerId(playerId);
             var cards = new List<CardViewModel>();
 
             foreach (var cardId in cardsId)
             {
-                var card = _cardRepository.GetById(cardId);
+                var card = await _cardRepository.GetById(cardId);
                 var cardViewModel = new CardViewModel();
                 cardViewModel.Id = card.Id;
                 cardViewModel.Title = card.Title;
@@ -103,9 +103,9 @@ namespace BlackJack.BLL.Services
             return cardListValue;
         }
 
-        public void RemoveAllCardsInHand()
+        public async Task RemoveAllCardsInHand()
         {
-            _handRepository.RemoveAll();
+            await _handRepository.RemoveAll();
         }
     }
 }

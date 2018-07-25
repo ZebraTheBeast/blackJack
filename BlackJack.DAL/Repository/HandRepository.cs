@@ -16,31 +16,31 @@ namespace BlackJack.DAL.Repository
     {
         string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-        public IEnumerable<int> GetIdCardsByPlayerId(int playerId)
+        public async Task<IEnumerable<int>> GetIdCardsByPlayerId(int playerId)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"SELECT CardId FROM Hand WHERE PlayerId = {playerId}";
-                var cards = db.Query<int>(sqlQuery).ToList();
+                var cards = await db.QueryAsync<int>(sqlQuery);
                 return cards;
             }
         }
 
-        public void GiveCardToPlayer(int playerId, int cardId)
+        public async Task GiveCardToPlayer(int playerId, int cardId)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"INSERT INTO Hand (PlayerId, CardId) VALUES({playerId}, {cardId})";
-                db.Execute(sqlQuery);
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
-        public void RemoveAll()
+        public async Task RemoveAll()
         {
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"DELETE FROM Hand WHERE CardId > 0";
-                db.Execute(sqlQuery);
+                await db.ExecuteAsync(sqlQuery);
             }
         }
     }

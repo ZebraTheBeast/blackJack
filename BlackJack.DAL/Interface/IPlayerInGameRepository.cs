@@ -8,15 +8,15 @@ namespace BlackJack.DAL.Interface
 {
     public interface IPlayerInGameRepository
     {
-        void AddPlayer(int playerId);
-        void AddHuman(int playerId);
-        void RemovePlayer(int playerId);
-        void RemoveAll();
-        IEnumerable<int> GetAll();
-        IEnumerable<int> GetBots();
-        int GetHuman();
-        int GetBetByPlayerId(int playerId);
-        void MakeBet(int playerId, int bet);
-        void AnnulBet(int playerId);
+        Task AddPlayer(int playerId);
+        Task AddHuman(int playerId);
+        Task RemovePlayer(int playerId);
+        Task RemoveAll();
+        Task<IEnumerable<int>> GetAll();
+        Task<IEnumerable<int>> GetBots();
+        Task<int> GetHuman();
+        Task<int> GetBetByPlayerId(int playerId);
+        Task MakeBet(int playerId, int bet);
+        Task AnnulBet(int playerId);
     }
 }

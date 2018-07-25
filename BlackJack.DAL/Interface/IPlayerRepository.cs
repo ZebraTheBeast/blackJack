@@ -8,11 +8,11 @@ namespace BlackJack.DAL.Interface
 {
     public interface IPlayerRepository
     {
-        Player GetByName(string name);
-        Player GetById(int id);
-        IEnumerable<Player> GetBots();
-        Player Create(Player player);
-        void UpdatePoints(int playerId, int newPointsValue);
-        void RestorePoints(int playerId);
+        Task<Player> GetByName(string name);
+        Task<Player> GetById(int id);
+        Task<IEnumerable<Player>> GetBots();
+        Task<Player> Create(Player player);
+        Task UpdatePoints(int playerId, int newPointsValue);
+        Task RestorePoints(int playerId);
     }
 }

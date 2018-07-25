@@ -20,13 +20,13 @@ namespace BlackJack.BLL.Services
             _playerInGameRepository = playerInGameRepository;
         }
 
-        public List<PlayerViewModel> GetBotsInGame()
+        public async Task<List<PlayerViewModel>> GetBotsInGame()
         {
-            var playerIdList = _playerInGameRepository.GetBots();
+            var playerIdList = await _playerInGameRepository.GetBots();
             var playerViewModelList = new List<PlayerViewModel>();
             foreach (var playerId in playerIdList)
             {
-                var player = _playerRepository.GetById(playerId);
+                var player = await _playerRepository.GetById(playerId);
 
                 var playerViewModel = new PlayerViewModel();
                 playerViewModel.Id = player.Id;
@@ -39,40 +39,41 @@ namespace BlackJack.BLL.Services
             return playerViewModelList;
         }
 
-        public void SetPlayerToGame(string playerName)
+        public async Task SetPlayerToGame(string playerName)
         {
-            _playerInGameRepository.RemoveAll();
-            var player = _playerRepository.GetByName(playerName);
-            var bots = _playerRepository.GetBots();
+            await  _playerInGameRepository.RemoveAll();
+            var player = await _playerRepository.GetByName(playerName);
+            var bots = await _playerRepository.GetBots();
             foreach (var bot in bots)
             {
-                _playerInGameRepository.AddPlayer(bot.Id);
+                await  _playerInGameRepository.AddPlayer(bot.Id);
             }
-            _playerInGameRepository.AddHuman(player.Id);
+           
+            await _playerInGameRepository.AddHuman(player.Id);
         }
 
-        public List<int> GetPlayersIdInGame()
+        public async Task<IEnumerable<int>> GetPlayersIdInGame()
         {
-            var playerIdList = _playerInGameRepository.GetAll().ToList();
+            var playerIdList = await _playerInGameRepository.GetAll();
             return playerIdList;
         }
 
-        public bool MakeBet(int playerId, int betValue)
+        public async Task<bool> MakeBet(int playerId, int betValue)
         {
-            var player = _playerRepository.GetById(playerId);
+            var player = await _playerRepository.GetById(playerId);
             if(player.Points < betValue)
             {
                 return false;
             }
-            _playerInGameRepository.MakeBet(playerId, betValue);
+            await _playerInGameRepository.MakeBet(playerId, betValue);
             return true;
         }
 
-        public PlayerViewModel GetHumanInGame()
+        public async Task<PlayerViewModel> GetHumanInGame()
         {
-            var humanId = _playerInGameRepository.GetHuman();
+            var humanId = await _playerInGameRepository.GetHuman();
 
-            var player = _playerRepository.GetById(humanId);
+            var player = await _playerRepository.GetById(humanId);
 
             var playerViewModel = new PlayerViewModel();
             playerViewModel.Id = player.Id;
@@ -83,10 +84,10 @@ namespace BlackJack.BLL.Services
             return playerViewModel;
         }
 
-        public DealerViewModel GetDealer()
+        public async Task<DealerViewModel> GetDealer()
         {
             var dealerViewModel = new DealerViewModel();
-            var dealer = _playerRepository.GetByName("Dealer");
+            var dealer = await _playerRepository.GetByName("Dealer");
             dealerViewModel.Id = dealer.Id;
             dealerViewModel.Name = dealer.Name;
             dealerViewModel.Hand = new HandViewModel { CardList = new List<CardViewModel>() };

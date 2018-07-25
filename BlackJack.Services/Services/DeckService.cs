@@ -52,9 +52,9 @@ namespace BlackJack.BLL.Services
 
         }
 
-        public void GiveCardFromDeck(int playerId, int cardId)
+        public async Task GiveCardFromDeck(int playerId, int cardId)
         {
-            _handRepository.GiveCardToPlayer(playerId, cardId);
+            await _handRepository.GiveCardToPlayer(playerId, cardId);
         }
 
 

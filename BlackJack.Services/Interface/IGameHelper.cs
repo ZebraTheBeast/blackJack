@@ -8,9 +8,9 @@ namespace BlackJack.BLL.Interface
 {
     public interface IGameHelper
     {
-        GameViewModel BotTurn(List<int> deck);
-        GameViewModel PlaceBet(int humanId, int pointsValue);
-        GameViewModel Draw(int humanId, List<int> deck);
-        GameViewModel StartGame(string playerName);
+        Task<GameViewModel> BotTurn(List<int> deck);
+        Task<GameViewModel> PlaceBet(int humanId, int pointsValue);
+        Task<GameViewModel> Draw(int humanId, List<int> deck);
+        Task<GameViewModel> StartGame(string playerName);
     }
 }
