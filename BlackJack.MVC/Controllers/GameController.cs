@@ -8,17 +8,16 @@ using BlackJack.BLL.Interface;
 using BlackJack.ViewModel;
 using System.Web.Script.Serialization;
 using BlackJack.Configuration.Constant;
-using BlackJack.BLL.Helper;
-
+using BlackJack.BLL.Providers;
 namespace BlackJack.MVC.Controllers
 {
     public class GameController : Controller
     {
-        IGameHelper _gameHelper;
+        GameProvider _gameProvider;
 
-        public GameController(IGameHelper gameService)
+        public GameController(GameProvider gameProvider)
         {
-            _gameHelper = gameService;
+            _gameProvider = gameProvider;
         }
 
         [HttpPost]
@@ -26,7 +25,7 @@ namespace BlackJack.MVC.Controllers
         {
             var gameViewModel = new GameViewModel();
             
-            gameViewModel = await _gameHelper.StartGame(playerName);
+            gameViewModel = await _gameProvider.StartGame(playerName);
             
             return View("Game", gameViewModel);
         }
@@ -36,7 +35,7 @@ namespace BlackJack.MVC.Controllers
         {
             var deck = new JavaScriptSerializer().Deserialize<List<int>>(jsonDeck);
             var gameViewModel = new GameViewModel();
-            gameViewModel = await _gameHelper.Draw(humanId, deck);
+            gameViewModel = await _gameProvider.Draw(humanId, deck);
             return View("Game", gameViewModel);
         }
 
@@ -45,7 +44,7 @@ namespace BlackJack.MVC.Controllers
         {
             var deck = new JavaScriptSerializer().Deserialize<List<int>>(jsonDeck);
             var gameViewModel = new GameViewModel();
-            gameViewModel = await _gameHelper.BotTurn(deck);
+            gameViewModel = await _gameProvider.BotTurn(deck);
             return View("Game", gameViewModel);
         }
 
@@ -53,11 +52,8 @@ namespace BlackJack.MVC.Controllers
         public async Task<ActionResult> PlaceBet(int humanId, int pointsValue)
         {
             var gameViewModel = new GameViewModel();
-            gameViewModel = await _gameHelper.PlaceBet(humanId, pointsValue);
+            gameViewModel = await _gameProvider.PlaceBet(humanId, pointsValue);
             return View("Game", gameViewModel);
         }
-        // asinchron, exception
-        
-
     }
 }

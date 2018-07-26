@@ -339,3 +339,58 @@
 2018-07-26 12:53:41.1101|INFO|BlackJack.Logger.Logger|Player with id = 4 lose with 23 against 18
 2018-07-26 12:53:41.1200|INFO|BlackJack.Logger.Logger|Player bet with id = 5 was reset to 0.
 2018-07-26 12:53:41.1200|INFO|BlackJack.Logger.Logger|Player with id = 5 draw with 18 against 18
+2018-07-26 16:29:19.3853|INFO|BlackJack.Logger.Logger|Removed all cards from hands.
+2018-07-26 16:29:19.4113|INFO|BlackJack.Logger.Logger|Deck war refreshed and shuffled.
+2018-07-26 16:29:19.5120|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 2. 
+2018-07-26 16:29:19.5290|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 3. 
+2018-07-26 16:29:19.5449|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 4. 
+2018-07-26 16:29:19.5659|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 5. 
+2018-07-26 16:29:19.5828|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 1. 
+2018-07-26 17:24:49.7799|INFO|BlackJack.Logger.Logger|Removed all cards from hands.
+2018-07-26 17:24:49.8038|INFO|BlackJack.Logger.Logger|Deck war refreshed and shuffled.
+2018-07-26 17:24:49.8995|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 2. 
+2018-07-26 17:24:49.8995|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 3. 
+2018-07-26 17:24:49.9264|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 4. 
+2018-07-26 17:24:49.9454|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 5. 
+2018-07-26 17:24:49.9604|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 1. 
+2018-07-26 17:26:46.6214|INFO|BlackJack.Logger.Logger|Removed all cards from hands.
+2018-07-26 17:26:46.6453|INFO|BlackJack.Logger.Logger|Deck war refreshed and shuffled.
+2018-07-26 17:26:46.7401|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 2. 
+2018-07-26 17:26:46.7550|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 3. 
+2018-07-26 17:26:46.7680|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 4. 
+2018-07-26 17:26:46.7859|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 5. 
+2018-07-26 17:26:46.8009|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 1. 
+2018-07-26 17:26:48.2710|INFO|BlackJack.Logger.Logger|Removed all cards from hands.
+2018-07-26 17:26:48.2760|INFO|BlackJack.Logger.Logger|Deck war refreshed and shuffled.
+2018-07-26 17:26:48.2919|INFO|BlackJack.Logger.Logger|Player with id 5 make bet with value 10
+2018-07-26 17:26:48.3099|INFO|BlackJack.Logger.Logger|Player with id 2 make bet with value 50
+2018-07-26 17:26:48.3208|INFO|BlackJack.Logger.Logger|Player with id 3 make bet with value 50
+2018-07-26 17:26:48.3208|INFO|BlackJack.Logger.Logger|Player with id 4 make bet with value 50
+2018-07-26 17:26:48.3448|INFO|BlackJack.Logger.Logger|Player with id = 1 draw card with id = 6.
+2018-07-26 17:26:48.3558|INFO|BlackJack.Logger.Logger|Player with id = 1 draw card with id = 44.
+2018-07-26 17:26:48.3558|INFO|BlackJack.Logger.Logger|Player with id = 2 draw card with id = 17.
+2018-07-26 17:26:48.3747|INFO|BlackJack.Logger.Logger|Player with id = 2 draw card with id = 23.
+2018-07-26 17:26:48.3907|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 12.
+2018-07-26 17:26:48.4006|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 14.
+2018-07-26 17:26:48.4006|INFO|BlackJack.Logger.Logger|Player with id = 4 draw card with id = 8.
+2018-07-26 17:26:48.4246|INFO|BlackJack.Logger.Logger|Player with id = 4 draw card with id = 16.
+2018-07-26 17:26:48.4345|INFO|BlackJack.Logger.Logger|Player with id = 5 draw card with id = 47.
+2018-07-26 17:26:48.4345|INFO|BlackJack.Logger.Logger|Player with id = 5 draw card with id = 51.
+2018-07-26 17:26:48.5123|INFO|BlackJack.Logger.Logger|Player with id = 1 draw card with id = 33.
+2018-07-26 17:26:48.5423|INFO|BlackJack.Logger.Logger|Player with id = 2 draw card with id = 9.
+2018-07-26 17:26:48.5712|INFO|BlackJack.Logger.Logger|Players points with id = 2 was updated to 750
+2018-07-26 17:26:48.5712|INFO|BlackJack.Logger.Logger|Player bet with id = 2 was reset to 0.
+2018-07-26 17:26:48.5712|INFO|BlackJack.Logger.Logger|Player with id = 2 win with 17 against 23
+2018-07-26 17:26:48.5971|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 1.
+2018-07-26 17:26:48.6111|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 7.
+2018-07-26 17:26:48.6270|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 48.
+2018-07-26 17:26:48.6589|INFO|BlackJack.Logger.Logger|Players points with id = 3 was updated to 400
+2018-07-26 17:26:48.6669|INFO|BlackJack.Logger.Logger|Player bet with id = 3 was reset to 0.
+2018-07-26 17:26:48.6669|INFO|BlackJack.Logger.Logger|Player with id = 3 lose with 24 against 23
+2018-07-26 17:26:48.6839|INFO|BlackJack.Logger.Logger|Player with id = 4 draw card with id = 43.
+2018-07-26 17:26:48.7058|INFO|BlackJack.Logger.Logger|Players points with id = 4 was updated to 1000
+2018-07-26 17:26:48.7138|INFO|BlackJack.Logger.Logger|Player bet with id = 4 was reset to 0.
+2018-07-26 17:26:48.7138|INFO|BlackJack.Logger.Logger|Player with id = 4 win with 18 against 23
+2018-07-26 17:26:48.7278|INFO|BlackJack.Logger.Logger|Players points with id = 5 was updated to 910
+2018-07-26 17:26:48.7278|INFO|BlackJack.Logger.Logger|Player bet with id = 5 was reset to 0.
+2018-07-26 17:26:48.7278|INFO|BlackJack.Logger.Logger|Player with id = 5 win with 21 against 23

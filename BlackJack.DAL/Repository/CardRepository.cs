@@ -28,22 +28,11 @@ namespace BlackJack.DAL.Repository
         public async Task<Card> GetById(int cardId)
         {
             IEnumerable<Card> card = new List<Card>();
-            try
-            {
-                using (var db = new SqlConnection(connectionString))
-                {
-                    var sqlQuery = $"SELECT * FROM Card WHERE Id = {cardId}";
-                    card = await db.QueryAsync<Card>(sqlQuery);
 
-                    if (card.Count() == 0)
-                    {
-                        throw new Exception($"Card not found wit Id = {cardId}");
-                    }
-                }
-            }
-            catch(Exception exception)
+            using (var db = new SqlConnection(connectionString))
             {
-                Logger.Logger.Error($"{exception.Source} {exception.Message}");
+                var sqlQuery = $"SELECT * FROM Card WHERE Id = {cardId}";
+                card = await db.QueryAsync<Card>(sqlQuery);
             }
 
             return card.First();

@@ -9,7 +9,7 @@ using BlackJack.DAL.Interface;
 
 namespace BlackJack.BLL.Services
 {
-    public class PlayerService
+    public class PlayerService : IPlayerService
     {
         IPlayerRepository _playerRepository;
         IPlayerInGameRepository _playerInGameRepository;

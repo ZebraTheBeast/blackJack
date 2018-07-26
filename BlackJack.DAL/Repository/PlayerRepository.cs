@@ -26,7 +26,6 @@ namespace BlackJack.DAL.Repository
 
                 player = await GetByName(player.Name);
 
-                Logger.Logger.Info($"Player with name {player.Name} was created.");
             }
             return player;
         }
@@ -34,21 +33,10 @@ namespace BlackJack.DAL.Repository
         public async Task<IEnumerable<Player>> GetBots()
         {
             IEnumerable<Player> players = new List<Player>();
-            try
-            {
-                using (var db = new SqlConnection(connectionString))
-                {
-                    players = await db.QueryAsync<Player>("SELECT TOP(4) * FROM Player");
 
-                    if (players.Count() == 0)
-                    {
-                        throw new Exception($"There are no players in Table Player.");
-                    }
-                }
-            }
-            catch (Exception exception)
+            using (var db = new SqlConnection(connectionString))
             {
-                Logger.Logger.Error($"{exception.Source} {exception.Message}");
+                players = await db.QueryAsync<Player>("SELECT TOP(4) * FROM Player");
             }
 
             foreach (var player in players)
@@ -90,81 +78,38 @@ namespace BlackJack.DAL.Repository
 
         public async Task UpdatePoints(int playerId, int newPointsValue)
         {
-            try
+            using (var db = new SqlConnection(connectionString))
             {
-                using (var db = new SqlConnection(connectionString))
-                {
-                    var sqlQuery = $"SELECT Id FROM Player WHERE Id = {playerId}";
-                    var player = await db.QueryAsync<int>(sqlQuery);
-
-                    if (player.Count() == 0)
-                    {
-                        throw new Exception($"Player doesn't exist with Id = {playerId}");
-                    }
-
-                    sqlQuery = $"UPDATE Player SET Points = {newPointsValue} WHERE Id = {playerId}";
-                    await db.ExecuteAsync(sqlQuery);
-                    Logger.Logger.Info($"Players points with id = {playerId} was updated to {newPointsValue}");
-                }
-            }
-            catch (Exception exception)
-            {
-                Logger.Logger.Error($"{exception.Source} {exception.Message}");
+                var sqlQuery = $"UPDATE Player SET Points = {newPointsValue} WHERE Id = {playerId}";
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
         public async Task RestorePoints(int playerId)
         {
-            try
+            using (var db = new SqlConnection(connectionString))
             {
-                using (var db = new SqlConnection(connectionString))
-                {
-                    var sqlQuery = $"SELECT Id FROM Player WHERE Id = {playerId}";
-                    var player = await db.QueryAsync<int>(sqlQuery);
-
-                    if (player.Count() == 0)
-                    {
-                        throw new Exception($"Player doesn't exist with Id = {playerId}");
-                    }
-
-                    sqlQuery = $"UPDATE Player SET Points = {Constant.DefaultPointsValue} WHERE Id = {playerId}";
-                    await db.ExecuteAsync(sqlQuery);
-                    Logger.Logger.Info($"Players points with player id = {playerId} was restored to {Constant.DefaultPointsValue}");
-                }
-            }
-            catch (Exception exception)
-            {
-                Logger.Logger.Error($"{exception.Source} {exception.Message}");
+                var sqlQuery = $"UPDATE Player SET Points = {Constant.DefaultPointsValue} WHERE Id = {playerId}";
+                await db.ExecuteAsync(sqlQuery);
             }
         }
 
         public async Task<Player> GetById(int id)
         {
             var player = new Player();
-            try
+
+            using (var db = new SqlConnection(connectionString))
             {
-                using (var db = new SqlConnection(connectionString))
+                var sqlQuery = $"SELECT * FROM Player WHERE Id = {id}";
+                player = (await db.QueryAsync<Player>(sqlQuery)).First();
+
+                if (player.Points < Constant.MinPointsValueToPlay)
                 {
-                    var sqlQuery = $"SELECT * FROM Player WHERE Id = {id}";
-                    player = (await db.QueryAsync<Player>(sqlQuery)).First();
-
-                    if(player == null)
-                    {
-                        throw new Exception($"Player doesn't exist with Id = {id}");
-                    }
-
-                    if (player.Points < Constant.MinPointsValueToPlay)
-                    {
-                        await RestorePoints(player.Id);
-                        player.Points = Constant.DefaultPointsValue;
-                    }
-
+                    await RestorePoints(player.Id);
+                    player.Points = Constant.DefaultPointsValue;
                 }
             }
-            catch (Exception exception)
-            {
-                Logger.Logger.Error($"{exception.Source} {exception.Message}");
-            }
+
             return player;
         }
     }

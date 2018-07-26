@@ -14,7 +14,7 @@ using BlackJack.Logger;
 
 namespace BlackJack.BLL.Services
 {
-    public class DeckService
+    public class DeckService : IDeckService
     {
 
         ICardRepository _cardRepository;

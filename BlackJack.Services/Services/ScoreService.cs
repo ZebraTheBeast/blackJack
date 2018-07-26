@@ -10,7 +10,7 @@ using BlackJack.Configuration.Constant;
 
 namespace BlackJack.BLL.Services
 {
-    public class ScoreService 
+    public class ScoreService : IScoreService
     {
         IPlayerInGameRepository _playerInGameRepository;
         IPlayerRepository _playerRepository;
@@ -27,7 +27,7 @@ namespace BlackJack.BLL.Services
             {
                 await PlayerWinPoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
-                Logger.Logger.Info($"Player with id = {playerId} win with {playerCardsValue} against {dealerCardsValue}");
+               
                 return OptionHelper.OptionWin();
             }
 
@@ -35,7 +35,7 @@ namespace BlackJack.BLL.Services
             {
                 await PlayerWinPoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
-                Logger.Logger.Info($"Player with id = {playerId} win with {playerCardsValue} against {dealerCardsValue}");
+               
                 return OptionHelper.OptionWin();
             }
 
@@ -43,22 +43,20 @@ namespace BlackJack.BLL.Services
             {
                 await PlayerLosePoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
-                Logger.Logger.Info($"Player with id = {playerId} lose with {playerCardsValue} against {dealerCardsValue}");
-                return OptionHelper.OptionLose();
             }
 
             if ((dealerCardsValue > playerCardsValue) && (dealerCardsValue <= Constant.WinValue))
             {
                 await PlayerLosePoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
-                Logger.Logger.Info($"Player with id = {playerId} lose with {playerCardsValue} against {dealerCardsValue}");
+                
                 return OptionHelper.OptionLose();
             }
 
             if ((dealerCardsValue == playerCardsValue) && (playerCardsValue <= Constant.WinValue))
             {
                 await _playerInGameRepository.AnnulBet(playerId);
-                Logger.Logger.Info($"Player with id = {playerId} draw with {playerCardsValue} against {dealerCardsValue}");
+                
                 return OptionHelper.OptionDraw();
             }
 
