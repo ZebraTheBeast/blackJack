@@ -39,7 +39,6 @@ namespace BlackJack.DAL.Repository
                     {
                         throw new Exception($"Card not found wit Id = {cardId}");
                     }
-
                 }
             }
             catch(Exception exception)

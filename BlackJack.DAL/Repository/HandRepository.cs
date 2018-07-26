@@ -34,7 +34,7 @@ namespace BlackJack.DAL.Repository
             }
             catch (Exception exception)
             {
-                Logger.Logger.Error($"{exception.Source} {exception.Message} ");
+                Logger.Logger.Warning($"{exception.Source} {exception.Message} ");
             }
 
             return cards;

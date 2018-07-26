@@ -1,50 +1,78 @@
-2018-07-26 11:02:01.4697|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
-   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
-2018-07-26 11:02:01.5025|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
-   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
-2018-07-26 11:02:01.5185|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
-   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
-2018-07-26 11:02:01.5384|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
-   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
-2018-07-26 11:02:01.5564|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
-   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
-2018-07-26 11:02:03.4259|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
-   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
-2018-07-26 11:02:03.4389|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
-   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
-2018-07-26 11:02:03.4509|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
-   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
-2018-07-26 11:02:03.4658|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
-   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
-2018-07-26 11:02:03.4791|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
-   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
-2018-07-26 11:03:44.2914|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
-2018-07-26 11:03:44.3244|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
-2018-07-26 11:03:44.3373|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
-2018-07-26 11:03:44.3543|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
-2018-07-26 11:03:44.3702|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
-2018-07-26 11:03:45.7946|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
-2018-07-26 11:03:45.8156|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
-2018-07-26 11:03:45.8295|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
-2018-07-26 11:03:45.8435|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
-2018-07-26 11:03:45.8584|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
-2018-07-26 11:04:47.9274|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
-2018-07-26 11:04:47.9593|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
-2018-07-26 11:04:47.9713|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
-2018-07-26 11:04:47.9892|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
-2018-07-26 11:04:48.0052|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
-2018-07-26 11:04:49.2063|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
-2018-07-26 11:04:49.2192|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
-2018-07-26 11:04:49.2322|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
-2018-07-26 11:04:49.2488|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
-2018-07-26 11:04:49.2618|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
-2018-07-26 11:05:26.7356|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
-2018-07-26 11:05:26.7685|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
-2018-07-26 11:05:26.7815|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
-2018-07-26 11:05:26.7995|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
-2018-07-26 11:05:26.8155|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
-2018-07-26 11:05:27.7537|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
-2018-07-26 11:05:27.7666|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
-2018-07-26 11:05:27.7796|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
-2018-07-26 11:05:27.7936|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
-2018-07-26 11:05:27.8075|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
+2018-07-26 12:32:29.8094|INFO|BlackJack.Logger.Logger|Removed all cards from hands.
+2018-07-26 12:32:29.8333|INFO|BlackJack.Logger.Logger|Deck war refreshed and shuffled.
+2018-07-26 12:32:29.9237|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 2. 
+2018-07-26 12:32:29.9416|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 3. 
+2018-07-26 12:32:29.9536|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 4. 
+2018-07-26 12:32:29.9696|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 5. 
+2018-07-26 12:32:29.9835|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 1. 
+2018-07-26 12:32:31.8818|INFO|BlackJack.Logger.Logger|Removed all cards from hands.
+2018-07-26 12:32:31.8868|INFO|BlackJack.Logger.Logger|Deck war refreshed and shuffled.
+2018-07-26 12:32:31.9027|INFO|BlackJack.Logger.Logger|Player with id 5 make bet with value 10
+2018-07-26 12:32:31.9217|INFO|BlackJack.Logger.Logger|Player with id 2 make bet with value 50
+2018-07-26 12:32:31.9306|INFO|BlackJack.Logger.Logger|Player with id 3 make bet with value 50
+2018-07-26 12:32:31.9306|INFO|BlackJack.Logger.Logger|Player with id 4 make bet with value 50
+2018-07-26 12:32:31.9526|INFO|BlackJack.Logger.Logger|Player with id = 1 draw card with id = 46.
+2018-07-26 12:32:31.9616|INFO|BlackJack.Logger.Logger|Player with id = 1 draw card with id = 51.
+2018-07-26 12:32:31.9616|INFO|BlackJack.Logger.Logger|Player with id = 2 draw card with id = 10.
+2018-07-26 12:32:31.9795|INFO|BlackJack.Logger.Logger|Player with id = 2 draw card with id = 28.
+2018-07-26 12:32:31.9795|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 14.
+2018-07-26 12:32:31.9955|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 20.
+2018-07-26 12:32:31.9955|INFO|BlackJack.Logger.Logger|Player with id = 4 draw card with id = 48.
+2018-07-26 12:32:32.0124|INFO|BlackJack.Logger.Logger|Player with id = 4 draw card with id = 34.
+2018-07-26 12:32:32.0124|INFO|BlackJack.Logger.Logger|Player with id = 5 draw card with id = 16.
+2018-07-26 12:32:32.0274|INFO|BlackJack.Logger.Logger|Player with id = 5 draw card with id = 29.
+2018-07-26 12:32:32.1241|INFO|BlackJack.Logger.Logger|Player with id = 2 draw card with id = 17.
+2018-07-26 12:32:32.1561|INFO|BlackJack.Logger.Logger|Players points with id = 2 was updated to 450
+2018-07-26 12:32:32.1561|INFO|BlackJack.Logger.Logger|Player bet with id = 2 was reset to 0.
+2018-07-26 12:32:32.1680|INFO|BlackJack.Logger.Logger|Player with id = 2 lose with 12 against 21
+2018-07-26 12:32:32.1840|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 23.
+2018-07-26 12:32:32.1979|INFO|BlackJack.Logger.Logger|Players points with id = 3 was updated to 550
+2018-07-26 12:32:32.1979|INFO|BlackJack.Logger.Logger|Player bet with id = 3 was reset to 0.
+2018-07-26 12:32:32.1979|INFO|BlackJack.Logger.Logger|Player with id = 3 lose with 11 against 21
+2018-07-26 12:32:32.2239|INFO|BlackJack.Logger.Logger|Players points with id = 4 was updated to 1000
+2018-07-26 12:32:32.2299|INFO|BlackJack.Logger.Logger|Player bet with id = 4 was reset to 0.
+2018-07-26 12:32:32.2299|INFO|BlackJack.Logger.Logger|Player with id = 4 lose with 20 against 21
+2018-07-26 12:32:32.2448|INFO|BlackJack.Logger.Logger|Players points with id = 5 was updated to 930
+2018-07-26 12:32:32.2448|INFO|BlackJack.Logger.Logger|Player bet with id = 5 was reset to 0.
+2018-07-26 12:32:32.2448|INFO|BlackJack.Logger.Logger|Player with id = 5 lose with 14 against 21
+2018-07-26 12:34:43.3394|INFO|BlackJack.Logger.Logger|Removed all cards from hands.
+2018-07-26 12:34:43.3633|INFO|BlackJack.Logger.Logger|Deck war refreshed and shuffled.
+2018-07-26 12:34:43.4591|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 2. 
+2018-07-26 12:34:43.4740|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 3. 
+2018-07-26 12:34:43.4865|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 4. 
+2018-07-26 12:34:43.5145|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 5. 
+2018-07-26 12:34:43.5284|WARN|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = 1. 
+2018-07-26 12:34:45.1558|INFO|BlackJack.Logger.Logger|Removed all cards from hands.
+2018-07-26 12:34:45.1558|INFO|BlackJack.Logger.Logger|Deck war refreshed and shuffled.
+2018-07-26 12:34:45.1757|INFO|BlackJack.Logger.Logger|Player with id 5 make bet with value 10
+2018-07-26 12:34:45.1947|INFO|BlackJack.Logger.Logger|Player with id 2 make bet with value 50
+2018-07-26 12:34:45.2036|INFO|BlackJack.Logger.Logger|Player with id 3 make bet with value 50
+2018-07-26 12:34:45.2126|INFO|BlackJack.Logger.Logger|Player with id 4 make bet with value 50
+2018-07-26 12:34:45.2126|INFO|BlackJack.Logger.Logger|Player with id = 1 draw card with id = 25.
+2018-07-26 12:34:45.2346|INFO|BlackJack.Logger.Logger|Player with id = 1 draw card with id = 3.
+2018-07-26 12:34:45.2435|INFO|BlackJack.Logger.Logger|Player with id = 2 draw card with id = 38.
+2018-07-26 12:34:45.2435|INFO|BlackJack.Logger.Logger|Player with id = 2 draw card with id = 17.
+2018-07-26 12:34:45.2655|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 52.
+2018-07-26 12:34:45.2765|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 12.
+2018-07-26 12:34:45.2765|INFO|BlackJack.Logger.Logger|Player with id = 4 draw card with id = 19.
+2018-07-26 12:34:45.2974|INFO|BlackJack.Logger.Logger|Player with id = 4 draw card with id = 10.
+2018-07-26 12:34:45.3064|INFO|BlackJack.Logger.Logger|Player with id = 5 draw card with id = 45.
+2018-07-26 12:34:45.3064|INFO|BlackJack.Logger.Logger|Player with id = 5 draw card with id = 4.
+2018-07-26 12:34:47.4171|INFO|BlackJack.Logger.Logger|Player with id = 1 draw card with id = 8.
+2018-07-26 12:34:47.4321|INFO|BlackJack.Logger.Logger|Player with id = 1 draw card with id = 13.
+2018-07-26 12:34:47.4800|INFO|BlackJack.Logger.Logger|Player with id = 2 draw card with id = 49.
+2018-07-26 12:34:47.5009|INFO|BlackJack.Logger.Logger|Players points with id = 2 was updated to 400
+2018-07-26 12:34:47.5109|INFO|BlackJack.Logger.Logger|Player bet with id = 2 was reset to 0.
+2018-07-26 12:34:47.5109|INFO|BlackJack.Logger.Logger|Player with id = 2 lose with 16 against 18
+2018-07-26 12:34:47.5338|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 40.
+2018-07-26 12:34:47.5468|INFO|BlackJack.Logger.Logger|Player with id = 3 draw card with id = 36.
+2018-07-26 12:34:47.5627|INFO|BlackJack.Logger.Logger|Players points with id = 3 was updated to 500
+2018-07-26 12:34:47.5627|INFO|BlackJack.Logger.Logger|Player bet with id = 3 was reset to 0.
+2018-07-26 12:34:47.5777|INFO|BlackJack.Logger.Logger|Player with id = 3 lose with 15 against 18
+2018-07-26 12:34:47.5956|INFO|BlackJack.Logger.Logger|Player with id = 4 draw card with id = 22.
+2018-07-26 12:34:47.6116|INFO|BlackJack.Logger.Logger|Players points with id = 4 was updated to 950
+2018-07-26 12:34:47.6116|INFO|BlackJack.Logger.Logger|Player bet with id = 4 was reset to 0.
+2018-07-26 12:34:47.6216|INFO|BlackJack.Logger.Logger|Player with id = 4 lose with 10 against 18
+2018-07-26 12:34:47.6216|INFO|BlackJack.Logger.Logger|Players points with id = 5 was updated to 920
+2018-07-26 12:34:47.6375|INFO|BlackJack.Logger.Logger|Player bet with id = 5 was reset to 0.
+2018-07-26 12:34:47.6375|INFO|BlackJack.Logger.Logger|Player with id = 5 lose with 12 against 18

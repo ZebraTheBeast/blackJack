@@ -78,7 +78,8 @@
             @Html.AntiForgeryToken();
 
             @Html.Hidden("humanId", Model.Human.Id);
-            @Html.Hidden("jsonDeck", jsonDeck);
+
+            <input type="hidden" value="@jsonDeck" name="jsonDeck" />
 
             <div class="row">
                 <input id="drawButton" type="submit" value="Draw" class="custombutton btn btn-default" formaction="@Url.Action("Draw")" />

@@ -27,6 +27,7 @@ namespace BlackJack.BLL.Services
             {
                 await PlayerWinPoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
+                Logger.Logger.Info($"Player with id = {playerId} win with {playerCardsValue} against {dealerCardsValue}");
                 return OptionHelper.OptionWin();
             }
 
@@ -34,6 +35,7 @@ namespace BlackJack.BLL.Services
             {
                 await PlayerWinPoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
+                Logger.Logger.Info($"Player with id = {playerId} win with {playerCardsValue} against {dealerCardsValue}");
                 return OptionHelper.OptionWin();
             }
 
@@ -41,6 +43,7 @@ namespace BlackJack.BLL.Services
             {
                 await PlayerLosePoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
+                Logger.Logger.Info($"Player with id = {playerId} lose with {playerCardsValue} against {dealerCardsValue}");
                 return OptionHelper.OptionLose();
             }
 
@@ -48,12 +51,14 @@ namespace BlackJack.BLL.Services
             {
                 await PlayerLosePoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
+                Logger.Logger.Info($"Player with id = {playerId} lose with {playerCardsValue} against {dealerCardsValue}");
                 return OptionHelper.OptionLose();
             }
 
             if ((dealerCardsValue == playerCardsValue) && (playerCardsValue <= Constant.WinValue))
             {
                 await _playerInGameRepository.AnnulBet(playerId);
+                Logger.Logger.Info($"Player with id = {playerId} draw with {playerCardsValue} against {dealerCardsValue}");
                 return OptionHelper.OptionDraw();
             }
 

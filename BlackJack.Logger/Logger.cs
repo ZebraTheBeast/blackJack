@@ -20,5 +20,10 @@ namespace BlackJack.Logger
         {
             _logger.Error(message);
         }
+
+        public static void Warning(string message)
+        {
+            _logger.Warn(message);
+        }
     }
 }
