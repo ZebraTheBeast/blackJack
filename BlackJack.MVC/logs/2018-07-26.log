@@ -1,0 +1,50 @@
+2018-07-26 11:02:01.4697|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
+   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
+2018-07-26 11:02:01.5025|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
+   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
+2018-07-26 11:02:01.5185|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
+   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
+2018-07-26 11:02:01.5384|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
+   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
+2018-07-26 11:02:01.5564|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
+   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
+2018-07-26 11:02:03.4259|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
+   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
+2018-07-26 11:02:03.4389|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
+   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
+2018-07-26 11:02:03.4509|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
+   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
+2018-07-26 11:02:03.4658|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
+   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
+2018-07-26 11:02:03.4791|ERROR|BlackJack.Logger.Logger|System.NotImplementedException: The method or operation is not implemented.
+   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 DAL.HandRepository.GetIdCardsByPlayerId Cards not found with playerId = -3.
+2018-07-26 11:03:44.2914|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
+2018-07-26 11:03:44.3244|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
+2018-07-26 11:03:44.3373|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
+2018-07-26 11:03:44.3543|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
+2018-07-26 11:03:44.3702|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
+2018-07-26 11:03:45.7946|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
+2018-07-26 11:03:45.8156|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
+2018-07-26 11:03:45.8295|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
+2018-07-26 11:03:45.8435|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
+2018-07-26 11:03:45.8584|ERROR|BlackJack.Logger.Logger|BlackJack.DAL Cards not found with playerId = -3.
+2018-07-26 11:04:47.9274|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
+2018-07-26 11:04:47.9593|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
+2018-07-26 11:04:47.9713|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
+2018-07-26 11:04:47.9892|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
+2018-07-26 11:04:48.0052|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
+2018-07-26 11:04:49.2063|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
+2018-07-26 11:04:49.2192|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
+2018-07-26 11:04:49.2322|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
+2018-07-26 11:04:49.2488|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
+2018-07-26 11:04:49.2618|ERROR|BlackJack.Logger.Logger|Void MoveNext() Cards not found with playerId = -3.
+2018-07-26 11:05:26.7356|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
+2018-07-26 11:05:26.7685|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
+2018-07-26 11:05:26.7815|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
+2018-07-26 11:05:26.7995|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
+2018-07-26 11:05:26.8155|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
+2018-07-26 11:05:27.7537|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
+2018-07-26 11:05:27.7666|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
+2018-07-26 11:05:27.7796|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
+2018-07-26 11:05:27.7936|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.
+2018-07-26 11:05:27.8075|ERROR|BlackJack.Logger.Logger|   at BlackJack.DAL.Repository.HandRepository.<GetIdCardsByPlayerId>d__1.MoveNext() in C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\Repository\HandRepository.cs:line 32 Cards not found with playerId = -3.

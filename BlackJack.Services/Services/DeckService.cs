@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using BlackJack.ViewModel;
 using BlackJack.Configuration.Constant;
 using BlackJack.Entity.Enum;
@@ -11,6 +10,7 @@ using BlackJack.Entity;
 using BlackJack.DAL.Interface;
 using BlackJack.DAL.Repository;
 using BlackJack.BLL.Interface;
+using BlackJack.Logger;
 
 namespace BlackJack.BLL.Services
 {
@@ -20,7 +20,7 @@ namespace BlackJack.BLL.Services
         ICardRepository _cardRepository;
         IHandRepository _handRepository;
 
-        public DeckService( ICardRepository cardRepository, IHandRepository handRepository)
+        public DeckService(ICardRepository cardRepository, IHandRepository handRepository)
         {
 
             _cardRepository = cardRepository;
@@ -33,7 +33,7 @@ namespace BlackJack.BLL.Services
             var deck = new List<Card>();
             var cardIdList = new List<int>();
             deck = GetFullDeck();
-            
+
             int n = deck.Count;
 
             for (var i = 0; i < n; i++)
@@ -48,8 +48,9 @@ namespace BlackJack.BLL.Services
             {
                 cardIdList.Add(card.Id);
             }
-            return cardIdList;
+            Logger.Logger.Info($"Deck war refreshed and shuffled.");
 
+            return cardIdList;
         }
 
         public async Task GiveCardFromDeck(int playerId, int cardId)

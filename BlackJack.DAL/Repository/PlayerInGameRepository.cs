@@ -18,66 +18,126 @@ namespace BlackJack.DAL.Repository
 
         public async Task AddPlayer(int playerId)
         {
-            using (var db = new SqlConnection(connectionString))
+            try
             {
-                var sqlQuery = $"INSERT INTO PlayerInGame (PlayerId) VALUES({playerId})";
-                await db.ExecuteAsync(sqlQuery);
+                using (var db = new SqlConnection(connectionString))
+                {
+                    var sqlQuery = $"SELECT Id FROM Player WHERE Id = {playerId}";
+                    var player = await db.QueryAsync<int>(sqlQuery);
+
+                    if (player.Count() == 0)
+                    {
+                        throw new Exception($"Player doesn't exist with Id = {playerId}");
+                    }
+
+                    sqlQuery = $"INSERT INTO PlayerInGame (PlayerId) VALUES({playerId})";
+                    await db.ExecuteAsync(sqlQuery);
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.Logger.Error($"{exception.Source} {exception.Message}");
             }
         }
 
         public async Task AddHuman(int playerId)
         {
-            using (var db = new SqlConnection(connectionString))
+            try
             {
-                var sqlQuery = $"INSERT INTO PlayerInGame (PlayerId, Humanity) VALUES({playerId}, 1)";
-                Console.WriteLine("zhep");
-                await db.ExecuteAsync(sqlQuery);
+                using (var db = new SqlConnection(connectionString))
+                {
+                    var sqlQuery = $"SELECT Id FROM Player WHERE Id = {playerId}";
+                    var player = await db.QueryAsync<int>(sqlQuery);
+
+                    if (player.Count() == 0)
+                    {
+                        throw new Exception($"Player doesn't exist with Id = {playerId}");
+                    }
+
+                    sqlQuery = $"INSERT INTO PlayerInGame (PlayerId, Humanity) VALUES({playerId}, 1)";
+                    await db.ExecuteAsync(sqlQuery);
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.Logger.Error($"{exception.Source} {exception.Message}");
             }
         }
 
         public async Task<IEnumerable<int>> GetBots()
         {
-            using (var db = new SqlConnection(connectionString))
+            IEnumerable<int> players = new List<int>();
+            try
             {
-                var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 0 AND PlayerId > 1";
-                var players = await db.QueryAsync<int>(sqlQuery);
+                using (var db = new SqlConnection(connectionString))
+                {
+                    var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 0 AND PlayerId > 1";
+                    players = await db.QueryAsync<int>(sqlQuery);
 
-                return players;
+                    if (players.Count() == 0)
+                    {
+                        throw new Exception("Bots not in game.");
+                    }
+                }
             }
+            catch (Exception exception)
+            {
+                Logger.Logger.Error($"{exception.Source} {exception.Message}");
+            }
+            return players;
         }
 
         public async Task<IEnumerable<int>> GetAll()
         {
-            using (var db = new SqlConnection(connectionString))
+            IEnumerable<int> players = new List<int>();
+            try
             {
-                var sqlQuery = $"SELECT PlayerId FROM PlayerInGame";
-                var players = await db.QueryAsync<int>(sqlQuery);
+                using (var db = new SqlConnection(connectionString))
+                {
+                    var sqlQuery = $"SELECT PlayerId FROM PlayerInGame";
+                    players = await db.QueryAsync<int>(sqlQuery);
 
-                return players;
+                    if (players.Count() == 0)
+                    {
+                        throw new Exception("There are no players in game.");
+                    }
+
+
+                }
             }
+            catch (Exception exception)
+            {
+                Logger.Logger.Error($"{exception.Source} {exception.Message}");
+            }
+
+            return players;
         }
 
         public async Task<int> GetHuman()
         {
-            using (var db = new SqlConnection(connectionString))
+            IEnumerable<int> playerId = new List<int>();
+            try
             {
-                var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 1";
-                var playerId = await db.QueryAsync<int>(sqlQuery);
+                using (var db = new SqlConnection(connectionString))
+                {
+                    var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 1";
+                    playerId = await db.QueryAsync<int>(sqlQuery);
 
-                return playerId.First();
+                    if (playerId.Count() == 0)
+                    {
+                        throw new Exception("There are no human in game.");
+                    }
+                }
             }
+            catch (Exception exception)
+            {
+                Logger.Logger.Error($"{exception.Source} {exception.Message}");
+            }
+
+            return playerId.First();
         }
-        
+
         public async Task RemoveAll()
-        {
-            using (var db = new SqlConnection(connectionString))
-            {
-                var sqlQuery = $"DELETE FROM PlayerInGame WHERE PlayerId > 0";
-                await db.ExecuteAsync(sqlQuery);
-            }
-        }
-
-        public async Task RemovePlayer(int playerId)
         {
             using (var db = new SqlConnection(connectionString))
             {
@@ -88,30 +148,78 @@ namespace BlackJack.DAL.Repository
 
         public async Task MakeBet(int playerId, int betValue)
         {
-            using (var db = new SqlConnection(connectionString))
+            try
             {
-                var sqlQuery = $"UPDATE PlayerInGame SET Bet = {betValue} WHERE PlayerId = {playerId}";
-                await db.ExecuteAsync(sqlQuery);
+                using (var db = new SqlConnection(connectionString))
+                {
+                    var sqlQuery = $"SELECT Id FROM Player WHERE Id = {playerId}";
+                    var player = await db.QueryAsync<int>(sqlQuery);
+
+                    if (player.Count() == 0)
+                    {
+                        throw new Exception($"Player doesn't exist with Id = {playerId}");
+                    }
+
+                    sqlQuery = $"UPDATE PlayerInGame SET Bet = {betValue} WHERE PlayerId = {playerId}";
+                    await db.ExecuteAsync(sqlQuery);
+
+                    Logger.Logger.Info($"Player with id {playerId} make bet with value {betValue}");
+                }
             }
+            catch (Exception exception)
+            {
+                Logger.Logger.Error($"{exception.Source} {exception.Message}");
+            }
+
         }
 
         public async Task AnnulBet(int playerId)
         {
-            using (var db = new SqlConnection(connectionString))
+            try
             {
-                var sqlQuery = $"UPDATE PlayerInGame SET Bet = 0 WHERE PlayerId = {playerId}";
-                await db.ExecuteAsync(sqlQuery);
+                using (var db = new SqlConnection(connectionString))
+                {
+                    var sqlQuery = $"SELECT Id FROM Player WHERE Id = {playerId}";
+                    var player = await db.QueryAsync<int>(sqlQuery);
+
+                    if (player.Count() == 0)
+                    {
+                        throw new Exception($"Player doesn't exist with Id = {playerId}");
+                    }
+
+                    sqlQuery = $"UPDATE PlayerInGame SET Bet = 0 WHERE PlayerId = {playerId}";
+                    await db.ExecuteAsync(sqlQuery);
+
+                    Logger.Logger.Info($"Player bet with id = {playerId} was reset to 0.");
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.Logger.Error($"{exception.Source} {exception.Message}");
             }
         }
 
         public async Task<int> GetBetByPlayerId(int playerId)
         {
-            using (var db = new SqlConnection(connectionString))
+            IEnumerable<int> betValue = new List<int>();
+            try
             {
-                var sqlQuery = $"SELECT Bet FROM PlayerInGame WHERE PlayerId = {playerId}";
-                var betValue = await db.QueryAsync<int>(sqlQuery);
-                return betValue.First();
+                using (var db = new SqlConnection(connectionString))
+                {
+                    var sqlQuery = $"SELECT Bet FROM PlayerInGame WHERE PlayerId = {playerId}";
+                    betValue = await db.QueryAsync<int>(sqlQuery);
+
+                    if (betValue.Count() == 0)
+                    {
+                        throw new Exception($"Player doesn't exist with Id = {playerId}");
+                    }
+                }
             }
+            catch (Exception exception)
+            {
+                Logger.Logger.Error($"{exception.Source} {exception.Message}");
+            }
+            return betValue.First();
         }
     }
 }

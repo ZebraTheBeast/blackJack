@@ -48,3 +48,8 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Dapper.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Dapper.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.Entity.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.Entity.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\NLog.config
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.Logger.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\NLog.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.Logger.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\NLog.xml

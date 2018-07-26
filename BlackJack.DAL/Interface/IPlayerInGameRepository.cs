@@ -10,7 +10,6 @@ namespace BlackJack.DAL.Interface
     {
         Task AddPlayer(int playerId);
         Task AddHuman(int playerId);
-        Task RemovePlayer(int playerId);
         Task RemoveAll();
         Task<IEnumerable<int>> GetAll();
         Task<IEnumerable<int>> GetBots();

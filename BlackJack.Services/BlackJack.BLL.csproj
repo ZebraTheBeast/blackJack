@@ -75,6 +75,10 @@
       <Project>{252680b3-1e9b-40f4-a5e4-eb8f3baf4cd9}</Project>
       <Name>BlackJack.Entity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BlackJack.Logger\BlackJack.Logger.csproj">
+      <Project>{dfdcdeb0-7099-40d7-baa3-e3a3dd10bf55}</Project>
+      <Name>BlackJack.Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlackJack.ViewModel\BlackJack.ViewModel.csproj">
       <Project>{31d2c4ff-61a3-4a12-9d0f-975839e02e80}</Project>
       <Name>BlackJack.ViewModel</Name>

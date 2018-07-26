@@ -8,7 +8,7 @@ using BlackJack.ViewModel;
 using BlackJack.DAL.Repository;
 using BlackJack.Configuration.Constant;
 using BlackJack.BLL.Helper;
-
+using BlackJack.Logger;
 namespace BlackJack.BLL.Services
 {
     public class GameHelper : IGameHelper
@@ -18,13 +18,13 @@ namespace BlackJack.BLL.Services
         PlayerService _playerService;
         ScoreService _scoreService;
 
+
         public GameHelper()
         {
             var cardRepository = new CardRepository();
             var handRepository = new HandRepository();
             var playerRepository = new PlayerRepository();
             var playerInGameRepository = new PlayerInGameRepository();
-
             _deckService = new DeckService(cardRepository, handRepository);
             _handService = new HandService(handRepository, cardRepository, playerInGameRepository);
             _playerService = new PlayerService(playerRepository, playerInGameRepository);
@@ -53,7 +53,12 @@ namespace BlackJack.BLL.Services
 
         private async Task<string> UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue)
         {
-            var message = await _scoreService.UpdateScore(playerId, playerCardsValue, dealerCardsValue);
+            var message = "";
+
+            message = await _scoreService.UpdateScore(playerId, playerCardsValue, dealerCardsValue);
+
+
+
             return message;
         }
 
@@ -72,7 +77,7 @@ namespace BlackJack.BLL.Services
             {
                 return false;
             }
-            var t =  _deckService.GiveCardFromDeck(botId, deck[0]);
+            var t = _deckService.GiveCardFromDeck(botId, deck[0]);
             await t;
             Task.WaitAll(t);
             deck.Remove(deck[0]);
@@ -138,7 +143,7 @@ namespace BlackJack.BLL.Services
 
             deck = await EndTurn();
             await Task.Run(() => _playerService.SetPlayerToGame(playerName));
-            
+
             var gameViewModel = new GameViewModel();
 
 
