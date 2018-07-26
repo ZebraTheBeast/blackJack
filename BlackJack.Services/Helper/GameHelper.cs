@@ -77,9 +77,8 @@ namespace BlackJack.BLL.Services
             {
                 return false;
             }
-            var t = _deckService.GiveCardFromDeck(botId, deck[0]);
-            await t;
-            Task.WaitAll(t);
+            await _deckService.GiveCardFromDeck(botId, deck[0]);
+            
             deck.Remove(deck[0]);
             return await BotTurn(botId, deck);
         }
@@ -184,8 +183,8 @@ namespace BlackJack.BLL.Services
 
             for (var i = 0; i < bots.Count(); i++)
             {
-                bots[i].Hand.CardListValue = await _handService.GetPlayerHandValue(bots[i].Id);
                 await BotTurn(bots[i].Id, deck);
+                bots[i].Hand.CardListValue = await _handService.GetPlayerHandValue(bots[i].Id);
                 await UpdateScore(bots[i].Id, bots[i].Hand.CardListValue, dealer.Hand.CardListValue);
             }
 
