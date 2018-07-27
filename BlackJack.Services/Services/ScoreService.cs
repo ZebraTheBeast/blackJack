@@ -43,6 +43,8 @@ namespace BlackJack.BLL.Services
             {
                 await PlayerLosePoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
+
+                return OptionHelper.OptionLose();
             }
 
             if ((dealerCardsValue > playerCardsValue) && (dealerCardsValue <= Constant.WinValue))
@@ -59,8 +61,6 @@ namespace BlackJack.BLL.Services
                 
                 return OptionHelper.OptionDraw();
             }
-
-            return "Error!";
         }
 
         private async Task PlayerLosePoints(int playerId)

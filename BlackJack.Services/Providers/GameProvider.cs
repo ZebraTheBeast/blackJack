@@ -8,7 +8,6 @@ using BlackJack.DAL.Repository;
 using BlackJack.Configuration.Constant;
 using BlackJack.BLL.Services;
 using BlackJack.BLL.Helper;
-using BlackJack.Logger;
 using BlackJack.BLL.Interface;
 
 namespace BlackJack.BLL.Providers
@@ -27,7 +26,7 @@ namespace BlackJack.BLL.Providers
             var handRepository = new HandRepository();
             var playerRepository = new PlayerRepository();
             var playerInGameRepository = new PlayerInGameRepository();
-            _deckService = new DeckService(cardRepository, handRepository);
+            _deckService = new DeckService(cardRepository, handRepository, playerRepository);
             _handService = new HandService(handRepository, cardRepository, playerInGameRepository);
             _playerService = new PlayerService(playerRepository, playerInGameRepository);
             _scoreService = new ScoreService(playerInGameRepository, playerRepository);
@@ -137,7 +136,7 @@ namespace BlackJack.BLL.Providers
             var deck = new List<int>();
 
             deck = await EndTurn();
-            await Task.Run(() => _playerService.SetPlayerToGame(playerName));
+            await _playerService.SetPlayerToGame(playerName);
 
             var gameViewModel = new GameViewModel();
 

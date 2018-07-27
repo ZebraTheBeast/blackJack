@@ -15,9 +15,9 @@ namespace BlackJack.MVC.Controllers
     {
         GameProvider _gameProvider;
 
-        public GameController(GameProvider gameProvider)
+        public GameController()
         {
-            _gameProvider = gameProvider;
+            _gameProvider = new GameProvider();
         }
 
         [HttpPost]

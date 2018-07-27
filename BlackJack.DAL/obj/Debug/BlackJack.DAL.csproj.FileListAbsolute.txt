@@ -31,7 +31,3 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.Config
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.Entity.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.Entity.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\NLog.config
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.Logger.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\NLog.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.Logger.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\NLog.xml

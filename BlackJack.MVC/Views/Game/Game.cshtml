@@ -1,6 +1,6 @@
 ﻿@model BlackJack.ViewModel.GameViewModel
 @{
-    var jsonDeck =  new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Deck);
+    var jsonDeck = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Deck);
 }
 <h2 class="text-center">Black Jack</h2>
 
@@ -12,10 +12,12 @@
                 @Model.Dealer.Name
             </h2>
             <ul class="list-group">
+
                 @foreach (var card in Model.Dealer.Hand.CardList)
                 {
-                    <li class="list-group-item">@card.Title of @card.Color</li>
+                <li class="list-group-item">@card.Title of @card.Color</li>
                 }
+
             </ul>
             <h4> Value: @Model.Dealer.Hand.CardListValue</h4>
         </div>
@@ -37,20 +39,20 @@
 <div class="row text-center">
     @for (var i = 0; i < Model.Bots.Count; i++)
     {
-    <div class="col-md-2">
-        <h3 class="text-center">
-            <i class="fa fa-desktop"></i>
-            @Model.Bots[i].Name
-        </h3>
-        <ul class="list-group">
-            @foreach (var card in Model.Bots[i].Hand.CardList)
-            {
-                <li class="list-group-item">@card.Title of @card.Color.ToString()</li>
-            }
-        </ul>
-        <h4>Value: @Model.Bots[i].Hand.CardListValue</h4>
-        <h4>Bet: @Model.Bots[i].Hand.Points</h4>
-    </div>
+        <div class="col-md-2">
+            <h3 class="text-center">
+                <i class="fa fa-desktop"></i>
+                @Model.Bots[i].Name
+            </h3>
+            <ul class="list-group">
+                @foreach (var card in Model.Bots[i].Hand.CardList)
+                {
+                    <li class="list-group-item">@card.Title of @card.Color.ToString()</li>
+                }
+            </ul>
+            <h4>Value: @Model.Bots[i].Hand.CardListValue</h4>
+            <h4>Bet: @Model.Bots[i].Hand.Points</h4>
+        </div>
     }
 
     <div class="col-md-2">
