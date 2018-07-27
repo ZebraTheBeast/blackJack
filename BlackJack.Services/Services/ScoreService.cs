@@ -61,6 +61,7 @@ namespace BlackJack.BLL.Services
                 
                 return OptionHelper.OptionDraw();
             }
+            return null;
         }
 
         private async Task PlayerLosePoints(int playerId)

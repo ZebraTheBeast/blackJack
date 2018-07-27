@@ -13,47 +13,11 @@ namespace BlackJack.MVC.Controllers
 {
     public class GameController : Controller
     {
-        GameProvider _gameProvider;
 
-        public GameController()
+        public ActionResult Game()
         {
-            _gameProvider = new GameProvider();
+            return View("Game");
         }
 
-        [HttpPost]
-        public async Task<ActionResult> StartGame(string playerName)
-        {
-            var gameViewModel = new GameViewModel();
-            
-            gameViewModel = await _gameProvider.StartGame(playerName);
-            
-            return View("Game", gameViewModel);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Draw(int humanId, string jsonDeck)
-        {
-            var deck = new JavaScriptSerializer().Deserialize<List<int>>(jsonDeck);
-            var gameViewModel = new GameViewModel();
-            gameViewModel = await _gameProvider.Draw(humanId, deck);
-            return View("Game", gameViewModel);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Stand(string  jsonDeck)
-        {
-            var deck = new JavaScriptSerializer().Deserialize<List<int>>(jsonDeck);
-            var gameViewModel = new GameViewModel();
-            gameViewModel = await _gameProvider.BotTurn(deck);
-            return View("Game", gameViewModel);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> PlaceBet(int humanId, int pointsValue)
-        {
-            var gameViewModel = new GameViewModel();
-            gameViewModel = await _gameProvider.PlaceBet(humanId, pointsValue);
-            return View("Game", gameViewModel);
-        }
     }
 }

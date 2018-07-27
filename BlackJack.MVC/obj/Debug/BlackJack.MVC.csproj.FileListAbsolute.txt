@@ -228,3 +228,9 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Mvc.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\NLog.config
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\NLog.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\NLog.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Net.Http.Formatting.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Http.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Http.WebHost.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Net.Http.Formatting.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Http.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Http.WebHost.xml
