@@ -119,7 +119,6 @@ namespace BlackJack.BLL.Providers
 
             var gameViewModel = await GetGameViewModel();
 
-            gameViewModel.ButtonPushed = 1;
             gameViewModel.Options = OptionHelper.OptionDrawCard();
             gameViewModel.Deck = deck;
 
@@ -143,7 +142,6 @@ namespace BlackJack.BLL.Providers
 
             gameViewModel = await GetGameViewModel();
             gameViewModel.Deck = deck;
-            gameViewModel.ButtonPushed = 0;
             gameViewModel.Options = OptionHelper.OptionSetBet("");
 
             return gameViewModel;
@@ -154,7 +152,6 @@ namespace BlackJack.BLL.Providers
             await _deckService.GiveCardFromDeck(humanId, deck[0]);
             deck.Remove(deck[0]);
             var gameViewModel = await GetGameViewModel();
-            gameViewModel.ButtonPushed = 1;
             gameViewModel.Options = OptionHelper.OptionDrawCard();
             gameViewModel.Deck = deck;
 
@@ -188,7 +185,6 @@ namespace BlackJack.BLL.Providers
             var gameViewModel = await GetGameViewModel();
             gameViewModel.Options = message;
             gameViewModel.Options = OptionHelper.OptionSetBet(message);
-            gameViewModel.ButtonPushed = 0;
             gameViewModel.Deck = deck;
 
             return gameViewModel;

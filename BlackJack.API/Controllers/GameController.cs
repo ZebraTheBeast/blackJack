@@ -10,8 +10,6 @@ namespace BlackJack.API.Controllers
     {
         public ActionResult Game()
         {
-            ViewBag.Title = "Home Page";
-
             return View();
         }
     }

@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     GetGameViewModel();
-
+    disableDraw();
     $("#placeBetButton").click(function (event) {
         event.preventDefault();
         Bet();
@@ -26,6 +26,7 @@ function Stand() {
         data: JSON.stringify(deck),
         contentType: "application/json;charset=utf-8",
         success: function (data) {
+            disableDraw();
             WriteResponse(data);
         },
         error: function (x, y, z) {
@@ -55,6 +56,7 @@ function Draw() {
 };
 
 function Bet() {
+    
     var betViewModel = {
         HumanId: $("#humanId").val(),
         BetValue: $("#betValue").val()
@@ -66,6 +68,7 @@ function Bet() {
         contentType: "application/json;charset=utf-8",
         success: function (data) {
             WriteResponse(data);
+            disableBet();
         },
         error: function (x, y, z) {
             alert(x + '\n' + y + '\n' + z);
@@ -95,7 +98,6 @@ function WriteResponse(gameViewModel) {
     var gameOption = "";
 
     $.cookie("deck-data", JSON.stringify(gameViewModel.Deck));
-
     dealerResult = "<h2>" + gameViewModel.Dealer.Name + "</h2>";
     dealerResult += "<ul class = 'list-group'>";
     $.each(gameViewModel.Dealer.Hand.CardList, function (index, card) {
@@ -140,4 +142,9 @@ function WriteResponse(gameViewModel) {
     $("#humanBlock").html(humanResult);
     $("#dealerBlock").html(dealerResult);
     $("#betValue").attr("max", gameViewModel.Human.Points);
+
+    if (gameViewModel.Human.Hand.CardListValue >= 21)
+    {
+        disableDraw();
+    }
 }

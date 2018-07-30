@@ -260,7 +260,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\Site\blackjack.js" />
+    <Content Include="Scripts\Site\GameHelper.js" />
     <Content Include="Scripts\Site\Game.js" />
     <Content Include="Scripts\Site\Login.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
