@@ -90,11 +90,11 @@ function GetGameViewModel() {
 }
 
 function WriteResponse(gameViewModel) {
-    var dealerResult = "";
-    var botResult = "";
-    var statsResult = "";
-    var humanResult = "";
-    var gameOption = "";
+    var dealerResult;
+    var botResult;
+    var statsResult;
+    var humanResul;
+    var gameOption;
 
     $.cookie("deck-data", JSON.stringify(gameViewModel.Deck));
     dealerResult = "<h2>" + gameViewModel.Dealer.Name + "</h2>";
@@ -104,7 +104,7 @@ function WriteResponse(gameViewModel) {
     });
     dealerResult += "</ul>" +
         "<h4> Value:" + gameViewModel.Dealer.Hand.CardListValue + "</h4>";
-    
+
     statsResult = "<ul class = 'list-group'>";
     $.each(gameViewModel.Bots, function (index, bot) {
         statsResult += "<li class='list-group-item'>" + bot.Name + " " + bot.Points + "</li>";
@@ -124,7 +124,7 @@ function WriteResponse(gameViewModel) {
         "</ul>" +
         "<h3>Cards in deck: " + gameViewModel.Deck.length + "</h3>";
 
-    humanResult = "<h3>" + gameViewModel.Human.Name + "</h3>" + 
+    humanResult = "<h3>" + gameViewModel.Human.Name + "</h3>" +
         "<ul class='list-group'>";
     $.each(gameViewModel.Human.Hand.CardList, function (index, card) {
         humanResult += "<li class='list-group-item'>" + card.Title + " of " + card.Color + "</li>";
@@ -132,7 +132,7 @@ function WriteResponse(gameViewModel) {
     humanResult += "<h4>Value: " + gameViewModel.Human.Hand.CardListValue + " </h4>" +
         "<h4>Bet:" + gameViewModel.Human.Hand.Points + "</h4>";
     humanResult += "<input type='hidden' value = '" + gameViewModel.Human.Id + "' id = 'humanId'>";
-    
+
     gameOption = " <h1 class='alert alert-info'> " + gameViewModel.Options + "</h1>";
 
     $("#gameStat").html(gameOption);
@@ -140,11 +140,11 @@ function WriteResponse(gameViewModel) {
     $("#botBlock").html(botResult);
     $("#humanBlock").html(humanResult);
     $("#dealerBlock").html(dealerResult);
+
     $("#betValue").attr("max", gameViewModel.Human.Points);
 
     if ((gameViewModel.Human.Hand.CardListValue >= 21)
-        || (gameViewModel.Dealer.Hand.CardListValue == 21))
-    {
+        || (gameViewModel.Dealer.Hand.CardListValue == 21)) {
         disableDraw();
     }
 }
