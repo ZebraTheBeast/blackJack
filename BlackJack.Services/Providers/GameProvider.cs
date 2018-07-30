@@ -32,7 +32,7 @@ namespace BlackJack.BLL.Providers
             _scoreService = new ScoreService(playerInGameRepository, playerRepository);
         }
 
-        private async Task<GameViewModel> GetGameViewModel()
+        public async Task<GameViewModel> GetGameViewModel()
         {
             var gameViewModel = new GameViewModel();
             gameViewModel.Bots = await _playerService.GetBotsInGame();

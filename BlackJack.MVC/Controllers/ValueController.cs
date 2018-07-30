@@ -22,28 +22,28 @@ namespace BlackJack.MVC.Controllers
             return "Test";
         }
 
-        [HttpPost]
-        public async Task<GameViewModel> Bet(int humanId, int pointsValue)
-        {
-            var gameViewModel = new GameViewModel();
-            gameViewModel = await _gameProvider.PlaceBet(humanId, pointsValue);
-            return gameViewModel;
-        }
+        //[HttpPost]
+        //public async Task<GameViewModel> Bet(int humanId, int pointsValue)
+        //{
+        //    var gameViewModel = new GameViewModel();
+        //    gameViewModel = await _gameProvider.PlaceBet(humanId, pointsValue);
+        //    return gameViewModel;
+        //}
 
-        [HttpPost]
-        public async Task<GameViewModel> Draw(int humanId, [FromBody]List<int> deck)
-        {
-            var gameViewModel = new GameViewModel();
-            gameViewModel = await _gameProvider.Draw(humanId, deck);
-            return gameViewModel;
-        }
+        //[HttpPost]
+        //public async Task<GameViewModel> Draw(int humanId, [FromBody]List<int> deck)
+        //{
+        //    var gameViewModel = new GameViewModel();
+        //    gameViewModel = await _gameProvider.Draw(humanId, deck);
+        //    return gameViewModel;
+        //}
 
-        [HttpPost]
-        public async Task<GameViewModel> Stand([FromBody]List<int> deck)
-        {
-            var gameViewModel = new GameViewModel();
-            gameViewModel = await _gameProvider.BotTurn(deck);
-            return gameViewModel;
-        }
+        //[HttpPost]
+        //public async Task<GameViewModel> Stand([FromBody]List<int> deck)
+        //{
+        //    var gameViewModel = new GameViewModel();
+        //    gameViewModel = await _gameProvider.BotTurn(deck);
+        //    return gameViewModel;
+        //}
     }
 }

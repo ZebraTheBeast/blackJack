@@ -4,14 +4,14 @@
     <div class="row">
         <div class="col-md-3 text-center" id="dealerBlock">
         </div>
-        <div id="GameStat" class="col-md-6 text-center">
+        <div id="gameStat" class="col-md-6 text-center">
         </div>
         <div class="col-md-3" id="playerStatsBlock">
         </div>
     </div>
 </div>
 <div class="row text-center">
-    <div id="botBlock"></div>
+    <div id="botBlock" class="col-md-6 row"></div>
 
     <div class="col-md-2" id="humanBlock">
     </div>
@@ -20,8 +20,6 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken();
-
-            <input type="hidden" name="humanId" id="humanId" />
 
             <div class="row">
                 <input id="drawButton" type="submit" value="Draw" class="custombutton btn btn-default" />

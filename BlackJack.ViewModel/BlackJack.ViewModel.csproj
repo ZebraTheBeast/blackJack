@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BetViewModel.cs" />
     <Compile Include="CardViewModel.cs" />
     <Compile Include="DealerViewModel.cs" />
+    <Compile Include="DrawViewModel.cs" />
     <Compile Include="HandViewModel.cs" />
     <Compile Include="GameViewModel.cs" />
     <Compile Include="PlayerViewModel.cs" />
