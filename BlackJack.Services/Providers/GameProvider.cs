@@ -168,22 +168,29 @@ namespace BlackJack.BLL.Providers
             var bots = await _playerService.GetBotsInGame();
             var dealer = await _playerService.GetDealer();
             var human = await _playerService.GetHumanInGame();
+            var gameViewModel = new GameViewModel();
 
             await BotTurn(dealer.Id, deck);
-            dealer.Hand.CardListValue = await _handService.GetPlayerHandValue(dealer.Id);
+            dealer.Hand = await _handService.GetPlayerHand(dealer.Id);
             human.Hand.CardListValue = await _handService.GetPlayerHandValue(human.Id);
+
+            var message = await UpdateScore(human.Id, human.Hand.CardListValue, dealer.Hand.CardListValue);
+
+            if ((dealer.Hand.CardListValue != Constant.WinValue) && dealer.Hand.CardList.Count() != Constant.NumberCardForBlackJack)
+            {
+                for (var i = 0; i < bots.Count(); i++)
+                {
+                    await BotTurn(bots[i].Id, deck);
+                }
+            }
 
             for (var i = 0; i < bots.Count(); i++)
             {
-                await BotTurn(bots[i].Id, deck);
                 bots[i].Hand.CardListValue = await _handService.GetPlayerHandValue(bots[i].Id);
                 await UpdateScore(bots[i].Id, bots[i].Hand.CardListValue, dealer.Hand.CardListValue);
             }
 
-            var message = await UpdateScore(human.Id, human.Hand.CardListValue, dealer.Hand.CardListValue);
-
-            var gameViewModel = await GetGameViewModel();
-            gameViewModel.Options = message;
+            gameViewModel = await GetGameViewModel();
             gameViewModel.Options = OptionHelper.OptionSetBet(message);
             gameViewModel.Deck = deck;
 

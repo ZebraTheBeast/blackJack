@@ -30,7 +30,7 @@ function Stand() {
             WriteResponse(data);
         },
         error: function (x, y, z) {
-            alert(x + '\n' + y + '\n' + z);
+            console.log(x + '\n' + y + '\n' + z);
         }
     });
 };
@@ -50,13 +50,13 @@ function Draw() {
             WriteResponse(data);
         },
         error: function (x, y, z) {
-            alert(x + '\n' + y + '\n' + z);
+            console.log(x + '\n' + y + '\n' + z);
         }
     });
 };
 
 function Bet() {
-    
+    disableBet();
     var betViewModel = {
         HumanId: $("#humanId").val(),
         BetValue: $("#betValue").val()
@@ -68,10 +68,9 @@ function Bet() {
         contentType: "application/json;charset=utf-8",
         success: function (data) {
             WriteResponse(data);
-            disableBet();
         },
         error: function (x, y, z) {
-            alert(x + '\n' + y + '\n' + z);
+            console.log(x + '\n' + y + '\n' + z);
         }
     });
 };
@@ -143,7 +142,8 @@ function WriteResponse(gameViewModel) {
     $("#dealerBlock").html(dealerResult);
     $("#betValue").attr("max", gameViewModel.Human.Points);
 
-    if (gameViewModel.Human.Hand.CardListValue >= 21)
+    if ((gameViewModel.Human.Hand.CardListValue >= 21)
+        || (gameViewModel.Dealer.Hand.CardListValue == 21))
     {
         disableDraw();
     }
