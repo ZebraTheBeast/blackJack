@@ -110,7 +110,7 @@ namespace BlackJack.DAL.Repository
                 var sqlQuery = $"SELECT Bet FROM PlayerInGame WHERE PlayerId = {playerId}";
                 betValue = await db.QueryAsync<int>(sqlQuery);
             }
-            return betValue.First();
+            return betValue.FirstOrDefault();
         }
     }
 }

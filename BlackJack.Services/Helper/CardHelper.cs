@@ -15,8 +15,8 @@ namespace BlackJack.BLL.Helper
     {
         public static CardViewModel GetCardById(int cardId)
         {
-            var deck = new List<Card>();
-            var card = new Card();
+            var deck = new List<CardViewModel>();
+            var card = new CardViewModel();
             var cardViewModel = new CardViewModel();
 
             deck = GetFullDeck();
@@ -24,18 +24,18 @@ namespace BlackJack.BLL.Helper
 
             cardViewModel.Id = card.Id;
             cardViewModel.Title = card.Title;
-            cardViewModel.Color = card.Color.ToString();
+            cardViewModel.Color = card.Color;
             cardViewModel.Value = card.Value;
 
             return cardViewModel;
         }
 
-        public static List<Card> GetFullDeck()
+        public static List<CardViewModel> GetFullDeck()
         {
             var cardColorValue = 0;
             var cardTitleValue = 0;
             var cardColorSize = Enum.GetNames(typeof(CardColor)).Length - 1;
-            var deck = new List<Card>();
+            var deck = new List<CardViewModel>();
             var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.CountNumberCard).ToList();
             var titleList = valueList.ConvertAll<string>(delegate (int i)
             {
@@ -56,12 +56,12 @@ namespace BlackJack.BLL.Helper
 
             for (var i = 0; i < Constant.DeckSize; i++)
             {
-                var card = new Card();
+                var card = new CardViewModel();
 
                 card.Id = i + 1;
                 card.Title = titleList[cardTitleValue];
                 card.Value = valueList[cardTitleValue];
-                card.Color = (CardColor)cardColorValue++;
+                card.Color = ((CardColor)cardColorValue++).ToString();
 
                 deck.Add(card);
 

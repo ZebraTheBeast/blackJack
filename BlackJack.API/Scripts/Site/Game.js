@@ -29,9 +29,6 @@ function Stand() {
         success: function (gameViewModel) {
             disableDraw();
             WriteResponse(gameViewModel);
-        },
-        error: function (x, y, z) {
-            console.log(x + '\n' + y + '\n' + z);
         }
     });
 };
@@ -50,9 +47,6 @@ function Draw() {
         contentType: "application/json;charset=utf-8",
         success: function (data) {
             WriteResponse(data);
-        },
-        error: function (x, y, z) {
-            console.log(x + '\n' + y + '\n' + z);
         }
     });
 };
@@ -70,9 +64,6 @@ function Bet() {
         contentType: "application/json;charset=utf-8",
         success: function (gameViewModel) {
             WriteResponse(gameViewModel);
-        },
-        error: function (x, y, z) {
-            console.log(x + '\n' + y + '\n' + z);
         }
     });
 };
@@ -87,9 +78,6 @@ function StartGame() {
         contentType: "application/json;charset=utf-8",
         success: function (gameViewModel) {
             WriteResponse(gameViewModel);
-        },
-        error: function (x, y, z) {
-            alert(x + '\n' + y + '\n' + z);
         }
     });
 }

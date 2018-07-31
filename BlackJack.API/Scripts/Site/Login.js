@@ -11,5 +11,3 @@ function SetPlayerNameToCookie() {
     $.cookie("player-data", JSON.stringify($("#playerName").val()));
     window.location.href = "/Game/Game";
 }
-
-

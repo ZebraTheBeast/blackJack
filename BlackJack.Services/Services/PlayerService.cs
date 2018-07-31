@@ -7,6 +7,7 @@ using BlackJack.BLL.Interface;
 using BlackJack.ViewModel;
 using BlackJack.DAL.Interface;
 using System.IO;
+using BlackJack.BLL.Helper;
 
 namespace BlackJack.BLL.Services
 {
@@ -45,26 +46,31 @@ namespace BlackJack.BLL.Services
 
         public async Task SetPlayerToGame(string playerName)
         {
+            var logger =  NLog.LogManager.GetCurrentClassLogger();
+
             await  _playerInGameRepository.RemoveAll();
             var player = await _playerRepository.GetByName(playerName);
             var bots = await _playerRepository.GetBots();
             foreach (var bot in bots)
             {
                 await  _playerInGameRepository.AddPlayer(bot.Id);
+                logger.Info(StringHelper.BotJoinGame(bot.Id));
             }
            
             await _playerInGameRepository.AddHuman(player.Id);
+            logger.Info(StringHelper.HumanJoinGame(player.Id));
         }
 
         public async Task<IEnumerable<int>> GetPlayersIdInGame()
         {
+            var logger = NLog.LogManager.GetCurrentClassLogger();
             try
             {
                 var playerIdList = await _playerInGameRepository.GetAll();
 
                 if(playerIdList.Count() == 0)
                 {
-                    throw new Exception("There are no players in the game");
+                    throw new Exception(StringHelper.NoPlayersInGame());
                 }
 
                 return playerIdList;
@@ -72,30 +78,28 @@ namespace BlackJack.BLL.Services
             }
             catch (Exception exception)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Error($"{exception.Message}");
+                logger.Error(exception.Message);
             }
             return null;
         }
 
-        public async Task<bool> MakeBet(int playerId, int betValue)
+        public async Task MakeBet(int playerId, int betValue)
         {
+            var logger = NLog.LogManager.GetCurrentClassLogger();
             try
-            {
-                
+            { 
                 var player = await _playerRepository.GetById(playerId);
                 if (player.Points < betValue)
                 {
-                    return false;
+                    throw new Exception(StringHelper.NotEnoughPoints(playerId, betValue));
                 }
                 await _playerInGameRepository.MakeBet(playerId, betValue);
-                return true;
+                logger.Info(StringHelper.PlayerMakeBet(playerId, betValue));
             }
             catch(Exception exception)
             {
-
+                logger.Error(exception.Message);
             }
-            return false;
         }
 
         public async Task<PlayerViewModel> GetHumanInGame()

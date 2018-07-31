@@ -1,4 +1,3 @@
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.Entity\obj\Debug\BlackJack.Entity.csprojAssemblyReference.cache
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Entity\obj\Debug\BlackJack.Entity.csproj.CoreCompileInputs.cache
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Entity\bin\Debug\BlackJack.Entity.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Entity\bin\Debug\BlackJack.Entity.pdb

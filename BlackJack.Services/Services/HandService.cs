@@ -30,16 +30,17 @@ namespace BlackJack.BLL.Services
         {
             try
             {
-                var player = _playerInGameRepository.GetBetByPlayerId(playerId);
-                if(player == null)
-                {
-                    throw new Exception("Player not in game");
-                }
-
                 var hand = new HandViewModel
                 {
                     CardList = new List<CardViewModel>()
                 };
+
+                var player = _playerInGameRepository.GetBetByPlayerId(playerId);
+
+                if(player == null)
+                {
+                    throw new Exception(StringHelper.PlayerNotInGame());
+                }
 
                 var cardsId = await _handRepository.GetIdCardsByPlayerId(playerId);
 
@@ -54,23 +55,26 @@ namespace BlackJack.BLL.Services
 
                 return hand;
             }
+
             catch(Exception exception)
             {
                 var logger = NLog.LogManager.GetCurrentClassLogger();
                 logger.Error($"{exception.Message}");
             }
+
             return null;
         }
 
         public async Task<int> GetPlayerHandValue(int playerId)
         {
+            var logger = NLog.LogManager.GetCurrentClassLogger();
             try
             {
                 var player = _playerInGameRepository.GetBetByPlayerId(playerId);
 
                 if (player == null)
                 {
-                    throw new Exception("Player not in game");
+                    throw new Exception(StringHelper.PlayerNotInGame());
                 }
 
                 var cardsId = await _handRepository.GetIdCardsByPlayerId(playerId);
@@ -88,8 +92,7 @@ namespace BlackJack.BLL.Services
             }
             catch (Exception exception)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Error($"{exception.Message}");
+                logger.Error(exception.Message);
             }
             return 0;
         }

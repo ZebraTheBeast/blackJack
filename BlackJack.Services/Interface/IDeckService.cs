@@ -8,7 +8,7 @@ namespace BlackJack.BLL.Interface
 {
     public interface IDeckService
     {
-        List<int> RefreshAndShuffleDeck();
+        List<int> GetNewRefreshedDeck();
         Task GiveCardFromDeck(int playerId, int cardId);
     }
 }

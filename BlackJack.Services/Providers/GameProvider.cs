@@ -25,7 +25,7 @@ namespace BlackJack.BLL.Providers
             var handRepository = new HandRepository();
             var playerRepository = new PlayerRepository();
             var playerInGameRepository = new PlayerInGameRepository();
-            _deckService = new DeckService( handRepository, playerRepository);
+            _deckService = new DeckService( handRepository, playerRepository, playerInGameRepository);
             _handService = new HandService(handRepository, playerInGameRepository);
             _playerService = new PlayerService(playerRepository, playerInGameRepository);
             _scoreService = new ScoreService(playerInGameRepository, playerRepository);
@@ -61,7 +61,7 @@ namespace BlackJack.BLL.Providers
         {
             var cardIdList = new List<int>();
             await _handService.RemoveAllCardsInHand();
-            cardIdList = _deckService.RefreshAndShuffleDeck();
+            cardIdList = _deckService.GetNewRefreshedDeck();
             return cardIdList;
         }
 
@@ -77,28 +77,18 @@ namespace BlackJack.BLL.Providers
             return await BotTurn(botId, deck);
         }
 
-        private async Task<bool> MakeBet(int playerId, int betValue)
+        private async Task MakeBet(int playerId, int betValue)
         {
-            var response = await _playerService.MakeBet(playerId, betValue);
-            return response;
+            await _playerService.MakeBet(playerId, betValue);
         }
 
-        public async Task<GameViewModel> PlaceBet(int humanId, int pointsValue)
+        public async Task<GameViewModel> PlaceBet(int humanId, int betValue)
         {
             var deck = new List<int>();
             IEnumerable<int> playersId = new List<int>(); ;
             var bots = new List<PlayerViewModel>();
-            var response = false;
 
             deck = await EndTurn();
-            response = await MakeBet(humanId, pointsValue);
-
-            if (!response)
-            {
-                var errorGameViewModel = await GetGameViewModel();
-                errorGameViewModel.Options = OptionHelper.OptionErrorBet();
-                return errorGameViewModel;
-            }
 
             playersId = await _playerService.GetPlayersIdInGame();
             bots = await _playerService.GetBotsInGame();
@@ -107,6 +97,8 @@ namespace BlackJack.BLL.Providers
             {
                 await _playerService.MakeBet(bots[i].Id, Constant.BotsBetValue);
             }
+
+            await _playerService.MakeBet(humanId, betValue);
 
             foreach (var playerId in playersId)
             {
