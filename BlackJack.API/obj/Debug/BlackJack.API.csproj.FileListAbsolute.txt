@@ -108,4 +108,3 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.DAL.dll.conf
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.Entity.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\NLog.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\Dapper.xml
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\NLog.config

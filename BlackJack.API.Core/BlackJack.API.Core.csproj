@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="App_Data\BlackJackDB.mdf" />
+    <None Remove="App_Data\BlackJackDB_log.ldf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="App_Data\BlackJackDB.mdf" />
+    <Content Include="App_Data\BlackJackDB_log.ldf">
+      <DependentUpon>BlackJackDB.mdf</DependentUpon>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlackJack.Configuration\BlackJack.Configuration.csproj" />
+    <ProjectReference Include="..\BlackJack.Services\BlackJack.BLL.csproj" />
+    <ProjectReference Include="..\BlackJack.ViewModel\BlackJack.ViewModel.csproj" />
+  </ItemGroup>
+
+</Project>

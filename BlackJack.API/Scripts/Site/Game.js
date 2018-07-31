@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
-    GetGameViewModel();
+    StartGame();
     disableDraw();
+
     $("#placeBetButton").click(function (event) {
         event.preventDefault();
         Bet();
@@ -25,9 +26,9 @@ function Stand() {
         type: 'POST',
         data: JSON.stringify(deck),
         contentType: "application/json;charset=utf-8",
-        success: function (data) {
+        success: function (gameViewModel) {
             disableDraw();
-            WriteResponse(data);
+            WriteResponse(gameViewModel);
         },
         error: function (x, y, z) {
             console.log(x + '\n' + y + '\n' + z);
@@ -36,6 +37,7 @@ function Stand() {
 };
 
 function Draw() {
+
     var drawViewModel = {
         HumanId: $("#humanId").val(),
         Deck: JSON.parse($.cookie("deck-data"))
@@ -66,8 +68,8 @@ function Bet() {
         type: 'POST',
         data: JSON.stringify(betViewModel),
         contentType: "application/json;charset=utf-8",
-        success: function (data) {
-            WriteResponse(data);
+        success: function (gameViewModel) {
+            WriteResponse(gameViewModel);
         },
         error: function (x, y, z) {
             console.log(x + '\n' + y + '\n' + z);
@@ -75,28 +77,31 @@ function Bet() {
     });
 };
 
-function GetGameViewModel() {
+
+function StartGame() {
+    var playerName = JSON.parse($.cookie("player-data"));
     $.ajax({
-        url: '/api/values/GetGameViewModel',
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            WriteResponse(data);
+        url: '/api/values/StartGame',
+        type: 'POST',
+        data: JSON.stringify(playerName),
+        contentType: "application/json;charset=utf-8",
+        success: function (gameViewModel) {
+            WriteResponse(gameViewModel);
         },
         error: function (x, y, z) {
-            console.log(x + '\n' + y + '\n' + z);
+            alert(x + '\n' + y + '\n' + z);
         }
     });
 }
 
 function WriteResponse(gameViewModel) {
     var dealerResult;
-    var botResult;
+    var botResult = "";
     var statsResult;
     var humanResul;
     var gameOption;
-
     $.cookie("deck-data", JSON.stringify(gameViewModel.Deck));
+    
     dealerResult = "<h2>" + gameViewModel.Dealer.Name + "</h2>";
     dealerResult += "<ul class = 'list-group'>";
     $.each(gameViewModel.Dealer.Hand.CardList, function (index, card) {
@@ -121,8 +126,11 @@ function WriteResponse(gameViewModel) {
     });
 
     statsResult += "<li class = 'list-group-item'> " + gameViewModel.Human.Name + " " + gameViewModel.Human.Points + "</li>" +
-        "</ul>" +
-        "<h3>Cards in deck: " + gameViewModel.Deck.length + "</h3>";
+        "</ul>";
+
+    if (gameViewModel.Deck != null) {
+        statsResult += "<h3>Cards in deck: " + gameViewModel.Deck.length + "</h3>";
+    }
 
     humanResult = "<h3>" + gameViewModel.Human.Name + "</h3>" +
         "<ul class='list-group'>";

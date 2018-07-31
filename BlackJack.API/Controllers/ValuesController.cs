@@ -15,15 +15,10 @@ namespace BlackJack.API.Controllers
         GameProvider _gameProvider = new GameProvider();
 
        [HttpPost]
-        public async Task StartGame([FromBody]string playerName)
-        {
-            await _gameProvider.StartGame(playerName);
-        }
-
-        public async Task<GameViewModel> GetGameViewModel()
+        public async Task<GameViewModel> StartGame([FromBody]string playerName)
         {
             var gameViewModel = new GameViewModel();
-            gameViewModel = await _gameProvider.StartGame("Zebra");
+            gameViewModel = await _gameProvider.StartGame(playerName);
             return gameViewModel;
         }
 
