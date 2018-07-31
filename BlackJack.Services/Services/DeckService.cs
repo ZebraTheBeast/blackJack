@@ -10,6 +10,7 @@ using BlackJack.Entity;
 using BlackJack.DAL.Interface;
 using BlackJack.DAL.Repository;
 using BlackJack.BLL.Interface;
+using BlackJack.BLL.Helper;
 using NLog;
 using System.IO;
 
@@ -17,15 +18,11 @@ namespace BlackJack.BLL.Services
 {
     public class DeckService : IDeckService
     {
-
-        ICardRepository _cardRepository;
         IHandRepository _handRepository;
         IPlayerRepository _playerRepository;
 
-        public DeckService(ICardRepository cardRepository, IHandRepository handRepository, IPlayerRepository playerRepository)
+        public DeckService( IHandRepository handRepository, IPlayerRepository playerRepository)
         {
-
-            _cardRepository = cardRepository;
             _handRepository = handRepository;
             _playerRepository = playerRepository;
 
@@ -38,7 +35,7 @@ namespace BlackJack.BLL.Services
             Random rng = new Random();
             var deck = new List<Card>();
             var cardIdList = new List<int>();
-            deck = GetFullDeck();
+            deck = CardHelper.GetFullDeck();
 
             int n = deck.Count;
 
@@ -70,72 +67,15 @@ namespace BlackJack.BLL.Services
                     throw new Exception("Player doesn't exist");
                 }
 
-                var card = _cardRepository.GetById(cardId);
-                if (card == null)
-                {
-                    throw new Exception("Card doesn't exist");
-                }
-
-                await _handRepository.GiveCardToPlayer(playerId, cardId);
-                
+                await _handRepository.GiveCardToPlayer(playerId, cardId);   
             }
             catch(Exception exception)
             {
-                
                 logger.Error($"{exception.Message}");
             }
         }
 
+       
 
-        private List<Card> GetFullDeck()
-        {
-            var deck = new List<Card>();
-            var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.CountNumberCard).ToList();
-            var titleList = valueList.ConvertAll<string>(delegate (int i)
-            {
-                return i.ToString();
-            });
-
-            foreach (var value in Enum.GetNames(typeof(CardTitle)))
-            {
-                titleList.Add(value);
-            }
-
-            for (var i = 0; i < Enum.GetValues(typeof(CardTitle)).Length - 1; i++)
-            {
-                valueList.Add(Constant.ImageCardValue);
-            }
-
-            valueList.Add(Constant.AceCardValue);
-
-            FillDeckWithCard(deck, titleList, valueList);
-
-            return deck;
-        }
-
-        private void FillDeckWithCard(List<Card> deck, List<string> cardNames, List<int> cardValues)
-        {
-            int cardColorValue = 0;
-            int cardTitleValue = 0;
-            int cardColorSize = Enum.GetNames(typeof(CardColor)).Length - 1;
-
-            for (int i = 0; i < Constant.DeckSize; i++)
-            {
-                var card = new Card();
-
-                card.Id = i + 1;
-                card.Title = cardNames[cardTitleValue];
-                card.Value = cardValues[cardTitleValue];
-                card.Color = (CardColor)cardColorValue++;
-
-                deck.Add(card);
-
-                if (cardColorValue > cardColorSize)
-                {
-                    cardColorValue = 0;
-                    cardTitleValue++;
-                }
-            }
-        }
     }
 }

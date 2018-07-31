@@ -22,12 +22,11 @@ namespace BlackJack.BLL.Providers
 
         public GameProvider()
         {
-            var cardRepository = new CardRepository();
             var handRepository = new HandRepository();
             var playerRepository = new PlayerRepository();
             var playerInGameRepository = new PlayerInGameRepository();
-            _deckService = new DeckService(cardRepository, handRepository, playerRepository);
-            _handService = new HandService(handRepository, cardRepository, playerInGameRepository);
+            _deckService = new DeckService( handRepository, playerRepository);
+            _handService = new HandService(handRepository, playerInGameRepository);
             _playerService = new PlayerService(playerRepository, playerInGameRepository);
             _scoreService = new ScoreService(playerInGameRepository, playerRepository);
         }

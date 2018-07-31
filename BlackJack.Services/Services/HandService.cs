@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJack.BLL.Interface;
+using BlackJack.BLL.Helper;
 using BlackJack.ViewModel;
 using BlackJack.DAL.Interface;
 using BlackJack.Configuration.Constant;
@@ -14,13 +15,11 @@ namespace BlackJack.BLL.Services
     public class HandService : IHandService
     {
         IHandRepository _handRepository;
-        ICardRepository _cardRepository;
         IPlayerInGameRepository _playerInGameRepository;
 
-        public HandService(IHandRepository handRepository, ICardRepository cardRepository, IPlayerInGameRepository playerInGameRepository)
+        public HandService(IHandRepository handRepository, IPlayerInGameRepository playerInGameRepository)
         {
             _handRepository = handRepository;
-            _cardRepository = cardRepository;
             _playerInGameRepository = playerInGameRepository;
 
             var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
@@ -37,21 +36,17 @@ namespace BlackJack.BLL.Services
                     throw new Exception("Player not in game");
                 }
 
-                var hand = new HandViewModel { CardList = new List<CardViewModel>() };
+                var hand = new HandViewModel
+                {
+                    CardList = new List<CardViewModel>()
+                };
 
                 var cardsId = await _handRepository.GetIdCardsByPlayerId(playerId);
 
                 foreach (var cardId in cardsId)
                 {
-                    var card = await _cardRepository.GetById(cardId);
-
-                    var cardViewModel = new CardViewModel();
-                    cardViewModel.Id = card.Id;
-                    cardViewModel.Title = card.Title;
-                    cardViewModel.Color = card.Color.ToString();
-                    cardViewModel.Value = card.Value;
-
-                    hand.CardList.Add(cardViewModel);
+                    var card = CardHelper.GetCardById(cardId);
+                    hand.CardList.Add(card);
                 }
 
                 hand.Points = await _playerInGameRepository.GetBetByPlayerId(playerId);
@@ -83,13 +78,8 @@ namespace BlackJack.BLL.Services
 
                 foreach (var cardId in cardsId)
                 {
-                    var card = await _cardRepository.GetById(cardId);
-                    var cardViewModel = new CardViewModel();
-                    cardViewModel.Id = card.Id;
-                    cardViewModel.Title = card.Title;
-                    cardViewModel.Color = card.Color.ToString();
-                    cardViewModel.Value = card.Value;
-                    cards.Add(cardViewModel);
+                    var card = CardHelper.GetCardById(cardId);
+                    cards.Add(card);
                 }
 
                 var handValue = CountPlayerCardsValue(cards);
