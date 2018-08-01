@@ -22,9 +22,30 @@ namespace BlackJack.API.Controllers
 
         public async Task<GameViewModel> GetGameViewModel()
         {
+
             var gameViewModel = new GameViewModel();
             gameViewModel = await _gameProvider.GetGameViewModel();
+
+            if (gameViewModel.Bots.Count() == 0)
+            {
+                throw new Exception("ass");
+            }
+
+            if (gameViewModel.Dealer == null)
+            {
+                throw new Exception("ass");
+            }
+            gameViewModel.Human = null;
+            if (gameViewModel.Human == null)
+            {
+
+                // zalupa
+                var message = "No human in game";
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotImplemented, message));
+            }
             return gameViewModel;
+
         }
 
         [HttpPost]
