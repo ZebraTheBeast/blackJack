@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
-    StartGame();
-    disableDraw();
-
+    1
+    GetGameViewModel();
     $("#placeBetButton").click(function (event) {
         event.preventDefault();
         Bet();
@@ -32,6 +31,17 @@ function Stand() {
         }
     });
 };
+
+function GetGameViewModel() {
+    $.ajax({
+        url: '/api/values/GetGameViewModel',
+        type: 'GET',
+        contentType: "application/json;charset=utf-8",
+        success: function (gameViewModel) {
+            WriteResponse(gameViewModel);
+        }
+    });
+}
 
 function Draw() {
 
@@ -68,39 +78,24 @@ function Bet() {
     });
 };
 
-
-function StartGame() {
-    var playerName = JSON.parse($.cookie("player-data"));
-    $.ajax({
-        url: '/api/values/StartGame',
-        type: 'POST',
-        data: JSON.stringify(playerName),
-        contentType: "application/json;charset=utf-8",
-        success: function (gameViewModel) {
-            WriteResponse(gameViewModel);
-        }
-    });
-}
-
 function WriteResponse(gameViewModel) {
-    var dealerResult;
+    var dealerCards = "";
     var botResult = "";
-    var statsResult;
-    var humanResul;
-    var gameOption;
+    var statsResult = "";
+    var humanCards = "";
     $.cookie("deck-data", JSON.stringify(gameViewModel.Deck));
-    
-    dealerResult = "<h2>" + gameViewModel.Dealer.Name + "</h2>";
-    dealerResult += "<ul class = 'list-group'>";
-    $.each(gameViewModel.Dealer.Hand.CardList, function (index, card) {
-        dealerResult += "<li class='list-group-item'>" + card.Title + " of " + card.Color + "</li>";
-    });
-    dealerResult += "</ul>" +
-        "<h4> Value:" + gameViewModel.Dealer.Hand.CardListValue + "</h4>";
 
-    statsResult = "<ul class = 'list-group'>";
+    $("#dealerName").html(gameViewModel.Dealer.Name);
+
+    $.each(gameViewModel.Dealer.Hand.CardList, function (index, card) {
+        dealerCards += "<li class='list-group-item'>" + card.Title + " of " + card.Color + "</li>";
+    });
+
+    $("#dealerCards").html(dealerCards);
+    $("#dealerValue").html(gameViewModel.Dealer.Hand.CardListValue);
     $.each(gameViewModel.Bots, function (index, bot) {
         statsResult += "<li class='list-group-item'>" + bot.Name + " " + bot.Points + "</li>";
+
         botResult += "<div class = 'col-md-4'>" +
             "<h3>" + bot.Name + "</h3>" +
             "<ul class = 'list-group'>";
@@ -112,35 +107,42 @@ function WriteResponse(gameViewModel) {
             "<h4>Bet: " + bot.Hand.Points + "</h4>" +
             "</div>";
     });
-
-    statsResult += "<li class = 'list-group-item'> " + gameViewModel.Human.Name + " " + gameViewModel.Human.Points + "</li>" +
-        "</ul>";
+    statsResult += "<li class = 'list-group-item'> " + gameViewModel.Human.Name + " " + gameViewModel.Human.Points + "</li>";
 
     if (gameViewModel.Deck != null) {
-        statsResult += "<h3>Cards in deck: " + gameViewModel.Deck.length + "</h3>";
+        $("#cardsCount").html(gameViewModel.Deck.length);
     }
 
-    humanResult = "<h3>" + gameViewModel.Human.Name + "</h3>" +
-        "<ul class='list-group'>";
     $.each(gameViewModel.Human.Hand.CardList, function (index, card) {
-        humanResult += "<li class='list-group-item'>" + card.Title + " of " + card.Color + "</li>";
+        humanCards += "<li class='list-group-item'>" + card.Title + " of " + card.Color + "</li>";
     });
-    humanResult += "<h4>Value: " + gameViewModel.Human.Hand.CardListValue + " </h4>" +
-        "<h4>Bet:" + gameViewModel.Human.Hand.Points + "</h4>";
-    humanResult += "<input type='hidden' value = '" + gameViewModel.Human.Id + "' id = 'humanId'>";
 
-    gameOption = " <h1 class='alert alert-info'> " + gameViewModel.Options + "</h1>";
+    $("#humanName").html(gameViewModel.Human.Name);
+    $("#humanCards").html(humanCards);
+    $("#humanValue").html(gameViewModel.Human.Hand.CardListValue);
+    $("#humanBet").html(gameViewModel.Human.Hand.Points);
+    $("#humanId").val(gameViewModel.Human.Id);
 
-    $("#gameStat").html(gameOption);
+    $("#gameStat").html(gameViewModel.Options);
     $("#playerStatsBlock").html(statsResult);
     $("#botBlock").html(botResult);
-    $("#humanBlock").html(humanResult);
-    $("#dealerBlock").html(dealerResult);
 
     $("#betValue").attr("max", gameViewModel.Human.Points);
 
-    if ((gameViewModel.Human.Hand.CardListValue >= 21)
-        || (gameViewModel.Dealer.Hand.CardListValue == 21)) {
+    if (gameViewModel.Human.Hand.CardListValue >= 21){
         disableDraw();
     }
+
+    if (gameViewModel.Human.Hand.Points == 0){
+        disableDraw();
+    }
+
+    if (gameViewModel.Dealer.Hand.CardListValue == 21) {
+        disableDraw();
+    }
+
+    if ((gameViewModel.Human.Hand.CardList.length != 0) && (gameViewModel.Human.Hand.Points != 0)) {
+        disableBet();
+    }
+
 }

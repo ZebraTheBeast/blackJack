@@ -9,6 +9,7 @@ namespace BlackJack.BLL.Interface
     public interface IDeckService
     {
         List<int> GetNewRefreshedDeck();
+        Task<List<int>> LoadDeck();
         Task GiveCardFromDeck(int playerId, int cardId);
     }
 }

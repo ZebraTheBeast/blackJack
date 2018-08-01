@@ -3,7 +3,10 @@
 <h2>Enter your name</h2>
 
 <div class="form-group">
-    <input required type="text" id="playerName" class="form-control" name="playerName" autocomplete="off" />
+    @Html.TextBox("playerName", null, new { id = "playerName", autocomplete = "off", @class = "form-control" })
 </div>
-
-<input type="submit" id="loginButton" value="Play" class="btn btn-default" />
+@using (Html.BeginForm("Game", "Game"))
+{
+    <input type="submit" id="loginButton" value="Start new game" class="btn btn-default" />
+    <input type="submit" id="loadButton" value="Load last game" class="btn btn-default" />
+}

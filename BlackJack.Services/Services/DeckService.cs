@@ -83,10 +83,10 @@ namespace BlackJack.BLL.Services
 
             for (var i = 0; i < deckSize; i++)
             {
-                int k = rng.Next(deckSize);
+                int index = rng.Next(deckSize);
                 var value = deck[i];
-                deck[i] = deck[k];
-                deck[k] = value;
+                deck[i] = deck[index];
+                deck[index] = value;
             }
 
             return deck;
@@ -111,8 +111,6 @@ namespace BlackJack.BLL.Services
                 logger.Error(exception.Message);
             }
         }
-
-
 
     }
 }

@@ -108,4 +108,9 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.DAL.dll.conf
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.Entity.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\NLog.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\Dapper.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\Autofac.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\Autofac.Integration.WebApi.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\Autofac.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\Autofac.Integration.WebApi.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\Autofac.Integration.WebApi.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\NLog.config

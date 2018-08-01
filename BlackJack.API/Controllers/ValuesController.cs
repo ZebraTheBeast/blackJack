@@ -7,19 +7,30 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using BlackJack.BLL.Providers;
 using BlackJack.ViewModel;
+using BlackJack.BLL.Interface;
 
 namespace BlackJack.API.Controllers
 {
     public class ValuesController : ApiController
     {
-        GameProvider _gameProvider = new GameProvider();
+        IGameProvider _gameProvider;
 
-       [HttpPost]
-        public async Task<GameViewModel> StartGame([FromBody]string playerName)
+        public ValuesController(IGameProvider gameProvider)
+        {
+            _gameProvider = gameProvider;
+        }
+
+        public async Task<GameViewModel> GetGameViewModel()
         {
             var gameViewModel = new GameViewModel();
-            gameViewModel = await _gameProvider.StartGame(playerName);
+            gameViewModel = await _gameProvider.GetGameViewModel();
             return gameViewModel;
+        }
+
+        [HttpPost]
+        public async Task StartGame([FromBody]string playerName)
+        {
+            await _gameProvider.StartGame(playerName);
         }
 
         [HttpPost]

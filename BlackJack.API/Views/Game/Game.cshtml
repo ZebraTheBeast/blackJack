@@ -6,19 +6,32 @@
     <div class="row">
         <div class="col-md-3 text-center" id="dealerBlock">
             <h2>
-                @Html.Label("", new { id = "dealerName" })
+                <span id="dealerName"></span>
             </h2>
+            <ul class="list-group" id="dealerCards"></ul>
+            <h4>Value: <span id="dealerValue"></span></h4>
         </div>
-        <div id="gameStat" class="col-md-6 text-center">
+        <div class="col-md-6 text-center">
+            <h1 class='alert alert-info'>
+                <span id="gameStat"></span>
+            </h1>
         </div>
-        <div class="col-md-3" id="playerStatsBlock">
+        <div class="col-md-3">
+            <ul class="list-group" id="playerStatsBlock"></ul>
+            <h3>Cards in deck: <span id="cardsCount"></span></h3>
         </div>
     </div>
 </div>
 <div class="row text-center">
     <div id="botBlock" class="col-md-6 row"></div>
-
-    <div class="col-md-2" id="humanBlock">
+    @Html.Hidden(" ", 0, new { id = "humanId" })
+    <div class="col-md-2">
+        <h3>
+            <span id="humanName"></span>
+        </h3>
+        <ul class="list-group" id="humanCards"></ul>
+        <h4>Value: <span id="humanValue"></span></h4>
+        <h4>Bet: <span id="humanBet"></span></h4>
     </div>
 
     <div class="col-md-4 ">
@@ -37,7 +50,5 @@
         <div class="row">
             <input id="placeBetButton" type="submit" value="Place a bet" class="btn btn-default custombutton" />
         </div>
-
     </div>
 </div>
-

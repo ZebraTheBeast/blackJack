@@ -63,6 +63,7 @@
     <Compile Include="Helper\CardHelper.cs" />
     <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Interface\IDeckService.cs" />
+    <Compile Include="Interface\IGameProvider.cs" />
     <Compile Include="Interface\IHandService.cs" />
     <Compile Include="Interface\IPlayerService.cs" />
     <Compile Include="Interface\IScoreService.cs" />

@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using BlackJack.API.Util;
 
 namespace BlackJack.API
 {
@@ -13,6 +14,8 @@ namespace BlackJack.API
     {
         protected void Application_Start()
         {
+            AutofacConfig.ConfigureContainer();
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

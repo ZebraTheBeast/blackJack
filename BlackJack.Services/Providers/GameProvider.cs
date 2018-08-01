@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
-using BlackJack.DAL.Repository;
 using BlackJack.Configuration.Constant;
 using BlackJack.BLL.Services;
 using BlackJack.BLL.Helper;
@@ -12,23 +11,19 @@ using BlackJack.BLL.Interface;
 
 namespace BlackJack.BLL.Providers
 {
-    public class GameProvider
+    public class GameProvider : IGameProvider
     {
         IDeckService _deckService;
         IHandService _handService;
         IPlayerService _playerService;
         IScoreService _scoreService;
 
-
-        public GameProvider()
+        public GameProvider(IDeckService deckService, IHandService handService, IPlayerService playerService, IScoreService scoreService)
         {
-            var handRepository = new HandRepository();
-            var playerRepository = new PlayerRepository();
-            var playerInGameRepository = new PlayerInGameRepository();
-            _deckService = new DeckService( handRepository, playerRepository, playerInGameRepository);
-            _handService = new HandService(handRepository, playerInGameRepository);
-            _playerService = new PlayerService(playerRepository, playerInGameRepository);
-            _scoreService = new ScoreService(playerInGameRepository, playerRepository);
+            _deckService = deckService;
+            _handService = handService;
+            _playerService = playerService;
+            _scoreService = scoreService;
         }
 
         public async Task<GameViewModel> GetGameViewModel()
@@ -47,9 +42,24 @@ namespace BlackJack.BLL.Providers
             gameViewModel.Dealer = await _playerService.GetDealer();
             gameViewModel.Dealer.Hand = await _handService.GetPlayerHand(gameViewModel.Dealer.Id);
 
+            gameViewModel.Deck = await _deckService.LoadDeck();
+
+            if (gameViewModel.Human.Hand.CardList.Count() != 0)
+            {
+                gameViewModel.Options = OptionHelper.OptionDrawCard();
+            }
+
+            if (gameViewModel.Human.Hand.CardList.Count() == 0)
+            {
+                gameViewModel.Options = OptionHelper.OptionSetBet("");
+            }
+            if (gameViewModel.Human.Hand.Points == 0)
+            {
+                gameViewModel.Options = OptionHelper.OptionSetBet("");
+            }
+
             return gameViewModel;
         }
-
 
         private async Task<string> UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue)
         {
@@ -121,21 +131,10 @@ namespace BlackJack.BLL.Providers
             return gameViewModel;
         }
 
-        public async Task<GameViewModel> StartGame(string playerName)
+        public async Task StartGame(string playerName)
         {
-            var deck = new List<int>();
-
-            deck = await EndTurn();
+            await _handService.RemoveAllCardsInHand();
             await _playerService.SetPlayerToGame(playerName);
-
-            var gameViewModel = new GameViewModel();
-
-
-            gameViewModel = await GetGameViewModel();
-            gameViewModel.Deck = deck;
-            gameViewModel.Options = OptionHelper.OptionSetBet("");
-
-            return gameViewModel;
         }
 
         public async Task<GameViewModel> Draw(int humanId, List<int> deck)
