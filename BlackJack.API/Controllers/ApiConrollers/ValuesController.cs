@@ -30,20 +30,17 @@ namespace BlackJack.API.Controllers
 
                 if (gameViewModel.Bots.Count() == 0)
                 {
-                    throw new HttpResponseException(
-                        Request.CreateErrorResponse(HttpStatusCode.NotImplemented, StringHelper.BotsNotInGame()));
+                    throw new Exception(StringHelper.BotsNotInGame());
                 }
 
                 if (gameViewModel.Dealer == null)
                 {
-                    throw new HttpResponseException(
-                        Request.CreateErrorResponse(HttpStatusCode.NotImplemented, StringHelper.DealerNotInGame()));
+                    throw new Exception(StringHelper.DealerNotInGame());
                 }
 
                 if (gameViewModel.Human == null)
                 {
-                    throw new HttpResponseException(
-                        Request.CreateErrorResponse(HttpStatusCode.NotImplemented, StringHelper.PlayerNotInGame()));
+                    throw new Exception(StringHelper.PlayerNotInGame());
                 }
 
                 return gameViewModel;
@@ -59,7 +56,15 @@ namespace BlackJack.API.Controllers
         [HttpPost]
         public async Task StartGame([FromBody]string playerName)
         {
-            await _gameProvider.StartGame(playerName);
+            try
+            {
+                await _gameProvider.StartGame(playerName);
+            }
+            catch (Exception exception)
+            {
+                throw new HttpResponseException(
+                        Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+            }
         }
 
         [HttpPost]
@@ -71,11 +76,10 @@ namespace BlackJack.API.Controllers
                 gameViewModel = await _gameProvider.PlaceBet(betValue);
                 return gameViewModel;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 throw new HttpResponseException(
-                       Request.CreateErrorResponse(HttpStatusCode.NotImplemented, ex.Message));
-
+                       Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
             }
         }
 
@@ -88,10 +92,10 @@ namespace BlackJack.API.Controllers
                 gameViewModel = await _gameProvider.Draw(deck);
                 return gameViewModel;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 throw new HttpResponseException(
-                       Request.CreateErrorResponse(HttpStatusCode.NotImplemented, ex.Message));
+                       Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
 
             }
         }
@@ -105,11 +109,10 @@ namespace BlackJack.API.Controllers
                 gameViewModel = await _gameProvider.Stand(deck);
                 return gameViewModel;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 throw new HttpResponseException(
-                       Request.CreateErrorResponse(HttpStatusCode.NotImplemented, ex.Message));
-
+                       Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
             }
         }
     }

@@ -17,5 +17,6 @@ namespace BlackJack.DAL.Interface
         Task<int> GetBetByPlayerId(int playerId);
         Task MakeBet(int playerId, int bet);
         Task AnnulBet(int playerId);
+        Task<bool> IsInGame(int playerId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     GetGameViewModel();
+
     $("#placeBetButton").click(function (event) {
         event.preventDefault();
         Bet();
@@ -18,16 +19,12 @@
     $("#refreshButton").click(function (event) {
         event.preventDefault();
         location.reload();
-    })
+    });
 
-
-    $("#backgroundLayer").hide();
-    $("#errorBlock").hide();
 });
 
 function Stand() {
     var deck = JSON.parse($.cookie("deck-data"));
-
     $.ajax({
         url: '/api/values/Stand',
         type: 'POST',
@@ -37,8 +34,8 @@ function Stand() {
             disableDraw();
             WriteResponse(gameViewModel);
         },
-        error: function (ex) {
-            showError(ex.responseJSON.Message);
+        error: function (exception) {
+            showError(exception.responseJSON.Message);
         }
     });
 };
@@ -51,8 +48,8 @@ function GetGameViewModel() {
         success: function (gameViewModel) {
             WriteResponse(gameViewModel);
         },
-        error: function (ex) {
-            showError(ex.responseJSON.Message);
+        error: function (exception) {
+            showError(exception.responseJSON.Message);
         }
     });
 }
@@ -67,17 +64,15 @@ function Draw() {
         success: function (data) {
             WriteResponse(data);
         },
-        error: function (ex) {
-            showError(ex.responseJSON.Message);
+        error: function (exception) {
+            showError(exception.responseJSON.Message);
         }
     });
 };
 
 function Bet() {
     disableBet();
-
     var betValue = $("#betValue").val()
-
     $.ajax({
         url: '/api/values/Bet',
         type: 'POST',
@@ -86,8 +81,8 @@ function Bet() {
         success: function (gameViewModel) {
             WriteResponse(gameViewModel);
         },
-        error: function (ex) {
-            showError(ex.responseJSON.Message);
+        error: function (exception) {
+            showError(exception.responseJSON.Message);
         }
     });
 };

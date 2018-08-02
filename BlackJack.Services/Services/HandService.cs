@@ -32,9 +32,7 @@ namespace BlackJack.BLL.Services
                     CardList = new List<CardViewModel>()
                 };
 
-                var player = _playerInGameRepository.GetBetByPlayerId(playerId);
-
-                if(player == null)
+                if( await _playerInGameRepository.IsInGame(playerId))
                 {
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
@@ -66,17 +64,15 @@ namespace BlackJack.BLL.Services
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
             {
-                var player = _playerInGameRepository.GetBetByPlayerId(playerId);
-
-                if (player == null)
+                if ( await _playerInGameRepository.IsInGame(playerId))
                 {
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
 
-                var cardIdList = await _handRepository.GetIdCardsByPlayerId(playerId);
+                var playerCardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId);
                 var cards = new List<CardViewModel>();
 
-                foreach (var cardId in cardIdList)
+                foreach (var cardId in playerCardsIdList)
                 {
                     var card = CardHelper.GetCardById(cardId);
                     cards.Add(card);
@@ -104,7 +100,8 @@ namespace BlackJack.BLL.Services
 
             foreach (var card in cards)
             {
-                if ((card.Title == Constant.NameCardForBlackJack) && (cardListValue > Constant.WinValue))
+                if ((card.Title == Constant.NameCardForBlackJack) 
+                    && (cardListValue > Constant.WinValue))
                 {
                     cardListValue -= Constant.ImageCardValue;
                 }

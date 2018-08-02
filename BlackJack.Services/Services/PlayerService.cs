@@ -24,9 +24,9 @@ namespace BlackJack.BLL.Services
 
         public async Task<List<PlayerViewModel>> GetBotsInGame()
         {
-            var playerIdList = await _playerInGameRepository.GetBots();
+            var botsIdList = await _playerInGameRepository.GetBots();
             var playerViewModelList = new List<PlayerViewModel>();
-            foreach (var playerId in playerIdList)
+            foreach (var playerId in botsIdList)
             {
                 var player = await _playerRepository.GetById(playerId);
 
@@ -46,19 +46,28 @@ namespace BlackJack.BLL.Services
 
         public async Task SetPlayerToGame(string playerName)
         {
-            var logger =  NLog.LogManager.GetCurrentClassLogger();
-
-            await  _playerInGameRepository.RemoveAll();
-            var player = await _playerRepository.GetByName(playerName);
-            var bots = await _playerRepository.GetBots();
-            foreach (var bot in bots)
+            var logger = NLog.LogManager.GetCurrentClassLogger();
+            try
             {
-                await  _playerInGameRepository.AddPlayer(bot.Id);
-                logger.Info(StringHelper.BotJoinGame(bot.Id));
+                var player = await _playerRepository.GetByName(playerName);
+                var bots = await _playerRepository.GetBots();
+
+                await _playerInGameRepository.RemoveAll();
+
+                foreach (var bot in bots)
+                {
+                    await _playerInGameRepository.AddPlayer(bot.Id);
+                    logger.Info(StringHelper.BotJoinGame(bot.Id));
+                }
+
+                await _playerInGameRepository.AddHuman(player.Id);
+                logger.Info(StringHelper.HumanJoinGame(player.Id));
             }
-           
-            await _playerInGameRepository.AddHuman(player.Id);
-            logger.Info(StringHelper.HumanJoinGame(player.Id));
+            catch (Exception exception)
+            {
+                logger.Error(exception.Message);
+                throw exception;
+            }
         }
 
         public async Task<IEnumerable<int>> GetPlayersIdInGame()
@@ -68,7 +77,7 @@ namespace BlackJack.BLL.Services
             {
                 var playerIdList = await _playerInGameRepository.GetAll();
 
-                if(playerIdList.Count() == 0)
+                if (playerIdList.Count() == 0)
                 {
                     throw new Exception(StringHelper.NoPlayersInGame());
                 }
@@ -87,16 +96,19 @@ namespace BlackJack.BLL.Services
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
-            { 
+            {
                 var player = await _playerRepository.GetById(playerId);
+
                 if (player.Points < betValue)
                 {
                     throw new Exception(StringHelper.NotEnoughPoints(playerId, betValue));
                 }
+
                 await _playerInGameRepository.MakeBet(playerId, betValue);
+
                 logger.Info(StringHelper.PlayerMakeBet(playerId, betValue));
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 logger.Error(exception.Message);
                 throw new Exception(StringHelper.NotEnoughPoints(betValue));
@@ -107,10 +119,10 @@ namespace BlackJack.BLL.Services
         {
             try
             {
-                var humanId = 0;
+                var humanId = -1;
                 humanId = await _playerInGameRepository.GetHuman();
 
-                if(humanId == 0)
+                if (humanId == -1)
                 {
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
@@ -127,7 +139,7 @@ namespace BlackJack.BLL.Services
 
                 return playerViewModel;
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 throw exception;
             }
@@ -135,16 +147,23 @@ namespace BlackJack.BLL.Services
 
         public async Task<DealerViewModel> GetDealer()
         {
-            var dealer = await _playerRepository.GetByName("Dealer");
-
-            var dealerViewModel = new DealerViewModel
+            try
             {
-                Id = dealer.Id,
-                Name = dealer.Name,
-                Hand = new HandViewModel { CardList = new List<CardViewModel>() }
-            };
+                var dealer = await _playerRepository.GetByName("Dealer");
 
-            return dealerViewModel;
+                var dealerViewModel = new DealerViewModel
+                {
+                    Id = dealer.Id,
+                    Name = dealer.Name,
+                    Hand = new HandViewModel { CardList = new List<CardViewModel>() }
+                };
+
+                return dealerViewModel;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
         }
     }
 }

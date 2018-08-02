@@ -85,7 +85,7 @@ namespace BlackJack.BLL.Services
                 deck[i] = deck[index];
                 deck[index] = value;
             }
-
+              
             return deck;
         }
 
@@ -94,10 +94,9 @@ namespace BlackJack.BLL.Services
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
             {
-                var player = _playerRepository.GetById(playerId);
-                if (player == null)
+                if (await _playerInGameRepository.IsInGame(playerId))
                 {
-                    throw new Exception(StringHelper.PlayerNotExist());
+                    throw new Exception(StringHelper.PlayerNotInGame());
                 }
 
                 await _handRepository.GiveCardToPlayer(playerId, cardId);
@@ -109,6 +108,5 @@ namespace BlackJack.BLL.Services
                 throw exception;
             }
         }
-
     }
 }

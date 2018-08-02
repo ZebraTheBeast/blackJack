@@ -58,20 +58,19 @@ namespace BlackJack.DAL.Repository
                 var sqlQuery = $"SELECT PlayerId FROM PlayerInGame";
                 players = await db.QueryAsync<int>(sqlQuery);
             }
-
             return players;
         }
 
         public async Task<int> GetHuman()
         {
-            IEnumerable<int> playerId = new List<int>();
+            int playerId;
 
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 1";
-                playerId = await db.QueryAsync<int>(sqlQuery);
+                playerId = (await db.QueryAsync<int>(sqlQuery)).FirstOrDefault();
             }
-            return playerId.FirstOrDefault();
+            return playerId;
         }
 
         public async Task RemoveAll()
@@ -103,14 +102,31 @@ namespace BlackJack.DAL.Repository
 
         public async Task<int> GetBetByPlayerId(int playerId)
         {
-            IEnumerable<int> betValue = new List<int>();
-
+            int betValue;
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"SELECT Bet FROM PlayerInGame WHERE PlayerId = {playerId}";
-                betValue = await db.QueryAsync<int>(sqlQuery);
+                betValue = (await db.QueryAsync<int>(sqlQuery)).FirstOrDefault();
             }
-            return betValue.FirstOrDefault();
+            return betValue;
+        }
+
+        public async Task<bool> IsInGame(int playerId)
+        {
+            int player = -1;
+
+            using (var db = new SqlConnection(connectionString))
+            {
+                var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE PlayerId = {playerId}";
+                player = (await db.QueryAsync<int>(sqlQuery)).FirstOrDefault();
+            }
+            
+            if(player == -1)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
