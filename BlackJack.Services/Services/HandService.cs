@@ -60,9 +60,8 @@ namespace BlackJack.BLL.Services
             {
                 var logger = NLog.LogManager.GetCurrentClassLogger();
                 logger.Error($"{exception.Message}");
+                throw exception;
             }
-
-            return null;
         }
 
         public async Task<int> GetPlayerHandValue(int playerId)
@@ -77,10 +76,10 @@ namespace BlackJack.BLL.Services
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
 
-                var cardsId = await _handRepository.GetIdCardsByPlayerId(playerId);
+                var cardIdList = await _handRepository.GetIdCardsByPlayerId(playerId);
                 var cards = new List<CardViewModel>();
 
-                foreach (var cardId in cardsId)
+                foreach (var cardId in cardIdList)
                 {
                     var card = CardHelper.GetCardById(cardId);
                     cards.Add(card);
@@ -93,8 +92,8 @@ namespace BlackJack.BLL.Services
             catch (Exception exception)
             {
                 logger.Error(exception.Message);
+                throw exception;
             }
-            return 0;
         }
 
         private int CountPlayerCardsValue(List<CardViewModel> cards)

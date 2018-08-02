@@ -11,7 +11,7 @@
             <ul class="list-group" id="dealerCards"></ul>
             <h4>Value: <span id="dealerValue"></span></h4>
         </div>
-        <div class="col-md-6 text-center">
+        <div class="col-md-6 text-center game-option">
             <h1 class='alert alert-info'>
                 <span id="gameStat"></span>
             </h1>
@@ -24,9 +24,8 @@
 </div>
 <div class="row text-center">
     <div id="botBlock" class="col-md-6 row"></div>
-    @Html.Hidden(" ", 0, new { id = "humanId" })
     <div class="col-md-2">
-        <h3>
+        <h3> 
             <span id="humanName"></span>
         </h3>
         <ul class="list-group" id="humanCards"></ul>
@@ -51,4 +50,11 @@
             <input id="placeBetButton" type="submit" value="Place a bet" class="btn btn-default custombutton" />
         </div>
     </div>
+</div>
+<div id="backgroundLayer" class="backgroundLayer">
+</div>
+<div id="errorBlock" class="error-block">
+    <h1 class="alert alert-danger text-center">
+        <span id="errorMessage"></span>
+    </h1>
 </div>

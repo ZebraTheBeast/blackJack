@@ -3,6 +3,7 @@
         event.preventDefault();
         StartGame();
     });
+    $("#nameError").hide();
 });
 
 function StartGame() {
@@ -14,6 +15,9 @@ function StartGame() {
         contentType: "application/json;charset=utf-8",
         success: function () {
             $("#loadButton").trigger("click");
+        },
+        error: function () {
+            $("#nameError").show();
         }
     });
 }

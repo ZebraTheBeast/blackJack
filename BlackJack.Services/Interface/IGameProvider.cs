@@ -10,9 +10,9 @@ namespace BlackJack.BLL.Interface
     public interface IGameProvider
     {
         Task<GameViewModel> GetGameViewModel();
-        Task<GameViewModel> PlaceBet(int humanId, int betValue);
+        Task<GameViewModel> PlaceBet(int betValue);
         Task StartGame(string playerName);
-        Task<GameViewModel> Draw(int humanId, List<int> deck);
-        Task<GameViewModel> BotTurn(List<int> deck);
+        Task<GameViewModel> Draw(List<int> deck);
+        Task<GameViewModel> Stand(List<int> deck);
     }
 }

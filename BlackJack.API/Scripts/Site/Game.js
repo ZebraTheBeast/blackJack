@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    1
     GetGameViewModel();
     $("#placeBetButton").click(function (event) {
         event.preventDefault();
@@ -15,6 +14,9 @@
         event.preventDefault();
         Stand();
     });
+
+    $("#backgroundLayer").hide();
+    $("#errorBlock").hide();
 });
 
 function Stand() {
@@ -28,6 +30,9 @@ function Stand() {
         success: function (gameViewModel) {
             disableDraw();
             WriteResponse(gameViewModel);
+        },
+        error: function (ex) {
+            showError(ex.responseJSON.Message);
         }
     });
 };
@@ -39,41 +44,44 @@ function GetGameViewModel() {
         contentType: "application/json;charset=utf-8",
         success: function (gameViewModel) {
             WriteResponse(gameViewModel);
+        },
+        error: function (ex) {
+            showError(ex.responseJSON.Message);
         }
     });
 }
 
 function Draw() {
-
-    var drawViewModel = {
-        HumanId: $("#humanId").val(),
-        Deck: JSON.parse($.cookie("deck-data"))
-    };
-
+    var deck = JSON.parse($.cookie("deck-data"));
     $.ajax({
         url: '/api/values/Draw',
         type: 'POST',
-        data: JSON.stringify(drawViewModel),
+        data: JSON.stringify(deck),
         contentType: "application/json;charset=utf-8",
         success: function (data) {
             WriteResponse(data);
+        },
+        error: function (ex) {
+            showError(ex.responseJSON.Message);
         }
     });
 };
 
 function Bet() {
     disableBet();
-    var betViewModel = {
-        HumanId: $("#humanId").val(),
-        BetValue: $("#betValue").val()
-    };
+
+    var betValue = $("#betValue").val()
+
     $.ajax({
         url: '/api/values/Bet',
         type: 'POST',
-        data: JSON.stringify(betViewModel),
+        data: JSON.stringify(betValue),
         contentType: "application/json;charset=utf-8",
         success: function (gameViewModel) {
             WriteResponse(gameViewModel);
+        },
+        error: function (ex) {
+            showError(ex.responseJSON.Message);
         }
     });
 };
@@ -109,7 +117,7 @@ function WriteResponse(gameViewModel) {
     });
     statsResult += "<li class = 'list-group-item'> " + gameViewModel.Human.Name + " " + gameViewModel.Human.Points + "</li>";
 
-    if (gameViewModel.Deck != null) {
+    if (gameViewModel.Deck !== null) {
         $("#cardsCount").html(gameViewModel.Deck.length);
     }
 
@@ -121,7 +129,6 @@ function WriteResponse(gameViewModel) {
     $("#humanCards").html(humanCards);
     $("#humanValue").html(gameViewModel.Human.Hand.CardListValue);
     $("#humanBet").html(gameViewModel.Human.Hand.Points);
-    $("#humanId").val(gameViewModel.Human.Id);
 
     $("#gameStat").html(gameViewModel.Options);
     $("#playerStatsBlock").html(statsResult);
@@ -129,11 +136,11 @@ function WriteResponse(gameViewModel) {
 
     $("#betValue").attr("max", gameViewModel.Human.Points);
 
-    if (gameViewModel.Human.Hand.CardListValue >= 21){
+    if (gameViewModel.Human.Hand.CardListValue >= 21) {
         disableDraw();
     }
 
-    if (gameViewModel.Human.Hand.Points == 0){
+    if (gameViewModel.Human.Hand.Points == 0) {
         disableDraw();
     }
 
@@ -145,4 +152,10 @@ function WriteResponse(gameViewModel) {
         disableBet();
     }
 
+}
+
+function showError(message) {
+    $("#backgroundLayer").show();
+    $("#errorBlock").show();
+    $("#errorMessage").html(message);
 }

@@ -71,7 +71,7 @@ namespace BlackJack.DAL.Repository
                 var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 1";
                 playerId = await db.QueryAsync<int>(sqlQuery);
             }
-            return playerId.First();
+            return playerId.FirstOrDefault();
         }
 
         public async Task RemoveAll()

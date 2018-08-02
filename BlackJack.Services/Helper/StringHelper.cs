@@ -18,8 +18,6 @@ namespace BlackJack.BLL.Helper
             return "There are no players in the game";
         }
 
-        
-
         public static string PlayerDrawCard(int playerId, int cardId)
         {
             return $"Player with id {playerId} draw card with id {cardId}";
@@ -30,6 +28,11 @@ namespace BlackJack.BLL.Helper
             return "Player not in game";
         }
 
+        public static string AlreadyBet()
+        {
+            return "You already placed a bet";
+        }
+
         public static string DeckShuffled()
         {
             return "Deck was refreshed and shuffled.";
@@ -38,6 +41,11 @@ namespace BlackJack.BLL.Helper
         public static string NotEnoughPoints(int playerId, int betValue)
         {
             return $"Player with id {playerId} doesn't have {betValue} points to bet";
+        }
+
+        public static string NotEnoughPoints(int betValue)
+        {
+            return $"You doesn't have {betValue} points to bet";
         }
 
         public static string PlayerMakeBet(int playerId, int betValue)
@@ -73,6 +81,21 @@ namespace BlackJack.BLL.Helper
         public static string HumanJoinGame(int humanId)
         {
             return $"Human with id {humanId} join to the game";
+        }
+
+        public static string BotsNotInGame()
+        {
+            return "There are no bots in the game";
+        }
+
+        public static string DealerNotInGame()
+        {
+            return "There is no dealer in the game";
+        }
+
+        public static string NoBetValue()
+        {
+            return "Player didn't bet";
         }
     }
 }

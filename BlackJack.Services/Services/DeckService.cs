@@ -109,6 +109,7 @@ namespace BlackJack.BLL.Services
             catch (Exception exception)
             {
                 logger.Error(exception.Message);
+                throw exception;
             }
         }
 

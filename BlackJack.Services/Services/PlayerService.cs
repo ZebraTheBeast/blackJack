@@ -33,11 +33,14 @@ namespace BlackJack.BLL.Services
             {
                 var player = await _playerRepository.GetById(playerId);
 
-                var playerViewModel = new PlayerViewModel();
-                playerViewModel.Id = player.Id;
-                playerViewModel.Name = player.Name;
-                playerViewModel.Points = player.Points;
-                playerViewModel.Hand = new HandViewModel { CardList = new List<CardViewModel>() };
+                var playerViewModel = new PlayerViewModel
+                {
+                    Id = player.Id,
+                    Name = player.Name,
+                    Points = player.Points,
+                    Hand = new HandViewModel { CardList = new List<CardViewModel>() }
+                };
+
                 playerViewModelList.Add(playerViewModel);
             }
 
@@ -79,8 +82,8 @@ namespace BlackJack.BLL.Services
             catch (Exception exception)
             {
                 logger.Error(exception.Message);
+                throw exception;
             }
-            return null;
         }
 
         public async Task MakeBet(int playerId, int betValue)
@@ -99,31 +102,51 @@ namespace BlackJack.BLL.Services
             catch(Exception exception)
             {
                 logger.Error(exception.Message);
+                throw new Exception(StringHelper.NotEnoughPoints(betValue));
             }
         }
 
         public async Task<PlayerViewModel> GetHumanInGame()
         {
-            var humanId = await _playerInGameRepository.GetHuman();
+            try
+            {
+                var humanId = 0;
+                humanId = await _playerInGameRepository.GetHuman();
 
-            var player = await _playerRepository.GetById(humanId);
+                if(humanId == 0)
+                {
+                    throw new Exception(StringHelper.PlayerNotInGame());
+                }
 
-            var playerViewModel = new PlayerViewModel();
-            playerViewModel.Id = player.Id;
-            playerViewModel.Name = player.Name;
-            playerViewModel.Points = player.Points;
-            playerViewModel.Hand = new HandViewModel { CardList = new List<CardViewModel>() };
+                var player = await _playerRepository.GetById(humanId);
 
-            return playerViewModel;
+                var playerViewModel = new PlayerViewModel
+                {
+                    Id = player.Id,
+                    Name = player.Name,
+                    Points = player.Points,
+                    Hand = new HandViewModel { CardList = new List<CardViewModel>() }
+                };
+
+                return playerViewModel;
+            }
+            catch(Exception exception)
+            {
+                throw exception;
+            }
         }
 
         public async Task<DealerViewModel> GetDealer()
         {
-            var dealerViewModel = new DealerViewModel();
             var dealer = await _playerRepository.GetByName("Dealer");
-            dealerViewModel.Id = dealer.Id;
-            dealerViewModel.Name = dealer.Name;
-            dealerViewModel.Hand = new HandViewModel { CardList = new List<CardViewModel>() };
+
+            var dealerViewModel = new DealerViewModel
+            {
+                Id = dealer.Id,
+                Name = dealer.Name,
+                Hand = new HandViewModel { CardList = new List<CardViewModel>() }
+            };
+
             return dealerViewModel;
         }
     }

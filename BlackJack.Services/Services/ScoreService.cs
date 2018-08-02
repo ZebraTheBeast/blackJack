@@ -40,7 +40,6 @@ namespace BlackJack.BLL.Services
             {
                 await PlayerWinPoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
-               
                 return OptionHelper.OptionWin();
             }
 
@@ -48,7 +47,6 @@ namespace BlackJack.BLL.Services
             {
                 await PlayerLosePoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
-
                 return OptionHelper.OptionLose();
             }
 
@@ -56,7 +54,6 @@ namespace BlackJack.BLL.Services
             {
                 await PlayerLosePoints(playerId);
                 await _playerInGameRepository.AnnulBet(playerId);
-                
                 return OptionHelper.OptionLose();
             }
 
