@@ -27,9 +27,6 @@ namespace BlackJack.BLL.Services
             _handRepository = handRepository;
             _playerRepository = playerRepository;
             _playerInGameRepository = playerInGameRepository;
-
-            var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
-            NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
         }
 
         public List<int> GetNewRefreshedDeck()

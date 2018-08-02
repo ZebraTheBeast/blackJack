@@ -53,8 +53,22 @@
 </div>
 <div id="backgroundLayer" class="backgroundLayer">
 </div>
-<div id="errorBlock" class="error-block">
-    <h1 class="alert alert-danger text-center">
-        <span id="errorMessage"></span>
-    </h1>
+
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+            </div>
+            <div class="modal-body">
+                <h1 class="alert alert-danger text-center">
+                    <span id="errorMessage"></span>
+                </h1>
+            </div>
+            <div class="modal-footer">
+                <p>You can try to refresh page to solve your problem.</p>
+                <button id="refreshButton" type="button" class="btn btn-primary">Refresh page</button>
+            </div>
+        </div>
+    </div>
 </div>

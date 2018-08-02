@@ -15,6 +15,12 @@
         Stand();
     });
 
+    $("#refreshButton").click(function (event) {
+        event.preventDefault();
+        location.reload();
+    })
+
+
     $("#backgroundLayer").hide();
     $("#errorBlock").hide();
 });
@@ -155,7 +161,6 @@ function WriteResponse(gameViewModel) {
 }
 
 function showError(message) {
-    $("#backgroundLayer").show();
-    $("#errorBlock").show();
+    $('#errorModal').modal();
     $("#errorMessage").html(message);
 }

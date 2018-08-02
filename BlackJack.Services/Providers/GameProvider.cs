@@ -8,6 +8,7 @@ using BlackJack.Configuration.Constant;
 using BlackJack.BLL.Services;
 using BlackJack.BLL.Helper;
 using BlackJack.BLL.Interface;
+using System.IO;
 
 namespace BlackJack.BLL.Providers
 {
@@ -24,6 +25,10 @@ namespace BlackJack.BLL.Providers
             _handService = handService;
             _playerService = playerService;
             _scoreService = scoreService;
+
+
+            var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
+            NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
         }
 
         public async Task<GameViewModel> GetGameViewModel()
