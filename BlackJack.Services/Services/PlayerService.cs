@@ -15,11 +15,13 @@ namespace BlackJack.BLL.Services
     {
         IPlayerRepository _playerRepository;
         IPlayerInGameRepository _playerInGameRepository;
+        IHandService _handService;
 
-        public PlayerService(IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository)
+        public PlayerService(IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository, IHandService handService)
         {
             _playerRepository = playerRepository;
             _playerInGameRepository = playerInGameRepository;
+            _handService = handService;
         }
 
         public async Task<List<PlayerViewModel>> GetBotsInGame()
@@ -30,13 +32,18 @@ namespace BlackJack.BLL.Services
             {
                 var player = await _playerRepository.GetById(playerId);
 
-                var playerViewModel = new PlayerViewModel
+                var playerViewModel = new PlayerViewModel()
                 {
-                    Id = player.Id,
-                    Name = player.Name,
-                    Points = player.Points,
-                    Hand = new HandViewModel { CardList = new List<CardViewModel>() }
+                    Hand = new HandViewModel
+                    {
+                        CardList = new List<CardViewModel>()
+                    }
                 };
+
+                playerViewModel.Id = player.Id;
+                playerViewModel.Name = player.Name;
+                playerViewModel.Points = player.Points;
+                playerViewModel.Hand = await _handService.GetPlayerHand(player.Id);
 
                 playerViewModelList.Add(playerViewModel);
             }
@@ -131,11 +138,15 @@ namespace BlackJack.BLL.Services
 
                 var playerViewModel = new PlayerViewModel
                 {
-                    Id = player.Id,
-                    Name = player.Name,
-                    Points = player.Points,
-                    Hand = new HandViewModel { CardList = new List<CardViewModel>() }
+                    Hand = new HandViewModel
+                    {
+                        CardList = new List<CardViewModel>()
+                    }
                 };
+                playerViewModel.Id = player.Id;
+                playerViewModel.Name = player.Name;
+                playerViewModel.Points = player.Points;
+                playerViewModel.Hand = await _handService.GetPlayerHand(player.Id);
 
                 return playerViewModel;
             }
@@ -153,10 +164,15 @@ namespace BlackJack.BLL.Services
 
                 var dealerViewModel = new DealerViewModel
                 {
-                    Id = dealer.Id,
-                    Name = dealer.Name,
-                    Hand = new HandViewModel { CardList = new List<CardViewModel>() }
+                    Hand = new HandViewModel()
+                    {
+                        CardList = new List<CardViewModel>()
+                    }
                 };
+
+                dealerViewModel.Id = dealer.Id;
+                dealerViewModel.Name = dealer.Name;
+                dealerViewModel.Hand = await _handService.GetPlayerHand(dealer.Id);
 
                 return dealerViewModel;
             }

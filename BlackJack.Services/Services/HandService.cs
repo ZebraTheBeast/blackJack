@@ -32,7 +32,7 @@ namespace BlackJack.BLL.Services
                     CardList = new List<CardViewModel>()
                 };
 
-                if( await _playerInGameRepository.IsInGame(playerId))
+                if( !await _playerInGameRepository.IsInGame(playerId))
                 {
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
@@ -45,7 +45,7 @@ namespace BlackJack.BLL.Services
                     hand.CardList.Add(card);
                 }
 
-                hand.Points = await _playerInGameRepository.GetBetByPlayerId(playerId);
+                hand.BetValue = await _playerInGameRepository.GetBetByPlayerId(playerId);
                 hand.CardListValue = CountPlayerCardsValue(hand.CardList);
 
                 return hand;
@@ -64,7 +64,7 @@ namespace BlackJack.BLL.Services
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
             {
-                if ( await _playerInGameRepository.IsInGame(playerId))
+                if ( !await _playerInGameRepository.IsInGame(playerId))
                 {
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }

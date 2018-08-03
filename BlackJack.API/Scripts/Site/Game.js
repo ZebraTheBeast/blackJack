@@ -113,7 +113,7 @@ function WriteResponse(gameViewModel) {
         });
         botResult += "</ul>" +
             "<h4>Value: " + bot.Hand.CardListValue + " </h4>" +
-            "<h4>Bet: " + bot.Hand.Points + "</h4>" +
+            "<h4>Bet: " + bot.Hand.BetValue + "</h4>" +
             "</div>";
     });
     statsResult += "<li class = 'list-group-item'> " + gameViewModel.Human.Name + " " + gameViewModel.Human.Points + "</li>";
@@ -129,7 +129,7 @@ function WriteResponse(gameViewModel) {
     $("#humanName").html(gameViewModel.Human.Name);
     $("#humanCards").html(humanCards);
     $("#humanValue").html(gameViewModel.Human.Hand.CardListValue);
-    $("#humanBet").html(gameViewModel.Human.Hand.Points);
+    $("#humanBet").html(gameViewModel.Human.Hand.BetValue);
 
     $("#gameStat").html(gameViewModel.Options);
     $("#playerStatsBlock").html(statsResult);
@@ -141,7 +141,7 @@ function WriteResponse(gameViewModel) {
         disableDraw();
     }
 
-    if (gameViewModel.Human.Hand.Points == 0) {
+    if (gameViewModel.Human.Hand.BetValue == 0) {
         disableDraw();
     }
 
@@ -149,7 +149,7 @@ function WriteResponse(gameViewModel) {
         disableDraw();
     }
 
-    if ((gameViewModel.Human.Hand.CardList.length != 0) && (gameViewModel.Human.Hand.Points != 0)) {
+    if ((gameViewModel.Human.Hand.CardList.length != 0) && (gameViewModel.Human.Hand.BetValue != 0)) {
         disableBet();
     }
 

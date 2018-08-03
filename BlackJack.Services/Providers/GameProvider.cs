@@ -26,7 +26,6 @@ namespace BlackJack.BLL.Providers
             _playerService = playerService;
             _scoreService = scoreService;
 
-
             var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
             NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
         }
@@ -38,18 +37,8 @@ namespace BlackJack.BLL.Providers
                 var gameViewModel = new GameViewModel();
 
                 gameViewModel.Bots = await _playerService.GetBotsInGame();
-
-                for (var i = 0; i < gameViewModel.Bots.Count; i++)
-                {
-                    gameViewModel.Bots[i].Hand = await _handService.GetPlayerHand(gameViewModel.Bots[i].Id);
-                }
-
                 gameViewModel.Human = await _playerService.GetHumanInGame();
-                gameViewModel.Human.Hand = await _handService.GetPlayerHand(gameViewModel.Human.Id);
-
                 gameViewModel.Dealer = await _playerService.GetDealer();
-                gameViewModel.Dealer.Hand = await _handService.GetPlayerHand(gameViewModel.Dealer.Id);
-
                 gameViewModel.Deck = await _deckService.LoadDeck();
 
                 if (gameViewModel.Human.Hand.CardList.Count() != 0)
@@ -58,7 +47,7 @@ namespace BlackJack.BLL.Providers
                 }
 
                 if ((gameViewModel.Human.Hand.CardList.Count() == 0)
-                    || (gameViewModel.Human.Hand.Points == 0))
+                    || (gameViewModel.Human.Hand.BetValue == 0))
                 {
                     gameViewModel.Options = OptionHelper.OptionSetBet("");
                 }
@@ -89,12 +78,15 @@ namespace BlackJack.BLL.Providers
             try
             {
                 var value = await _handService.GetPlayerHandValue(botId);
+
                 if (value >= Constant.ValueToStopDraw)
                 {
                     return false;
                 }
+
                 await _deckService.GiveCardFromDeck(botId, deck[0]);
                 deck.Remove(deck[0]);
+
                 return await BotTurn(botId, deck);
             }
             catch (Exception exception)
@@ -120,13 +112,12 @@ namespace BlackJack.BLL.Providers
             try
             {
                 var deck = new List<int>();
-                IEnumerable<int> playersId = new List<int>(); ;
+                IEnumerable<int> playersIdList = new List<int>();
+
                 var bots = await _playerService.GetBotsInGame();
-
                 var human = await _playerService.GetHumanInGame();
-                human.Hand = await _handService.GetPlayerHand(human.Id);
 
-                if(human.Hand.Points != 0)
+                if (human.Hand.BetValue != 0)
                 {
                     throw new Exception(StringHelper.AlreadyBet());
                 }
@@ -134,8 +125,8 @@ namespace BlackJack.BLL.Providers
                 await _handService.RemoveAllCardsInHand();
                 deck = _deckService.GetNewRefreshedDeck();
 
-                playersId = await _playerService.GetPlayersIdInGame();
-                
+                playersIdList = await _playerService.GetPlayersIdInGame();
+
                 await _playerService.MakeBet(human.Id, betValue);
 
                 for (var i = 0; i < bots.Count(); i++)
@@ -143,7 +134,7 @@ namespace BlackJack.BLL.Providers
                     await _playerService.MakeBet(bots[i].Id, Constant.BotsBetValue);
                 }
 
-                foreach (var playerId in playersId)
+                foreach (var playerId in playersIdList)
                 {
                     await _deckService.GiveCardFromDeck(playerId, deck[0]);
                     deck.Remove(deck[0]);
@@ -156,7 +147,7 @@ namespace BlackJack.BLL.Providers
                 gameViewModel.Options = OptionHelper.OptionDrawCard();
                 gameViewModel.Deck = deck;
 
-                if ((gameViewModel.Human.Hand.CardListValue >= Constant.WinValue) 
+                if ((gameViewModel.Human.Hand.CardListValue >= Constant.WinValue)
                     || (gameViewModel.Dealer.Hand.CardListValue >= Constant.WinValue))
                 {
                     gameViewModel = await Stand(deck);
@@ -188,9 +179,8 @@ namespace BlackJack.BLL.Providers
             try
             {
                 var human = await _playerService.GetHumanInGame();
-                human.Hand = await _handService.GetPlayerHand(human.Id);
 
-                if (human.Hand.Points == 0)
+                if (human.Hand.BetValue == 0)
                 {
                     throw new Exception(StringHelper.NoBetValue());
                 }
@@ -223,20 +213,17 @@ namespace BlackJack.BLL.Providers
                 var bots = await _playerService.GetBotsInGame();
                 var dealer = await _playerService.GetDealer();
                 var human = await _playerService.GetHumanInGame();
-                
+
                 await BotTurn(dealer.Id, deck);
 
-                dealer.Hand = await _handService.GetPlayerHand(dealer.Id);
-                human.Hand = await _handService.GetPlayerHand(human.Id);
-
-                if(human.Hand.Points == 0)
+                if (human.Hand.BetValue == 0)
                 {
                     throw new Exception(StringHelper.NoBetValue());
                 }
 
                 var message = await UpdateScore(human.Id, human.Hand.CardListValue, dealer.Hand.CardListValue);
 
-                if ((dealer.Hand.CardListValue != Constant.WinValue) 
+                if ((dealer.Hand.CardListValue != Constant.WinValue)
                     && (dealer.Hand.CardList.Count() != Constant.NumberCardForBlackJack))
                 {
                     for (var i = 0; i < bots.Count(); i++)

@@ -94,7 +94,7 @@ namespace BlackJack.BLL.Services
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
             {
-                if (await _playerInGameRepository.IsInGame(playerId))
+                if (!await _playerInGameRepository.IsInGame(playerId))
                 {
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
