@@ -99,7 +99,7 @@ namespace BlackJack.BLL.Services
             }
         }
 
-        public async Task MakeBet(int playerId, int betValue)
+        public async Task PlaceBet(int playerId, int betValue)
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
@@ -111,14 +111,19 @@ namespace BlackJack.BLL.Services
                     throw new Exception(StringHelper.NotEnoughPoints(playerId, betValue));
                 }
 
-                await _playerInGameRepository.MakeBet(playerId, betValue);
+                if(betValue <= 0)
+                {
+                    throw new Exception(StringHelper.NoBetValue());
+                }
 
-                logger.Info(StringHelper.PlayerMakeBet(playerId, betValue));
+                await _playerInGameRepository.PlaceBet(playerId, betValue);
+
+                logger.Info(StringHelper.PlayerPlaceBet(playerId, betValue));
             }
             catch (Exception exception)
             {
                 logger.Error(exception.Message);
-                throw new Exception(StringHelper.NotEnoughPoints(betValue));
+                throw exception;
             }
         }
 

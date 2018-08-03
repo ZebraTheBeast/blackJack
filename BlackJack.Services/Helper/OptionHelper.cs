@@ -11,7 +11,7 @@ namespace BlackJack.BLL.Helper
     {
         static public string OptionSetBet(string message)
         {
-            message += "Please, make a bet.";
+            message += "Please, place a bet.";
             return message;
         }
 

@@ -82,7 +82,7 @@ namespace BlackJack.DAL.Repository
             }
         }
 
-        public async Task MakeBet(int playerId, int betValue)
+        public async Task PlaceBet(int playerId, int betValue)
         {
             using (var db = new SqlConnection(connectionString))
             {

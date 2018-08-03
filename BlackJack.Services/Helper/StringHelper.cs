@@ -48,7 +48,7 @@ namespace BlackJack.BLL.Helper
             return $"You doesn't have {betValue} points to bet";
         }
 
-        public static string PlayerMakeBet(int playerId, int betValue)
+        public static string PlayerPlaceBet(int playerId, int betValue)
         {
             return $"Player with id {playerId} bet {betValue} points";
         }
@@ -97,5 +97,6 @@ namespace BlackJack.BLL.Helper
         {
             return "Player didn't bet";
         }
+
     }
 }

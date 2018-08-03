@@ -57,14 +57,14 @@ namespace BlackJack.DAL.Repository
             using (var db = new SqlConnection(connectionString))
             {
                 var sqlQuery = $"SELECT * FROM Player WHERE Name = '{name}'";
-                player = (await db.QueryAsync<Player>(sqlQuery)).First();
+                player = (await db.QueryAsync<Player>(sqlQuery)).FirstOrDefault();
             }
 
             if (player == null)
             {
-                player = new Player();
-                player.Name = name;
+                player = new Player { Name = name };
                 await Create(player);
+                return await GetByName(name);
             }
 
             if (player.Points < Constant.MinPointsValueToPlay)

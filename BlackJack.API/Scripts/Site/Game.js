@@ -71,7 +71,6 @@ function Draw() {
 };
 
 function Bet() {
-    disableBet();
     var betValue = $("#betValue").val()
     $.ajax({
         url: '/api/values/Bet',
@@ -79,6 +78,7 @@ function Bet() {
         data: JSON.stringify(betValue),
         contentType: "application/json;charset=utf-8",
         success: function (gameViewModel) {
+            disableBet();
             WriteResponse(gameViewModel);
         },
         error: function (exception) {

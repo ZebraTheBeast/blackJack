@@ -12,7 +12,7 @@ namespace BlackJack.BLL.Interface
         Task<List<PlayerViewModel>> GetBotsInGame();
         Task SetPlayerToGame(string playerName);
         Task<IEnumerable<int>> GetPlayersIdInGame();
-        Task MakeBet(int playerId, int betValue);
+        Task PlaceBet(int playerId, int betValue);
         Task<PlayerViewModel> GetHumanInGame();
         Task<DealerViewModel> GetDealer();
     }

@@ -15,7 +15,7 @@ namespace BlackJack.DAL.Interface
         Task<IEnumerable<int>> GetBots();
         Task<int> GetHuman();
         Task<int> GetBetByPlayerId(int playerId);
-        Task MakeBet(int playerId, int bet);
+        Task PlaceBet(int playerId, int bet);
         Task AnnulBet(int playerId);
         Task<bool> IsInGame(int playerId);
     }
