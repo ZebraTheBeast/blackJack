@@ -162,7 +162,6 @@ namespace BlackJack.BLL.Providers
         {
             try
             {
-
                 await _handService.RemoveAllCardsInHand();
                 await _playerService.SetPlayerToGame(playerName);
             }

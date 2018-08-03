@@ -103,7 +103,7 @@ function WriteResponse(gameViewModel) {
     $("#dealerCards").html(dealerCards);
     $("#dealerValue").html(gameViewModel.Dealer.Hand.CardListValue);
     $.each(gameViewModel.Bots, function (index, bot) {
-        statsResult += "<li class='list-group-item'>" + bot.Name + " " + bot.Points + "</li>";
+        statsResult += "<li class='list-group-item d-flex justify-content-between'>" + bot.Name + "<span>" + bot.Points + "</span></li>";
 
         botResult += "<div class = 'col-md-4'>" +
             "<h3>" + bot.Name + "</h3>" +
@@ -116,7 +116,7 @@ function WriteResponse(gameViewModel) {
             "<h4>Bet: " + bot.Hand.BetValue + "</h4>" +
             "</div>";
     });
-    statsResult += "<li class = 'list-group-item'> " + gameViewModel.Human.Name + " " + gameViewModel.Human.Points + "</li>";
+    statsResult += "<li class = 'list-group-item d-flex justify-content-between'>  " + gameViewModel.Human.Name + "<span>" + gameViewModel.Human.Points + "</span></li>";
 
     if (gameViewModel.Deck !== null) {
         $("#cardsCount").html(gameViewModel.Deck.length);
