@@ -26,6 +26,7 @@ namespace BlackJack.API.Controllers
             try
             {
                 var gameViewModel = new GameViewModel();
+
                 gameViewModel = await _gameProvider.GetGameViewModel();
 
                 if (gameViewModel.Bots.Count() == 0)

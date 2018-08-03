@@ -214,7 +214,7 @@ namespace BlackJack.BLL.Providers
 
                 await BotTurn(dealer.Id, deck);
 
-                dealer.Hand.CardListValue = await _handService.GetPlayerHandValue(dealer.Id);
+                dealer.Hand = await _handService.GetPlayerHand(dealer.Id);
 
                 if (human.Hand.BetValue == 0)
                 {
@@ -224,7 +224,7 @@ namespace BlackJack.BLL.Providers
                 var message = await UpdateScore(human.Id, human.Hand.CardListValue, dealer.Hand.CardListValue);
 
                 if ((dealer.Hand.CardListValue != Constant.WinValue)
-                    && (dealer.Hand.CardList.Count() != Constant.NumberCardForBlackJack))
+                    || (dealer.Hand.CardList.Count() != Constant.NumberCardForBlackJack))
                 {
                     for (var i = 0; i < bots.Count(); i++)
                     {
