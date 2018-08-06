@@ -100,7 +100,7 @@ namespace BlackJack.BLL.Services
                 }
 
                 await _handRepository.GiveCardToPlayer(playerId, cardId, gameId);
-                logger.Info(StringHelper.PlayerDrawCard(playerId,cardId));
+                logger.Info(StringHelper.PlayerDrawCard(playerId,cardId, gameId));
             }
             catch (Exception exception)
             {

@@ -79,11 +79,11 @@ namespace BlackJack.BLL.Services
                 foreach (var bot in bots)
                 {
                     await _playerInGameRepository.AddPlayer(bot.Id, player.Id);
-                    logger.Info(StringHelper.BotJoinGame(bot.Id));
+                    logger.Info(StringHelper.BotJoinGame(bot.Id, player.Id));
                 }
 
                 await _playerInGameRepository.AddHuman(player.Id);
-                logger.Info(StringHelper.HumanJoinGame(player.Id));
+                logger.Info(StringHelper.HumanJoinGame(player.Id, player.Id));
                 return player.Id;
             }
             catch (Exception exception)
@@ -133,7 +133,7 @@ namespace BlackJack.BLL.Services
 
                 await _playerInGameRepository.PlaceBet(playerId, betValue, gameId);
 
-                logger.Info(StringHelper.PlayerPlaceBet(playerId, betValue));
+                logger.Info(StringHelper.PlayerPlaceBet(playerId, betValue, gameId));
             }
             catch (Exception exception)
             {

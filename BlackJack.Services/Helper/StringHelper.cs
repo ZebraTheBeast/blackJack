@@ -18,9 +18,9 @@ namespace BlackJack.BLL.Helper
             return "There are no players in the game";
         }
 
-        public static string PlayerDrawCard(int playerId, int cardId)
+        public static string PlayerDrawCard(int playerId, int cardId, int gameId)
         {
-            return $"Player with id {playerId} draw card with id {cardId}";
+            return $"Player with id {playerId} draw card with id {cardId} in game №{gameId}";
         }
 
         public static string PlayerNotInGame()
@@ -35,7 +35,7 @@ namespace BlackJack.BLL.Helper
 
         public static string DeckShuffled()
         {
-            return "Deck was refreshed and shuffled.";
+            return "Deck was refreshed and shuffled";
         }
 
         public static string NotEnoughPoints(int playerId, int betValue)
@@ -48,39 +48,39 @@ namespace BlackJack.BLL.Helper
             return $"You doesn't have {betValue} points to bet";
         }
 
-        public static string PlayerPlaceBet(int playerId, int betValue)
+        public static string PlayerPlaceBet(int playerId, int betValue, int gameId)
         {
-            return $"Player with id {playerId} bet {betValue} points";
+            return $"Player with id {playerId} bet {betValue} points in game №{gameId}";
         }
 
-        public static string PlayerValue(int playerId, int playerValue, int dealerValue)
+        public static string PlayerValue(int playerId, int playerValue, int dealerValue, int gameId)
         {
-            return $"Player with id {playerId} has value {playerValue} against {dealerValue}";
+            return $"Player with id {playerId} has value {playerValue} against {dealerValue} in game №{gameId}";
         }
 
-        public static string PlayerDraw(int playerId)
+        public static string PlayerDraw(int playerId, int gameId)
         {
-            return $"Player with id {playerId} has draw with Dealer";
+            return $"Player with id {playerId} has draw with Dealer in game №{gameId}";
         }
 
-        public static string PlayerWin(int playerId, int betValue)
+        public static string PlayerWin(int playerId, int betValue, int gameId)
         {
-            return $"Player with id {playerId} win {betValue} points";
+            return $"Player with id {playerId} win {betValue} points in game №{gameId}";
         }
 
-        public static string PlayerLose(int playerId, int betValue)
+        public static string PlayerLose(int playerId, int betValue, int gameId)
         {
-            return $"Player with id {playerId} lose {betValue} points";
+            return $"Player with id {playerId} lose {betValue} points in game №{gameId}";
         }
 
-        public static string BotJoinGame(int botId)
+        public static string BotJoinGame(int botId, int gameId)
         {
-            return $"Bot with id {botId} join to the game";
+            return $"Bot with id {botId} join to the game №{gameId}";
         }
 
-        public static string HumanJoinGame(int humanId)
+        public static string HumanJoinGame(int humanId, int gameId)
         {
-            return $"Human with id {humanId} join to the game";
+            return $"Human with id {humanId} join to the game №{gameId}";
         }
 
         public static string BotsNotInGame()

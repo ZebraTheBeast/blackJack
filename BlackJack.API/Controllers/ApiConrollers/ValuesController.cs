@@ -60,6 +60,11 @@ namespace BlackJack.API.Controllers
         {
             try
             {
+                if(playerName == "")
+                {
+                    throw new Exception();
+                }
+
                 return await _gameProvider.StartGame(playerName);
             }
             catch (Exception exception)
@@ -74,6 +79,11 @@ namespace BlackJack.API.Controllers
         {
             try
             {
+                if (playerName == "")
+                {
+                    throw new Exception();
+                }
+
                 return await _gameProvider.LoadGame(playerName);
             }
             catch (Exception exception)

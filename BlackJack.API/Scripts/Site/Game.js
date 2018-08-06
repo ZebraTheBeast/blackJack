@@ -148,15 +148,15 @@ function WriteResponse(gameViewModel) {
         disableDraw();
     }
 
-    if (gameViewModel.Human.Hand.BetValue == 0) {
+    if (gameViewModel.Human.Hand.BetValue === 0) {
         disableDraw();
     }
 
-    if (gameViewModel.Dealer.Hand.CardListValue == 21) {
+    if (gameViewModel.Dealer.Hand.CardListValue === 21) {
         disableDraw();
     }
 
-    if ((gameViewModel.Human.Hand.CardList.length != 0) && (gameViewModel.Human.Hand.BetValue != 0)) {
+    if ((gameViewModel.Human.Hand.CardList.length !== 0) && (gameViewModel.Human.Hand.BetValue !== 0)) {
         disableBet();
     }
 

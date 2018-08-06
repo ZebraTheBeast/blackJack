@@ -25,7 +25,7 @@ namespace BlackJack.BLL.Services
         public async Task<string> UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue, int gameId)
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
-            logger.Info(StringHelper.PlayerValue(playerId, playerCardsValue, dealerCardsValue));
+            logger.Info(StringHelper.PlayerValue(playerId, playerCardsValue, dealerCardsValue, gameId));
             if ((playerCardsValue > dealerCardsValue) && (playerCardsValue <= Constant.WinValue))
             {
                 await PlayerWinPoints(playerId, gameId);
@@ -57,7 +57,7 @@ namespace BlackJack.BLL.Services
             if ((dealerCardsValue == playerCardsValue) && (playerCardsValue <= Constant.WinValue))
             {
                 await _playerInGameRepository.AnnulBet(playerId, gameId);
-                logger.Info(StringHelper.PlayerDraw(playerId));
+                logger.Info(StringHelper.PlayerDraw(playerId, gameId));
                 return OptionHelper.OptionDraw();
             }
             return null;
@@ -68,7 +68,7 @@ namespace BlackJack.BLL.Services
             var logger = NLog.LogManager.GetCurrentClassLogger();
             var player = await _playerRepository.GetById(playerId);
             var bet = await _playerInGameRepository.GetBetByPlayerId(playerId, gameId);
-            logger.Info(StringHelper.PlayerLose(playerId, bet));
+            logger.Info(StringHelper.PlayerLose(playerId, bet, gameId));
             var newPointsValue = player.Points - bet;
             await _playerRepository.UpdatePoints(playerId, newPointsValue);
         }
@@ -78,7 +78,7 @@ namespace BlackJack.BLL.Services
             var logger = NLog.LogManager.GetCurrentClassLogger();
             var player = await _playerRepository.GetById(playerId);
             var bet = await _playerInGameRepository.GetBetByPlayerId(playerId, gameId);
-            logger.Info(StringHelper.PlayerWin(playerId, bet));
+            logger.Info(StringHelper.PlayerWin(playerId, bet, gameId));
             var newPointsValue = player.Points + bet;
             await _playerRepository.UpdatePoints(playerId, newPointsValue);
         }
