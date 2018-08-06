@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -49,8 +49,7 @@ namespace BlackJack.API.Controllers
             }
             catch (Exception exception)
             {
-                throw new HttpResponseException(
-                        Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
             }
 
         }
@@ -60,7 +59,7 @@ namespace BlackJack.API.Controllers
         {
             try
             {
-                if(playerName == "")
+                if(String.IsNullOrEmpty(playerName))
                 {
                     throw new Exception();
                 }
@@ -69,8 +68,7 @@ namespace BlackJack.API.Controllers
             }
             catch (Exception exception)
             {
-                throw new HttpResponseException(
-                        Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
             }
         }
 
@@ -79,7 +77,7 @@ namespace BlackJack.API.Controllers
         {
             try
             {
-                if (playerName == "")
+                if (String.IsNullOrEmpty(playerName))
                 {
                     throw new Exception();
                 }
@@ -88,8 +86,7 @@ namespace BlackJack.API.Controllers
             }
             catch (Exception exception)
             {
-                throw new HttpResponseException(
-                        Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
             }
         }
 
@@ -104,8 +101,7 @@ namespace BlackJack.API.Controllers
             }
             catch (Exception exception)
             {
-                throw new HttpResponseException(
-                       Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
             }
         }
 
@@ -120,9 +116,7 @@ namespace BlackJack.API.Controllers
             }
             catch (Exception exception)
             {
-                throw new HttpResponseException(
-                       Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
-
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
             }
         }
 
@@ -137,8 +131,7 @@ namespace BlackJack.API.Controllers
             }
             catch (Exception exception)
             {
-                throw new HttpResponseException(
-                       Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,17 +10,18 @@ using BlackJack.API.Util;
 
 namespace BlackJack.API
 {
-    public class WebApiApplication : System.Web.HttpApplication
+  public class WebApiApplication : System.Web.HttpApplication
+  {
+    protected void Application_Start()
     {
-        protected void Application_Start()
-        {
-            AutofacConfig.ConfigureContainer();
+      AutofacConfig.ConfigureContainer();
 
-            AreaRegistration.RegisterAllAreas();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
+      AreaRegistration.RegisterAllAreas();
+      GlobalConfiguration.Configure(WebApiConfig.Register);
+      FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+      RouteConfig.RegisterRoutes(RouteTable.Routes);
+      BundleConfig.RegisterBundles(BundleTable.Bundles);
+      
     }
+  }
 }
