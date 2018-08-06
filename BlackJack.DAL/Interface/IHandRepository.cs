@@ -8,8 +8,8 @@ namespace BlackJack.DAL.Interface
 {
     public interface IHandRepository
     {
-        Task GiveCardToPlayer(int playerId, int cardId);
-        Task<IEnumerable<int>> GetIdCardsByPlayerId(int playerId);
-        Task RemoveAll();
+        Task GiveCardToPlayer(int playerId, int cardId, int gameId);
+        Task<IEnumerable<int>> GetIdCardsByPlayerId(int playerId, int gameId);
+        Task RemoveAll(int gameId);
     }
 }

@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     GetGameViewModel();
-
     $("#placeBetButton").click(function (event) {
         event.preventDefault();
         Bet();
@@ -24,11 +23,11 @@
 });
 
 function Stand() {
-    var deck = JSON.parse($.cookie("deck-data"));
+    var humanId = JSON.parse($.cookie("human-data"));
     $.ajax({
         url: '/api/values/Stand',
         type: 'POST',
-        data: JSON.stringify(deck),
+        data: JSON.stringify(humanId),
         contentType: "application/json;charset=utf-8",
         success: function (gameViewModel) {
             disableDraw();
@@ -41,9 +40,11 @@ function Stand() {
 };
 
 function GetGameViewModel() {
+    var humanId = JSON.parse($.cookie("human-data"));
     $.ajax({
         url: '/api/values/GetGameViewModel',
-        type: 'GET',
+        type: 'POST',
+        data: JSON.stringify(humanId),
         contentType: "application/json;charset=utf-8",
         success: function (gameViewModel) {
             WriteResponse(gameViewModel);
@@ -55,11 +56,11 @@ function GetGameViewModel() {
 }
 
 function Draw() {
-    var deck = JSON.parse($.cookie("deck-data"));
+    var humanId = JSON.parse($.cookie("human-data"));
     $.ajax({
         url: '/api/values/Draw',
         type: 'POST',
-        data: JSON.stringify(deck),
+        data: JSON.stringify(humanId),
         contentType: "application/json;charset=utf-8",
         success: function (data) {
             WriteResponse(data);
@@ -71,11 +72,16 @@ function Draw() {
 };
 
 function Bet() {
-    var betValue = $("#betValue").val()
+
+    var betViewModel = {
+        BetValue: $("#betValue").val(),
+        HumanId: JSON.parse($.cookie("human-data"))
+    };
+
     $.ajax({
         url: '/api/values/Bet',
         type: 'POST',
-        data: JSON.stringify(betValue),
+        data: JSON.stringify(betViewModel),
         contentType: "application/json;charset=utf-8",
         success: function (gameViewModel) {
             disableBet();

@@ -24,9 +24,9 @@ namespace BlackJack.BLL.Services
             _handService = handService;
         }
 
-        public async Task<List<PlayerViewModel>> GetBotsInGame()
+        public async Task<List<PlayerViewModel>> GetBotsInGame(int gameId)
         {
-            var botsIdList = await _playerInGameRepository.GetBots();
+            var botsIdList = await _playerInGameRepository.GetBots(gameId);
             var playerViewModelList = new List<PlayerViewModel>();
             foreach (var playerId in botsIdList)
             {
@@ -43,7 +43,7 @@ namespace BlackJack.BLL.Services
                 playerViewModel.Id = player.Id;
                 playerViewModel.Name = player.Name;
                 playerViewModel.Points = player.Points;
-                playerViewModel.Hand = await _handService.GetPlayerHand(player.Id);
+                playerViewModel.Hand = await _handService.GetPlayerHand(player.Id, gameId);
 
                 playerViewModelList.Add(playerViewModel);
             }
@@ -51,7 +51,22 @@ namespace BlackJack.BLL.Services
             return playerViewModelList;
         }
 
-        public async Task SetPlayerToGame(string playerName)
+        public async Task<int> GetIdByName(string name)
+        {
+            var logger = NLog.LogManager.GetCurrentClassLogger();
+            try
+            {
+                var player = await _playerRepository.GetByName(name);
+                return player.Id;
+            }
+            catch (Exception exception)
+            {
+                logger.Error(exception.Message);
+                throw exception;
+            }
+        }
+
+        public async Task<int> SetPlayerToGame(string playerName)
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
@@ -59,16 +74,17 @@ namespace BlackJack.BLL.Services
                 var player = await _playerRepository.GetByName(playerName);
                 var bots = await _playerRepository.GetBots();
 
-                await _playerInGameRepository.RemoveAll();
+                await _playerInGameRepository.RemoveAll(player.Id);
 
                 foreach (var bot in bots)
                 {
-                    await _playerInGameRepository.AddPlayer(bot.Id);
+                    await _playerInGameRepository.AddPlayer(bot.Id, player.Id);
                     logger.Info(StringHelper.BotJoinGame(bot.Id));
                 }
 
                 await _playerInGameRepository.AddHuman(player.Id);
                 logger.Info(StringHelper.HumanJoinGame(player.Id));
+                return player.Id;
             }
             catch (Exception exception)
             {
@@ -77,12 +93,12 @@ namespace BlackJack.BLL.Services
             }
         }
 
-        public async Task<IEnumerable<int>> GetPlayersIdInGame()
+        public async Task<IEnumerable<int>> GetPlayersIdInGame(int gameId)
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
             {
-                var playerIdList = await _playerInGameRepository.GetAll();
+                var playerIdList = await _playerInGameRepository.GetAll(gameId);
 
                 if (playerIdList.Count() == 0)
                 {
@@ -90,7 +106,6 @@ namespace BlackJack.BLL.Services
                 }
 
                 return playerIdList;
-
             }
             catch (Exception exception)
             {
@@ -99,7 +114,7 @@ namespace BlackJack.BLL.Services
             }
         }
 
-        public async Task PlaceBet(int playerId, int betValue)
+        public async Task PlaceBet(int playerId, int betValue, int gameId)
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
@@ -111,12 +126,12 @@ namespace BlackJack.BLL.Services
                     throw new Exception(StringHelper.NotEnoughPoints(playerId, betValue));
                 }
 
-                if(betValue <= 0)
+                if (betValue <= 0)
                 {
                     throw new Exception(StringHelper.NoBetValue());
                 }
 
-                await _playerInGameRepository.PlaceBet(playerId, betValue);
+                await _playerInGameRepository.PlaceBet(playerId, betValue, gameId);
 
                 logger.Info(StringHelper.PlayerPlaceBet(playerId, betValue));
             }
@@ -127,18 +142,10 @@ namespace BlackJack.BLL.Services
             }
         }
 
-        public async Task<PlayerViewModel> GetHumanInGame()
+        public async Task<PlayerViewModel> GetHumanInGame(int humanId)
         {
             try
             {
-                var humanId = -1;
-                humanId = await _playerInGameRepository.GetHuman();
-
-                if (humanId == -1)
-                {
-                    throw new Exception(StringHelper.PlayerNotInGame());
-                }
-
                 var player = await _playerRepository.GetById(humanId);
 
                 var playerViewModel = new PlayerViewModel
@@ -151,7 +158,7 @@ namespace BlackJack.BLL.Services
                 playerViewModel.Id = player.Id;
                 playerViewModel.Name = player.Name;
                 playerViewModel.Points = player.Points;
-                playerViewModel.Hand = await _handService.GetPlayerHand(player.Id);
+                playerViewModel.Hand = await _handService.GetPlayerHand(player.Id, player.Id);
 
                 return playerViewModel;
             }
@@ -161,7 +168,7 @@ namespace BlackJack.BLL.Services
             }
         }
 
-        public async Task<DealerViewModel> GetDealer()
+        public async Task<DealerViewModel> GetDealer(int gameId)
         {
             try
             {
@@ -177,7 +184,7 @@ namespace BlackJack.BLL.Services
 
                 dealerViewModel.Id = dealer.Id;
                 dealerViewModel.Name = dealer.Name;
-                dealerViewModel.Hand = await _handService.GetPlayerHand(dealer.Id);
+                dealerViewModel.Hand = await _handService.GetPlayerHand(dealer.Id, gameId);
 
                 return dealerViewModel;
             }
@@ -186,5 +193,7 @@ namespace BlackJack.BLL.Services
                 throw exception;
             }
         }
+
+
     }
 }

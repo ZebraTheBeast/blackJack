@@ -21,13 +21,14 @@ namespace BlackJack.API.Controllers
             _gameProvider = gameProvider;
         }
 
-        public async Task<GameViewModel> GetGameViewModel()
+        [HttpPost]
+        public async Task<GameViewModel> GetGameViewModel([FromBody]int humanId)
         {
             try
             {
                 var gameViewModel = new GameViewModel();
 
-                gameViewModel = await _gameProvider.GetGameViewModel();
+                gameViewModel = await _gameProvider.GetGameViewModel(humanId);
 
                 if (gameViewModel.Bots.Count() == 0)
                 {
@@ -55,11 +56,11 @@ namespace BlackJack.API.Controllers
         }
 
         [HttpPost]
-        public async Task StartGame([FromBody]string playerName)
+        public async Task<int> StartGame([FromBody]string playerName)
         {
             try
             {
-                await _gameProvider.StartGame(playerName);
+                return await _gameProvider.StartGame(playerName);
             }
             catch (Exception exception)
             {
@@ -69,12 +70,26 @@ namespace BlackJack.API.Controllers
         }
 
         [HttpPost]
-        public async Task<GameViewModel> Bet([FromBody]int betValue)
+        public async Task<int> LoadGame([FromBody]string playerName)
+        {
+            try
+            {
+                return await _gameProvider.LoadGame(playerName);
+            }
+            catch (Exception exception)
+            {
+                throw new HttpResponseException(
+                        Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+            }
+        }
+
+        [HttpPost]
+        public async Task<GameViewModel> Bet([FromBody]BetViewModel betViewModel)
         {
             try
             {
                 var gameViewModel = new GameViewModel();
-                gameViewModel = await _gameProvider.PlaceBet(betValue);
+                gameViewModel = await _gameProvider.PlaceBet(betViewModel.BetValue, betViewModel.HumanId);
                 return gameViewModel;
             }
             catch (Exception exception)
@@ -85,12 +100,12 @@ namespace BlackJack.API.Controllers
         }
 
         [HttpPost]
-        public async Task<GameViewModel> Draw([FromBody]List<int> deck)
+        public async Task<GameViewModel> Draw([FromBody]int humanId)
         {
             try
             {
                 var gameViewModel = new GameViewModel();
-                gameViewModel = await _gameProvider.Draw(deck);
+                gameViewModel = await _gameProvider.Draw(humanId);
                 return gameViewModel;
             }
             catch (Exception exception)
@@ -102,12 +117,12 @@ namespace BlackJack.API.Controllers
         }
 
         [HttpPost]
-        public async Task<GameViewModel> Stand([FromBody]List<int> deck)
+        public async Task<GameViewModel> Stand([FromBody]int humanId)
         {
             try
             {
                 var gameViewModel = new GameViewModel();
-                gameViewModel = await _gameProvider.Stand(deck);
+                gameViewModel = await _gameProvider.Stand(humanId);
                 return gameViewModel;
             }
             catch (Exception exception)

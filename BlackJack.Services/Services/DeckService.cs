@@ -46,16 +46,16 @@ namespace BlackJack.BLL.Services
             return deck;
         }
 
-        public async Task<List<int>> LoadDeck()
+        public async Task<List<int>> LoadDeck(int gameId)
         {
             var cardViewModelList = new List<CardViewModel>();
             var deck = new List<int>();
             var cardIdList = new List<int>();
             cardViewModelList = CardHelper.GetFullDeck();
-            var players = await _playerInGameRepository.GetAll();
+            var players = await _playerInGameRepository.GetAll(gameId);
             foreach (var playerId in players)
             {
-                cardIdList.AddRange(await _handRepository.GetIdCardsByPlayerId(playerId));
+                cardIdList.AddRange(await _handRepository.GetIdCardsByPlayerId(playerId, gameId));
             }
 
             foreach(var cardId in cardIdList)
@@ -89,17 +89,17 @@ namespace BlackJack.BLL.Services
             return deck;
         }
 
-        public async Task GiveCardFromDeck(int playerId, int cardId)
+        public async Task GiveCardFromDeck(int playerId, int cardId, int gameId)
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
             {
-                if (!await _playerInGameRepository.IsInGame(playerId))
+                if (!await _playerInGameRepository.IsInGame(playerId, gameId))
                 {
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
 
-                await _handRepository.GiveCardToPlayer(playerId, cardId);
+                await _handRepository.GiveCardToPlayer(playerId, cardId, gameId);
                 logger.Info(StringHelper.PlayerDrawCard(playerId,cardId));
             }
             catch (Exception exception)

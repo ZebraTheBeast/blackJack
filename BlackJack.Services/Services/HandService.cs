@@ -23,8 +23,10 @@ namespace BlackJack.BLL.Services
             _playerInGameRepository = playerInGameRepository;
         }
 
-        public async Task<HandViewModel> GetPlayerHand(int playerId)
+        public async Task<HandViewModel> GetPlayerHand(int playerId, int gameId)
         {
+            var logger = NLog.LogManager.GetCurrentClassLogger();
+
             try
             {
                 var hand = new HandViewModel
@@ -32,20 +34,20 @@ namespace BlackJack.BLL.Services
                     CardList = new List<CardViewModel>()
                 };
 
-                if( !await _playerInGameRepository.IsInGame(playerId))
+                if( !await _playerInGameRepository.IsInGame(playerId, gameId))
                 {
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
 
-                var cardsId = await _handRepository.GetIdCardsByPlayerId(playerId);
+                var cardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
 
-                foreach (var cardId in cardsId)
+                foreach (var cardId in cardsIdList)
                 {
                     var card = CardHelper.GetCardById(cardId);
                     hand.CardList.Add(card);
                 }
 
-                hand.BetValue = await _playerInGameRepository.GetBetByPlayerId(playerId);
+                hand.BetValue = await _playerInGameRepository.GetBetByPlayerId(playerId, gameId);
                 hand.CardListValue = CountPlayerCardsValue(hand.CardList);
 
                 return hand;
@@ -53,23 +55,22 @@ namespace BlackJack.BLL.Services
 
             catch(Exception exception)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Error($"{exception.Message}");
+                logger.Error(exception.Message);
                 throw exception;
             }
         }
 
-        public async Task<int> GetPlayerHandValue(int playerId)
+        public async Task<int> GetPlayerHandValue(int playerId, int gameId)
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
             {
-                if ( !await _playerInGameRepository.IsInGame(playerId))
+                if ( !await _playerInGameRepository.IsInGame(playerId, gameId))
                 {
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
 
-                var playerCardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId);
+                var playerCardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
                 var cards = new List<CardViewModel>();
 
                 foreach (var cardId in playerCardsIdList)
@@ -124,9 +125,9 @@ namespace BlackJack.BLL.Services
             return cardListValue;
         }
 
-        public async Task RemoveAllCardsInHand()
+        public async Task RemoveAllCardsInHand(int gameId)
         {
-            await _handRepository.RemoveAll();
+            await _handRepository.RemoveAll(gameId);
         }
     }
 }

@@ -30,16 +30,16 @@ namespace BlackJack.BLL.Providers
             NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
         }
 
-        public async Task<GameViewModel> GetGameViewModel()
+        public async Task<GameViewModel> GetGameViewModel(int gameId)
         {
             try
             {
                 var gameViewModel = new GameViewModel();
 
-                gameViewModel.Bots = await _playerService.GetBotsInGame();
-                gameViewModel.Human = await _playerService.GetHumanInGame();
-                gameViewModel.Dealer = await _playerService.GetDealer();
-                gameViewModel.Deck = await _deckService.LoadDeck();
+                gameViewModel.Bots = await _playerService.GetBotsInGame(gameId);
+                gameViewModel.Human = await _playerService.GetHumanInGame(gameId);
+                gameViewModel.Dealer = await _playerService.GetDealer(gameId);
+                gameViewModel.Deck = await _deckService.LoadDeck(gameId);
 
                 if (gameViewModel.Human.Hand.CardList.Count() != 0)
                 {
@@ -60,11 +60,11 @@ namespace BlackJack.BLL.Providers
             }
         }
 
-        private async Task<string> UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue)
+        private async Task<string> UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue, int gameId)
         {
             try
             {
-                var message = await _scoreService.UpdateScore(playerId, playerCardsValue, dealerCardsValue);
+                var message = await _scoreService.UpdateScore(playerId, playerCardsValue, dealerCardsValue, gameId);
                 return message;
             }
             catch (Exception exception)
@@ -73,21 +73,21 @@ namespace BlackJack.BLL.Providers
             }
         }
 
-        private async Task<bool> BotTurn(int botId, List<int> deck)
+        private async Task<bool> BotTurn(int botId, List<int> deck, int gameId)
         {
             try
             {
-                var value = await _handService.GetPlayerHandValue(botId);
+                var value = await _handService.GetPlayerHandValue(botId, gameId);
 
                 if (value >= Constant.ValueToStopDraw)
                 {
                     return false;
                 }
 
-                await _deckService.GiveCardFromDeck(botId, deck[0]);
+                await _deckService.GiveCardFromDeck(botId, deck[0], gameId);
                 deck.Remove(deck[0]);
 
-                return await BotTurn(botId, deck);
+                return await BotTurn(botId, deck, gameId);
             }
             catch (Exception exception)
             {
@@ -95,11 +95,11 @@ namespace BlackJack.BLL.Providers
             }
         }
 
-        private async Task PlaceBet(int playerId, int betValue)
+        private async Task PlaceBet(int playerId, int betValue, int gameId)
         {
             try
             {
-                await _playerService.PlaceBet(playerId, betValue);
+                await _playerService.PlaceBet(playerId, betValue, gameId);
             }
             catch (Exception exception)
             {
@@ -107,47 +107,47 @@ namespace BlackJack.BLL.Providers
             }
         }
 
-        public async Task<GameViewModel> PlaceBet(int betValue)
+        public async Task<GameViewModel> PlaceBet(int betValue, int humanId)
         {
             try
             {
                 var gameViewModel = new GameViewModel();
                 var deck = new List<int>();
-                var bots = await _playerService.GetBotsInGame();
-                var human = await _playerService.GetHumanInGame();
-                var playersIdList = await _playerService.GetPlayersIdInGame();
+                var bots = await _playerService.GetBotsInGame(humanId);
+                var human = await _playerService.GetHumanInGame(humanId);
+                var playersIdList = await _playerService.GetPlayersIdInGame(humanId);
 
                 if (human.Hand.BetValue != 0)
                 {
                     throw new Exception(StringHelper.AlreadyBet());
                 }
 
-                await _handService.RemoveAllCardsInHand();
+                await _handService.RemoveAllCardsInHand(humanId);
                 deck = _deckService.GetNewRefreshedDeck();
 
-                await _playerService.PlaceBet(human.Id, betValue);
+                await _playerService.PlaceBet(human.Id, betValue, humanId);
 
                 for (var i = 0; i < bots.Count(); i++)
                 {
-                    await _playerService.PlaceBet(bots[i].Id, Constant.BotsBetValue);
+                    await _playerService.PlaceBet(bots[i].Id, Constant.BotsBetValue, humanId);
                 }
 
                 foreach (var playerId in playersIdList)
                 {
-                    await _deckService.GiveCardFromDeck(playerId, deck[0]);
+                    await _deckService.GiveCardFromDeck(playerId, deck[0], humanId);
                     deck.Remove(deck[0]);
-                    await _deckService.GiveCardFromDeck(playerId, deck[0]);
+                    await _deckService.GiveCardFromDeck(playerId, deck[0], humanId);
                     deck.Remove(deck[0]);
                 }
 
-                gameViewModel = await GetGameViewModel();
+                gameViewModel = await GetGameViewModel(humanId);
                 gameViewModel.Options = OptionHelper.OptionDrawCard();
                 gameViewModel.Deck = deck;
 
                 if ((gameViewModel.Human.Hand.CardListValue >= Constant.WinValue)
                     || (gameViewModel.Dealer.Hand.CardListValue >= Constant.WinValue))
                 {
-                    gameViewModel = await Stand(deck);
+                    gameViewModel = await Stand(humanId);
                 }
 
                 return gameViewModel;
@@ -158,12 +158,11 @@ namespace BlackJack.BLL.Providers
             }
         }
 
-        public async Task StartGame(string playerName)
+        public async Task<int> StartGame(string playerName)
         {
             try
             {
-                await _handService.RemoveAllCardsInHand();
-                await _playerService.SetPlayerToGame(playerName);
+                return await _playerService.SetPlayerToGame(playerName);
             }
             catch (Exception exception)
             {
@@ -171,27 +170,39 @@ namespace BlackJack.BLL.Providers
             }
         }
 
-        public async Task<GameViewModel> Draw(List<int> deck)
+        public async Task<int> LoadGame(string playerName)
         {
             try
             {
-                var human = await _playerService.GetHumanInGame();
+                return await _playerService.GetIdByName(playerName);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
 
+        public async Task<GameViewModel> Draw(int gameId)
+        {
+            try
+            {
+                var human = await _playerService.GetHumanInGame(gameId);
+                var deck = await _deckService.LoadDeck(gameId);
                 if (human.Hand.BetValue == 0)
                 {
                     throw new Exception(StringHelper.NoBetValue());
                 }
 
-                await _deckService.GiveCardFromDeck(human.Id, deck[0]);
+                await _deckService.GiveCardFromDeck(human.Id, deck[0], gameId);
                 deck.Remove(deck[0]);
 
-                var gameViewModel = await GetGameViewModel();
+                var gameViewModel = await GetGameViewModel(gameId);
                 gameViewModel.Options = OptionHelper.OptionDrawCard();
                 gameViewModel.Deck = deck;
 
                 if (gameViewModel.Human.Hand.CardListValue >= Constant.WinValue)
                 {
-                    gameViewModel = await Stand(deck);
+                    gameViewModel = await Stand(gameId);
                 }
 
                 return gameViewModel;
@@ -202,42 +213,43 @@ namespace BlackJack.BLL.Providers
             }
         }
 
-        public async Task<GameViewModel> Stand(List<int> deck)
+        public async Task<GameViewModel> Stand(int gameId)
         {
             try
             {
                 var gameViewModel = new GameViewModel();
-                var bots = await _playerService.GetBotsInGame();
-                var dealer = await _playerService.GetDealer();
-                var human = await _playerService.GetHumanInGame();
+                var bots = await _playerService.GetBotsInGame(gameId);
+                var dealer = await _playerService.GetDealer(gameId);
+                var human = await _playerService.GetHumanInGame(gameId);
+                var deck = await _deckService.LoadDeck(gameId);
 
-                await BotTurn(dealer.Id, deck);
+                await BotTurn(dealer.Id, deck, gameId);
 
-                dealer.Hand = await _handService.GetPlayerHand(dealer.Id);
+                dealer.Hand = await _handService.GetPlayerHand(dealer.Id, gameId);
 
                 if (human.Hand.BetValue == 0)
                 {
                     throw new Exception(StringHelper.NoBetValue());
                 }
 
-                var message = await UpdateScore(human.Id, human.Hand.CardListValue, dealer.Hand.CardListValue);
+                var message = await UpdateScore(human.Id, human.Hand.CardListValue, dealer.Hand.CardListValue, gameId);
 
                 if ((dealer.Hand.CardListValue != Constant.WinValue)
                     || (dealer.Hand.CardList.Count() != Constant.NumberCardForBlackJack))
                 {
                     for (var i = 0; i < bots.Count(); i++)
                     {
-                        await BotTurn(bots[i].Id, deck);
+                        await BotTurn(bots[i].Id, deck, gameId);
                     }
                 }
 
                 for (var i = 0; i < bots.Count(); i++)
                 {
-                    bots[i].Hand.CardListValue = await _handService.GetPlayerHandValue(bots[i].Id);
-                    await UpdateScore(bots[i].Id, bots[i].Hand.CardListValue, dealer.Hand.CardListValue);
+                    bots[i].Hand.CardListValue = await _handService.GetPlayerHandValue(bots[i].Id, gameId);
+                    await UpdateScore(bots[i].Id, bots[i].Hand.CardListValue, dealer.Hand.CardListValue, gameId);
                 }
 
-                gameViewModel = await GetGameViewModel();
+                gameViewModel = await GetGameViewModel(gameId);
                 gameViewModel.Options = OptionHelper.OptionSetBet(message);
                 gameViewModel.Deck = deck;
 

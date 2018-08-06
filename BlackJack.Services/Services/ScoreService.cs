@@ -22,62 +22,62 @@ namespace BlackJack.BLL.Services
             _playerRepository = playerRepository;
         }
 
-        public async Task<string> UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue)
+        public async Task<string> UpdateScore(int playerId, int playerCardsValue, int dealerCardsValue, int gameId)
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             logger.Info(StringHelper.PlayerValue(playerId, playerCardsValue, dealerCardsValue));
             if ((playerCardsValue > dealerCardsValue) && (playerCardsValue <= Constant.WinValue))
             {
-                await PlayerWinPoints(playerId);
-                await _playerInGameRepository.AnnulBet(playerId);
+                await PlayerWinPoints(playerId, gameId);
+                await _playerInGameRepository.AnnulBet(playerId, gameId);
                 return OptionHelper.OptionWin();
             }
 
             if ((playerCardsValue <= Constant.WinValue) && (dealerCardsValue > Constant.WinValue))
             {
-                await PlayerWinPoints(playerId);
-                await _playerInGameRepository.AnnulBet(playerId);
+                await PlayerWinPoints(playerId, gameId);
+                await _playerInGameRepository.AnnulBet(playerId, gameId);
                 return OptionHelper.OptionWin();
             }
 
             if (playerCardsValue > Constant.WinValue)
             {
-                await PlayerLosePoints(playerId);
-                await _playerInGameRepository.AnnulBet(playerId);
+                await PlayerLosePoints(playerId, gameId);
+                await _playerInGameRepository.AnnulBet(playerId, gameId);
                 return OptionHelper.OptionLose();
             }
 
             if ((dealerCardsValue > playerCardsValue) && (dealerCardsValue <= Constant.WinValue))
             {
-                await PlayerLosePoints(playerId);
-                await _playerInGameRepository.AnnulBet(playerId);
+                await PlayerLosePoints(playerId, gameId);
+                await _playerInGameRepository.AnnulBet(playerId, gameId);
                 return OptionHelper.OptionLose();
             }
 
             if ((dealerCardsValue == playerCardsValue) && (playerCardsValue <= Constant.WinValue))
             {
-                await _playerInGameRepository.AnnulBet(playerId);
+                await _playerInGameRepository.AnnulBet(playerId, gameId);
                 logger.Info(StringHelper.PlayerDraw(playerId));
                 return OptionHelper.OptionDraw();
             }
             return null;
         }
 
-        private async Task PlayerLosePoints(int playerId)
+        private async Task PlayerLosePoints(int playerId, int gameId)
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             var player = await _playerRepository.GetById(playerId);
-            var bet = await _playerInGameRepository.GetBetByPlayerId(playerId);
+            var bet = await _playerInGameRepository.GetBetByPlayerId(playerId, gameId);
             logger.Info(StringHelper.PlayerLose(playerId, bet));
             var newPointsValue = player.Points - bet;
             await _playerRepository.UpdatePoints(playerId, newPointsValue);
         }
 
-        private async Task PlayerWinPoints(int playerId)
+        private async Task PlayerWinPoints(int playerId, int gameId)
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             var player = await _playerRepository.GetById(playerId);
-            var bet = await _playerInGameRepository.GetBetByPlayerId(playerId);
+            var bet = await _playerInGameRepository.GetBetByPlayerId(playerId, gameId);
             logger.Info(StringHelper.PlayerWin(playerId, bet));
             var newPointsValue = player.Points + bet;
             await _playerRepository.UpdatePoints(playerId, newPointsValue);
