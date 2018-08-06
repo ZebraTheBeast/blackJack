@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     GetGameViewModel();
+    console.log(JSON.parse($.cookie("human-data")));
     $("#placeBetButton").click(function (event) {
         event.preventDefault();
         Bet();

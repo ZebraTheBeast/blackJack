@@ -162,7 +162,9 @@ namespace BlackJack.BLL.Providers
         {
             try
             {
-                return await _playerService.SetPlayerToGame(playerName);
+                var humanId = await _playerService.SetPlayerToGame(playerName);
+                await _handService.RemoveAllCardsInHand(humanId);
+                return humanId;
             }
             catch (Exception exception)
             {

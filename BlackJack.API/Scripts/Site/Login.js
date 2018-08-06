@@ -21,6 +21,7 @@ function StartGame() {
         contentType: "application/json;charset=utf-8",
         success: function (data) {
             $.cookie("human-data", JSON.stringify(data));
+            $("#loginForm").submit();
         },
         error: function () {
             $("#nameError").show();
@@ -37,6 +38,7 @@ function LoadGame() {
         contentType: "application/json;charset=utf-8",
         success: function (data) {
             $.cookie("human-data", JSON.stringify(data));
+            $("#loginForm").submit();
         },
         error: function () {
             $("#nameError").show();
