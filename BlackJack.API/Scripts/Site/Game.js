@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     GetGameViewModel();
     console.log(JSON.parse($.cookie("human-data")));
     $("#placeBetButton").click(function (event) {
@@ -44,8 +44,7 @@ function GetGameViewModel() {
     var humanId = JSON.parse($.cookie("human-data"));
     $.ajax({
         url: '/api/values/GetGameViewModel',
-        type: 'POST',
-        data: JSON.stringify(humanId),
+        type: 'GET',
         contentType: "application/json;charset=utf-8",
         success: function (gameViewModel) {
             WriteResponse(gameViewModel);

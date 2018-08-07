@@ -182,14 +182,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="dist\BlackJackAPI\3rdpartylicenses.txt" />
-    <Content Include="dist\BlackJackAPI\favicon.ico" />
     <Content Include="dist\BlackJackAPI\index.html" />
     <Content Include="dist\BlackJackAPI\main.js" />
     <Content Include="dist\BlackJackAPI\polyfills.js" />
     <Content Include="dist\BlackJackAPI\runtime.js" />
     <Content Include="dist\BlackJackAPI\styles.js" />
     <Content Include="dist\BlackJackAPI\vendor.js" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -221,10 +219,10 @@
     <Content Include="dist\BlackJackAPI\runtime.js.map" />
     <Content Include="dist\BlackJackAPI\styles.js.map" />
     <Content Include="dist\BlackJackAPI\vendor.js.map" />
-    <Content Include=".editorconfig" />
     <Content Include="angular.json" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
+    <Content Include=".editorconfig" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -242,7 +240,6 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="src\app\app.component.css" />
     <Content Include="src\app\app.component.html" />
     <Content Include="src\index.html" />
     <Content Include="src\styles.css" />
@@ -269,11 +266,8 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="src\browserslist" />
     <Content Include="src\tsconfig.app.json" />
-    <Content Include="src\tslint.json" />
     <Content Include="tsconfig.json" />
-    <Content Include="tslint.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -286,9 +280,13 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
-    <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\game.service.ts" />
+    <TypeScriptCompile Include="src\game\card.ts" />
+    <TypeScriptCompile Include="src\game\game.ts" />
+    <TypeScriptCompile Include="src\game\hand.ts" />
+    <TypeScriptCompile Include="src\game\player.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
   </ItemGroup>
