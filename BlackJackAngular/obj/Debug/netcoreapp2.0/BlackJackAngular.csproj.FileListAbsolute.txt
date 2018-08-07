@@ -1,0 +1,11 @@
+C:\Users\Anuitex\source\repos\blackJack\BlackJackAngular\bin\Debug\netcoreapp2.0\BlackJackAngular.deps.json
+C:\Users\Anuitex\source\repos\blackJack\BlackJackAngular\bin\Debug\netcoreapp2.0\BlackJackAngular.runtimeconfig.json
+C:\Users\Anuitex\source\repos\blackJack\BlackJackAngular\bin\Debug\netcoreapp2.0\BlackJackAngular.runtimeconfig.dev.json
+C:\Users\Anuitex\source\repos\blackJack\BlackJackAngular\bin\Debug\netcoreapp2.0\BlackJackAngular.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJackAngular\bin\Debug\netcoreapp2.0\BlackJackAngular.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJackAngular\obj\Debug\netcoreapp2.0\BlackJackAngular.csprojAssemblyReference.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJackAngular\obj\Debug\netcoreapp2.0\BlackJackAngular.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJackAngular\obj\Debug\netcoreapp2.0\BlackJackAngular.AssemblyInfoInputs.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJackAngular\obj\Debug\netcoreapp2.0\BlackJackAngular.AssemblyInfo.cs
+C:\Users\Anuitex\source\repos\blackJack\BlackJackAngular\obj\Debug\netcoreapp2.0\BlackJackAngular.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJackAngular\obj\Debug\netcoreapp2.0\BlackJackAngular.pdb
