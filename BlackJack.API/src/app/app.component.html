@@ -1,73 +1,97 @@
 <h2 class="text-center">Black Jack</h2>
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-3 text-center">
-      <h2>
-        {{ game.Dealer.Name }}
-      </h2>
-      <ul class="list-group" id="dealerCards">
-        <li class="list-group-item" *ngFor="let card of game.Dealer.Hand.CardList">
-          {{card.Title}}
-        </li>
-      </ul>
-      <h4>Value: {{ game.Dealer.Hand.CardListValue }}</h4>
+    <div class="row">
+        <div class="col-md-3 text-center">
+            <h2>
+                {{ game.Dealer.Name }}
+            </h2>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let card of game.Dealer.Hand.CardList">
+                    {{ card.Title }} of {{card.Color}}
+                </li>
+            </ul>
+            <h4>Value: {{ game.Dealer.Hand.CardListValue }}</h4>
+        </div>
+        <div class="col-md-6 text-center game-option">
+            <h1 class='alert alert-info'>
+                {{ game.Options }}
+            </h1>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-group" id="playerStatsBlock"></ul>
+            <h3>Cards in deck: {{ game.Deck.lenght }}</h3>
+        </div>
     </div>
-    <div class="col-md-6 text-center game-option">
-      <h1 class='alert alert-info'>
-      </h1>
-    </div>
-    <div class="col-md-3">
-      <ul class="list-group" id="playerStatsBlock"></ul>
-      <h3>Cards in deck: <span id="cardsCount"></span></h3>
-    </div>
-  </div>
 </div>
 <div class="row text-center">
-  <div id="botBlock" class="col-md-6 row"></div>
-  <div class="col-md-2">
-    <h3>
-      <span id="humanName"></span>
-    </h3>
-    <ul class="list-group" id="humanCards"></ul>
-    <h4>Value: <span id="humanValue"></span></h4>
-    <h4>Bet: <span id="humanBet"></span></h4>
-  </div>
 
-  <div class="col-md-4 ">
-    <div class="row">
-      <input id="drawButton" type="submit" value="Draw" class="custombutton btn btn-default" />
+    <div class="col-md-6 row" *ngFor="let bot of game.Bots">
+
+        <div class="col-md-2">
+            <h3>
+                {{ bot.Name }}
+            </h3>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let card of bot.Hand.CardList">
+                    {{ card.Title }} of {{ card.Color }}
+                </li>
+            </ul>
+            <h4>Value: {{ bot.Hand.CardListValue }}</h4>
+            <h4>Bet: {{ bot.Hand.BetValue }}</h4>
+        </div>
     </div>
-    <div class="row">
-      <input id="standButton" type="submit" value="Stand" class="btn btn-default custombutton" />
+
+    <div class="col-md-2">
+        <h3>
+            {{ game.Human.Name }}
+        </h3>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let card of game.Human.Hand.CardList">
+                {{ card.Title }} of {{ card.Color }}
+            </li>
+        </ul>
+        <h4>Value: {{ game.Human.Hand.CardListValue }}</h4>
+        <h4>Bet: {{ game.Human.Hand.BetValue }}</h4>
     </div>
-    <div class="row">
-      <input type="range" id="betValue" class="custombutton custom-range" min="10" value="10" oninput="placeBet()" step="10" name="pointsValue" />
+
+    <div class="col-md-4 ">
+        <div class="row">
+            <input id="drawButton" type="submit" value="Draw" class="custombutton btn btn-default" />
+        </div>
+        <div class="row">
+            <input id="standButton" type="submit" value="Stand" class="btn btn-default custombutton" />
+        </div>
+        <div class="row">
+            <input type="range" id="betValue" class="custombutton custom-range" min="10" [(ngModel)]="betValue" oninput="" step="10" />
+        </div>
+        <div class="row">
+            <input type="number" id="imageBetValue" class="custombutton text-center" [value]="betValue" readonly="readonly" />
+        </div>
+        <div class="row">
+            <input id="placeBetButton" type="submit" value="Place a bet" class="btn btn-default custombutton" />
+        </div>
     </div>
-    <div class="row">
-      <input type="number" id="imageBetValue" class="custombutton text-center" value="10" readonly="readonly" />
-    </div>
-    <div class="row">
-      <input id="placeBetButton" type="submit" value="Place a bet" class="btn btn-default custombutton" />
-    </div>
-  </div>
 </div>
 
+
+
+
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="errorModalLabel">Error</h5>
-      </div>
-      <div class="modal-body">
-        <h1 class="alert alert-danger text-center">
-          <span id="errorMessage"></span>
-        </h1>
-      </div>
-      <div class="modal-footer">
-        <p>You can try to refresh page to solve your problem, but I'm not sure that it help.</p>
-        <button id="refreshButton" type="button" class="btn btn-primary">Refresh page</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+            </div>
+            <div class="modal-body">
+                <h1 class="alert alert-danger text-center">
+                    <span id="errorMessage"></span>
+                </h1>
+            </div>
+            <div class="modal-footer">
+                <p>You can try to refresh page to solve your problem, but I'm not sure that it help.</p>
+                <button id="refreshButton" type="button" class="btn btn-primary">Refresh page</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

@@ -6,19 +6,21 @@ import { GameService } from '../game.service';
 
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html'
+    selector: 'app-root',
+    templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  game: Game;
+    betValue = 10;
+    game: Game;
 
-  constructor(private gameSerivce: GameService) { }
+    constructor(private gameSerivce: GameService) {
+    }
 
-  ngOnInit() {
-    this.getGame();
-  }
+    ngOnInit() {
+        //this.getGame();
+    }
 
-  getGame(): void {
-    this.gameSerivce.getGame().subscribe(game => this.game = game);
-  }
+    getGame(): void {
+        this.gameSerivce.getGame().subscribe(game => this.game = game);
+    }
 }

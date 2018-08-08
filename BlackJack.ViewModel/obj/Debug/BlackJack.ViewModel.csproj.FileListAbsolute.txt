@@ -7,3 +7,12 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.csproj.CopyComplete
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entity.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entity.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\bin\Debug\BlackJack.ViewModel.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\bin\Debug\BlackJack.ViewModel.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entity.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entity.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.csprojAssemblyReference.cache
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.csproj.CoreCompileInputs.cache
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.csproj.CopyComplete
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.pdb

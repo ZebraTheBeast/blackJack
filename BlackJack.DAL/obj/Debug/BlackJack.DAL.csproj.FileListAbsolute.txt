@@ -13,10 +13,8 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.pd
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\BlackJack.DAL.dll.config
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\BlackJack.DAL.dll
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\BlackJack.DAL.pdb
-C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\ClassLibrary1.dll
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\EntityFramework.dll
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\ClassLibrary1.pdb
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\EntityFramework.xml
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\obj\Debug\BlackJack.DAL.csprojAssemblyReference.cache
@@ -31,3 +29,10 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.Config
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.Entity.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\BlackJack.Entity.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\NLog.config
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\NLog.config
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\BlackJack.Configuration.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\BlackJack.Entity.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\Dapper.dll
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\BlackJack.Configuration.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\BlackJack.Entity.pdb
+C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.DAL\bin\Debug\Dapper.xml
