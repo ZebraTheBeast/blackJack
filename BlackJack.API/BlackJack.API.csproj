@@ -182,7 +182,6 @@
     <Content Include="dist\BlackJackAPI\main.js" />
     <Content Include="dist\BlackJackAPI\polyfills.js" />
     <Content Include="dist\BlackJackAPI\runtime.js" />
-    <Content Include="dist\BlackJackAPI\styles.js" />
     <Content Include="dist\BlackJackAPI\vendor.js" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
@@ -194,15 +193,14 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="dist\BlackJackAPI\main.js.map" />
-    <Content Include="dist\BlackJackAPI\polyfills.js.map" />
-    <Content Include="dist\BlackJackAPI\runtime.js.map" />
-    <Content Include="dist\BlackJackAPI\styles.js.map" />
-    <Content Include="dist\BlackJackAPI\vendor.js.map" />
     <Content Include="angular.json" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include=".editorconfig" />
+    <Content Include="dist\BlackJackAPI\main.js.map" />
+    <Content Include="dist\BlackJackAPI\polyfills.js.map" />
+    <Content Include="dist\BlackJackAPI\runtime.js.map" />
+    <Content Include="dist\BlackJackAPI\vendor.js.map" />
     <Content Include="src\app\app.component.html" />
     <Content Include="src\app\error\error.component.html" />
     <Content Include="src\app\game\game.component.html" />

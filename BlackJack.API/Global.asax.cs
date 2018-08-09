@@ -10,15 +10,15 @@ using BlackJack.API.Util;
 
 namespace BlackJack.API
 {
-  public class WebApiApplication : System.Web.HttpApplication
-  {
-    protected void Application_Start()
+    public class WebApiApplication : System.Web.HttpApplication
     {
-      AutofacConfig.ConfigureContainer();
+        protected void Application_Start()
+        {
+            AutofacConfig.ConfigureContainer();
 
-      AreaRegistration.RegisterAllAreas();
-      GlobalConfiguration.Configure(WebApiConfig.Register);
-      FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+        }
     }
-  }
 }

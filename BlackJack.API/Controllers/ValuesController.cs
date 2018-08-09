@@ -21,7 +21,7 @@ namespace BlackJack.API.Controllers
             _gameProvider = gameProvider;
         }
 
-        [HttpPost]
+       [HttpPost]
         public async Task<GameViewModel> GetGameViewModel([FromBody]int humanId)
         {
             try

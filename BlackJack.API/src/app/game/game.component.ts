@@ -66,6 +66,7 @@ export class GameComponent implements OnInit {
             game => {
                 this.game = game;
                 this.disableBet();
+                this.checkGameStatus();
             },
             response => {
                 this.onError.emit(response);
@@ -81,7 +82,6 @@ export class GameComponent implements OnInit {
     disableBet(): void {
         this.isDrawDisabled = false;
         this.isBetDisabled = true;
-        this.checkGameStatus();
     }
 
     checkGameStatus(): void {
