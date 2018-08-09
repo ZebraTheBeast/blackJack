@@ -113,7 +113,6 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.API.cs
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.API.csproj.CopyComplete
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.API.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.API.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\NLog.config
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.API\bin\ApplicationInsights.config
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.API\bin\BlackJack.API.dll.config
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.API\bin\BlackJack.API.dll

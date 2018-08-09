@@ -12,127 +12,126 @@ using BlackJack.BLL.Helper;
 
 namespace BlackJack.API.Controllers
 {
-  public class ValuesController : ApiController
-  {
-    IGameProvider _gameProvider;
-
-    public ValuesController(IGameProvider gameProvider)
+    public class ValuesController : ApiController
     {
-      _gameProvider = gameProvider;
-    }
+        IGameProvider _gameProvider;
 
-
-    public async Task<GameViewModel> GetGameViewModel()
-    {
-      try
-      {
-        var gameViewModel = new GameViewModel();
-        var humanId = 5;
-        gameViewModel = await _gameProvider.GetGameViewModel(humanId);
-
-        if (gameViewModel.Bots.Count() == 0)
+        public ValuesController(IGameProvider gameProvider)
         {
-          throw new Exception(StringHelper.BotsNotInGame());
+            _gameProvider = gameProvider;
         }
 
-        if (gameViewModel.Dealer == null)
+        [HttpPost]
+        public async Task<GameViewModel> GetGameViewModel([FromBody]int humanId)
         {
-          throw new Exception(StringHelper.DealerNotInGame());
+            try
+            {
+                var gameViewModel = new GameViewModel();
+                gameViewModel = await _gameProvider.GetGameViewModel(humanId);
+
+                if (gameViewModel.Bots.Count() == 0)
+                {
+                    throw new Exception(StringHelper.BotsNotInGame());
+                }
+
+                if (gameViewModel.Dealer == null)
+                {
+                    throw new Exception(StringHelper.DealerNotInGame());
+                }
+
+                if (gameViewModel.Human == null)
+                {
+                    throw new Exception(StringHelper.PlayerNotInGame());
+                }
+
+                return gameViewModel;
+            }
+            catch (Exception exception)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+            }
+
         }
 
-        if (gameViewModel.Human == null)
+        [HttpPost]
+        public async Task<int> StartGame([FromBody]string playerName)
         {
-          throw new Exception(StringHelper.PlayerNotInGame());
+            try
+            {
+                if (String.IsNullOrEmpty(playerName))
+                {
+                    throw new Exception("EmptyName");
+                }
+
+                return await _gameProvider.StartGame(playerName);
+            }
+            catch (Exception exception)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+            }
         }
 
-        return gameViewModel;
-      }
-      catch (Exception exception)
-      {
-        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
-      }
-
-    }
-
-    [HttpPost]
-    public async Task<int> StartGame([FromBody]string playerName)
-    {
-      try
-      {
-        if (String.IsNullOrEmpty(playerName))
+        [HttpPost]
+        public async Task<int> LoadGame([FromBody]string playerName)
         {
-          throw new Exception();
+            try
+            {
+                if (String.IsNullOrEmpty(playerName))
+                {
+                    throw new Exception("EmptyName");
+                }
+
+                return await _gameProvider.LoadGame(playerName);
+            }
+            catch (Exception exception)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+            }
         }
 
-        return await _gameProvider.StartGame(playerName);
-      }
-      catch (Exception exception)
-      {
-        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
-      }
-    }
-
-    [HttpPost]
-    public async Task<int> LoadGame([FromBody]string playerName)
-    {
-      try
-      {
-        if (String.IsNullOrEmpty(playerName))
+        [HttpPost]
+        public async Task<GameViewModel> Bet([FromBody]BetViewModel betViewModel)
         {
-          throw new Exception();
+            try
+            {
+                var gameViewModel = new GameViewModel();
+                gameViewModel = await _gameProvider.PlaceBet(betViewModel.BetValue, betViewModel.HumanId);
+                return gameViewModel;
+            }
+            catch (Exception exception)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+            }
         }
 
-        return await _gameProvider.LoadGame(playerName);
-      }
-      catch (Exception exception)
-      {
-        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
-      }
-    }
+        [HttpPost]
+        public async Task<GameViewModel> Draw([FromBody]int humanId)
+        {
+            try
+            {
+                var gameViewModel = new GameViewModel();
+                gameViewModel = await _gameProvider.Draw(humanId);
+                return gameViewModel;
+            }
+            catch (Exception exception)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+            }
+        }
 
-    [HttpPost]
-    public async Task<GameViewModel> Bet([FromBody]BetViewModel betViewModel)
-    {
-      try
-      {
-        var gameViewModel = new GameViewModel();
-        gameViewModel = await _gameProvider.PlaceBet(betViewModel.BetValue, betViewModel.HumanId);
-        return gameViewModel;
-      }
-      catch (Exception exception)
-      {
-        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
-      }
+        [HttpPost]
+        public async Task<GameViewModel> Stand([FromBody]int humanId)
+        {
+            try
+            {
+                var gameViewModel = new GameViewModel();
+                gameViewModel = await _gameProvider.Stand(humanId);
+                return gameViewModel;
+            }
+            catch (Exception exception)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+            }
+        }
     }
-
-    [HttpPost]
-    public async Task<GameViewModel> Draw([FromBody]int humanId)
-    {
-      try
-      {
-        var gameViewModel = new GameViewModel();
-        gameViewModel = await _gameProvider.Draw(humanId);
-        return gameViewModel;
-      }
-      catch (Exception exception)
-      {
-        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
-      }
-    }
-
-    [HttpPost]
-    public async Task<GameViewModel> Stand([FromBody]int humanId)
-    {
-      try
-      {
-        var gameViewModel = new GameViewModel();
-        gameViewModel = await _gameProvider.Stand(humanId);
-        return gameViewModel;
-      }
-      catch (Exception exception)
-      {
-        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
-      }
-    }
-  }
 }

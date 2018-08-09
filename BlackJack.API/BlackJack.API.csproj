@@ -241,8 +241,10 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\error\error.component.html" />
+    <Content Include="src\app\game\game.component.html" />
+    <Content Include="src\app\login\login.component.html" />
     <Content Include="src\index.html" />
-    <Content Include="src\styles.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -282,11 +284,15 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
-    <TypeScriptCompile Include="src\game.service.ts" />
-    <TypeScriptCompile Include="src\game\card.ts" />
-    <TypeScriptCompile Include="src\game\game.ts" />
-    <TypeScriptCompile Include="src\game\hand.ts" />
-    <TypeScriptCompile Include="src\game\player.ts" />
+    <TypeScriptCompile Include="src\app\error\error.component.ts" />
+    <TypeScriptCompile Include="src\app\game\game.component.ts" />
+    <TypeScriptCompile Include="src\app\game\game.service.ts" />
+    <TypeScriptCompile Include="src\app\game\models\card.ts" />
+    <TypeScriptCompile Include="src\app\game\models\game.ts" />
+    <TypeScriptCompile Include="src\app\game\models\hand.ts" />
+    <TypeScriptCompile Include="src\app\game\models\player.ts" />
+    <TypeScriptCompile Include="src\app\login\login.component.ts" />
+    <TypeScriptCompile Include="src\app\login\login.service.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
   </ItemGroup>

@@ -3,15 +3,23 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { GameComponent } from './game/game.component';
+import { LoginComponent } from './login/login.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        GameComponent,
+        LoginComponent,
+        ErrorComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        NgbModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

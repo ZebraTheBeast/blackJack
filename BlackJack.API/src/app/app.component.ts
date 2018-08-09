@@ -1,26 +1,35 @@
-import { Game } from '../game/game';
-import { Player } from '../game/Player';
-import { Card } from '../game/card';
-import { Component, OnInit } from '@angular/core';
-import { GameService } from '../game.service';
-
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GameComponent } from './game/game.component';
+import { LoginComponent } from './login/login.component';
+import { ErrorComponent } from './error/error.component';
 
 @Component({
     selector: 'app-root',
+    styleUrls: ['../../Content/bootstrap.css', '../../Content/Site.css'],
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    betValue = 10;
-    game: Game;
+    showGame = true;
+    showLogin = true;
+    humanId: number;
 
-    constructor(private gameSerivce: GameService) {
-    }
+    @ViewChild(ErrorComponent) errorComponent: ErrorComponent;
+
+    toggleGame() { this.showGame = !this.showGame }
+    toggleLogin() { this.showLogin = !this.showLogin }
 
     ngOnInit() {
-        //this.getGame();
+        this.toggleGame();
     }
 
-    getGame(): void {
-        this.gameSerivce.getGame().subscribe(game => this.game = game);
+    onChanged(Id: any) {
+        this.humanId = Id;
+        this.toggleGame();
+        this.toggleLogin();
+    }
+
+    onError(response: any) {
+        this.errorComponent.showError(response);
     }
 }
