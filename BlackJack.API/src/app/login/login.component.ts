@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { LoginService } from '../login/login.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
+import { ErrorComponent } from '../error/error.component';
 
 @Component({
     selector: 'app-login',
@@ -12,18 +13,17 @@ export class LoginComponent {
     name: string;
     humanId: number;
 
-    @Output() onChanged = new EventEmitter<number>();
-    @Output() onError = new EventEmitter<any>();
+    @ViewChild(ErrorComponent) errorComponent: ErrorComponent;
 
-    constructor(private loginService: LoginService, private modalService: NgbModal) { }
+    constructor(private loginService: LoginService, private router: Router) { }
 
     startGame(): void {
         this.loginService.startGame(this.name).subscribe(
             humanId => {
-                this.onChanged.emit(humanId);
+                this.router.navigate([`game/${humanId}`]);
             },
             response => {
-                this.onError.emit(response);
+                this.errorComponent.showError(response);
             }
         )
     }
@@ -31,10 +31,10 @@ export class LoginComponent {
     loadGame(): void {
         this.loginService.loadGame(this.name).subscribe(
             humanId => {
-                this.onChanged.emit(humanId);
+                this.router.navigate([`game/${humanId}`]);
             },
             response => {
-                this.onError.emit(response);
+                this.errorComponent.showError(response);
             }
         )
     }

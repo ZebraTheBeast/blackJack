@@ -1,8 +1,4 @@
-import { Game } from '../game/models/game';
-import { Player } from '../game/models/Player';
-import { Card } from '../game/models/card';
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { GameService } from '../game/game.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

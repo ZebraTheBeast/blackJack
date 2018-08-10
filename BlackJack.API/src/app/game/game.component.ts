@@ -1,9 +1,10 @@
-import { Game } from '../game/models/game';
-import { Player } from '../game/models/Player';
-import { Card } from '../game/models/card';
+import { Game } from '../models/game/game';
+import { Player } from '../models/game/Player';
+import { Card } from '../models/game/card';
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { GameService } from '../game/game.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GameService } from '../services/game.service';
+import { ActivatedRoute, Params } from '@angular/router';
+import { ErrorComponent } from '../error/error.component';
 
 
 @Component({
@@ -14,17 +15,23 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class GameComponent implements OnInit {
     betValue = 10;
     game: Game;
-    errorMessage: any;
+
     isDrawDisabled = false;
     isBetDisabled = false;
+    humanId: any;
 
-    @Input() humanId: number;
+
+    @ViewChild(ErrorComponent) errorComponent: ErrorComponent;
+
     @ViewChild('content') content: ElementRef;
-    @Output() onError = new EventEmitter<any>();
 
-    constructor(private gameService: GameService, private modalService: NgbModal) { }
+    constructor(private gameService: GameService, private route: ActivatedRoute) {
+    }
 
     ngOnInit() {
+        this.route.params.subscribe(params => {
+            this.humanId = params['id'];
+        });
         this.getGame();
     }
 
@@ -35,7 +42,7 @@ export class GameComponent implements OnInit {
                 this.checkGameStatus();
             },
             response => {
-                this.onError.emit(response);
+                this.errorComponent.showError(response);
             });
     }
 
@@ -46,7 +53,7 @@ export class GameComponent implements OnInit {
                 this.disableDraw();
             },
             response => {
-                this.onError.emit(response);
+                this.errorComponent.showError(response);
             });
     }
 
@@ -57,7 +64,7 @@ export class GameComponent implements OnInit {
                 this.checkGameStatus();
             },
             response => {
-                this.onError.emit(response);
+                this.errorComponent.showError(response);
             });
     }
 
@@ -69,7 +76,7 @@ export class GameComponent implements OnInit {
                 this.checkGameStatus();
             },
             response => {
-                this.onError.emit(response);
+                this.errorComponent.showError(response);
             });
     }
 

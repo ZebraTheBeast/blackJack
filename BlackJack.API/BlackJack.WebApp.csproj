@@ -225,15 +225,16 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\app-routing.module.ts" />
     <TypeScriptCompile Include="src\app\error\error.component.ts" />
     <TypeScriptCompile Include="src\app\game\game.component.ts" />
-    <TypeScriptCompile Include="src\app\game\game.service.ts" />
-    <TypeScriptCompile Include="src\app\game\models\card.ts" />
-    <TypeScriptCompile Include="src\app\game\models\game.ts" />
-    <TypeScriptCompile Include="src\app\game\models\hand.ts" />
-    <TypeScriptCompile Include="src\app\game\models\player.ts" />
+    <TypeScriptCompile Include="src\app\services\game.service.ts" />
+    <TypeScriptCompile Include="src\app\models\game\card.ts" />
+    <TypeScriptCompile Include="src\app\models\game\game.ts" />
+    <TypeScriptCompile Include="src\app\models\game\hand.ts" />
+    <TypeScriptCompile Include="src\app\models\game\player.ts" />
     <TypeScriptCompile Include="src\app\login\login.component.ts" />
-    <TypeScriptCompile Include="src\app\login\login.service.ts" />
+    <TypeScriptCompile Include="src\app\services\login.service.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
   </ItemGroup>
