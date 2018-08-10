@@ -11,189 +11,190 @@ using BlackJack.BLL.Helper;
 
 namespace BlackJack.BLL.Services
 {
-    public class PlayerService : IPlayerService
-    {
-        IPlayerRepository _playerRepository;
-        IPlayerInGameRepository _playerInGameRepository;
-        IHandService _handService;
+	public class PlayerService : IPlayerService
+	{
+		IPlayerRepository _playerRepository;
+		IPlayerInGameRepository _playerInGameRepository;
+		IHandService _handService;
 
-        public PlayerService(IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository, IHandService handService)
-        {
-            _playerRepository = playerRepository;
-            _playerInGameRepository = playerInGameRepository;
-            _handService = handService;
-        }
+		public PlayerService(IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository, IHandService handService)
+		{
+			_playerRepository = playerRepository;
+			_playerInGameRepository = playerInGameRepository;
+			_handService = handService;
+		}
 
-        public async Task<List<PlayerViewModel>> GetBotsInGame(int gameId)
-        {
-            var botsIdList = await _playerInGameRepository.GetBots(gameId);
-            var playerViewModelList = new List<PlayerViewModel>();
-            foreach (var playerId in botsIdList)
-            {
-                var player = await _playerRepository.GetById(playerId);
+		public async Task<List<PlayerViewModel>> GetBotsInGame(int gameId)
+		{
+			var botsIdList = await _playerInGameRepository.GetBots(gameId);
+			var playerViewModelList = new List<PlayerViewModel>();
+			foreach (var playerId in botsIdList)
+			{
+				var player = await _playerRepository.GetById(playerId);
 
-                var playerViewModel = new PlayerViewModel()
-                {
-                    Hand = new HandViewModel
-                    {
-                        CardList = new List<CardViewModel>()
-                    }
-                };
+				var playerViewModel = new PlayerViewModel()
+				{
+					Hand = new HandViewModel
+					{
+						CardList = new List<CardViewModel>()
+					}
+				};
 
-                playerViewModel.Id = player.Id;
-                playerViewModel.Name = player.Name;
-                playerViewModel.Points = player.Points;
-                playerViewModel.Hand = await _handService.GetPlayerHand(player.Id, gameId);
+				playerViewModel.Id = player.Id;
+				playerViewModel.Name = player.Name;
+				playerViewModel.Points = player.Points;
+				playerViewModel.Hand = await _handService.GetPlayerHand(player.Id, gameId);
 
-                playerViewModelList.Add(playerViewModel);
-            }
+				playerViewModelList.Add(playerViewModel);
+			}
 
-            return playerViewModelList;
-        }
+			return playerViewModelList;
+		}
 
-        public async Task<int> GetIdByName(string name)
-        {
-            var logger = NLog.LogManager.GetCurrentClassLogger();
-            try
-            {
-                var player = await _playerRepository.GetByName(name);
-                return player.Id;
-            }
-            catch (Exception exception)
-            {
-                logger.Error(exception.Message);
-                throw exception;
-            }
-        }
+		public async Task<int> GetIdByName(string name)
+		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
+			try
+			{
+				var player = await _playerRepository.GetByName(name);
+				return player.Id;
+			}
+			catch (Exception exception)
+			{
+				logger.Error(exception.Message);
+				throw exception;
+			}
+		}
 
-        public async Task<int> SetPlayerToGame(string playerName)
-        {
-            var logger = NLog.LogManager.GetCurrentClassLogger();
-            try
-            {
-                var player = await _playerRepository.GetByName(playerName);
-                var bots = await _playerRepository.GetBots();
+		public async Task<int> SetPlayerToGame(string playerName)
+		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
+			try
+			{
+				var player = await _playerRepository.GetByName(playerName);
+				var bots = await _playerRepository.GetBots();
 
-                await _playerInGameRepository.RemoveAll(player.Id);
+				await _playerInGameRepository.RemoveAll(player.Id);
 
-                foreach (var bot in bots)
-                {
-                    await _playerInGameRepository.AddPlayer(bot.Id, player.Id);
-                    logger.Info(StringHelper.BotJoinGame(bot.Id, player.Id));
-                }
+				foreach (var bot in bots)
+				{
+					await _playerInGameRepository.AddPlayer(bot.Id, player.Id);
+					logger.Info(StringHelper.BotJoinGame(bot.Id, player.Id));
+				}
 
-                await _playerInGameRepository.AddHuman(player.Id);
-                logger.Info(StringHelper.HumanJoinGame(player.Id, player.Id));
-                return player.Id;
-            }
-            catch (Exception exception)
-            {
-                logger.Error(exception.Message);
-                throw exception;
-            }
-        }
+				await _playerInGameRepository.AddHuman(player.Id);
+				logger.Info(StringHelper.HumanJoinGame(player.Id, player.Id));
+				return player.Id;
+			}
+			catch (Exception exception)
+			{
+				logger.Error(exception.Message);
+				throw exception;
+			}
+		}
 
-        public async Task<IEnumerable<int>> GetPlayersIdInGame(int gameId)
-        {
-            var logger = NLog.LogManager.GetCurrentClassLogger();
-            try
-            {
-                var playerIdList = await _playerInGameRepository.GetAll(gameId);
+		public async Task<IEnumerable<int>> GetPlayersIdInGame(int gameId)
+		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
+			try
+			{
+				var playerIdList = await _playerInGameRepository.GetAll(gameId);
 
-                if (playerIdList.Count() == 0)
-                {
-                    throw new Exception(StringHelper.NoPlayersInGame());
-                }
+				if (playerIdList.Count() == 0)
+				{
+					throw new Exception(StringHelper.NoPlayersInGame());
+				}
 
-                return playerIdList;
-            }
-            catch (Exception exception)
-            {
-                logger.Error(exception.Message);
-                throw exception;
-            }
-        }
+				return playerIdList;
+			}
+			catch (Exception exception)
+			{
+				logger.Error(exception.Message);
+				throw exception;
+			}
+		}
 
-        public async Task PlaceBet(int playerId, int betValue, int gameId)
-        {
-            var logger = NLog.LogManager.GetCurrentClassLogger();
-            try
-            {
-                var player = await _playerRepository.GetById(playerId);
+		public async Task PlaceBet(int playerId, int betValue, int gameId)
+		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
+			try
+			{
+				var player = await _playerRepository.GetById(playerId);
 
-                if (player.Points < betValue)
-                {
-                    throw new Exception(StringHelper.NotEnoughPoints(playerId, betValue));
-                }
+				if (player.Points < betValue)
+				{
+					throw new Exception(StringHelper.NotEnoughPoints(playerId, betValue));
+				}
 
-                if (betValue <= 0)
-                {
-                    throw new Exception(StringHelper.NoBetValue());
-                }
+				if (betValue <= 0)
+				{
+					throw new Exception(StringHelper.NoBetValue());
+				}
 
-                await _playerInGameRepository.PlaceBet(playerId, betValue, gameId);
+				await _playerInGameRepository.PlaceBet(playerId, betValue, gameId);
 
-                logger.Info(StringHelper.PlayerPlaceBet(playerId, betValue, gameId));
-            }
-            catch (Exception exception)
-            {
-                logger.Error(exception.Message);
-                throw exception;
-            }
-        }
+				logger.Info(StringHelper.PlayerPlaceBet(playerId, betValue, gameId));
+			}
+			catch (Exception exception)
+			{
+				logger.Error(exception.Message);
+				throw exception;
+			}
+		}
 
-        public async Task<PlayerViewModel> GetHumanInGame(int humanId)
-        {
-            try
-            {
-                var player = await _playerRepository.GetById(humanId);
+		public async Task<PlayerViewModel> GetHumanInGame(int humanId)
+		{
+			try
+			{
+				var player = await _playerRepository.GetById(humanId);
 
-                var playerViewModel = new PlayerViewModel
-                {
-                    Hand = new HandViewModel
-                    {
-                        CardList = new List<CardViewModel>()
-                    }
-                };
-                playerViewModel.Id = player.Id;
-                playerViewModel.Name = player.Name;
-                playerViewModel.Points = player.Points;
-                playerViewModel.Hand = await _handService.GetPlayerHand(player.Id, player.Id);
+				var playerViewModel = new PlayerViewModel
+				{
+					Id = player.Id,
+					Name = player.Name,
+					Points = player.Points,
+					Hand = new HandViewModel
+					{
+						CardList = new List<CardViewModel>()
+					}
+				};
+				
+				playerViewModel.Hand = await _handService.GetPlayerHand(player.Id, player.Id);
 
-                return playerViewModel;
-            }
-            catch (Exception exception)
-            {
-                throw exception;
-            }
-        }
+				return playerViewModel;
+			}
+			catch (Exception exception)
+			{
+				throw exception;
+			}
+		}
 
-        public async Task<DealerViewModel> GetDealer(int gameId)
-        {
-            try
-            {
-                var dealer = await _playerRepository.GetByName("Dealer");
+		public async Task<DealerViewModel> GetDealer(int gameId)
+		{
+			try
+			{
+				var dealer = await _playerRepository.GetByName(Configuration.Constant.DealerName);
 
-                var dealerViewModel = new DealerViewModel
-                {
-                    Hand = new HandViewModel()
-                    {
-                        CardList = new List<CardViewModel>()
-                    }
-                };
+				var dealerViewModel = new DealerViewModel
+				{
+					Hand = new HandViewModel()
+					{
+						CardList = new List<CardViewModel>()
+					}
+				};
 
-                dealerViewModel.Id = dealer.Id;
-                dealerViewModel.Name = dealer.Name;
-                dealerViewModel.Hand = await _handService.GetPlayerHand(dealer.Id, gameId);
+				dealerViewModel.Id = dealer.Id;
+				dealerViewModel.Name = dealer.Name;
+				dealerViewModel.Hand = await _handService.GetPlayerHand(dealer.Id, gameId);
 
-                return dealerViewModel;
-            }
-            catch (Exception exception)
-            {
-                throw exception;
-            }
-        }
+				return dealerViewModel;
+			}
+			catch (Exception exception)
+			{
+				throw exception;
+			}
+		}
 
 
-    }
+	}
 }

@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.DAL", "BlackJack.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.ViewModel", "BlackJack.ViewModel\BlackJack.ViewModel.csproj", "{31D2C4FF-61A3-4A12-9D0F-975839E02E80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.API", "BlackJack.API\BlackJack.API.csproj", "{99B58AC4-D7E7-4BCE-8DB9-8F773B23FE60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.WebApp", "BlackJack.API\BlackJack.WebApp.csproj", "{99B58AC4-D7E7-4BCE-8DB9-8F773B23FE60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

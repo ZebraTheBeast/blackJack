@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
 
-namespace BlackJack.Configuration.Constant
+namespace BlackJack.Configuration
 {
     public class Constant
     {
@@ -21,5 +21,6 @@ namespace BlackJack.Configuration.Constant
         public const int ValueToStopDraw = 17;
         public const int MinPointsValueToPlay = 10;
         public const int BotsBetValue = 50;
-    }
+		public const string DealerName = "Dealer";
+	}
 }

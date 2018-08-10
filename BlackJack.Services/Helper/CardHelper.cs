@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BlackJack.ViewModel;
 using BlackJack.Entity;
 using BlackJack.Entity.Enum;
-using BlackJack.Configuration.Constant;
+using BlackJack.Configuration;
 
 
 namespace BlackJack.BLL.Helper

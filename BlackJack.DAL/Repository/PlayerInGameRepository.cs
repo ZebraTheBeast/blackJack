@@ -8,7 +8,7 @@ using BlackJack.Entity;
 using Dapper;
 using System.Data.SqlClient;
 using System.Configuration;
-using BlackJack.Configuration.Constant;
+using BlackJack.Configuration;
 
 namespace BlackJack.DAL.Repository
 {

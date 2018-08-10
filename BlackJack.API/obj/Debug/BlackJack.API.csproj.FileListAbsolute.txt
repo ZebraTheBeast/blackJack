@@ -228,3 +228,4 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.API\ob
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.API\obj\Debug\BlackJack.API.csproj.CopyComplete
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.API\obj\Debug\BlackJack.API.dll
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.API\obj\Debug\BlackJack.API.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\NLog.config

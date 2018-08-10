@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
-using BlackJack.Configuration.Constant;
+using BlackJack.Configuration;
 using BlackJack.Entity.Enum;
 using BlackJack.Entity;
 using BlackJack.DAL.Interface;

@@ -7,7 +7,7 @@ using BlackJack.BLL.Interface;
 using BlackJack.BLL.Helper;
 using BlackJack.ViewModel;
 using BlackJack.DAL.Interface;
-using BlackJack.Configuration.Constant;
+using BlackJack.Configuration;
 using System.IO;
 
 namespace BlackJack.BLL.Services

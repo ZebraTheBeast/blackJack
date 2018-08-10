@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Data.SqlClient;
 using System.Configuration;
-using BlackJack.Configuration.Constant;
+using BlackJack.Configuration;
 using BlackJack.Entity;
 using BlackJack.DAL.Interface;
 

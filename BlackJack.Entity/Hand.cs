@@ -10,5 +10,6 @@ namespace BlackJack.Entity.Properties
     {
         public int PlayerId { get; set; }
         public int CardId { get; set; }
+		public int BetValue { get; set; }
     }
 }

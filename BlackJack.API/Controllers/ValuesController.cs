@@ -60,7 +60,7 @@ namespace BlackJack.API.Controllers
             {
                 if (String.IsNullOrEmpty(playerName))
                 {
-                    throw new Exception("EmptyName");
+                    throw new Exception(StringHelper.EmptyName());
                 }
 
                 return await _gameProvider.StartGame(playerName);
@@ -78,7 +78,7 @@ namespace BlackJack.API.Controllers
             {
                 if (String.IsNullOrEmpty(playerName))
                 {
-                    throw new Exception("EmptyName");
+                    throw new Exception(StringHelper.EmptyName());
                 }
 
                 return await _gameProvider.LoadGame(playerName);

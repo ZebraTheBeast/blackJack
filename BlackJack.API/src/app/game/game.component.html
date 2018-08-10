@@ -6,7 +6,7 @@
             </h2>
             <ul class="list-group">
                 <li class="list-group-item" *ngFor="let card of game.Dealer.Hand.CardList">
-                    {{ card.Title }} of {{card.Color}}
+                    {{ card.Title }} of {{ card.Color }}
                 </li>
             </ul>
             <h4>Value: {{ game.Dealer.Hand.CardListValue }}</h4>
@@ -19,20 +19,17 @@
         <div class="col-md-3">
             <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between" *ngFor="let bot of game.Bots">
-                    {{bot.Name}} <span>{{bot.Points}}</span>
+                    {{ bot.Name }} <span> {{ bot.Points }} </span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    {{game.Human.Name}} <span>{{game.Human.Points}}</span>
+                <li class="list-group-item list-group-item-info d-flex justify-content-between">
+                    {{ game.Human.Name }} <span> {{ game.Human.Points }} </span>
                 </li>
             </ul>
             <h3>Cards in deck: {{ game.Deck.length }}</h3>
         </div>
     </div>
-
     <div class="row text-center">
-
         <div class="col-md-6 row">
-
             <div class="col-md-4" *ngFor="let bot of game.Bots">
                 <h3>
                     {{ bot.Name }}
@@ -46,7 +43,6 @@
                 <h4>Bet: {{ bot.Hand.BetValue }}</h4>
             </div>
         </div>
-
         <div class="col-md-2">
             <h3>
                 {{ game.Human.Name }}
@@ -59,7 +55,6 @@
             <h4>Value: {{ game.Human.Hand.CardListValue }}</h4>
             <h4>Bet: {{ game.Human.Hand.BetValue }}</h4>
         </div>
-
         <div class="col-md-4 ">
             <div class="row">
                 <input type="submit" value="Draw" class="btn btn-outline-info custombutton" [disabled]="isDrawDisabled" (click)="draw()" />
