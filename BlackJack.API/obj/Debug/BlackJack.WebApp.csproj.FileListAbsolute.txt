@@ -1,7 +1,4 @@
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\ApplicationInsights.config
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.API.dll.config
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.API.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.API.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\roslyn\csc.exe
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\roslyn\csc.exe.config
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\roslyn\csc.rsp
@@ -111,5 +108,8 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\NLog.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.WebApp.csprojAssemblyReference.cache
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.WebApp.csproj.CoreCompileInputs.cache
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.WebApp.csproj.CopyComplete
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.API.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.API.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.WebApp.dll.config
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.WebApp.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.WebApp.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.WebApp.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.WebApp.pdb

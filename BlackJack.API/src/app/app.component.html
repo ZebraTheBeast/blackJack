@@ -1,4 +1,4 @@
-<h1 class="text-center">Black Jack</h1>
+<h1 class="text-center game-name">Black Jack</h1>
 <app-game *ngIf="showGame" [humanId]="humanId" (onError)="onError($event)"></app-game>
 <app-login *ngIf="showLogin" (onChanged)="onChanged($event)" (onError)="onError($event)"></app-login>
 <app-errorMessage></app-errorMessage>

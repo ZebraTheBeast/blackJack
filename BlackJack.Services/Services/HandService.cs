@@ -52,7 +52,6 @@ namespace BlackJack.BLL.Services
 
                 return hand;
             }
-
             catch(Exception exception)
             {
                 logger.Error(exception.Message);

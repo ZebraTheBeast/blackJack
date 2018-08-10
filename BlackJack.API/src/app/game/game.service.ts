@@ -17,8 +17,8 @@ export class GameService {
     constructor(private http: HttpClient) { }
 
     getGame(id: number): Observable<Game> {
-        var getGameUrl = this.gameUrl + "GetGameViewModel";
-        return this.http.post<Game>(getGameUrl, id, httpOptions);
+        var getGameUrl = this.gameUrl + `GetGameViewModel/${id}`;
+        return this.http.get<Game>(getGameUrl);
     }
 
     stand(id: number): Observable<Game> {

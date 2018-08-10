@@ -2,13 +2,12 @@ import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '
 import { LoginService } from '../login/login.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-
-
 @Component({
     selector: 'app-login',
     styleUrls: ['../../../Content/bootstrap.css', '../../../Content/Site.css'],
     templateUrl: './login.component.html'
 })
+
 export class LoginComponent {
     name: string;
     humanId: number;
@@ -17,7 +16,6 @@ export class LoginComponent {
     @Output() onError = new EventEmitter<any>();
 
     constructor(private loginService: LoginService, private modalService: NgbModal) { }
-
 
     startGame(): void {
         this.loginService.startGame(this.name).subscribe(

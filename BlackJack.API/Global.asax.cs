@@ -6,9 +6,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using BlackJack.API.Util;
+using BlackJack.WebApp.Util;
 
-namespace BlackJack.API
+namespace BlackJack.WebApp
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

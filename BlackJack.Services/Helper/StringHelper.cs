@@ -93,7 +93,12 @@ namespace BlackJack.BLL.Helper
             return "There are no bots in the game";
         }
 
-        public static string DealerNotInGame()
+		public static string NoLastGame()
+		{
+			return "You don't have last game, start a new one! :)";
+		}
+
+		public static string DealerNotInGame()
         {
             return "There is no dealer in the game";
         }

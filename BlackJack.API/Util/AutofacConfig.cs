@@ -10,7 +10,7 @@ using System.Web.Http;
 using BlackJack.DAL.Interface;
 using BlackJack.DAL.Repository;
 
-namespace BlackJack.API.Util
+namespace BlackJack.WebApp.Util
 {
     public class AutofacConfig
     {

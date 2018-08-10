@@ -1,7 +1,6 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    font-family:cursive;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -37,4 +36,12 @@ textarea {
 
 .name-input {
     margin:auto;
+}
+
+* {
+    font-family: cursive;
+}
+
+.game-name {
+    font-family: cursive;
 }

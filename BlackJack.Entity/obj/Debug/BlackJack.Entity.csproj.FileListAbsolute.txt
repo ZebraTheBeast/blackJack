@@ -9,4 +9,3 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Entity
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Entity\obj\Debug\BlackJack.Entity.csproj.CoreCompileInputs.cache
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Entity\obj\Debug\BlackJack.Entity.dll
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Entity\obj\Debug\BlackJack.Entity.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.Entity\obj\Debug\BlackJack.Entity.csprojAssemblyReference.cache

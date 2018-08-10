@@ -10,7 +10,7 @@ using BlackJack.ViewModel;
 using BlackJack.BLL.Interface;
 using BlackJack.BLL.Helper;
 
-namespace BlackJack.API.Controllers
+namespace BlackJack.WebApp.Controllers
 {
     public class ValuesController : ApiController
     {
@@ -21,17 +21,17 @@ namespace BlackJack.API.Controllers
             _gameProvider = gameProvider;
         }
 
-       [HttpPost]
-        public async Task<GameViewModel> GetGameViewModel([FromBody]int humanId)
+        [HttpGet]
+        public async Task<GameViewModel> GetGameViewModel(int Id)
         {
             try
             {
                 var gameViewModel = new GameViewModel();
-                gameViewModel = await _gameProvider.GetGameViewModel(humanId);
+                gameViewModel = await _gameProvider.GetGameViewModel(Id);
 
                 if (gameViewModel.Bots.Count() == 0)
                 {
-                    throw new Exception(StringHelper.BotsNotInGame());
+                    throw new Exception(StringHelper.NoLastGame());
                 }
 
                 if (gameViewModel.Dealer == null)
