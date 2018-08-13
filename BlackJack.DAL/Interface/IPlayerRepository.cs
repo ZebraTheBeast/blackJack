@@ -10,7 +10,7 @@ namespace BlackJack.DAL.Interface
     {
         Task<Player> GetByName(string name);
         Task<Player> GetById(int id);
-        Task<IEnumerable<Player>> GetBots();
+        Task<IEnumerable<Player>> GetBots(string name);
         Task<Player> Create(Player player);
         Task UpdatePoints(int playerId, int newPointsValue);
         Task RestorePoints(int playerId);

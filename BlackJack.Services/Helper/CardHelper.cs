@@ -11,68 +11,68 @@ using BlackJack.Configuration;
 
 namespace BlackJack.BLL.Helper
 {
-    public static class CardHelper
-    {
-        public static CardViewModel GetCardById(int cardId)
-        {
-            var deck = new List<CardViewModel>();
-            var card = new CardViewModel();
-            var cardViewModel = new CardViewModel();
+	public static class CardHelper
+	{
+		public static CardViewModel GetCardById(int cardId)
+		{
+			var deck = new List<CardViewModel>();
+			var card = new CardViewModel();
+			var cardViewModel = new CardViewModel();
 
-            deck = GetFullDeck();
-            card = deck.FirstOrDefault(c => c.Id == cardId);
+			deck = GetFullDeck();
+			card = deck.FirstOrDefault(c => c.Id == cardId);
 
-            cardViewModel.Id = card.Id;
-            cardViewModel.Title = card.Title;
-            cardViewModel.Color = card.Color;
-            cardViewModel.Value = card.Value;
+			cardViewModel.Id = card.Id;
+			cardViewModel.Title = card.Title;
+			cardViewModel.Color = card.Color;
+			cardViewModel.Value = card.Value;
 
-            return cardViewModel;
-        }
+			return cardViewModel;
+		}
 
-        public static List<CardViewModel> GetFullDeck()
-        {
-            var cardColorValue = 0;
-            var cardTitleValue = 0;
-            var cardColorSize = Enum.GetNames(typeof(CardColor)).Length - 1;
-            var deck = new List<CardViewModel>();
-            var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.CountNumberCard).ToList();
-            var titleList = valueList.ConvertAll<string>(delegate (int i)
-            {
-                return i.ToString();
-            });
+		public static List<CardViewModel> GetFullDeck()
+		{
+			var cardColorValue = 0;
+			var cardTitleValue = 0;
+			var cardColorSize = Enum.GetNames(typeof(CardColor)).Length - 1;
+			var deck = new List<CardViewModel>();
+			var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.CountNumberCard).ToList();
+			var titleList = valueList.ConvertAll<string>(delegate (int i)
+			{
+				return i.ToString();
+			});
 
-            foreach (var value in Enum.GetNames(typeof(CardTitle)))
-            {
-                titleList.Add(value);
-            }
+			foreach (var value in Enum.GetNames(typeof(CardTitle)))
+			{
+				titleList.Add(value);
+			}
 
-            for (var i = 0; i < Enum.GetValues(typeof(CardTitle)).Length - 1; i++)
-            {
-                valueList.Add(Constant.ImageCardValue);
-            }
+			for (var i = 0; i < Enum.GetValues(typeof(CardTitle)).Length - 1; i++)
+			{
+				valueList.Add(Constant.ImageCardValue);
+			}
 
-            valueList.Add(Constant.AceCardValue);
+			valueList.Add(Constant.AceCardValue);
 
-            for (var i = 0; i < Constant.DeckSize; i++)
-            {
-                var card = new CardViewModel();
+			for (var i = 0; i < Constant.DeckSize; i++)
+			{
+				var card = new CardViewModel();
 
-                card.Id = i + 1;
-                card.Title = titleList[cardTitleValue];
-                card.Value = valueList[cardTitleValue];
-                card.Color = ((CardColor)cardColorValue++).ToString();
+				card.Id = i + 1;
+				card.Title = titleList[cardTitleValue];
+				card.Value = valueList[cardTitleValue];
+				card.Color = ((CardColor)cardColorValue++).ToString();
 
-                deck.Add(card);
+				deck.Add(card);
 
-                if (cardColorValue > cardColorSize)
-                {
-                    cardColorValue = 0;
-                    cardTitleValue++;
-                }
-            }
+				if (cardColorValue > cardColorSize)
+				{
+					cardColorValue = 0;
+					cardTitleValue++;
+				}
+			}
 
-            return deck;
-        }
-    }
+			return deck;
+		}
+	}
 }

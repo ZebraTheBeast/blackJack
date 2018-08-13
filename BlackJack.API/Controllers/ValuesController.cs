@@ -71,8 +71,8 @@ namespace BlackJack.WebApp.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<int> LoadGame([FromBody]string playerName)
+        [HttpGet]
+        public async Task<int> LoadGame(string playerName)
         {
             try
             {

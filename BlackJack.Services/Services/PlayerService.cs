@@ -28,7 +28,7 @@ namespace BlackJack.BLL.Services
 		{
 			var playerViewModelList = new List<PlayerViewModel>();
 			var botsIdList = await _playerInGameRepository.GetBots(gameId);
-			
+
 			foreach (var playerId in botsIdList)
 			{
 				var player = await _playerRepository.GetById(playerId);
@@ -69,7 +69,7 @@ namespace BlackJack.BLL.Services
 			try
 			{
 				var player = await _playerRepository.GetByName(playerName);
-				var bots = await _playerRepository.GetBots();
+				var bots = await _playerRepository.GetBots(playerName);
 
 				await _playerInGameRepository.RemoveAll(player.Id);
 
@@ -155,7 +155,7 @@ namespace BlackJack.BLL.Services
 						CardList = new List<CardViewModel>()
 					}
 				};
-				
+
 				playerViewModel.Hand = await _handService.GetPlayerHand(player.Id, player.Id);
 
 				return playerViewModel;

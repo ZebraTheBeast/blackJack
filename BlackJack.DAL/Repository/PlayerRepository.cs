@@ -30,13 +30,13 @@ namespace BlackJack.DAL.Repository
             return player;
         }
 
-        public async Task<IEnumerable<Player>> GetBots()
+        public async Task<IEnumerable<Player>> GetBots(string playerName)
         {
             IEnumerable<Player> players = new List<Player>();
 
             using (var db = new SqlConnection(connectionString))
             {
-                players = await db.QueryAsync<Player>("SELECT TOP(4) * FROM Player");
+                players = await db.QueryAsync<Player>($"SELECT TOP(4) * FROM Player WHERE Name <> '{playerName}'");
             }
 
             foreach (var player in players)

@@ -21,8 +21,8 @@ export class LoginService {
     }
 
     loadGame(playerName: string): Observable<number> {
-        var loadGameUrl = this.gameUrl + "LoadGame";
-        return this.http.post<number>(loadGameUrl, JSON.stringify(playerName), httpOptions);
+        var loadGameUrl = this.gameUrl + `LoadGame?playerName=${playerName}`;
+        return this.http.get<number>(loadGameUrl);
     }
 
 }

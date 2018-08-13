@@ -3,7 +3,7 @@ import { Player } from '../models/game/Player';
 import { Card } from '../models/game/card';
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { GameService } from '../services/game.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ErrorComponent } from '../error/error.component';
 
 @Component({
@@ -24,7 +24,7 @@ export class GameComponent implements OnInit {
 
     @ViewChild('content') content: ElementRef;
 
-    constructor(private gameService: GameService, private route: ActivatedRoute) {
+    constructor(private gameService: GameService, private route: ActivatedRoute, private router: Router) {
     }
 
     ngOnInit() {
@@ -42,6 +42,7 @@ export class GameComponent implements OnInit {
             },
             response => {
                 this.errorComponent.showError(response);
+                this.router.navigate([`login`]);
             });
     }
 

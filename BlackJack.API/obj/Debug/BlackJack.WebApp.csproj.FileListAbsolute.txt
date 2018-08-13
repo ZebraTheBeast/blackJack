@@ -113,4 +113,3 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.WebApp.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\BlackJack.WebApp.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.WebApp.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\obj\Debug\BlackJack.WebApp.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.API\bin\NLog.config

@@ -12,121 +12,121 @@ using System.IO;
 
 namespace BlackJack.BLL.Services
 {
-    public class HandService : IHandService
-    {
-        IHandRepository _handRepository;
-        IPlayerInGameRepository _playerInGameRepository;
+	public class HandService : IHandService
+	{
+		IHandRepository _handRepository;
+		IPlayerInGameRepository _playerInGameRepository;
 
-        public HandService(IHandRepository handRepository, IPlayerInGameRepository playerInGameRepository)
-        {
-            _handRepository = handRepository;
-            _playerInGameRepository = playerInGameRepository;
-        }
+		public HandService(IHandRepository handRepository, IPlayerInGameRepository playerInGameRepository)
+		{
+			_handRepository = handRepository;
+			_playerInGameRepository = playerInGameRepository;
+		}
 
-        public async Task<HandViewModel> GetPlayerHand(int playerId, int gameId)
-        {
-            var logger = NLog.LogManager.GetCurrentClassLogger();
+		public async Task<HandViewModel> GetPlayerHand(int playerId, int gameId)
+		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
 
-            try
-            {
-                var hand = new HandViewModel
-                {
-                    CardList = new List<CardViewModel>()
-                };
+			try
+			{
+				var hand = new HandViewModel
+				{
+					CardList = new List<CardViewModel>()
+				};
 
-                if( !await _playerInGameRepository.IsInGame(playerId, gameId))
-                {
-                    throw new Exception(StringHelper.PlayerNotInGame());
-                }
+				if (!await _playerInGameRepository.IsInGame(playerId, gameId))
+				{
+					throw new Exception(StringHelper.PlayerNotInGame());
+				}
 
-                var cardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
+				var cardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
 
-                foreach (var cardId in cardsIdList)
-                {
-                    var card = CardHelper.GetCardById(cardId);
-                    hand.CardList.Add(card);
-                }
+				foreach (var cardId in cardsIdList)
+				{
+					var card = CardHelper.GetCardById(cardId);
+					hand.CardList.Add(card);
+				}
 
-                hand.BetValue = await _playerInGameRepository.GetBetByPlayerId(playerId, gameId);
-                hand.CardListValue = CountCardsValue(hand.CardList);
+				hand.BetValue = await _playerInGameRepository.GetBetByPlayerId(playerId, gameId);
+				hand.CardListValue = CountCardsValue(hand.CardList);
 
-                return hand;
-            }
-            catch(Exception exception)
-            {
-                logger.Error(exception.Message);
-                throw exception;
-            }
-        }
+				return hand;
+			}
+			catch (Exception exception)
+			{
+				logger.Error(exception.Message);
+				throw exception;
+			}
+		}
 
-        public async Task<int> GetPlayerHandValue(int playerId, int gameId)
-        {
-            var logger = NLog.LogManager.GetCurrentClassLogger();
-            try
-            {
-                if ( !await _playerInGameRepository.IsInGame(playerId, gameId))
-                {
-                    throw new Exception(StringHelper.PlayerNotInGame());
-                }
+		public async Task<int> GetPlayerHandValue(int playerId, int gameId)
+		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
+			try
+			{
+				if (!await _playerInGameRepository.IsInGame(playerId, gameId))
+				{
+					throw new Exception(StringHelper.PlayerNotInGame());
+				}
 
 				var cards = new List<CardViewModel>();
 				var playerCardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
-                
-                foreach (var cardId in playerCardsIdList)
-                {
-                    var card = CardHelper.GetCardById(cardId);
-                    cards.Add(card);
-                }
 
-                var handValue = CountCardsValue(cards);
+				foreach (var cardId in playerCardsIdList)
+				{
+					var card = CardHelper.GetCardById(cardId);
+					cards.Add(card);
+				}
 
-                return handValue;
-            }
-            catch (Exception exception)
-            {
-                logger.Error(exception.Message);
-                throw exception;
-            }
-        }
+				var handValue = CountCardsValue(cards);
 
-        private int CountCardsValue(List<CardViewModel> cards)
-        {
-            var cardListValue = 0;
+				return handValue;
+			}
+			catch (Exception exception)
+			{
+				logger.Error(exception.Message);
+				throw exception;
+			}
+		}
 
-            foreach (var card in cards)
-            {
-                cardListValue += card.Value;
-            }
+		private int CountCardsValue(List<CardViewModel> cards)
+		{
+			var cardListValue = 0;
 
-            foreach (var card in cards)
-            {
-                if ((card.Title == Constant.NameCardForBlackJack) 
-                    && (cardListValue > Constant.WinValue))
-                {
-                    cardListValue -= Constant.ImageCardValue;
-                }
-            }
+			foreach (var card in cards)
+			{
+				cardListValue += card.Value;
+			}
 
-            if(cards.Count() != Constant.NumberCardForBlackJack)
-            {
-                return cardListValue;
-            }
+			foreach (var card in cards)
+			{
+				if ((card.Title == Constant.NameCardForBlackJack)
+					&& (cardListValue > Constant.WinValue))
+				{
+					cardListValue -= Constant.ImageCardValue;
+				}
+			}
 
-            foreach(var card in cards)
-            {
-                if(card.Title != Constant.NameCardForBlackJack)
-                {
-                    return cardListValue;
-                }
-            }
+			if (cards.Count() != Constant.NumberCardForBlackJack)
+			{
+				return cardListValue;
+			}
 
-            cardListValue = Constant.WinValue;
-            return cardListValue;
-        }
+			foreach (var card in cards)
+			{
+				if (card.Title != Constant.NameCardForBlackJack)
+				{
+					return cardListValue;
+				}
+			}
 
-        public async Task RemoveAllCardsInHand(int gameId)
-        {
-            await _handRepository.RemoveAll(gameId);
-        }
-    }
+			cardListValue = Constant.WinValue;
+			return cardListValue;
+		}
+
+		public async Task RemoveAllCardsInHand(int gameId)
+		{
+			await _handRepository.RemoveAll(gameId);
+		}
+	}
 }
