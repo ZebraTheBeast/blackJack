@@ -165,6 +165,7 @@ namespace BlackJack.BLL.Providers
             {
                 var human = await _playerService.GetHumanInGame(gameId);
                 var deck = await _deckService.LoadDeck(gameId);
+
                 if (human.Hand.BetValue == 0)
                 {
                     throw new Exception(StringHelper.NoBetValue());
@@ -199,9 +200,23 @@ namespace BlackJack.BLL.Providers
                 var human = await _playerService.GetHumanInGame(gameId);
                 var deck = await _deckService.LoadDeck(gameId);
 
-                await BotTurn(dealer.Id, deck, gameId);
+				if ((dealer.Hand.CardListValue != Constant.WinValue)
+					|| (dealer.Hand.CardList.Count() != Constant.NumberCardForBlackJack))
+				{
+					for (var i = 0; i < bots.Count(); i++)
+					{
+						await BotTurn(bots[i].Id, deck, gameId);
+					}
+				}
 
-                dealer.Hand = await _handService.GetPlayerHand(dealer.Id, gameId);
+				await BotTurn(dealer.Id, deck, gameId);
+				dealer.Hand = await _handService.GetPlayerHand(dealer.Id, gameId);
+
+				for (var i = 0; i < bots.Count(); i++)
+				{
+					bots[i].Hand.CardListValue = await _handService.GetPlayerHandValue(bots[i].Id, gameId);
+					await _scoreService.UpdateScore(bots[i].Id, bots[i].Hand.CardListValue, dealer.Hand.CardListValue, gameId);
+				}
 
                 if (human.Hand.BetValue == 0)
                 {
@@ -209,21 +224,7 @@ namespace BlackJack.BLL.Providers
                 }
 
                 var message = await _scoreService.UpdateScore(human.Id, human.Hand.CardListValue, dealer.Hand.CardListValue, gameId);
-				if ((dealer.Hand.CardListValue != Constant.WinValue)
-                    || (dealer.Hand.CardList.Count() != Constant.NumberCardForBlackJack))
-                {
-                    for (var i = 0; i < bots.Count(); i++)
-                    {
-                        await BotTurn(bots[i].Id, deck, gameId);
-                    }
-                }
-
-                for (var i = 0; i < bots.Count(); i++)
-                {
-                    bots[i].Hand.CardListValue = await _handService.GetPlayerHandValue(bots[i].Id, gameId);
-					await _scoreService.UpdateScore(bots[i].Id, bots[i].Hand.CardListValue, dealer.Hand.CardListValue, gameId);
-				}
-
+				
                 gameViewModel = await GetGameViewModel(gameId);
                 gameViewModel.Options = OptionHelper.OptionSetBet(message);
 

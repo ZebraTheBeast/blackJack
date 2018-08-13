@@ -14,7 +14,7 @@ namespace BlackJack.DAL.Repository
 {
     public class HandRepository : IHandRepository
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+		private string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
         public async Task<IEnumerable<int>> GetIdCardsByPlayerId(int playerId, int gameId)
         {
@@ -25,7 +25,6 @@ namespace BlackJack.DAL.Repository
                 var sqlQuery = $"SELECT CardId FROM Hand WHERE PlayerId = {playerId} AND GameId = {gameId}";
                 cards = await db.QueryAsync<int>(sqlQuery);
             }
-
 
             return cards;
         }

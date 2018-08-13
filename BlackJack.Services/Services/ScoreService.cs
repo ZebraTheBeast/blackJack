@@ -26,6 +26,7 @@ namespace BlackJack.BLL.Services
 		{
 			var logger = NLog.LogManager.GetCurrentClassLogger();
 			logger.Info(StringHelper.PlayerValue(playerId, playerCardsValue, dealerCardsValue, gameId));
+
 			if ((playerCardsValue > dealerCardsValue)
 			&& (playerCardsValue <= Constant.WinValue))
 			{

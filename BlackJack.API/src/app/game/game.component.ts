@@ -6,12 +6,12 @@ import { GameService } from '../services/game.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ErrorComponent } from '../error/error.component';
 
-
 @Component({
     selector: 'app-game',
     styleUrls: ['../../../Content/bootstrap.css', '../../../Content/Site.css'],
     templateUrl: './game.component.html'
 })
+
 export class GameComponent implements OnInit {
     betValue = 10;
     game: Game;
@@ -19,7 +19,6 @@ export class GameComponent implements OnInit {
     isDrawDisabled = false;
     isBetDisabled = false;
     humanId: any;
-
 
     @ViewChild(ErrorComponent) errorComponent: ErrorComponent;
 

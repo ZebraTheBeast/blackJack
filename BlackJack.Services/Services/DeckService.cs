@@ -31,7 +31,7 @@ namespace BlackJack.BLL.Services
 
         public List<int> GetNewRefreshedDeck()
         {
-            var logger = NLog.LogManager.GetCurrentClassLogger();
+            var logger = LogManager.GetCurrentClassLogger();
             var cardViewModelList = new List<CardViewModel>();
             var deck = new List<int>();
 
@@ -51,8 +51,10 @@ namespace BlackJack.BLL.Services
             var cardViewModelList = new List<CardViewModel>();
             var deck = new List<int>();
             var cardIdList = new List<int>();
-            cardViewModelList = CardHelper.GetFullDeck();
-            var players = await _playerInGameRepository.GetAll(gameId);
+			var players = await _playerInGameRepository.GetAll(gameId);
+
+			cardViewModelList = CardHelper.GetFullDeck();
+           
             foreach (var playerId in players)
             {
                 cardIdList.AddRange(await _handRepository.GetIdCardsByPlayerId(playerId, gameId));
@@ -91,7 +93,7 @@ namespace BlackJack.BLL.Services
 
         public async Task GiveCardFromDeck(int playerId, int cardId, int gameId)
         {
-            var logger = NLog.LogManager.GetCurrentClassLogger();
+            var logger = LogManager.GetCurrentClassLogger();
             try
             {
                 if (!await _playerInGameRepository.IsInGame(playerId, gameId))

@@ -14,7 +14,7 @@ namespace BlackJack.DAL.Repository
 {
     public class PlayerInGameRepository : IPlayerInGameRepository
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+		private string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
         public async Task AddPlayer(int playerId, int gameId)
         {

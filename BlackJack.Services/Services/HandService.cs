@@ -48,7 +48,7 @@ namespace BlackJack.BLL.Services
                 }
 
                 hand.BetValue = await _playerInGameRepository.GetBetByPlayerId(playerId, gameId);
-                hand.CardListValue = CountPlayerCardsValue(hand.CardList);
+                hand.CardListValue = CountCardsValue(hand.CardList);
 
                 return hand;
             }
@@ -69,16 +69,16 @@ namespace BlackJack.BLL.Services
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
 
-                var playerCardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
-                var cards = new List<CardViewModel>();
-
+				var cards = new List<CardViewModel>();
+				var playerCardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
+                
                 foreach (var cardId in playerCardsIdList)
                 {
                     var card = CardHelper.GetCardById(cardId);
                     cards.Add(card);
                 }
 
-                var handValue = CountPlayerCardsValue(cards);
+                var handValue = CountCardsValue(cards);
 
                 return handValue;
             }
@@ -89,7 +89,7 @@ namespace BlackJack.BLL.Services
             }
         }
 
-        private int CountPlayerCardsValue(List<CardViewModel> cards)
+        private int CountCardsValue(List<CardViewModel> cards)
         {
             var cardListValue = 0;
 

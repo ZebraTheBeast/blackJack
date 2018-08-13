@@ -26,24 +26,20 @@ namespace BlackJack.BLL.Services
 
 		public async Task<List<PlayerViewModel>> GetBotsInGame(int gameId)
 		{
-			var botsIdList = await _playerInGameRepository.GetBots(gameId);
 			var playerViewModelList = new List<PlayerViewModel>();
+			var botsIdList = await _playerInGameRepository.GetBots(gameId);
+			
 			foreach (var playerId in botsIdList)
 			{
 				var player = await _playerRepository.GetById(playerId);
 
-				var playerViewModel = new PlayerViewModel()
+				var playerViewModel = new PlayerViewModel
 				{
-					Hand = new HandViewModel
-					{
-						CardList = new List<CardViewModel>()
-					}
+					Id = player.Id,
+					Name = player.Name,
+					Points = player.Points,
+					Hand = await _handService.GetPlayerHand(player.Id, gameId)
 				};
-
-				playerViewModel.Id = player.Id;
-				playerViewModel.Name = player.Name;
-				playerViewModel.Points = player.Points;
-				playerViewModel.Hand = await _handService.GetPlayerHand(player.Id, gameId);
 
 				playerViewModelList.Add(playerViewModel);
 			}
@@ -69,6 +65,7 @@ namespace BlackJack.BLL.Services
 		public async Task<int> SetPlayerToGame(string playerName)
 		{
 			var logger = NLog.LogManager.GetCurrentClassLogger();
+
 			try
 			{
 				var player = await _playerRepository.GetByName(playerName);
@@ -177,15 +174,10 @@ namespace BlackJack.BLL.Services
 
 				var dealerViewModel = new DealerViewModel
 				{
-					Hand = new HandViewModel()
-					{
-						CardList = new List<CardViewModel>()
-					}
+					Id = dealer.Id,
+					Name = dealer.Name,
+					Hand = await _handService.GetPlayerHand(dealer.Id, gameId)
 				};
-
-				dealerViewModel.Id = dealer.Id;
-				dealerViewModel.Name = dealer.Name;
-				dealerViewModel.Hand = await _handService.GetPlayerHand(dealer.Id, gameId);
 
 				return dealerViewModel;
 			}
