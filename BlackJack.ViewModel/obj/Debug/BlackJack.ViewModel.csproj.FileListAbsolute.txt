@@ -16,3 +16,5 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewMo
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.csproj.CopyComplete
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.dll
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\Newtonsoft.Json.xml

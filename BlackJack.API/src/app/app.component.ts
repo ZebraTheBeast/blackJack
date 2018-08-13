@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { GameComponent } from './game/game.component';
-import { LoginComponent } from './login/login.component';
+
+import { GameComponent } from './components/game.component';
+import { LoginComponent } from './components/login.component';
 
 @Component({
     selector: 'app-root',

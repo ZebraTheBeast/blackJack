@@ -2,58 +2,58 @@
     <div class="row">
         <div class="col-md-3 text-center">
             <h2>
-                {{ game.Dealer.Name }}
+                {{ game.dealer.name }}
             </h2>
             <ul class="list-group">
-                <li class="list-group-item" *ngFor="let card of game.Dealer.Hand.CardList">
-                    {{ card.Title }} of {{ card.Color }}
+                <li class="list-group-item" *ngFor="let card of game.dealer.hand.cardList">
+                    {{ card.title }} of {{ card.color }}
                 </li>
             </ul>
-            <h4>Value: {{ game.Dealer.Hand.CardListValue }}</h4>
+            <h4>Value: {{ game.dealer.hand.cardListValue }}</h4>
         </div>
         <div class="col-md-6 text-center game-option">
             <h1 class='alert alert-info'>
-                {{ game.Options }}
+                {{ game.options }}
             </h1>
         </div>
         <div class="col-md-3">
             <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between" *ngFor="let bot of game.Bots">
-                    {{ bot.Name }} <span> {{ bot.Points }} </span>
+                <li class="list-group-item d-flex justify-content-between" *ngFor="let bot of game.bots">
+                    {{ bot.name }} <span> {{ bot.points }} </span>
                 </li>
                 <li class="list-group-item list-group-item-info d-flex justify-content-between">
-                    {{ game.Human.Name }} <span> {{ game.Human.Points }} </span>
+                    {{ game.human.name }} <span> {{ game.human.points }} </span>
                 </li>
             </ul>
-            <h3>Cards in deck: {{ game.Deck.length }}</h3>
+            <h3>Cards in deck: {{ game.deck.length }}</h3>
         </div>
     </div>
     <div class="row text-center">
         <div class="col-md-6 row">
-            <div class="col-md-4" *ngFor="let bot of game.Bots">
+            <div class="col-md-4" *ngFor="let bot of game.bots">
                 <h3>
-                    {{ bot.Name }}
+                    {{ bot.name }}
                 </h3>
                 <ul class="list-group">
-                    <li class="list-group-item" *ngFor="let card of bot.Hand.CardList">
-                        {{ card.Title }} of {{ card.Color }}
+                    <li class="list-group-item" *ngFor="let card of bot.hand.cardList">
+                        {{ card.title }} of {{ card.color }}
                     </li>
                 </ul>
-                <h4>Value: {{ bot.Hand.CardListValue }}</h4>
-                <h4>Bet: {{ bot.Hand.BetValue }}</h4>
+                <h4>Value: {{ bot.hand.cardListValue }}</h4>
+                <h4>Bet: {{ bot.hand.betValue }}</h4>
             </div>
         </div>
         <div class="col-md-2">
             <h3>
-                {{ game.Human.Name }}
+                {{ game.human.name }}
             </h3>
             <ul class="list-group">
-                <li class="list-group-item" *ngFor="let card of game.Human.Hand.CardList">
-                    {{ card.Title }} of {{ card.Color }}
+                <li class="list-group-item" *ngFor="let card of game.human.hand.cardList">
+                    {{ card.title }} of {{ card.color }}
                 </li>
             </ul>
-            <h4>Value: {{ game.Human.Hand.CardListValue }}</h4>
-            <h4>Bet: {{ game.Human.Hand.BetValue }}</h4>
+            <h4>Value: {{ game.human.hand.cardListValue }}</h4>
+            <h4>Bet: {{ game.human.hand.betValue }}</h4>
         </div>
         <div class="col-md-4 ">
             <div class="row">
@@ -63,7 +63,7 @@
                 <input type="submit" value="Stand" class="btn btn-outline-info custombutton" [disabled]="isDrawDisabled" (click)="stand()" />
             </div>
             <div class="row">
-                <input type="range" class="custombutton custom-range" min="10" [(ngModel)]="betValue" [disabled]="isBetDisabled" step="10" max="{{ game.Human.Points }}" />
+                <input type="range" class="custombutton custom-range" min="10" [(ngModel)]="betValue" [disabled]="isBetDisabled" step="10" max="{{ game.human.points }}" />
             </div>
             <div class="row">
                 <input type="number" class="custombutton text-center form-control" [value]="betValue" [disabled]="isBetDisabled" readonly="readonly" />

@@ -54,3 +54,5 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Servic
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\BlackJack.Entity.pdb
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\Dapper.xml
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\NLog.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Newtonsoft.Json.xml

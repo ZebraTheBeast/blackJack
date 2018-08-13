@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
-import { ErrorComponent } from '../error/error.component';
+
+import { ErrorComponent } from './error.component';
+
+import { LoginService } from '../services/login.service';
 
 @Component({
     selector: 'app-login',
     styleUrls: ['../../../Content/bootstrap.css', '../../../Content/Site.css'],
-    templateUrl: './login.component.html'
+    templateUrl: '../views/login.component.html'
 })
 
 export class LoginComponent {

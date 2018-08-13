@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,11 @@ namespace BlackJack.ViewModel
 {
     public class DealerViewModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public HandViewModel Hand { get; set; }
+		[JsonProperty("id")]
+		public int Id { get; set; }
+		[JsonProperty("name")]
+		public string Name { get; set; }
+		[JsonProperty("hand")]
+		public HandViewModel Hand { get; set; }
     }
 }

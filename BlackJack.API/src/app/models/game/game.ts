@@ -1,9 +1,9 @@
 import { Player } from "./Player";
 
 export class Game {
-    Dealer: Player;
-    Human: Player;
-    Bots: Player[];
-    Deck: number[];
-    Options: string;
+    dealer: Player;
+    human: Player;
+    bots: Player[];
+    deck: number[];
+    options: string;
 }

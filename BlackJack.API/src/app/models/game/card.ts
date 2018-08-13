@@ -1,6 +1,6 @@
 export class Card {
-    Id: number;
-    Title: string;
-    Value: number;
-    Color: string;
+    id: number;
+    title: string;
+    value: number;
+    color: string;
 }

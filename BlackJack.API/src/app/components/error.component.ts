@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-errorMessage',
-    templateUrl: './error.component.html',
+    templateUrl: '../views/error.component.html',
     styleUrls: ['../../../Content/bootstrap.css', '../../../Content/Site.css']
 })
 export class ErrorComponent {

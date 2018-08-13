@@ -1,27 +1,28 @@
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+
+import { ErrorComponent } from './error.component';
+
+import { GameService } from '../services/game.service';
+
 import { Game } from '../models/game/game';
 import { Player } from '../models/game/Player';
 import { Card } from '../models/game/card';
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { GameService } from '../services/game.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ErrorComponent } from '../error/error.component';
 
 @Component({
     selector: 'app-game',
     styleUrls: ['../../../Content/bootstrap.css', '../../../Content/Site.css'],
-    templateUrl: './game.component.html'
+    templateUrl: '../views/game.component.html'
 })
 
 export class GameComponent implements OnInit {
     betValue = 10;
     game: Game;
-
     isDrawDisabled = false;
     isBetDisabled = false;
     humanId: any;
 
     @ViewChild(ErrorComponent) errorComponent: ErrorComponent;
-
     @ViewChild('content') content: ElementRef;
 
     constructor(private gameService: GameService, private route: ActivatedRoute, private router: Router) {
@@ -47,7 +48,7 @@ export class GameComponent implements OnInit {
     }
 
     stand(): void {
-        this.gameService.stand(this.game.Human.Id).subscribe(
+        this.gameService.stand(this.game.human.id).subscribe(
             game => {
                 this.game = game;
                 this.disableDraw();
@@ -58,7 +59,7 @@ export class GameComponent implements OnInit {
     }
 
     draw(): void {
-        this.gameService.draw(this.game.Human.Id).subscribe(
+        this.gameService.draw(this.game.human.id).subscribe(
             game => {
                 this.game = game;
                 this.checkGameStatus();
@@ -69,7 +70,7 @@ export class GameComponent implements OnInit {
     }
 
     bet(): void {
-        this.gameService.bet(this.game.Human.Id, this.betValue).subscribe(
+        this.gameService.bet(this.game.human.id, this.betValue).subscribe(
             game => {
                 this.game = game;
                 this.disableBet();
@@ -92,20 +93,20 @@ export class GameComponent implements OnInit {
     }
 
     checkGameStatus(): void {
-        if (this.game.Human.Hand.CardListValue >= 21) {
+        if (this.game.human.hand.cardListValue >= 21) {
             this.disableDraw();
         }
 
-        if (this.game.Human.Hand.BetValue == 0) {
+        if (this.game.human.hand.betValue == 0) {
             this.disableDraw();
         }
 
-        if (this.game.Dealer.Hand.CardListValue == 21) {
+        if (this.game.dealer.hand.cardListValue == 21) {
             this.disableDraw();
         }
 
-        if ((this.game.Human.Hand.CardList.length != 0)
-            && (this.game.Human.Hand.BetValue != 0)) {
+        if ((this.game.human.hand.cardList.length != 0)
+            && (this.game.human.hand.betValue != 0)) {
             this.disableBet();
         }
     }

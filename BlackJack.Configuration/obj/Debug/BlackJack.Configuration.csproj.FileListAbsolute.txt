@@ -22,3 +22,5 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Config
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Configuration\bin\Debug\BlackJack.ViewModel.pdb
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Configuration\bin\Debug\NLog.xml
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.csproj.CopyComplete
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\Newtonsoft.Json.xml
