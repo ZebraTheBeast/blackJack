@@ -4,8 +4,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
     selector: 'app-error-message',
     templateUrl: '../views/error.component.html',
-    styleUrls: ['../../../Content/bootstrap.css', '../../../Content/Site.css']
+    styleUrls: ['../../Content/bootstrap.css', '../../Content/Site.css']
 })
+
 export class ErrorComponent {
 
     errorMessage: any;

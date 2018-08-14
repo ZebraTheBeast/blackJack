@@ -201,12 +201,12 @@
     <Content Include="dist\BlackJackAPI\polyfills.js.map" />
     <Content Include="dist\BlackJackAPI\runtime.js.map" />
     <Content Include="dist\BlackJackAPI\vendor.js.map" />
-    <Content Include="src\app\app.component.html" />
-    <Content Include="src\app\views\error.component.html" />
-    <Content Include="src\app\views\game.component.html" />
-    <Content Include="src\app\views\login.component.html" />
+    <Content Include="src\views\app.component.html" />
+    <Content Include="src\views\error.component.html" />
+    <Content Include="src\views\game.component.html" />
+    <Content Include="src\views\login.component.html" />
     <Content Include="src\styles.css" />
-    <Content Include="src\index.html" />
+    <Content Include="src\views\index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -223,18 +223,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\app\app.component.ts" />
-    <TypeScriptCompile Include="src\app\app.module.ts" />
-    <TypeScriptCompile Include="src\app\app-routing.module.ts" />
-    <TypeScriptCompile Include="src\app\components\error.component.ts" />
-    <TypeScriptCompile Include="src\app\components\game.component.ts" />
-    <TypeScriptCompile Include="src\app\services\game.service.ts" />
-    <TypeScriptCompile Include="src\app\models\card.model.ts" />
-    <TypeScriptCompile Include="src\app\models\game.model.ts" />
-    <TypeScriptCompile Include="src\app\models\hand.model.ts" />
-    <TypeScriptCompile Include="src\app\models\player.model.ts" />
-    <TypeScriptCompile Include="src\app\components\login.component.ts" />
-    <TypeScriptCompile Include="src\app\services\login.service.ts" />
+    <TypeScriptCompile Include="src\components\app.component.ts" />
+    <TypeScriptCompile Include="src\modules\app.module.ts" />
+    <TypeScriptCompile Include="src\modules\app-routing.module.ts" />
+    <TypeScriptCompile Include="src\components\error.component.ts" />
+    <TypeScriptCompile Include="src\components\game.component.ts" />
+    <TypeScriptCompile Include="src\services\game.service.ts" />
+    <TypeScriptCompile Include="src\models\card.model.ts" />
+    <TypeScriptCompile Include="src\models\game.model.ts" />
+    <TypeScriptCompile Include="src\models\hand.model.ts" />
+    <TypeScriptCompile Include="src\models\player.model.ts" />
+    <TypeScriptCompile Include="src\components\login.component.ts" />
+    <TypeScriptCompile Include="src\services\login.service.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
   </ItemGroup>

@@ -9,7 +9,7 @@ import { Game } from '../models/game.model';
 
 @Component({
     selector: 'app-game',
-    styleUrls: ['../../../Content/bootstrap.css', '../../../Content/Site.css'],
+    styleUrls: ['../../Content/bootstrap.css', '../../Content/Site.css'],
     templateUrl: '../views/game.component.html'
 })
 
