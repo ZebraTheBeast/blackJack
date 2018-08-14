@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ErrorComponent } from './error.component';
-
 import { LoginService } from '../services/login.service';
+import { MessageService } from '../services/message.service';
 
 @Component({
     selector: 'app-login',
@@ -15,9 +14,7 @@ export class LoginComponent {
     name: string;
     humanId: number;
 
-    @ViewChild(ErrorComponent) errorComponent: ErrorComponent;
-
-    constructor(private loginService: LoginService, private router: Router) { }
+    constructor(private loginService: LoginService, private router: Router, private messageService: MessageService) { }
 
     startGame(): void {
         this.loginService.startGame(this.name).subscribe(
@@ -25,7 +22,7 @@ export class LoginComponent {
                 this.router.navigate([`game/${humanId}`]);
             },
             response => {
-                this.errorComponent.showError(response);
+                this.messageService.showError(response.error.Message);
             }
         )
     }
@@ -36,7 +33,7 @@ export class LoginComponent {
                 this.router.navigate([`game/${humanId}`]);
             },
             response => {
-                this.errorComponent.showError(response);
+                this.messageService.showError(response.error.Message);
             }
         )
     }

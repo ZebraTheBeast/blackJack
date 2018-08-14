@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { ErrorComponent } from './error.component';
-
 import { GameService } from '../services/game.service';
 
 import { Game } from '../models/game.model';
+import { MessageService } from '../services/message.service';
 
 @Component({
     selector: 'app-game',
@@ -20,10 +19,7 @@ export class GameComponent implements OnInit {
     isDrawDisabled = false;
     isBetDisabled = false;
 
-    @ViewChild('content') content: ElementRef;
-    @ViewChild(ErrorComponent) errorComponent: ErrorComponent;
-
-    constructor(private gameService: GameService, private route: ActivatedRoute, private router: Router) { }
+    constructor(private gameService: GameService, private route: ActivatedRoute, private router: Router, private messageService: MessageService) { }
 
     ngOnInit() {
         this.route.params.subscribe(params => {
@@ -39,7 +35,7 @@ export class GameComponent implements OnInit {
                 this.checkGameStatus();
             },
             response => {
-                this.errorComponent.showError(response);
+                this.messageService.showError(response.error.Message);
                 this.router.navigate([`login`]);
             });
     }
@@ -51,7 +47,7 @@ export class GameComponent implements OnInit {
                 this.disableDraw();
             },
             response => {
-                this.errorComponent.showError(response);
+                this.messageService.showError(response.error.Message);
             });
     }
 
@@ -62,7 +58,7 @@ export class GameComponent implements OnInit {
                 this.checkGameStatus();
             },
             response => {
-                this.errorComponent.showError(response);
+                this.messageService.showError(response.error.Message);
             });
     }
 
@@ -74,7 +70,7 @@ export class GameComponent implements OnInit {
                 this.checkGameStatus();
             },
             response => {
-                this.errorComponent.showError(response);
+                this.messageService.showError(response.error.Message);
             });
     }
 

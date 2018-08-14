@@ -202,7 +202,7 @@
     <Content Include="dist\BlackJackAPI\runtime.js.map" />
     <Content Include="dist\BlackJackAPI\vendor.js.map" />
     <Content Include="src\views\app.component.html" />
-    <Content Include="src\views\error.component.html" />
+    <Content Include="src\views\message.component.html" />
     <Content Include="src\views\game.component.html" />
     <Content Include="src\views\login.component.html" />
     <Content Include="src\styles.css" />
@@ -226,7 +226,7 @@
     <TypeScriptCompile Include="src\components\app.component.ts" />
     <TypeScriptCompile Include="src\modules\app.module.ts" />
     <TypeScriptCompile Include="src\modules\app-routing.module.ts" />
-    <TypeScriptCompile Include="src\components\error.component.ts" />
+    <TypeScriptCompile Include="src\components\message.component.ts" />
     <TypeScriptCompile Include="src\components\game.component.ts" />
     <TypeScriptCompile Include="src\services\game.service.ts" />
     <TypeScriptCompile Include="src\models\card.model.ts" />
@@ -237,6 +237,7 @@
     <TypeScriptCompile Include="src\services\login.service.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
+    <TypeScriptCompile Include="src\services\message.service.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

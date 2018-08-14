@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from '../components/app.component';
 import { GameComponent } from '../components/game.component';
 import { LoginComponent } from '../components/login.component';
-import { ErrorComponent } from '../components/error.component';
+import { MessageComponent } from '../components/message.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -16,7 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
         AppComponent,
         GameComponent,
         LoginComponent,
-        ErrorComponent
+        MessageComponent
     ],
     imports: [
         BrowserModule,
