@@ -138,7 +138,7 @@ namespace BlackJack.BLL.Providers
 		{
 			try
 			{
-				if(playerName == Constant.DealerName)
+				if (playerName == Constant.DealerName)
 				{
 					throw new Exception(StringHelper.NotAvailibleName());
 				}

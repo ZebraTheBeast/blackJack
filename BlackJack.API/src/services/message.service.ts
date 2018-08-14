@@ -9,7 +9,7 @@ export class MessageService {
     constructor(private modalService: NgbModal) { }
 
     showError(message: any): void {
-        this.errorMessage = message;
+        this.errorMessage = message.error.Message;
         this.modalService.open(this.content);
     }
 }

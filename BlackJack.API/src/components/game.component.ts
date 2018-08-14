@@ -3,7 +3,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { GameService } from '../services/game.service';
 
-import { Game } from '../models/game.model';
 import { MessageService } from '../services/message.service';
 
 @Component({
@@ -14,7 +13,7 @@ import { MessageService } from '../services/message.service';
 
 export class GameComponent implements OnInit {
     betValue = 10;
-    game: Game;
+    game: any;
     humanId: any;
     isDrawDisabled = false;
     isBetDisabled = false;
@@ -47,7 +46,7 @@ export class GameComponent implements OnInit {
                 this.disableDraw();
             },
             response => {
-                this.messageService.showError(response.error.Message);
+                this.messageService.showError(response);
             });
     }
 
@@ -58,7 +57,7 @@ export class GameComponent implements OnInit {
                 this.checkGameStatus();
             },
             response => {
-                this.messageService.showError(response.error.Message);
+                this.messageService.showError(response);
             });
     }
 
@@ -70,7 +69,7 @@ export class GameComponent implements OnInit {
                 this.checkGameStatus();
             },
             response => {
-                this.messageService.showError(response.error.Message);
+                this.messageService.showError(response);
             });
     }
 

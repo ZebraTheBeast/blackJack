@@ -3,13 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from '../components/app.component';
 import { GameComponent } from '../components/game.component';
 import { LoginComponent } from '../components/login.component';
 import { MessageComponent } from '../components/message.component';
-
-import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
     declarations: [
@@ -28,4 +27,5 @@ import { AppRoutingModule } from './app-routing.module';
     providers: [],
     bootstrap: [AppComponent]
 })
+
 export class AppModule { }

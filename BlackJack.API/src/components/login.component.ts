@@ -11,8 +11,8 @@ import { MessageService } from '../services/message.service';
 })
 
 export class LoginComponent {
-    name: string;
-    humanId: number;
+    name: any;
+    humanId: any;
 
     constructor(private loginService: LoginService, private router: Router, private messageService: MessageService) { }
 
@@ -22,7 +22,7 @@ export class LoginComponent {
                 this.router.navigate([`game/${humanId}`]);
             },
             response => {
-                this.messageService.showError(response.error.Message);
+                this.messageService.showError(response);
             }
         )
     }
@@ -33,7 +33,7 @@ export class LoginComponent {
                 this.router.navigate([`game/${humanId}`]);
             },
             response => {
-                this.messageService.showError(response.error.Message);
+                this.messageService.showError(response);
             }
         )
     }

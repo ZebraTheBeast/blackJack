@@ -9,7 +9,7 @@
                     {{ card.title }} of {{ card.color }}
                 </li>
             </ul>
-            <h4>Value: {{ game.dealer.hand.cardListValue }}</h4>
+            <h4 *ngIf="game.dealer.hand.cardListValue != 0">Value: {{ game.dealer.hand.cardListValue }}</h4>
         </div>
         <div class="col-md-6 text-center game-option">
             <h1 class='alert alert-info'>
@@ -39,8 +39,8 @@
                         {{ card.title }} of {{ card.color }}
                     </li>
                 </ul>
-                <h4>Value: {{ bot.hand.cardListValue }}</h4>
-                <h4>Bet: {{ bot.hand.betValue }}</h4>
+                <h4 *ngIf="bot.hand.cardListValue != 0">Value: {{ bot.hand.cardListValue }}</h4>
+                <h4 *ngIf="bot.hand.betValue != 0">Bet: {{ bot.hand.betValue }}</h4>
             </div>
         </div>
         <div class="col-md-2">
@@ -52,8 +52,8 @@
                     {{ card.title }} of {{ card.color }}
                 </li>
             </ul>
-            <h4>Value: {{ game.human.hand.cardListValue }}</h4>
-            <h4>Bet: {{ game.human.hand.betValue }}</h4>
+            <h4 *ngIf="game.human.hand.cardListValue != 0">Value: {{ game.human.hand.cardListValue }}</h4>
+            <h4 *ngIf="game.human.hand.betValue != 0">Bet: {{ game.human.hand.betValue }}</h4>
         </div>
         <div class="col-md-4 ">
             <div class="row">
