@@ -1,4 +1,4 @@
-import { Hand } from "./Hand";
+import { Hand } from "./hand.model";
 
 export class Player {
     id: number;

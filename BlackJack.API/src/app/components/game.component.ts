@@ -5,9 +5,7 @@ import { ErrorComponent } from './error.component';
 
 import { GameService } from '../services/game.service';
 
-import { Game } from '../models/game/game';
-import { Player } from '../models/game/Player';
-import { Card } from '../models/game/card';
+import { Game } from '../models/game.model';
 
 @Component({
     selector: 'app-game',
@@ -18,15 +16,14 @@ import { Card } from '../models/game/card';
 export class GameComponent implements OnInit {
     betValue = 10;
     game: Game;
+    humanId: any;
     isDrawDisabled = false;
     isBetDisabled = false;
-    humanId: any;
 
-    @ViewChild(ErrorComponent) errorComponent: ErrorComponent;
     @ViewChild('content') content: ElementRef;
+    @ViewChild(ErrorComponent) errorComponent: ErrorComponent;
 
-    constructor(private gameService: GameService, private route: ActivatedRoute, private router: Router) {
-    }
+    constructor(private gameService: GameService, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit() {
         this.route.params.subscribe(params => {
