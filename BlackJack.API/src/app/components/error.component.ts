@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    selector: 'app-errorMessage',
+    selector: 'app-error-message',
     templateUrl: '../views/error.component.html',
     styleUrls: ['../../../Content/bootstrap.css', '../../../Content/Site.css']
 })

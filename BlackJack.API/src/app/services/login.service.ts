@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
+const gameUrl = '../../api/values/';
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-
-export const gameUrl = '../../api/values/';
 
 @Injectable({ providedIn: 'root' })
 
@@ -23,5 +22,4 @@ export class LoginService {
         var loadGameUrl = gameUrl + `LoadGame?playerName=${playerName}`;
         return this.http.get<number>(loadGameUrl);
     }
-
 }
