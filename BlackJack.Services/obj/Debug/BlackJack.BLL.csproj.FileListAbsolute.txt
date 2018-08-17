@@ -56,3 +56,10 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Servic
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.Services\bin\Debug\NLog.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.BLL.dll.config
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Autofac.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\System.Web.Http.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Autofac.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\System.Web.Http.xml
