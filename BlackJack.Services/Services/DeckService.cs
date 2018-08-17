@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
-using BlackJack.Configuration;
-using BlackJack.Entity.Enum;
-using BlackJack.Entity;
 using BlackJack.DAL.Interface;
-using BlackJack.DAL.Repository;
 using BlackJack.BLL.Interface;
 using BlackJack.BLL.Helper;
 using NLog;
-using System.IO;
 
 namespace BlackJack.BLL.Services
 {

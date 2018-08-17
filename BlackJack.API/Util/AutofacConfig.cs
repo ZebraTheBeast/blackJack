@@ -1,8 +1,6 @@
 ﻿using Autofac;
-using Autofac.Core;
 using Autofac.Integration.WebApi;
 using System.Reflection;
-using System.Web;
 using BlackJack.BLL.Interface;
 using BlackJack.BLL.Services;
 using BlackJack.BLL.Providers;
@@ -18,7 +16,7 @@ namespace BlackJack.WebApp.Util
         {
             var builder = new ContainerBuilder();
             var config = GlobalConfiguration.Configuration;
-            
+
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterType<DeckService>().As<IDeckService>();
@@ -34,7 +32,7 @@ namespace BlackJack.WebApp.Util
             var container = builder.Build();
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            
+
         }
     }
 }

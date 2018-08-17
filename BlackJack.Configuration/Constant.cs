@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlackJack.ViewModel;
-
-namespace BlackJack.Configuration
+﻿namespace BlackJack.Configuration
 {
-    public class Constant
+	public class Constant
     {
         public const int WinValue = 21;
         public const int AceCardValue = 11;

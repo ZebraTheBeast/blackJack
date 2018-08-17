@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using BlackJack.BLL.Providers;
 using BlackJack.ViewModel;
 using BlackJack.BLL.Interface;
 using BlackJack.BLL.Helper;

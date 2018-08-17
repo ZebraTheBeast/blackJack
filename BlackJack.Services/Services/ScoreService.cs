@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BlackJack.BLL.Interface;
 using BlackJack.BLL.Helper;
 using BlackJack.DAL.Interface;
 using BlackJack.Configuration;
-using System.IO;
 
 namespace BlackJack.BLL.Services
 {

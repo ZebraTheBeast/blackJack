@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlackJack.Entity.Enum;
+﻿using BlackJack.Entity.Enum;
 
 namespace BlackJack.Entity
 {
-    public class Card
+	public class Card
     {
         public int Id { get; set; }
         public string Title { get; set; }
