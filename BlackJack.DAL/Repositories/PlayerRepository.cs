@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using BlackJack.Entity;
-using BlackJack.DAL.Interface;
+using BlackJack.DAL.Interfaces;
 using Dapper;
 using System.Data.SqlClient;
 using System.Configuration;
 using BlackJack.Configuration;
 
-namespace BlackJack.DAL.Repository
+namespace BlackJack.DAL.Repositories
 {
 	public class PlayerRepository : IPlayerRepository
     {

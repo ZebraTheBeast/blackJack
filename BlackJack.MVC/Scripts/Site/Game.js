@@ -8,7 +8,7 @@
     $("#drawButton").click(function (event) {
         event.preventDefault();
         Draw();
-    });
+	});
 
     $("#standButton").click(function (event) {
         event.preventDefault();

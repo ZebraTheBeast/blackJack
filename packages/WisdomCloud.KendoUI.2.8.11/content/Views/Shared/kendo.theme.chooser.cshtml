@@ -1,0 +1,20 @@
+﻿<div class="navbar-header themechooser">
+    <label for="themes">主题</label>
+    <input id="themes" hidden />
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#themes").kendoThemeChooser();
+    });
+</script>
+
+<style scoped>
+    .themechooser {
+        float: right;
+    }
+
+        .themechooser label {
+            margin-right: 5px;
+        }
+</style>

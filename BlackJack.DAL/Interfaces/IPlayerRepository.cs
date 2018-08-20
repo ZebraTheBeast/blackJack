@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using BlackJack.Entity;
 
-namespace BlackJack.DAL.Interface
+namespace BlackJack.DAL.Interfaces
 {
 	public interface IPlayerRepository
     {

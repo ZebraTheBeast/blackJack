@@ -1,0 +1,15 @@
+﻿<span id="notification" style="display:none;"></span>
+
+<script>
+    $(document).ready(function () {
+        notification = $("#notification").kendoNotification({
+            position: {
+                pinned: true,
+                top: 50,
+                right: 30
+            },
+            autoHideAfter: 5000,
+            stacking: "down"
+        }).data("kendoNotification");
+    });
+</script>

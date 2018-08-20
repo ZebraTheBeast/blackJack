@@ -43,6 +43,7 @@
     <Compile Include="Card.cs" />
     <Compile Include="Enums\CardColor.cs" />
     <Compile Include="Enums\CardTitle.cs" />
+    <Compile Include="LogMessage.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerInGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

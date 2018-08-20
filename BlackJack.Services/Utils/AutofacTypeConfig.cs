@@ -1,9 +1,9 @@
 ﻿using Autofac;
-using BlackJack.BLL.Interface;
+using BlackJack.BLL.Interfaces;
 using BlackJack.BLL.Providers;
 using BlackJack.BLL.Services;
-using BlackJack.DAL.Interface;
-using BlackJack.DAL.Repository;
+using BlackJack.DAL.Interfaces;
+using BlackJack.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +21,12 @@ namespace BlackJack.BLL.Utils
 			builder.RegisterType<HandService>().As<IHandService>();
 			builder.RegisterType<PlayerService>().As<IPlayerService>();
 			builder.RegisterType<ScoreService>().As<IScoreService>();
+			builder.RegisterType<LogService>().As<ILogService>();
 
 			builder.RegisterType<HandRepository>().As<IHandRepository>();
 			builder.RegisterType<PlayerInGameRepository>().As<IPlayerInGameRepository>();
 			builder.RegisterType<PlayerRepository>().As<IPlayerRepository>();
+			builder.RegisterType<LogMessageRepository>().As<ILogMessageRepository>();
 
 			return builder;
 		}

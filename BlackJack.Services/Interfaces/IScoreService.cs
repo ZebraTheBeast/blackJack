@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace BlackJack.BLL.Interface
+namespace BlackJack.BLL.Interfaces
 {
 	public interface IScoreService
     {

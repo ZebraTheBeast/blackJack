@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using BlackJack.BLL.Interface;
+using BlackJack.BLL.Interfaces;
 using BlackJack.BLL.Helper;
-using BlackJack.DAL.Interface;
+using BlackJack.DAL.Interfaces;
 using BlackJack.Configuration;
 
 namespace BlackJack.BLL.Services

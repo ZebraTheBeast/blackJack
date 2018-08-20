@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlackJack.BLL.Interface;
+using BlackJack.BLL.Interfaces;
 using BlackJack.ViewModel;
-using BlackJack.DAL.Interface;
+using BlackJack.DAL.Interfaces;
 using BlackJack.BLL.Helper;
 
 namespace BlackJack.BLL.Services

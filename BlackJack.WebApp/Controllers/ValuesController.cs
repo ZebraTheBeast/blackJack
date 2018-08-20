@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using BlackJack.ViewModel;
-using BlackJack.BLL.Interface;
+using BlackJack.BLL.Interfaces;
 using BlackJack.BLL.Helper;
 
 namespace BlackJack.WebApp.Controllers

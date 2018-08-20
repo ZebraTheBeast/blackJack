@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using System.Reflection;
-using BlackJack.BLL.Interface;
+using BlackJack.BLL.Interfaces;
 using BlackJack.BLL.Services;
 using BlackJack.BLL.Providers;
 using System.Web.Http;

@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Data.SqlClient;
 using System.Configuration;
-using BlackJack.DAL.Interface;
+using BlackJack.DAL.Interfaces;
 
-namespace BlackJack.DAL.Repository
+namespace BlackJack.DAL.Repositories
 {
 	public class HandRepository : IHandRepository
     {

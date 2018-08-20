@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using BlackJack.ViewModel;
 
-namespace BlackJack.BLL.Interface
+namespace BlackJack.BLL.Interfaces
 {
 	public interface IPlayerService
     {

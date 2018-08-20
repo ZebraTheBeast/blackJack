@@ -77,10 +77,12 @@
     <Compile Include="Interfaces\IDeckService.cs" />
     <Compile Include="Interfaces\IGameProvider.cs" />
     <Compile Include="Interfaces\IHandService.cs" />
+    <Compile Include="Interfaces\ILogService.cs" />
     <Compile Include="Interfaces\IPlayerService.cs" />
     <Compile Include="Interfaces\IScoreService.cs" />
     <Compile Include="Providers\GameProvider.cs" />
     <Compile Include="Services\HandService.cs" />
+    <Compile Include="Services\LogService.cs" />
     <Compile Include="Services\ScoreService.cs" />
     <Compile Include="Services\DeckService.cs" />
     <Compile Include="Helpers\OptionHelper.cs" />

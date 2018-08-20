@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using BlackJack.ViewModel;
 using BlackJack.Configuration;
 using BlackJack.BLL.Helper;
-using BlackJack.BLL.Interface;
+using BlackJack.BLL.Interfaces;
 using System.IO;
 
 namespace BlackJack.BLL.Providers
