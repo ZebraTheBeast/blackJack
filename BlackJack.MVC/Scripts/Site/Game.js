@@ -25,7 +25,7 @@
 function Stand() {
     var humanId = JSON.parse($.cookie("human-data"));
     $.ajax({
-        url: '/api/values/Stand',
+        url: '/api/gameApi/Stand',
         type: 'POST',
         data: JSON.stringify(humanId),
         contentType: "application/json;charset=utf-8",
@@ -42,7 +42,7 @@ function Stand() {
 function GetGameViewModel() {
     var humanId = JSON.parse($.cookie("human-data"));
     $.ajax({
-        url: `/api/values/GetGameViewModel`,
+		url: `/api/gameApi/GetGameViewModel`,
 		type: 'POST',
 		data: JSON.stringify(humanId),
         contentType: "application/json;charset=utf-8",
@@ -58,7 +58,7 @@ function GetGameViewModel() {
 function Draw() {
     var humanId = JSON.parse($.cookie("human-data"));
     $.ajax({
-        url: '/api/values/Draw',
+		url: '/api/gameApi/Draw',
         type: 'POST',
         data: JSON.stringify(humanId),
         contentType: "application/json;charset=utf-8",
@@ -79,7 +79,7 @@ function Bet() {
     };
 
     $.ajax({
-        url: '/api/values/Bet',
+		url: '/api/gameApi/Bet',
         type: 'POST',
         data: JSON.stringify(betViewModel),
         contentType: "application/json;charset=utf-8",

@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 
 import { Game } from '../models/game.model';
 
-const gameUrl = '../../api/values/';
+const gameUrl = '../../api/game/';
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

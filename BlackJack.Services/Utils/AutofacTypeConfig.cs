@@ -16,12 +16,14 @@ namespace BlackJack.BusinessLogic.Utils
 	{
 		public static ContainerBuilder GetBuilderTypes(ContainerBuilder builder)
 		{
-			builder.RegisterType<DeckService>().As<IDeckService>();
-			builder.RegisterType<GameProvider>().As<IGameProvider>();
-			builder.RegisterType<HandService>().As<IHandService>();
-			builder.RegisterType<PlayerService>().As<IPlayerService>();
-			builder.RegisterType<ScoreService>().As<IScoreService>();
+			builder.RegisterType<DeckProvider>().As<IDeckProvider>();
+			builder.RegisterType<HandProvider>().As<IHandProvider>();
+			builder.RegisterType<PlayerProvider>().As<IPlayerProvider>();
+			builder.RegisterType<ScoreProvider>().As<IScoreProvider>();
+
 			builder.RegisterType<LogService>().As<ILogService>();
+			builder.RegisterType<LoginService>().As<ILoginService>();
+			builder.RegisterType<GameService>().As<IGameService>();
 
 			builder.RegisterType<HandRepository>().As<IHandRepository>();
 			builder.RegisterType<PlayerInGameRepository>().As<IPlayerInGameRepository>();

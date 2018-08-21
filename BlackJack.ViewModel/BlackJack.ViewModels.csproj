@@ -7,8 +7,8 @@
     <ProjectGuid>{31D2C4FF-61A3-4A12-9D0F-975839E02E80}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BlackJack.ViewModel</RootNamespace>
-    <AssemblyName>BlackJack.ViewModel</AssemblyName>
+    <RootNamespace>BlackJack.ViewModels</RootNamespace>
+    <AssemblyName>BlackJack.ViewModels</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

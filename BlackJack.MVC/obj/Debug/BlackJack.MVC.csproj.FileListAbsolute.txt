@@ -51,7 +51,6 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\roslyn\vbc.rsp
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\roslyn\VBCSCompiler.exe
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Antlr3.Runtime.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.ViewModel.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AI.Agent.Intercept.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AI.DependencyCollector.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -72,7 +71,6 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.De
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.Razor.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\WebGrease.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.ViewModel.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Helpers.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Mvc.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Optimization.xml
@@ -208,13 +206,6 @@ C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.MVC\ob
 C:\Users\Andrey\Documents\Visual Studio 2017\Projects\BalckJack\BlackJack.MVC\obj\Debug\BlackJack.MVC.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Dapper.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Dapper.xml
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DAL.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DAL.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DAL.dll.config
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Configuration.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Configuration.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Entity.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Entity.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Common.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Ninject.Web.Common.WebHost.dll
@@ -378,3 +369,12 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Autofac.Integration.We
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.BusinessLogic.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.BusinessLogic.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.BusinessLogic.dll.config
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Configurations.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.ViewModels.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DataAccess.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Entities.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Configurations.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.ViewModels.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DataAccess.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DataAccess.dll.config
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Entities.pdb

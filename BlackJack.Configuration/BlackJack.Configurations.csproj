@@ -7,8 +7,8 @@
     <ProjectGuid>{27874526-A998-4554-A169-DDB47350BEBF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BlackJack.Configuration</RootNamespace>
-    <AssemblyName>BlackJack.Configuration</AssemblyName>
+    <RootNamespace>BlackJack.Configurations</RootNamespace>
+    <AssemblyName>BlackJack.Configurations</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

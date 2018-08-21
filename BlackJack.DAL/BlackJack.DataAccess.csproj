@@ -7,8 +7,8 @@
     <ProjectGuid>{56480F4E-8F8F-451D-A656-443FF78D32FC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BlackJack.DAL</RootNamespace>
-    <AssemblyName>BlackJack.DAL</AssemblyName>
+    <RootNamespace>BlackJack.DataAccess</RootNamespace>
+    <AssemblyName>BlackJack.DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>

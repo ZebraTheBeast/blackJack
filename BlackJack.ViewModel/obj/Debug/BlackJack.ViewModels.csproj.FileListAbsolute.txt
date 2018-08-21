@@ -1,11 +1,11 @@
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.ViewModel.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.ViewModel.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entity.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entity.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModels.csprojAssemblyReference.cache
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModels.csproj.CoreCompileInputs.cache
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModels.csproj.CopyComplete
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModel.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.ViewModels.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.ViewModels.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entities.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entities.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModels.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModels.pdb

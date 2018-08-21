@@ -424,9 +424,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ApiControllers\LogApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\LoginApiController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\ApiControllers\ValuesController.cs" />
+    <Compile Include="Controllers\ApiControllers\GameApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -4,7 +4,7 @@
 		dataSource: {
 			transport: {
 				read: {
-					url: "/api/values/GetLogs",
+					url: "/api/logApi/GetLogs",
 					type: "GET"
 				}
 			},
