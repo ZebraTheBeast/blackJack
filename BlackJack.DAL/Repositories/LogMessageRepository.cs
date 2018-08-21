@@ -1,12 +1,12 @@
-﻿using BlackJack.DAL.Interfaces;
-using BlackJack.Entity;
+﻿using BlackJack.DataAccess.Interfaces;
+using BlackJack.Entities;
 using Dapper;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
-namespace BlackJack.DAL.Repositories
+namespace BlackJack.DataAccess.Repositories
 {
 	public class LogMessageRepository : ILogMessageRepository
 	{

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlackJack.ViewModel;
-using BlackJack.Configuration;
-using BlackJack.BLL.Helper;
-using BlackJack.BLL.Interfaces;
+using BlackJack.ViewModels;
+using BlackJack.Configurations;
+using BlackJack.BusinessLogic.Helper;
+using BlackJack.BusinessLogic.Interfaces;
 using System.IO;
 
-namespace BlackJack.BLL.Providers
+namespace BlackJack.BusinessLogic.Providers
 {
 	public class GameProvider : IGameProvider
 	{

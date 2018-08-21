@@ -1,4 +1,4 @@
-﻿namespace BlackJack.Entity.Properties
+﻿namespace BlackJack.Entities.Properties
 {
 	public class Hand
     {

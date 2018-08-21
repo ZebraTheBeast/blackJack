@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using BlackJack.ViewModel;
+using BlackJack.ViewModels;
 
-namespace BlackJack.BLL.Interfaces
+namespace BlackJack.BusinessLogic.Interfaces
 {
 	public interface IGameProvider
     {

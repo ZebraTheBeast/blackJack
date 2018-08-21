@@ -53,9 +53,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BlackJack.Entity\BlackJack.Entity.csproj">
+    <ProjectReference Include="..\BlackJack.Entity\BlackJack.Entities.csproj">
       <Project>{252680b3-1e9b-40f4-a5e4-eb8f3baf4cd9}</Project>
-      <Name>BlackJack.Entity</Name>
+      <Name>BlackJack.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

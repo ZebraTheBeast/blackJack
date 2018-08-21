@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlackJack.BLL.Interfaces
+namespace BlackJack.BusinessLogic.Interfaces
 {
 	public interface IDeckService
     {

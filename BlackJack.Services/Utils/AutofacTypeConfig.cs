@@ -1,16 +1,16 @@
 ﻿using Autofac;
-using BlackJack.BLL.Interfaces;
-using BlackJack.BLL.Providers;
-using BlackJack.BLL.Services;
-using BlackJack.DAL.Interfaces;
-using BlackJack.DAL.Repositories;
+using BlackJack.BusinessLogic.Interfaces;
+using BlackJack.BusinessLogic.Providers;
+using BlackJack.BusinessLogic.Services;
+using BlackJack.DataAccess.Interfaces;
+using BlackJack.DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlackJack.BLL.Utils
+namespace BlackJack.BusinessLogic.Utils
 {
 	public static class AutofacTypeConfig
 	{

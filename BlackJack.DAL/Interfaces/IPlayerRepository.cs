@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BlackJack.Entity;
+using BlackJack.Entities;
 
-namespace BlackJack.DAL.Interfaces
+namespace BlackJack.DataAccess.Interfaces
 {
 	public interface IPlayerRepository
     {

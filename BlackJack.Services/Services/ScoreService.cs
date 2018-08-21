@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using BlackJack.BLL.Interfaces;
-using BlackJack.BLL.Helper;
-using BlackJack.DAL.Interfaces;
-using BlackJack.Configuration;
+using BlackJack.BusinessLogic.Interfaces;
+using BlackJack.BusinessLogic.Helper;
+using BlackJack.DataAccess.Interfaces;
+using BlackJack.Configurations;
 
-namespace BlackJack.BLL.Services
+namespace BlackJack.BusinessLogic.Services
 {
 	public class ScoreService : IScoreService
 	{

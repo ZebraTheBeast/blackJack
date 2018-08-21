@@ -51,7 +51,6 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\roslyn\vbc.rsp
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\roslyn\VBCSCompiler.exe
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Antlr3.Runtime.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.BLL.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.ViewModel.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AI.Agent.Intercept.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.AI.DependencyCollector.dll
@@ -73,7 +72,6 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.De
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.WebPages.Razor.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\WebGrease.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.BLL.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.ViewModel.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Helpers.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Mvc.xml
@@ -377,4 +375,6 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Autofac.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Autofac.Integration.WebApi.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Autofac.Integration.WebApi.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Autofac.Integration.WebApi.xml
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.BLL.dll.config
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.BusinessLogic.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.BusinessLogic.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.BusinessLogic.dll.config

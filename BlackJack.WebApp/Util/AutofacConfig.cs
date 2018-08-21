@@ -1,11 +1,11 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using System.Reflection;
-using BlackJack.BLL.Interfaces;
-using BlackJack.BLL.Services;
-using BlackJack.BLL.Providers;
+using BlackJack.BusinessLogic.Interfaces;
+using BlackJack.BusinessLogic.Services;
+using BlackJack.BusinessLogic.Providers;
 using System.Web.Http;
-using BlackJack.BLL.Utils;
+using BlackJack.BusinessLogic.Utils;
 
 namespace BlackJack.WebApp.Util
 {

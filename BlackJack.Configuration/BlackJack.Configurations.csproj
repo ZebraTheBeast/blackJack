@@ -52,9 +52,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BlackJack.ViewModel\BlackJack.ViewModel.csproj">
+    <ProjectReference Include="..\BlackJack.ViewModel\BlackJack.ViewModels.csproj">
       <Project>{31d2c4ff-61a3-4a12-9d0f-975839e02e80}</Project>
-      <Name>BlackJack.ViewModel</Name>
+      <Name>BlackJack.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

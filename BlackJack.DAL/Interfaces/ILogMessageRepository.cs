@@ -1,8 +1,8 @@
-﻿using BlackJack.Entity;
+﻿using BlackJack.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlackJack.DAL.Interfaces
+namespace BlackJack.DataAccess.Interfaces
 {
 	public interface ILogMessageRepository
 	{

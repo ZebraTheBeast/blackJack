@@ -1,4 +1,4 @@
-﻿namespace BlackJack.Entity
+﻿namespace BlackJack.Entities
 {
 	public class Player
     {

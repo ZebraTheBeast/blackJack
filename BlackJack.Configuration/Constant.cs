@@ -1,4 +1,4 @@
-﻿namespace BlackJack.Configuration
+﻿namespace BlackJack.Configurations
 {
 	public class Constant
     {

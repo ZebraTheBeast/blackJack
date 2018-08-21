@@ -1,4 +1,4 @@
-﻿namespace BlackJack.Entity.Enum
+﻿namespace BlackJack.Entities.Enums
 {
 	public enum CardColor
     {

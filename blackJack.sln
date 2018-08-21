@@ -2,15 +2,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Entity", "BlackJack.Entity\BlackJack.Entity.csproj", "{252680B3-1E9B-40F4-A5E4-EB8F3BAF4CD9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Entities", "BlackJack.Entity\BlackJack.Entities.csproj", "{252680B3-1E9B-40F4-A5E4-EB8F3BAF4CD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.BLL", "BlackJack.Services\BlackJack.BLL.csproj", "{1F237B7B-88A0-4409-AA81-E8E3EE61B016}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.BusinessLogic", "BlackJack.Services\BlackJack.BusinessLogic.csproj", "{1F237B7B-88A0-4409-AA81-E8E3EE61B016}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Configuration", "BlackJack.Configuration\BlackJack.Configuration.csproj", "{27874526-A998-4554-A169-DDB47350BEBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Configurations", "BlackJack.Configuration\BlackJack.Configurations.csproj", "{27874526-A998-4554-A169-DDB47350BEBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.DAL", "BlackJack.DAL\BlackJack.DAL.csproj", "{56480F4E-8F8F-451D-A656-443FF78D32FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.DataAccess", "BlackJack.DAL\BlackJack.DataAccess.csproj", "{56480F4E-8F8F-451D-A656-443FF78D32FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.ViewModel", "BlackJack.ViewModel\BlackJack.ViewModel.csproj", "{31D2C4FF-61A3-4A12-9D0F-975839E02E80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.ViewModels", "BlackJack.ViewModel\BlackJack.ViewModels.csproj", "{31D2C4FF-61A3-4A12-9D0F-975839E02E80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.MVC", "BlackJack.MVC\BlackJack.MVC.csproj", "{E46C6133-8ECA-4D22-A11E-AFC4AA747256}"
 EndProject

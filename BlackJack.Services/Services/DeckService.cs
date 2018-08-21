@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlackJack.ViewModel;
-using BlackJack.DAL.Interfaces;
-using BlackJack.BLL.Interfaces;
-using BlackJack.BLL.Helper;
+using BlackJack.ViewModels;
+using BlackJack.DataAccess.Interfaces;
+using BlackJack.BusinessLogic.Interfaces;
+using BlackJack.BusinessLogic.Helper;
 using NLog;
 
-namespace BlackJack.BLL.Services
+namespace BlackJack.BusinessLogic.Services
 {
 	public class DeckService : IDeckService
 	{

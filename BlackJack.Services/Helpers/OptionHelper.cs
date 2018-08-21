@@ -1,4 +1,4 @@
-﻿namespace BlackJack.BLL.Helper
+﻿namespace BlackJack.BusinessLogic.Helper
 {
 	static public class OptionHelper
 	{

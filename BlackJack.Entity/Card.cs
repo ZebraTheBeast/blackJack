@@ -1,6 +1,6 @@
-﻿using BlackJack.Entity.Enum;
+﻿using BlackJack.Entities.Enums;
 
-namespace BlackJack.Entity
+namespace BlackJack.Entities
 {
 	public class Card
     {

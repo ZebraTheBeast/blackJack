@@ -4,9 +4,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using BlackJack.ViewModel;
-using BlackJack.BLL.Interfaces;
-using BlackJack.BLL.Helper;
+using BlackJack.ViewModels;
+using BlackJack.BusinessLogic.Interfaces;
+using BlackJack.BusinessLogic.Helper;
 
 namespace BlackJack.WebApp.Controllers
 {

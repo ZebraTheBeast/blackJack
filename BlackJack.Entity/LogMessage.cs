@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlackJack.Entity
+namespace BlackJack.Entities
 {
 	public class LogMessage
 	{

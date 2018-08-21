@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace BlackJack.ViewModel
+namespace BlackJack.ViewModels
 {
 	public class HandViewModel
     {

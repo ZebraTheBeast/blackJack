@@ -1,13 +1,13 @@
-﻿using BlackJack.BLL.Interfaces;
-using BlackJack.DAL.Interfaces;
-using BlackJack.ViewModel;
+﻿using BlackJack.BusinessLogic.Interfaces;
+using BlackJack.DataAccess.Interfaces;
+using BlackJack.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlackJack.BLL.Services
+namespace BlackJack.BusinessLogic.Services
 {
 	public class LogService : ILogService
 	{

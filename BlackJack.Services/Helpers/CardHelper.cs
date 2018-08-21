@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BlackJack.ViewModel;
-using BlackJack.Entity.Enum;
-using BlackJack.Configuration;
+using BlackJack.ViewModels;
+using BlackJack.Entities.Enums;
+using BlackJack.Configurations;
 
 
-namespace BlackJack.BLL.Helper
+namespace BlackJack.BusinessLogic.Helper
 {
 	public static class CardHelper
 	{

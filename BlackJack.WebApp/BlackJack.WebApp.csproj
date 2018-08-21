@@ -243,13 +243,13 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BlackJack.Services\BlackJack.BLL.csproj">
+    <ProjectReference Include="..\BlackJack.Services\BlackJack.BusinessLogic.csproj">
       <Project>{1f237b7b-88a0-4409-aa81-e8e3ee61b016}</Project>
-      <Name>BlackJack.BLL</Name>
+      <Name>BlackJack.BusinessLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlackJack.ViewModel\BlackJack.ViewModel.csproj">
+    <ProjectReference Include="..\BlackJack.ViewModel\BlackJack.ViewModels.csproj">
       <Project>{31d2c4ff-61a3-4a12-9d0f-975839e02e80}</Project>
-      <Name>BlackJack.ViewModel</Name>
+      <Name>BlackJack.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

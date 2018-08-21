@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace BlackJack.ViewModel
+namespace BlackJack.ViewModels
 {
 	public class PlayerViewModel
     {

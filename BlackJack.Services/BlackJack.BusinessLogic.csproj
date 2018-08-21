@@ -7,8 +7,8 @@
     <ProjectGuid>{1F237B7B-88A0-4409-AA81-E8E3EE61B016}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BlackJack.BLL</RootNamespace>
-    <AssemblyName>BlackJack.BLL</AssemblyName>
+    <RootNamespace>BlackJack.BusinessLogic</RootNamespace>
+    <AssemblyName>BlackJack.BusinessLogic</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -91,21 +91,21 @@
     <Compile Include="Utils\AutofacTypeConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BlackJack.Configuration\BlackJack.Configuration.csproj">
+    <ProjectReference Include="..\BlackJack.Configuration\BlackJack.Configurations.csproj">
       <Project>{27874526-a998-4554-a169-ddb47350bebf}</Project>
-      <Name>BlackJack.Configuration</Name>
+      <Name>BlackJack.Configurations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlackJack.DAL\BlackJack.DAL.csproj">
+    <ProjectReference Include="..\BlackJack.DAL\BlackJack.DataAccess.csproj">
       <Project>{56480f4e-8f8f-451d-a656-443ff78d32fc}</Project>
-      <Name>BlackJack.DAL</Name>
+      <Name>BlackJack.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlackJack.Entity\BlackJack.Entity.csproj">
+    <ProjectReference Include="..\BlackJack.Entity\BlackJack.Entities.csproj">
       <Project>{252680b3-1e9b-40f4-a5e4-eb8f3baf4cd9}</Project>
-      <Name>BlackJack.Entity</Name>
+      <Name>BlackJack.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlackJack.ViewModel\BlackJack.ViewModel.csproj">
+    <ProjectReference Include="..\BlackJack.ViewModel\BlackJack.ViewModels.csproj">
       <Project>{31d2c4ff-61a3-4a12-9d0f-975839e02e80}</Project>
-      <Name>BlackJack.ViewModel</Name>
+      <Name>BlackJack.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,14 @@
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\NLog.config
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\BlackJack.Configuration.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\BlackJack.Configuration.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\BlackJack.ViewModel.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\NLog.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\BlackJack.ViewModel.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\NLog.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\obj\Debug\BlackJack.Configurations.csprojAssemblyReference.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\obj\Debug\BlackJack.Configurations.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\obj\Debug\BlackJack.Configurations.csproj.CopyComplete
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Configuration\obj\Debug\BlackJack.Configuration.pdb
