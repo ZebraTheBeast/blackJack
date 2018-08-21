@@ -1,3 +1,13 @@
-<h1 class="text-center">Black Jack</h1>
-<router-outlet></router-outlet>
+<div class="container">
+    <div class="row text-center" >
+        <h1 class="m-auto">Black Jack</h1>
+    </div>
+    <router-outlet></router-outlet>
+</div>
+<div class="container text-center fixed-bottom">
+    <a routerLink="/log">Logs</a>
+    <br />
+    <a routerLink="/login">Login to game</a>
+</div>
+
 <app-error-message></app-error-message>

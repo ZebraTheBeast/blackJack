@@ -62,6 +62,11 @@
 			return "Name field is empty! Please, input your name in it :)";
 		}
 
+		public static string EmptyLog()
+		{
+			return "Logs are empty 0_0";
+		}
+
 		public static string PlayerWin(int playerId, int betValue, int gameId)
 		{
 			return $"Player with id {playerId} win {betValue} points in game №{gameId}";

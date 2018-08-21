@@ -220,7 +220,6 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\obj\Debug\BlackJack.Web
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\obj\Debug\BlackJack.WebApp.csproj.CopyComplete
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\obj\Debug\BlackJack.WebApp.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\obj\Debug\BlackJack.WebApp.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\NLog.config
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\BlackJack.BusinessLogic.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\BlackJack.ViewModels.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\BlackJack.DataAccess.dll

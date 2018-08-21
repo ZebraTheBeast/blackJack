@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { GameComponent } from '../components/game.component';
 import { LoginComponent } from '../components/login.component';
+import { LogComponent } from '../components/log.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'game/:id', component: GameComponent },
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent },
+    { path: 'log', component: LogComponent }
 ];
 
 @NgModule({

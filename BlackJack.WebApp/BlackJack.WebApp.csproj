@@ -162,6 +162,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Global.asax.cs">
@@ -202,6 +203,7 @@
     <Content Include="dist\BlackJackAPI\polyfills.js.map" />
     <Content Include="dist\BlackJackAPI\runtime.js.map" />
     <Content Include="dist\BlackJackAPI\vendor.js.map" />
+    <Content Include="src\views\log.component.html" />
     <Content Include="src\views\app.component.html" />
     <Content Include="src\views\message.component.html" />
     <Content Include="src\views\game.component.html" />
@@ -225,6 +227,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\components\app.component.ts" />
+    <TypeScriptCompile Include="src\components\log.component.ts" />
     <TypeScriptCompile Include="src\modules\app.module.ts" />
     <TypeScriptCompile Include="src\modules\app-routing.module.ts" />
     <TypeScriptCompile Include="src\components\message.component.ts" />
@@ -235,6 +238,7 @@
     <TypeScriptCompile Include="src\models\hand.model.ts" />
     <TypeScriptCompile Include="src\models\player.model.ts" />
     <TypeScriptCompile Include="src\components\login.component.ts" />
+    <TypeScriptCompile Include="src\services\log.service.ts" />
     <TypeScriptCompile Include="src\services\login.service.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />

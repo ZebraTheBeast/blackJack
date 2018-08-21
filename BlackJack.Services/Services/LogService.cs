@@ -1,10 +1,10 @@
-﻿using BlackJack.BusinessLogic.Interfaces;
+﻿using BlackJack.BusinessLogic.Helper;
+using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Services
@@ -20,21 +20,34 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<IEnumerable<LogMessageViewModel>> GetMessages()
 		{
-			var messagesModel = new List<LogMessageViewModel>();
-			var messages = (await _logMessageRepository.GetAll()).ToList();
-			foreach(var message in messages)
+			try
 			{
-				var messageModel = new LogMessageViewModel
+				var messagesModel = new List<LogMessageViewModel>();
+				var messages = (await _logMessageRepository.GetAll()).ToList();
+
+				if (messages.Count() == 0)
 				{
-					Id = message.Id,
-					Message = message.Message,
-					Time = message.Logged
-				};
+					throw new Exception(StringHelper.EmptyLog());
+				}
 
-				messagesModel.Add(messageModel);
+				foreach (var message in messages)
+				{
+					var messageModel = new LogMessageViewModel
+					{
+						Id = message.Id,
+						Message = message.Message,
+						Time = message.Logged
+					};
+
+					messagesModel.Add(messageModel);
+				}
+
+				return messagesModel;
 			}
-
-			return messagesModel;
+			catch (Exception exception)
+			{
+				throw exception;
+			}
 		}
 	}
 }
