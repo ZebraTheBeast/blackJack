@@ -4,11 +4,7 @@ using BlackJack.BusinessLogic.Providers;
 using BlackJack.BusinessLogic.Services;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.DataAccess.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
 
 namespace BlackJack.BusinessLogic.Utils
 {
@@ -25,10 +21,10 @@ namespace BlackJack.BusinessLogic.Utils
 			builder.RegisterType<LoginService>().As<ILoginService>();
 			builder.RegisterType<GameService>().As<IGameService>();
 
-			builder.RegisterType<HandRepository>().As<IHandRepository>();
-			builder.RegisterType<PlayerInGameRepository>().As<IPlayerInGameRepository>();
-			builder.RegisterType<PlayerRepository>().As<IPlayerRepository>();
-			builder.RegisterType<LogMessageRepository>().As<ILogMessageRepository>();
+			builder.RegisterType<HandRepository>().As<IHandRepository>().WithParameter("connectionString", ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+			builder.RegisterType<PlayerInGameRepository>().As<IPlayerInGameRepository>().WithParameter("connectionString", ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+			builder.RegisterType<PlayerRepository>().As<IPlayerRepository>().WithParameter("connectionString", ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+			builder.RegisterType<LogMessageRepository>().As<ILogMessageRepository>().WithParameter("connectionString", ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
 			return builder;
 		}

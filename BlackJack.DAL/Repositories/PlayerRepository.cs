@@ -5,18 +5,22 @@ using BlackJack.Entities;
 using BlackJack.DataAccess.Interfaces;
 using Dapper;
 using System.Data.SqlClient;
-using System.Configuration;
 using BlackJack.Configurations;
 
 namespace BlackJack.DataAccess.Repositories
 {
 	public class PlayerRepository : IPlayerRepository
     {
-		private string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+		private string _connectionString;
 
-        public async Task<Player> Create(Player player)
+		public PlayerRepository(string connectionString)
+		{
+			_connectionString = connectionString;
+		}
+
+		public async Task<Player> Create(Player player)
         {
-            using (var db = new SqlConnection(connectionString))
+            using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery = $"INSERT INTO Player (Name) VALUES('{player.Name}')";
                 await db.ExecuteAsync(sqlQuery);
@@ -31,7 +35,7 @@ namespace BlackJack.DataAccess.Repositories
         {
             IEnumerable<Player> players = new List<Player>();
 
-            using (var db = new SqlConnection(connectionString))
+            using (var db = new SqlConnection(_connectionString))
             {
                 players = await db.QueryAsync<Player>($"SELECT TOP(4) * FROM Player WHERE Name <> '{playerName}'");
             }
@@ -51,7 +55,7 @@ namespace BlackJack.DataAccess.Repositories
         {
             var player = new Player();
 
-            using (var db = new SqlConnection(connectionString))
+            using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery = $"SELECT * FROM Player WHERE Name = '{name}'";
                 player = (await db.QueryAsync<Player>(sqlQuery)).FirstOrDefault();
@@ -75,7 +79,7 @@ namespace BlackJack.DataAccess.Repositories
 
         public async Task UpdatePoints(int playerId, int newPointsValue)
         {
-            using (var db = new SqlConnection(connectionString))
+            using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery = $"UPDATE Player SET Points = {newPointsValue} WHERE Id = {playerId}";
                 await db.ExecuteAsync(sqlQuery);
@@ -84,7 +88,7 @@ namespace BlackJack.DataAccess.Repositories
 
         public async Task RestorePoints(int playerId)
         {
-            using (var db = new SqlConnection(connectionString))
+            using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery = $"UPDATE Player SET Points = {Constant.DefaultPointsValue} WHERE Id = {playerId}";
                 await db.ExecuteAsync(sqlQuery);
@@ -95,7 +99,7 @@ namespace BlackJack.DataAccess.Repositories
         {
             var player = new Player();
 
-            using (var db = new SqlConnection(connectionString))
+            using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery = $"SELECT * FROM Player WHERE Id = {id}";
                 player = (await db.QueryAsync<Player>(sqlQuery)).First();

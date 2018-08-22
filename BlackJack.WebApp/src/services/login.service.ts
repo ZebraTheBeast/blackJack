@@ -23,7 +23,6 @@ export class LoginService {
             playerName = "";
         }
         var loadGameUrl = gameUrl + `LoadGame?playerName=${playerName}`;
-        console.log(loadGameUrl);
         return this.http.get<number>(loadGameUrl);
     }
 }
