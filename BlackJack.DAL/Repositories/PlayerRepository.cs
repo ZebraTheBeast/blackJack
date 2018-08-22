@@ -22,7 +22,7 @@ namespace BlackJack.DataAccess.Repositories
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sqlQuery = $"INSERT INTO Player (Name) VALUES('{player.Name}')";
+                var sqlQuery = $"INSERT INTO Player (Name, CreationDate) VALUES('{player.Name}', '{player.CreationDate}')";
                 await db.ExecuteAsync(sqlQuery);
 
                 player = await GetByName(player.Name);
