@@ -10,14 +10,19 @@ import { MessageService } from '../services/message.service';
     templateUrl: '../views/login.component.html'
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     name: any;
+    botsAmount: any;
     humanId: any;
+
+    ngOnInit() {
+        this.botsAmount = 3;
+    }
 
     constructor(private loginService: LoginService, private router: Router, private messageService: MessageService) { }
 
     startGame(): void {
-        this.loginService.startGame(this.name).subscribe(
+        this.loginService.startGame(this.name, this.botsAmount).subscribe(
             humanId => {
                 this.router.navigate([`game/${humanId}`]);
             },
@@ -36,5 +41,9 @@ export class LoginComponent {
                 this.messageService.showError(response);
             }
         )
+    }
+
+    botsAmountCheck(event: Event): void {
+       
     }
 }

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using BlackJack.BusinessLogic.Helper;
 using BlackJack.BusinessLogic.Interfaces;
+using BlackJack.ViewModels;
+using BlackJack.Configurations;
 
 namespace BlackJack.WebApp.Controllers
 {
@@ -18,16 +20,26 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<int> StartGame([FromBody]string playerName)
+        public async Task<int> StartGame([FromBody]LoginViewModel loginViewModel)
         {
             try
             {
-                if (String.IsNullOrEmpty(playerName))
+                if(loginViewModel.BotsAmount < Constant.MinBotsAmount)
+                {
+                    throw new Exception(StringHelper.MinBotsAmount());
+                }
+
+                if (loginViewModel.BotsAmount > Constant.MaxBotsAmount)
+                {
+                    throw new Exception(StringHelper.MaxBotsAmount());
+                }
+
+                if (String.IsNullOrEmpty(loginViewModel.PlayerName))
                 {
                     throw new Exception(StringHelper.EmptyName());
                 }
 
-                return await _loginService.StartGame(playerName);
+                return await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
             }
             catch (Exception exception)
             {

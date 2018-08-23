@@ -2,6 +2,11 @@
     <div class="col-md-4 offset-md-4 text-center">
         <h3>Input your name</h3>
         <input type="text" [(ngModel)]="name" class="text-center form-control name-input" />
+        <h3>Choose bots amount</h3>
+        <input type="range" class="custom-range" min="0" step="1" max="5" [(ngModel)]="botsAmount" />
+
+        <input type="number" class="text-center form-control name-input" [value]="botsAmount" readonly="readonly" />
+
         <input type="submit" value="Start a new game" class="btn btn-outline-primary custombutton" (click)="startGame()" />
         <br />
         <input type="submit" value="Load last game" class="btn btn-outline-info custombutton" (click)="loadGame()" />

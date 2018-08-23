@@ -41,3 +41,7 @@ textarea {
 * {
     font-family: cursive;
 }
+
+.m-b-10 {
+    margin-bottom: 10px;
+}

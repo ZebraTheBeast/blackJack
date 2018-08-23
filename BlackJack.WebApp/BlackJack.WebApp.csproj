@@ -248,6 +248,10 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlackJack.Configuration\BlackJack.Configurations.csproj">
+      <Project>{27874526-a998-4554-a169-ddb47350bebf}</Project>
+      <Name>BlackJack.Configurations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlackJack.Services\BlackJack.BusinessLogic.csproj">
       <Project>{1f237b7b-88a0-4409-aa81-e8e3ee61b016}</Project>
       <Name>BlackJack.BusinessLogic</Name>

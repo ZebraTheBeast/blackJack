@@ -13,9 +13,14 @@ export class LoginService {
 
     constructor(private http: HttpClient) { }
 
-    startGame(playerName: string): Observable<number> {
+    startGame(playerName: string, botsAmount: number): Observable<number> {
+        var loginViewModel = {
+            playerName: playerName,
+            botsAmount: botsAmount
+        }
+
         var startGameUrl = gameUrl + "StartGame";
-        return this.http.post<number>(startGameUrl, JSON.stringify(playerName), httpOptions);
+        return this.http.post<number>(startGameUrl, loginViewModel, httpOptions);
     }
 
     loadGame(playerName: string): Observable<number> {

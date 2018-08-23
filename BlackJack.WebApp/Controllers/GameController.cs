@@ -27,11 +27,6 @@ namespace BlackJack.WebApp.Controllers
                 var gameViewModel = new GameViewModel();
                 gameViewModel = await _gameService.GetGameViewModel(Id);
 
-                if (gameViewModel.Bots.Count() == 0)
-                {
-                    throw new Exception(StringHelper.NoLastGame());
-                }
-
                 if (gameViewModel.Dealer == null)
                 {
                     throw new Exception(StringHelper.DealerNotInGame());
