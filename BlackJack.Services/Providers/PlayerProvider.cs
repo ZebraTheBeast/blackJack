@@ -141,6 +141,11 @@ namespace BlackJack.BusinessLogic.Providers
 		{
 			try
 			{
+				if(!(await _playerInGameRepository.IsInGame(humanId, humanId)))
+				{
+					throw new Exception(StringHelper.NoLastGame());
+				}
+
 				var player = await _playerRepository.GetById(humanId);
 
 				var playerViewModel = new PlayerViewModel

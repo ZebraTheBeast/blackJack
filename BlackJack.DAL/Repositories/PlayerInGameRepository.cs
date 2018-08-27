@@ -99,7 +99,7 @@ namespace BlackJack.DataAccess.Repositories
 
         public async Task<bool> IsInGame(int playerId, int gameId)
         {
-            int player = -1;
+            var player = 0;
 
             using (var db = new SqlConnection(_connectionString))
             {
@@ -107,7 +107,7 @@ namespace BlackJack.DataAccess.Repositories
                 player = (await db.QueryAsync<int>(sqlQuery)).FirstOrDefault();
             }
             
-            if(player == -1)
+            if(player == 0)
             {
                 return false;
             }

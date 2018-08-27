@@ -45,7 +45,10 @@ namespace BlackJack.BusinessLogic.Services
 					throw new Exception(StringHelper.NotAvailibleName());
 				}
 
-				return await _playerProvider.GetIdByName(playerName);
+				var id = await _playerProvider.GetIdByName(playerName);
+				var human = await _playerProvider.GetHumanInGame(id);
+
+				return id;
 			}
 			catch (Exception exception)
 			{

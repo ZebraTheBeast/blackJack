@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-    imports: [ CommonModule ],
-    exports: [CommonModule, FormsModule ]
+    imports: [CommonModule],
+    exports: [CommonModule, FormsModule]
 })
 export class SharedModule { }

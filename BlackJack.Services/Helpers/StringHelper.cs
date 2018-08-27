@@ -59,7 +59,7 @@
 
 		public static string EmptyName()
 		{
-			return "Name field is empty! Please, input your name in it :)";
+			return "Name field is empty! Please, input your name in it ☺";
 		}
 
 		public static string EmptyLog()
@@ -94,7 +94,7 @@
 
 		public static string NoLastGame()
 		{
-			return "You don't have last game, start a new one! :)";
+			return "You don't have last game, start a new one! ☺";
 		}
 
 		public static string DealerNotInGame()
@@ -108,17 +108,17 @@
 		}
 		public static string NotAvailibleName()
 		{
-			return "Sorry, but you can't use this name.";
+			return "Sorry, but you can't use this name ☻";
 		}
 
 		public static string MaxBotsAmount()
 		{
-			return "Tooooo much bots :C";
+			return "Tooooo much bots ☻";
 		}
 
 		public static string MinBotsAmount()
 		{
-			return "Tooooo few bots :C";
+			return "Tooooo few bots ☻";
 		}
 
 	}

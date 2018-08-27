@@ -238,6 +238,7 @@
     <TypeScriptCompile Include="src\modules\login\login-routing.module.ts" />
     <TypeScriptCompile Include="src\modules\login\login.module.ts" />
     <TypeScriptCompile Include="src\modules\game\game.module.ts" />
+    <TypeScriptCompile Include="src\modules\shared.module.ts" />
     <TypeScriptCompile Include="src\services\game.service.ts" />
     <TypeScriptCompile Include="src\models\card.model.ts" />
     <TypeScriptCompile Include="src\models\game.model.ts" />
