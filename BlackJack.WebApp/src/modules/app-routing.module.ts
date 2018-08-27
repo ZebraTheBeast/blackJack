@@ -7,9 +7,9 @@ import { LogComponent } from '../components/log.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'game/:id', component: GameComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'log', component: LogComponent }
+    { path: 'game/:id', loadChildren: './game.module#GameModule' },
+    { path: 'login', loadChildren: './login.module#LoginModule' },
+    { path: 'log', loadChildren: './log.module#LogModule' }
 ];
 
 @NgModule({

@@ -6,20 +6,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { GridModule } from '@progress/kendo-angular-grid';
+import { GameModule } from './game.module';
 
 import { AppComponent } from '../components/app.component';
-import { GameComponent } from '../components/game.component';
 import { LoginComponent } from '../components/login.component';
 import { LogComponent } from '../components/log.component';
 import { MessageComponent } from '../components/message.component';
+import { LogModule } from './log.module';
+import { LoginModule } from './login.module';
+
 
 @NgModule({
     declarations: [
         AppComponent,
-        GameComponent,
-        LoginComponent,
         MessageComponent,
-        LogComponent
     ],
     imports: [
         BrowserModule,
@@ -28,7 +28,10 @@ import { MessageComponent } from '../components/message.component';
         AppRoutingModule,
         NgbModule.forRoot(),
         GridModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        GameModule,
+        LogModule,
+        LoginModule
     ],
     providers: [],
     bootstrap: [AppComponent]
