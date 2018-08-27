@@ -228,16 +228,16 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\components\app.component.ts" />
     <TypeScriptCompile Include="src\components\log.component.ts" />
-    <TypeScriptCompile Include="src\modules\app.module.ts" />
-    <TypeScriptCompile Include="src\modules\app-routing.module.ts" />
+    <TypeScriptCompile Include="src\modules\app\app.module.ts" />
+    <TypeScriptCompile Include="src\modules\app\app-routing.module.ts" />
     <TypeScriptCompile Include="src\components\message.component.ts" />
     <TypeScriptCompile Include="src\components\game.component.ts" />
-    <TypeScriptCompile Include="src\modules\game-routing.module.ts" />
-    <TypeScriptCompile Include="src\modules\log.module.ts" />
-    <TypeScriptCompile Include="src\modules\log-routing.module.ts" />
-    <TypeScriptCompile Include="src\modules\login-routing.module.ts" />
-    <TypeScriptCompile Include="src\modules\login.module.ts" />
-    <TypeScriptCompile Include="src\modules\game.module.ts" />
+    <TypeScriptCompile Include="src\modules\game\game-routing.module.ts" />
+    <TypeScriptCompile Include="src\modules\log\log.module.ts" />
+    <TypeScriptCompile Include="src\modules\log\log-routing.module.ts" />
+    <TypeScriptCompile Include="src\modules\login\login-routing.module.ts" />
+    <TypeScriptCompile Include="src\modules\login\login.module.ts" />
+    <TypeScriptCompile Include="src\modules\game\game.module.ts" />
     <TypeScriptCompile Include="src\services\game.service.ts" />
     <TypeScriptCompile Include="src\models\card.model.ts" />
     <TypeScriptCompile Include="src\models\game.model.ts" />
