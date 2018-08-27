@@ -31,13 +31,13 @@ namespace BlackJack.DataAccess.Repositories
             return player;
         }
 
-        public async Task<IEnumerable<Player>> GetBots(string playerName)
+        public async Task<IEnumerable<Player>> GetBots(string playerName, int botsAmount)
         {
             IEnumerable<Player> players = new List<Player>();
 
             using (var db = new SqlConnection(_connectionString))
             {
-                players = await db.QueryAsync<Player>($"SELECT TOP(4) * FROM Player WHERE Name <> '{playerName}'");
+                players = await db.QueryAsync<Player>($"SELECT TOP({botsAmount + 1}) * FROM Player WHERE Name <> '{playerName}'");
             }
 
             foreach (var player in players)

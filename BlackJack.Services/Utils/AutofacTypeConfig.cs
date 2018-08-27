@@ -4,13 +4,12 @@ using BlackJack.BusinessLogic.Providers;
 using BlackJack.BusinessLogic.Services;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.DataAccess.Repositories;
-using System.Configuration;
 
 namespace BlackJack.BusinessLogic.Utils
 {
 	public static class AutofacTypeConfig
 	{
-		public static ContainerBuilder GetBuilderTypes(ContainerBuilder builder)
+		public static ContainerBuilder GetBuilderTypes(ContainerBuilder builder, string connectionString)
 		{
 			builder.RegisterType<DeckProvider>().As<IDeckProvider>();
 			builder.RegisterType<HandProvider>().As<IHandProvider>();
@@ -21,10 +20,10 @@ namespace BlackJack.BusinessLogic.Utils
 			builder.RegisterType<LoginService>().As<ILoginService>();
 			builder.RegisterType<GameService>().As<IGameService>();
 
-			builder.RegisterType<HandRepository>().As<IHandRepository>().WithParameter("connectionString", ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-			builder.RegisterType<PlayerInGameRepository>().As<IPlayerInGameRepository>().WithParameter("connectionString", ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-			builder.RegisterType<PlayerRepository>().As<IPlayerRepository>().WithParameter("connectionString", ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-			builder.RegisterType<LogMessageRepository>().As<ILogMessageRepository>().WithParameter("connectionString", ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+			builder.RegisterType<HandRepository>().As<IHandRepository>().WithParameter("connectionString", connectionString);
+			builder.RegisterType<PlayerInGameRepository>().As<IPlayerInGameRepository>().WithParameter("connectionString", connectionString);
+			builder.RegisterType<PlayerRepository>().As<IPlayerRepository>().WithParameter("connectionString", connectionString);
+			builder.RegisterType<LogMessageRepository>().As<ILogMessageRepository>().WithParameter("connectionString", connectionString);
 
 			return builder;
 		}

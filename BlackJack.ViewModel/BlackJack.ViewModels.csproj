@@ -48,6 +48,7 @@
     <Compile Include="DealerViewModel.cs" />
     <Compile Include="HandViewModel.cs" />
     <Compile Include="GameViewModel.cs" />
+    <Compile Include="LoginViewModel.cs" />
     <Compile Include="LogMessageViewModel.cs" />
     <Compile Include="PlayerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

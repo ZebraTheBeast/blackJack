@@ -3,6 +3,7 @@ using Autofac.Integration.WebApi;
 using System.Reflection;
 using System.Web.Http;
 using BlackJack.BusinessLogic.Utils;
+using System.Configuration;
 
 namespace BlackJack.WebApp.Util
 {
@@ -15,7 +16,7 @@ namespace BlackJack.WebApp.Util
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            builder = AutofacTypeConfig.GetBuilderTypes(builder);
+            builder = AutofacTypeConfig.GetBuilderTypes(builder, ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
             var container = builder.Build();
 

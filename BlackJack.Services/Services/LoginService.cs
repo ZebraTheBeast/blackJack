@@ -17,7 +17,7 @@ namespace BlackJack.BusinessLogic.Services
 			_handProvider = handProvider;
 		}
 
-		public async Task<int> StartGame(string playerName)
+		public async Task<int> StartGame(string playerName, int botsAmount)
 		{
 			try
 			{
@@ -26,7 +26,7 @@ namespace BlackJack.BusinessLogic.Services
 					throw new Exception(StringHelper.NotAvailibleName());
 				}
 
-				var humanId = await _playerProvider.SetPlayerToGame(playerName);
+				var humanId = await _playerProvider.SetPlayerToGame(playerName, botsAmount);
 				await _handProvider.RemoveAllCardsInHand(humanId);
 				return humanId;
 			}

@@ -111,6 +111,15 @@
 			return "Sorry, but you can't use this name.";
 		}
 
-		
+		public static string MaxBotsAmount()
+		{
+			return "Tooooo much bots :C";
+		}
+
+		public static string MinBotsAmount()
+		{
+			return "Tooooo few bots :C";
+		}
+
 	}
 }

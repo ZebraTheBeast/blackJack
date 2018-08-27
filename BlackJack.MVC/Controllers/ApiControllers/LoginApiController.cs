@@ -26,7 +26,7 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 					throw new Exception();
 				}
 
-				return await _loginService.StartGame(playerName);
+				return await _loginService.StartGame(playerName, 3);
 			}
 			catch (Exception exception)
 			{

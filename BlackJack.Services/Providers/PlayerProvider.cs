@@ -60,14 +60,14 @@ namespace BlackJack.BusinessLogic.Providers
 			}
 		}
 
-		public async Task<int> SetPlayerToGame(string playerName)
+		public async Task<int> SetPlayerToGame(string playerName, int botsAmount)
 		{
 			var logger = NLog.LogManager.GetCurrentClassLogger();
 
 			try
 			{
 				var player = await _playerRepository.GetByName(playerName);
-				var bots = await _playerRepository.GetBots(playerName);
+				var bots = await _playerRepository.GetBots(playerName, botsAmount);
 
 				await _playerInGameRepository.RemoveAll(player.Id);
 
