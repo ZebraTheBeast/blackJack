@@ -1,10 +1,9 @@
-﻿import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+﻿import { Component } from '@angular/core';
+
 import { LogService } from '../services/log.service';
 import { MessageService } from '../services/message.service';
 import { State, process } from '@progress/kendo-data-query';
-import { GridDataResult, PageChangeEvent, DataStateChangeEvent } from '@progress/kendo-angular-grid';
-
+import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
 @Component({
     selector: 'app-log',

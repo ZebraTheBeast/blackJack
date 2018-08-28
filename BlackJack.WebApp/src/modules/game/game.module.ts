@@ -5,8 +5,6 @@ import { GameRoutingModule } from './game-routing.module';
 
 import { GameComponent } from '../../components/game.component';
 
-
-
 @NgModule({
     imports: [
         SharedModule,

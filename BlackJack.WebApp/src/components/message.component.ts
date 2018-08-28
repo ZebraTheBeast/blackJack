@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+
 import { MessageService } from '../services/message.service';
 
 @Component({

@@ -63,7 +63,7 @@ namespace BlackJack.DataAccess.Repositories
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sqlQuery = $"DELETE FROM PlayerInGame WHERE PlayerId > 0 AND GameId = {gameId}";
+                var sqlQuery = $"DELETE FROM PlayerInGame WHERE GameId = {gameId}";
                 await db.ExecuteAsync(sqlQuery);
             }
         }
