@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BlackJack.DataAccess.Interfaces;
 using Dapper;
 using System.Data.SqlClient;
+using BlackJack.Configurations;
 
 namespace BlackJack.DataAccess.Repositories
 {
@@ -34,13 +35,15 @@ namespace BlackJack.DataAccess.Repositories
             }
         }
 
-        public async Task<IEnumerable<int>> GetBots(int gameId)
+        public async Task<IEnumerable<int>> GetBotsInGame(int gameId)
         {
             IEnumerable<int> players = new List<int>();
 
             using (var db = new SqlConnection(_connectionString))
             {
-                var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 0 AND PlayerId <> 1 AND GameId = {gameId}";
+				var sqlQuery = $"SELECT Id FROM Player WHERE Name = '{Constant.DealerName}'";
+				var dealerId = (await db.QueryAsync<int>(sqlQuery)).FirstOrDefault();
+				sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE Humanity = 0 AND PlayerId <> {dealerId} AND GameId = {gameId}";
                 players = await db.QueryAsync<int>(sqlQuery);
             }
 

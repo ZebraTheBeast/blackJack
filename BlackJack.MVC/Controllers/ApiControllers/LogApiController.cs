@@ -1,14 +1,17 @@
 ﻿using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace BlackJack.MVC.Controllers.ApiControllers
 {
 	public class LogApiController : ApiController
-    {
+	{
 		private ILogService _logService;
 
 		public LogApiController(ILogService logService)
@@ -18,8 +21,15 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 
 		public async Task<List<LogMessageViewModel>> GetLogs()
 		{
-			var model = (await _logService.GetMessages()).ToList();
-			return model;
+			try
+			{
+				var logMessageViewModel = (await _logService.GetMessages()).ToList();
+				return logMessageViewModel;
+			}
+			catch (Exception exception)
+			{
+				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
+			}
 		}
 	}
 }

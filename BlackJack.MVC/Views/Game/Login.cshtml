@@ -1,0 +1,39 @@
+﻿@Scripts.Render("~/bundles/login")
+<div class="row">
+	<div class="col-md-4 offset-md-4 text-center">
+		<h2>Enter your name</h2>
+		@using (Html.BeginForm("Game", "Game", FormMethod.Post, new { id = "loginForm" }))
+		{
+
+			@Html.TextBox("playerName", null, new { id = "playerName", autocomplete = "off", @class = "form-control m-auto" })
+
+			<h4>Choose bots amount</h4>
+			<input type="range" id="botsAmount" class="custombutton custom-range" min="@BlackJack.Configurations.Constant.MinBotsAmount" max="@BlackJack.Configurations.Constant.MaxBotsAmount" value="3" oninput="chooseBot()" step="1" name="botsAmount" />
+
+			<input type="number" id="imageBotsAmount" class="custombutton text-center" value="3" readonly="readonly" />
+
+			<input type="submit" id="loginButton" value="Start new game" class="btn btn-default custombutton" />
+			<h4>or</h4>
+			<input type="submit" id="loadButton" value="Load last game" class="btn btn-default custombutton" />
+
+		}
+	</div>
+</div>
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="errorModalLabel">Error</h5>
+			</div>
+			<div class="modal-body">
+				<h1 class="alert alert-danger text-center">
+					<span id="errorMessage"></span>
+				</h1>
+			</div>
+			<div class="modal-footer">
+				<p>You can try to refresh page to solve your problem, but I'm not sure that it help.</p>
+				<button id="refreshButton" type="button" class="btn btn-primary">Refresh page</button>
+			</div>
+		</div>
+	</div>
+</div>

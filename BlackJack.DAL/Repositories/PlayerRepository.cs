@@ -33,19 +33,22 @@ namespace BlackJack.DataAccess.Repositories
 
         public async Task<IEnumerable<Player>> GetBots(string playerName, int botsAmount)
         {
-            IEnumerable<Player> players = new List<Player>();
+			var players = new List<Player>();
+			var dealer = await GetByName(Constant.DealerName);
 
-            using (var db = new SqlConnection(_connectionString))
+			players.Add(dealer);
+
+			using (var db = new SqlConnection(_connectionString))
             {
-                players = await db.QueryAsync<Player>($"SELECT TOP({botsAmount + 1}) * FROM Player WHERE Name <> '{playerName}'");
-            }
+				var sqlQuery = $"SELECT TOP({botsAmount}) * FROM Player WHERE Name <> '{playerName}' AND Name <> '{Constant.DealerName}'";
+                var bots = await db.QueryAsync<Player>(sqlQuery);
+				
+				players.AddRange(bots);
+			}
 
             foreach (var player in players)
             {
-                if (player.Points <= 0)
-                {
-                    player.Points = Constant.DefaultPointsValue;
-                }
+                player.Points = await PointsCheck(player.Id, player.Points);
             }
 
             return players;
@@ -68,13 +71,9 @@ namespace BlackJack.DataAccess.Repositories
                 return await GetByName(name);
             }
 
-            if (player.Points < Constant.MinPointsValueToPlay)
-            {
-                await RestorePoints(player.Id);
-                player.Points = Constant.DefaultPointsValue;
-            }
+			player.Points = await PointsCheck(player.Id, player.Points);
 
-            return player;
+			return player;
         }
 
         public async Task UpdatePoints(int playerId, int newPointsValue)
@@ -102,16 +101,23 @@ namespace BlackJack.DataAccess.Repositories
             using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery = $"SELECT * FROM Player WHERE Id = {id}";
-                player = (await db.QueryAsync<Player>(sqlQuery)).First();
+                player = (await db.QueryAsync<Player>(sqlQuery)).FirstOrDefault();
 
-                if (player.Points < Constant.MinPointsValueToPlay)
-                {
-                    await RestorePoints(player.Id);
-                    player.Points = Constant.DefaultPointsValue;
-                }
-            }
+				player.Points = await PointsCheck(player.Id, player.Points);
+			}
 
             return player;
         }
+
+		private async Task<int> PointsCheck(int playerId, int playerPoints)
+		{
+			if (playerPoints < Constant.MinPointsValueToPlay)
+			{
+				await RestorePoints(playerId);
+				playerPoints = Constant.DefaultPointsValue;
+			}
+
+			return playerPoints;
+		}
     }
 }

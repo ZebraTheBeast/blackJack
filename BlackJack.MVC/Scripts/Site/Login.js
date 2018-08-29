@@ -9,22 +9,24 @@
         LoadGame();
     });
 
-    $("#nameError").hide();
 });
 
 function StartGame() {
-	var playerName = $("#playerName").val();
+	var loginViewModel = {
+		playerName: $("#playerName").val(),
+		botsAmount: $("#botsAmount").val()
+	}
     $.ajax({
-        url: '/api/values/StartGame',
+        url: '/api/loginApi/StartGame',
         type: 'POST',
-        data: JSON.stringify(playerName),
+		data: JSON.stringify(loginViewModel),
         contentType: "application/json;charset=utf-8",
         success: function (data) {
             $.cookie("human-data", JSON.stringify(data));
-            $("#loginForm").submit();
+			$("#loginForm").submit();
         },
-        error: function () {
-            $("#nameError").show();
+		error: function (exception) {
+			showError(exception.responseJSON.Message);
         }
     });
 }
@@ -32,7 +34,7 @@ function StartGame() {
 function LoadGame() {
     var playerName = $("#playerName").val();
     $.ajax({
-        url: '/api/values/LoadGame',
+        url: '/api/loginApi/LoadGame',
         type: 'POST',
         data: JSON.stringify(playerName),
         contentType: "application/json;charset=utf-8",
@@ -40,8 +42,18 @@ function LoadGame() {
             $.cookie("human-data", JSON.stringify(data));
             $("#loginForm").submit();
         },
-        error: function () {
-            $("#nameError").show();
+        error: function (exception) {
+			showError(exception.responseJSON.Message);
         }
     });
+}
+
+function showError(message) {
+	$('#errorModal').modal();
+	$("#errorMessage").html(message);
+}
+
+function chooseBot() {
+	betValue = document.getElementById("botsAmount").value;
+	document.getElementById("imageBotsAmount").value = betValue;
 }

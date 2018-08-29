@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
-    GetGameViewModel();
+	
+	GetGameViewModel();
+	
+
     $("#placeBetButton").click(function (event) {
         event.preventDefault();
         Bet();
@@ -23,7 +26,7 @@
 });
 
 function Stand() {
-    var humanId = JSON.parse($.cookie("human-data"));
+    var humanId = $.cookie("human-data");
     $.ajax({
         url: '/api/gameApi/Stand',
         type: 'POST',
@@ -40,7 +43,7 @@ function Stand() {
 };
 
 function GetGameViewModel() {
-    var humanId = JSON.parse($.cookie("human-data"));
+    var humanId = $.cookie("human-data");
     $.ajax({
 		url: `/api/gameApi/GetGameViewModel`,
 		type: 'POST',
@@ -56,7 +59,7 @@ function GetGameViewModel() {
 }
 
 function Draw() {
-    var humanId = JSON.parse($.cookie("human-data"));
+    var humanId = $.cookie("human-data");
     $.ajax({
 		url: '/api/gameApi/Draw',
         type: 'POST',
@@ -75,7 +78,7 @@ function Bet() {
 
     var betViewModel = {
         BetValue: $("#betValue").val(),
-        HumanId: JSON.parse($.cookie("human-data"))
+        HumanId: $.cookie("human-data")
     };
 
     $.ajax({
@@ -98,7 +101,7 @@ function WriteResponse(gameViewModel) {
     var botResult = "";
     var statsResult = "";
     var humanCards = "";
-    $.cookie("deck-data", JSON.stringify(gameViewModel.deck));
+	var humanResult = "";
 
     $("#dealerName").html(gameViewModel.dealer.name);
 
@@ -111,7 +114,7 @@ function WriteResponse(gameViewModel) {
     $.each(gameViewModel.bots, function (index, bot) {
         statsResult += "<li class='list-group-item d-flex justify-content-between'>" + bot.name + "<span>" + bot.points + "</span></li>";
 
-        botResult += "<div class = 'col-md-4'>" +
+        botResult += "<div class = 'col-md-2'>" +
             "<h3>" + bot.name + "</h3>" +
             "<ul class = 'list-group'>";
         $.each(bot.hand.cardList, function (index, card) {
@@ -126,20 +129,25 @@ function WriteResponse(gameViewModel) {
 
     if (gameViewModel.deck !== null) {
         $("#cardsCount").html(gameViewModel.deck.length);
-    }
+	}
 
-    $.each(gameViewModel.human.hand.cardList, function (index, card) {
-        humanCards += "<li class='list-group-item'>" + card.title + " of " + card.color + "</li>";
-    });
+	$.each(gameViewModel.human.hand.cardList, function (index, card) {
+		humanCards += "<li class='list-group-item'>" + card.title + " of " + card.color + "</li>";
+	});
 
-    $("#humanName").html(gameViewModel.human.name);
-    $("#humanCards").html(humanCards);
-    $("#humanValue").html(gameViewModel.human.hand.cardListValue);
-    $("#humanBet").html(gameViewModel.human.hand.betValue);
+	humanResult = `<div class="col-md-2">
+		<h3>
+			`+ gameViewModel.human.name + `
+		</h3>
+		<ul class="list-group">`+ humanCards +`</ul>
+		<h4>Value: <span>`+ gameViewModel.human.hand.cardListValue +`</span></h4>
+		<h4>Bet: <span>`+ gameViewModel.human.hand.betValue +`</span></h4>
+	</div>`;
 
-    $("#gameStat").html(gameViewModel.options);
-    $("#playerStatsBlock").html(statsResult);
-    $("#botBlock").html(botResult);
+	$("#gameStat").html(gameViewModel.options);
+	$("#playerStatsBlock").html(statsResult);
+
+	$("#playerBlock").html(botResult + humanResult);
 
     $("#betValue").attr("max", gameViewModel.human.points);
 

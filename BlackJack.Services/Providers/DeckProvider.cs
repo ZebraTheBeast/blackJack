@@ -88,21 +88,15 @@ namespace BlackJack.BusinessLogic.Providers
 		public async Task GiveCardFromDeck(int playerId, int cardId, int gameId)
 		{
 			var logger = LogManager.GetCurrentClassLogger();
-			try
-			{
-				if (!await _playerInGameRepository.IsInGame(playerId, gameId))
-				{
-					throw new Exception(StringHelper.PlayerNotInGame());
-				}
 
-				await _handRepository.GiveCardToPlayer(playerId, cardId, gameId);
-				logger.Info(StringHelper.PlayerDrawCard(playerId, cardId, gameId));
-			}
-			catch (Exception exception)
+			if (!await _playerInGameRepository.IsInGame(playerId, gameId))
 			{
-				logger.Error(exception.Message);
-				throw exception;
+				throw new Exception(StringHelper.PlayerNotInGame());
 			}
+
+			await _handRepository.GiveCardToPlayer(playerId, cardId, gameId);
+			logger.Info(StringHelper.PlayerDrawCard(playerId, cardId, gameId));
+
 		}
 	}
 }

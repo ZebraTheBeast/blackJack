@@ -2,6 +2,7 @@
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.Configurations;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Services
@@ -15,10 +16,14 @@ namespace BlackJack.BusinessLogic.Services
 		{
 			_playerProvider = playerProvider;
 			_handProvider = handProvider;
+
+			var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
+			NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
 		}
 
 		public async Task<int> StartGame(string playerName, int botsAmount)
 		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
 			try
 			{
 				if (playerName == Constant.DealerName)
@@ -32,12 +37,14 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
+				logger.Error(exception.Message);
 				throw exception;
 			}
 		}
 
 		public async Task<int> LoadGame(string playerName)
 		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
 			try
 			{
 				if (playerName == Constant.DealerName)
@@ -52,6 +59,7 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
+				logger.Error(exception.Message);
 				throw exception;
 			}
 		}

@@ -4,6 +4,7 @@ using BlackJack.DataAccess.Interfaces;
 using BlackJack.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,10 +17,14 @@ namespace BlackJack.BusinessLogic.Services
 		public LogService(ILogMessageRepository logMessageRepository)
 		{
 			_logMessageRepository = logMessageRepository;
+
+			var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
+			NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
 		}
 
 		public async Task<IEnumerable<LogMessageViewModel>> GetMessages()
 		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
 			try
 			{
 				var messagesModel = new List<LogMessageViewModel>();
@@ -46,6 +51,7 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
+				logger.Error(exception.Message);
 				throw exception;
 			}
 		}

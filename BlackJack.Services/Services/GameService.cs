@@ -30,6 +30,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<GameViewModel> GetGameViewModel(int gameId)
 		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
 			try
 			{
 				var gameViewModel = new GameViewModel
@@ -55,6 +56,7 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
+				logger.Error(exception.Message);
 				throw exception;
 			}
 		}
@@ -83,6 +85,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<GameViewModel> PlaceBet(int betValue, int humanId)
 		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
 			try
 			{
 				var gameViewModel = new GameViewModel();
@@ -128,12 +131,14 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
+				logger.Error(exception.Message);
 				throw exception;
 			}
 		}
 
 		public async Task<GameViewModel> Draw(int gameId)
 		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
 			try
 			{
 				var human = await _playerProvider.GetHumanInGame(gameId);
@@ -159,12 +164,14 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
+				logger.Error(exception.Message);
 				throw exception;
 			}
 		}
 
 		public async Task<GameViewModel> Stand(int gameId)
 		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
 			try
 			{
 				var gameViewModel = new GameViewModel();
@@ -205,6 +212,7 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
+				logger.Error(exception.Message);
 				throw new Exception(exception.Message);
 			}
 		}

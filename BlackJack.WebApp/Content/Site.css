@@ -34,10 +34,6 @@ textarea {
     display: flex;
 }
 
-.name-input {
-    margin:auto;
-}
-
 * {
     font-family: 'Ubuntu', sans-serif;
 }

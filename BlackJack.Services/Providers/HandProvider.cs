@@ -23,68 +23,54 @@ namespace BlackJack.BusinessLogic.Providers
 
 		public async Task<HandViewModel> GetPlayerHand(int playerId, int gameId)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
 
-			try
+			var deck = CardHelper.GetFullDeck();
+			var hand = new HandViewModel
 			{
-				var hand = new HandViewModel
-				{
-					CardList = new List<CardViewModel>()
-				};
+				CardList = new List<CardViewModel>()
+			};
 
-				if (!await _playerInGameRepository.IsInGame(playerId, gameId))
-				{
-					throw new Exception(StringHelper.PlayerNotInGame());
-				}
-
-				var cardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
-
-				foreach (var cardId in cardsIdList)
-				{
-					var card = CardHelper.GetCardById(cardId);
-					hand.CardList.Add(card);
-				}
-
-				hand.BetValue = await _playerInGameRepository.GetBetByPlayerId(playerId, gameId);
-				hand.CardListValue = CountCardsValue(hand.CardList);
-
-				return hand;
-			}
-			catch (Exception exception)
+			if (!await _playerInGameRepository.IsInGame(playerId, gameId))
 			{
-				logger.Error(exception.Message);
-				throw exception;
+				throw new Exception(StringHelper.PlayerNotInGame());
 			}
+
+			var cardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
+
+			foreach (var cardId in cardsIdList)
+			{
+				var card = CardHelper.GetCardById(cardId, deck);
+				hand.CardList.Add(card);
+			}
+
+			hand.BetValue = await _playerInGameRepository.GetBetByPlayerId(playerId, gameId);
+			hand.CardListValue = CountCardsValue(hand.CardList);
+
+			return hand;
+
 		}
 
 		public async Task<int> GetPlayerHandValue(int playerId, int gameId)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
-			try
+			if (!await _playerInGameRepository.IsInGame(playerId, gameId))
 			{
-				if (!await _playerInGameRepository.IsInGame(playerId, gameId))
-				{
-					throw new Exception(StringHelper.PlayerNotInGame());
-				}
-
-				var cards = new List<CardViewModel>();
-				var playerCardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
-
-				foreach (var cardId in playerCardsIdList)
-				{
-					var card = CardHelper.GetCardById(cardId);
-					cards.Add(card);
-				}
-
-				var handValue = CountCardsValue(cards);
-
-				return handValue;
+				throw new Exception(StringHelper.PlayerNotInGame());
 			}
-			catch (Exception exception)
+
+			var deck = CardHelper.GetFullDeck();
+			var cards = new List<CardViewModel>();
+			var playerCardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
+
+			foreach (var cardId in playerCardsIdList)
 			{
-				logger.Error(exception.Message);
-				throw exception;
+				var card = CardHelper.GetCardById(cardId, deck);
+				cards.Add(card);
 			}
+
+			var handValue = CountCardsValue(cards);
+
+			return handValue;
+
 		}
 
 		private int CountCardsValue(List<CardViewModel> cards)

@@ -10,14 +10,10 @@ import { MessageService } from '../services/message.service';
     templateUrl: '../views/login.component.html'
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
     name: any;
-    botsAmount: any;
     humanId: any;
-
-    ngOnInit() {
-        this.botsAmount = 3;
-    }
+    botsAmount = 3;
 
     constructor(private loginService: LoginService, private router: Router, private messageService: MessageService) { }
 
@@ -41,9 +37,5 @@ export class LoginComponent implements OnInit {
                 this.messageService.showError(response);
             }
         )
-    }
-
-    botsAmountCheck(event: Event): void {
-       
     }
 }

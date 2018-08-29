@@ -23,12 +23,12 @@ namespace BlackJack.WebApp.Controllers
 		{
             try
             {
-                var model = (await _logService.GetMessages()).ToList();
-                return model;
+                var logMessageViewModel = (await _logService.GetMessages()).ToList();
+                return logMessageViewModel;
             }
             catch (Exception exception)
             {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
             }
         }
 	}

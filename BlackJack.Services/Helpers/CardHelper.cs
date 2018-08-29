@@ -10,19 +10,19 @@ namespace BlackJack.BusinessLogic.Helper
 {
 	public static class CardHelper
 	{
-		public static CardViewModel GetCardById(int cardId)
+		public static CardViewModel GetCardById(int cardId, List<CardViewModel> deck)
 		{
-			var deck = new List<CardViewModel>();
 			var card = new CardViewModel();
-			var cardViewModel = new CardViewModel();
-
-			deck = GetFullDeck();
+			
 			card = deck.FirstOrDefault(c => c.Id == cardId);
 
-			cardViewModel.Id = card.Id;
-			cardViewModel.Title = card.Title;
-			cardViewModel.Color = card.Color;
-			cardViewModel.Value = card.Value;
+			var cardViewModel = new CardViewModel
+			{
+				Id = card.Id,
+				Title = card.Title,
+				Color = card.Color,
+				Value = card.Value
+			};
 
 			return cardViewModel;
 		}
@@ -33,7 +33,7 @@ namespace BlackJack.BusinessLogic.Helper
 			var cardTitleValue = 0;
 			var cardColorSize = Enum.GetNames(typeof(CardColor)).Length - 1;
 			var deck = new List<CardViewModel>();
-			var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.CountNumberCard).ToList();
+			var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.AmountNumberCard).ToList();
 			var titleList = valueList.ConvertAll<string>(delegate (int i)
 			{
 				return i.ToString();
@@ -53,12 +53,13 @@ namespace BlackJack.BusinessLogic.Helper
 
 			for (var i = 0; i < Constant.DeckSize; i++)
 			{
-				var card = new CardViewModel();
-
-				card.Id = i + 1;
-				card.Title = titleList[cardTitleValue];
-				card.Value = valueList[cardTitleValue];
-				card.Color = ((CardColor)cardColorValue++).ToString();
+				var card = new CardViewModel
+				{
+					Id = i + 1,
+					Title = titleList[cardTitleValue],
+					Value = valueList[cardTitleValue],
+					Color = ((CardColor)cardColorValue++).ToString()
+				};
 
 				deck.Add(card);
 

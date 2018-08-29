@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -41,7 +40,7 @@ namespace BlackJack.WebApp.Controllers
             }
             catch (Exception exception)
             {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
             }
 
         }
@@ -59,7 +58,7 @@ namespace BlackJack.WebApp.Controllers
             }
             catch (Exception exception)
             {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
             }
         }
 
@@ -74,7 +73,7 @@ namespace BlackJack.WebApp.Controllers
             }
             catch (Exception exception)
             {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
             }
         }
 
@@ -89,7 +88,7 @@ namespace BlackJack.WebApp.Controllers
             }
             catch (Exception exception)
             {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotImplemented, exception.Message));
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
             }
         }
     }

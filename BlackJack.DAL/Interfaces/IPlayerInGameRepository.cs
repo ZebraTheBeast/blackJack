@@ -9,7 +9,7 @@ namespace BlackJack.DataAccess.Interfaces
         Task AddHuman(int playerId);
         Task RemoveAll(int gameId);
         Task<IEnumerable<int>> GetAll(int gameId);
-        Task<IEnumerable<int>> GetBots(int gameId);
+        Task<IEnumerable<int>> GetBotsInGame(int gameId);
         Task<int> GetBetByPlayerId(int playerId, int gameId);
         Task PlaceBet(int playerId, int bet, int gameId);
         Task AnnulBet(int playerId, int gameId);
