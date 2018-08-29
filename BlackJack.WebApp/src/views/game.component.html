@@ -1,17 +1,15 @@
 <div class="container" *ngIf="game">
     <div class="row m-b-10">
         <div class="col-md-3 text-center">
-            <div class="border border-primary">
-                <h2>
-                    {{ game.dealer.name }}
-                </h2>
-                <ul class="list-group">
-                    <li class="list-group-item" *ngFor="let card of game.dealer.hand.cardList">
-                        {{ card.title }} of {{ card.color }}
-                    </li>
-                </ul>
-                <h4 *ngIf="game.dealer.hand.cardListValue != 0">Value: {{ game.dealer.hand.cardListValue }}</h4>
-            </div>
+            <h2>
+                {{ game.dealer.name }}
+            </h2>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let card of game.dealer.hand.cardList">
+                    {{ card.title }} of {{ card.color }}
+                </li>
+            </ul>
+            <h4 *ngIf="game.dealer.hand.cardListValue != 0">Value: {{ game.dealer.hand.cardListValue }}</h4>
         </div>
         <div class="col-md-6">
             <div class="row text-center game-option">
@@ -49,35 +47,30 @@
     </div>
 
     <div class="row text-center">
-
         <div class="col-md-2" *ngFor="let bot of game.bots">
-            <div class="border border-info">
-                <h3>
-                    {{ bot.name }}
-                </h3>
-                <ul class="list-group">
-                    <li class="list-group-item" *ngFor="let card of bot.hand.cardList">
-                        {{ card.title }} of {{ card.color }}
-                    </li>
-                </ul>
-                <h4 *ngIf="bot.hand.cardListValue != 0">Value: {{ bot.hand.cardListValue }}</h4>
-                <h4 *ngIf="bot.hand.betValue != 0">Bet: {{ bot.hand.betValue }}</h4>
-            </div>
+            <h3>
+                {{ bot.name }}
+            </h3>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let card of bot.hand.cardList">
+                    {{ card.title }} of {{ card.color }}
+                </li>
+            </ul>
+            <h4 *ngIf="bot.hand.cardListValue != 0">Value: {{ bot.hand.cardListValue }}</h4>
+            <h4 *ngIf="bot.hand.betValue != 0">Bet: {{ bot.hand.betValue }}</h4>
         </div>
         <div class="col-md-2">
-            <div class="border border-primary">
-                <h3>
-                    {{ game.human.name }}
-                </h3>
+            <h3>
+                {{ game.human.name }}
+            </h3>
 
-                <ul class="list-group">
-                    <li class="list-group-item" *ngFor="let card of game.human.hand.cardList">
-                        {{ card.title }} of {{ card.color }}
-                    </li>
-                </ul>
-                <h4 *ngIf="game.human.hand.cardListValue != 0">Value: {{ game.human.hand.cardListValue }}</h4>
-                <h4 *ngIf="game.human.hand.betValue != 0">Bet: {{ game.human.hand.betValue }}</h4>
-            </div>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let card of game.human.hand.cardList">
+                    {{ card.title }} of {{ card.color }}
+                </li>
+            </ul>
+            <h4 *ngIf="game.human.hand.cardListValue != 0">Value: {{ game.human.hand.cardListValue }}</h4>
+            <h4 *ngIf="game.human.hand.betValue != 0">Bet: {{ game.human.hand.betValue }}</h4>
         </div>
     </div>
 </div>
