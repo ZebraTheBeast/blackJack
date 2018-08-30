@@ -131,10 +131,11 @@ namespace BlackJack.BusinessLogic.Services
 
 				foreach (var playerId in playersIdList)
 				{
-					await _handProvider.GiveCardFromDeck(playerId, gameViewModel.Deck[0], gameId);
-					gameViewModel.Deck.Remove(gameViewModel.Deck[0]);
-					await _handProvider.GiveCardFromDeck(playerId, gameViewModel.Deck[0], gameId);
-					gameViewModel.Deck.Remove(gameViewModel.Deck[0]);
+					for (var i = 0; i < Constant.NumberStartCard; i++)
+					{
+						await _handProvider.GiveCardFromDeck(playerId, gameViewModel.Deck[0], gameId);
+						gameViewModel.Deck.Remove(gameViewModel.Deck[0]);
+					}
 				}
 
 				gameViewModel = await GetGameViewModel(gameId);
