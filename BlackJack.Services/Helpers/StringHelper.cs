@@ -2,16 +2,7 @@
 {
 	public static class StringHelper
 	{
-		public static string PlayerNotExist()
-		{
-			return "Player doesn't exist";
-		}
-
-		public static string NoPlayersInGame()
-		{
-			return "There are no players in the game";
-		}
-
+		
 		public static string PlayerDrawCard(int playerId, int cardId, int gameId)
 		{
 			return $"Player with id {playerId} draw card with id {cardId} in game №{gameId}";
@@ -30,11 +21,6 @@
 		public static string DeckShuffled()
 		{
 			return "Deck was refreshed and shuffled";
-		}
-
-		public static string NotEnoughPoints(int playerId, int betValue)
-		{
-			return $"Player with id {playerId} doesn't have {betValue} points to bet";
 		}
 
 		public static string NotEnoughPoints(int betValue)

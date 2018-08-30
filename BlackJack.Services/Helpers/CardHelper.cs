@@ -4,7 +4,7 @@ using System.Linq;
 using BlackJack.ViewModels;
 using BlackJack.Entities.Enums;
 using BlackJack.Configurations;
-
+using NLog;
 
 namespace BlackJack.BusinessLogic.Helper
 {
@@ -72,5 +72,61 @@ namespace BlackJack.BusinessLogic.Helper
 
 			return deck;
 		}
+
+		public static List<int> GetNewRefreshedDeck()
+		{
+			var logger = LogManager.GetCurrentClassLogger();
+			var cardViewModelList = new List<CardViewModel>();
+			var deck = new List<int>();
+
+			cardViewModelList = GetFullDeck();
+			foreach (var card in cardViewModelList)
+			{
+				deck.Add(card.Id);
+			}
+
+			deck = ShuffleDeck(deck);
+			logger.Info(StringHelper.DeckShuffled());
+			return deck;
+		}
+
+		public static List<int> LoadDeck(IEnumerable<int> cardIdList)
+		{
+			var cardViewModelList = new List<CardViewModel>();
+			var deck = new List<int>();
+
+			cardViewModelList = GetFullDeck();
+
+			foreach (var cardId in cardIdList)
+			{
+				cardViewModelList.RemoveAll(c => c.Id == cardId);
+			}
+
+			foreach (var card in cardViewModelList)
+			{
+				deck.Add(card.Id);
+			}
+
+			deck = ShuffleDeck(deck);
+
+			return deck;
+		}
+
+		private static List<int> ShuffleDeck(List<int> deck)
+		{
+			Random rng = new Random();
+			int deckSize = deck.Count();
+
+			for (var i = 0; i < deckSize; i++)
+			{
+				int index = rng.Next(deckSize);
+				var value = deck[i];
+				deck[i] = deck[index];
+				deck[index] = value;
+			}
+
+			return deck;
+		}
+
 	}
 }

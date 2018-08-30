@@ -40,7 +40,7 @@ function Stand() {
             showError(exception.responseJSON.Message);
         }
     });
-};
+}
 
 function GetGameViewModel() {
     var humanId = $.cookie("human-data");
@@ -72,7 +72,7 @@ function Draw() {
             showError(exception.responseJSON.Message);
         }
     });
-};
+}
 
 function Bet() {
 
@@ -94,7 +94,7 @@ function Bet() {
             showError(exception.responseJSON.Message);
         }
     });
-};
+}
 
 function WriteResponse(gameViewModel) {
     var dealerCards = "";
@@ -122,7 +122,7 @@ function WriteResponse(gameViewModel) {
         });
         botResult += "</ul>" +
             "<h4>Value: " + bot.hand.cardListValue + " </h4>" +
-            "<h4>Bet: " + bot.hand.betValue + "</h4>" +
+            "<h4>Bet: " + bot.betValue + "</h4>" +
             "</div>";
     });
     statsResult += "<li class = 'list-group-item d-flex justify-content-between'>  " + gameViewModel.human.name + "<span>" + gameViewModel.human.points + "</span></li>";
@@ -141,7 +141,7 @@ function WriteResponse(gameViewModel) {
 		</h3>
 		<ul class="list-group">`+ humanCards +`</ul>
 		<h4>Value: <span>`+ gameViewModel.human.hand.cardListValue +`</span></h4>
-		<h4>Bet: <span>`+ gameViewModel.human.hand.betValue +`</span></h4>
+		<h4>Bet: <span>`+ gameViewModel.human.betValue +`</span></h4>
 	</div>`;
 
 	$("#gameStat").html(gameViewModel.options);
@@ -155,7 +155,7 @@ function WriteResponse(gameViewModel) {
         disableDraw();
     }
 
-    if (gameViewModel.human.hand.betValue === 0) {
+    if (gameViewModel.human.betValue === 0) {
         disableDraw();
     }
 
@@ -163,7 +163,7 @@ function WriteResponse(gameViewModel) {
         disableDraw();
     }
 
-    if ((gameViewModel.human.hand.cardList.length !== 0) && (gameViewModel.human.hand.betValue !== 0)) {
+    if ((gameViewModel.human.hand.cardList.length !== 0) && (gameViewModel.human.betValue !== 0)) {
         disableBet();
     }
 

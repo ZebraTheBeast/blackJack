@@ -2,7 +2,7 @@
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Http;
-using BlackJack.MVC.Util;
+using BlackJack.MVC.Configs;
 
 namespace BlackJack.MVC
 {

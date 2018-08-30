@@ -1,6 +1,6 @@
 using System.Web.Http;
 using System.Web.Mvc;
-using BlackJack.WebApp.Util;
+using BlackJack.WebApp.Configs;
 
 namespace BlackJack.WebApp
 {

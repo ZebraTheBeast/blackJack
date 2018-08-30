@@ -57,7 +57,7 @@
                 </li>
             </ul>
             <h4 *ngIf="bot.hand.cardListValue != 0">Value: {{ bot.hand.cardListValue }}</h4>
-            <h4 *ngIf="bot.hand.betValue != 0">Bet: {{ bot.hand.betValue }}</h4>
+            <h4 *ngIf="bot.hand.betValue != 0">Bet: {{ bot.betValue }}</h4>
         </div>
 
         <div class="col-md-2">
@@ -71,7 +71,7 @@
                 </li>
             </ul>
             <h4 *ngIf="game.human.hand.cardListValue != 0">Value: {{ game.human.hand.cardListValue }}</h4>
-            <h4 *ngIf="game.human.hand.betValue != 0">Bet: {{ game.human.hand.betValue }}</h4>
+            <h4 *ngIf="game.human.hand.betValue != 0">Bet: {{ game.human.betValue }}</h4>
         </div>
     </div>
 </div>

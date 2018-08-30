@@ -5,4 +5,5 @@ export class Player {
     name: string;
     points: number;
     hand: Hand;
+    betValue: number;
 }

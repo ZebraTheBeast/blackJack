@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Interfaces;
@@ -7,18 +6,17 @@ using BlackJack.BusinessLogic.Helper;
 using BlackJack.ViewModels;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.Configurations;
+using NLog;
 
 namespace BlackJack.BusinessLogic.Providers
 {
 	public class HandProvider : IHandProvider
 	{
 		IHandRepository _handRepository;
-		IPlayerInGameRepository _playerInGameRepository;
 
-		public HandProvider(IHandRepository handRepository, IPlayerInGameRepository playerInGameRepository)
+		public HandProvider(IHandRepository handRepository)
 		{
 			_handRepository = handRepository;
-			_playerInGameRepository = playerInGameRepository;
 		}
 
 		public async Task<HandViewModel> GetPlayerHand(int playerId, int gameId)
@@ -30,12 +28,7 @@ namespace BlackJack.BusinessLogic.Providers
 				CardList = new List<CardViewModel>()
 			};
 
-			if (!await _playerInGameRepository.IsInGame(playerId, gameId))
-			{
-				throw new Exception(StringHelper.PlayerNotInGame());
-			}
-
-			var cardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
+			var cardsIdList = await _handRepository.GetCardIdList(playerId, gameId);
 
 			foreach (var cardId in cardsIdList)
 			{
@@ -43,23 +36,16 @@ namespace BlackJack.BusinessLogic.Providers
 				hand.CardList.Add(card);
 			}
 
-			hand.BetValue = await _playerInGameRepository.GetBetByPlayerId(playerId, gameId);
 			hand.CardListValue = CountCardsValue(hand.CardList);
 
 			return hand;
-
 		}
 
 		public async Task<int> GetPlayerHandValue(int playerId, int gameId)
 		{
-			if (!await _playerInGameRepository.IsInGame(playerId, gameId))
-			{
-				throw new Exception(StringHelper.PlayerNotInGame());
-			}
-
 			var deck = CardHelper.GetFullDeck();
 			var cards = new List<CardViewModel>();
-			var playerCardsIdList = await _handRepository.GetIdCardsByPlayerId(playerId, gameId);
+			var playerCardsIdList = await _handRepository.GetCardIdList(playerId, gameId);
 
 			foreach (var cardId in playerCardsIdList)
 			{
@@ -111,6 +97,19 @@ namespace BlackJack.BusinessLogic.Providers
 		public async Task RemoveAllCardsInHand(int gameId)
 		{
 			await _handRepository.RemoveAll(gameId);
+		}
+
+		public async Task GiveCardFromDeck(int playerId, int cardId, int gameId)
+		{
+			var logger = LogManager.GetCurrentClassLogger();
+			await _handRepository.GiveCardToPlayer(playerId, cardId, gameId);
+			logger.Info(StringHelper.PlayerDrawCard(playerId, cardId, gameId));
+		}
+
+		public async Task<IEnumerable<int>> GetCardsInGame(int gameId)
+		{
+			var cardsList = await _handRepository.GetCardIdListByGameId(gameId);
+			return cardsList;
 		}
 	}
 }

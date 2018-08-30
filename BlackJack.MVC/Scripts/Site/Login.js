@@ -15,7 +15,7 @@ function StartGame() {
 	var loginViewModel = {
 		playerName: $("#playerName").val(),
 		botsAmount: $("#botsAmount").val()
-	}
+	};
     $.ajax({
         url: '/api/loginApi/StartGame',
         type: 'POST',

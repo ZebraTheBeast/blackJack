@@ -34,7 +34,7 @@ export class GameComponent implements OnInit {
                 this.checkGameStatus();
             },
             response => {
-                this.messageService.showError(response.error.Message);
+                this.messageService.showError(response);
                 this.router.navigate([`login`]);
             });
     }
@@ -85,20 +85,20 @@ export class GameComponent implements OnInit {
     }
 
     checkGameStatus(): void {
-        if (this.game.human.hand.cardListValue >= 21) {
+        if (this.game.human.cardListValue >= 21) {
             this.disableDraw();
         }
 
-        if (this.game.human.hand.betValue == 0) {
+        if (this.game.human.betValue == 0) {
             this.disableDraw();
         }
 
-        if (this.game.dealer.hand.cardListValue == 21) {
+        if (this.game.dealer.cardListValue == 21) {
             this.disableDraw();
         }
 
         if ((this.game.human.hand.cardList.length != 0)
-            && (this.game.human.hand.betValue != 0)) {
+            && (this.game.human.betValue != 0)) {
             this.disableBet();
         }
     }

@@ -1,117 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.ViewModels;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.BusinessLogic.Helper;
+using BlackJack.Configurations;
 
 namespace BlackJack.BusinessLogic.Providers
 {
 	public class PlayerProvider : IPlayerProvider
 	{
 		IPlayerRepository _playerRepository;
-		IPlayerInGameRepository _playerInGameRepository;
-		IHandProvider _handService;
 
-		public PlayerProvider(IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository, IHandProvider handService)
+
+		public PlayerProvider(IPlayerRepository playerRepository)
 		{
 			_playerRepository = playerRepository;
-			_playerInGameRepository = playerInGameRepository;
-			_handService = handService;
 		}
 
-		public async Task<List<PlayerViewModel>> GetBotsInGame(int gameId)
+		public async Task<List<PlayerViewModel>> GetBotsInfo(IEnumerable<int> botsIdList)
 		{
 			var playerViewModelList = new List<PlayerViewModel>();
-			var botsIdList = await _playerInGameRepository.GetBotsInGame(gameId);
 
-			foreach (var playerId in botsIdList)
+			foreach (var botId in botsIdList)
 			{
-				var player = await _playerRepository.GetById(playerId);
-
-				var playerViewModel = new PlayerViewModel
-				{
-					Id = player.Id,
-					Name = player.Name,
-					Points = player.Points,
-					Hand = await _handService.GetPlayerHand(player.Id, gameId)
-				};
-
-				playerViewModelList.Add(playerViewModel);
+				var player = await GetPlayerInfo(botId);
+				playerViewModelList.Add(player);
 			}
 
 			return playerViewModelList;
 		}
-
+		
 		public async Task<int> GetIdByName(string name)
 		{
 			var player = await _playerRepository.GetByName(name);
 			return player.Id;
 		}
 
-		public async Task<int> SetPlayerToGame(string playerName, int botsAmount)
+		public async Task<PlayerViewModel> GetPlayerInfo(int playerId)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
-
-			var player = await _playerRepository.GetByName(playerName);
-			var bots = await _playerRepository.GetBots(playerName, botsAmount);
-
-			await _playerInGameRepository.RemoveAll(player.Id);
-
-			foreach (var bot in bots)
-			{
-				await _playerInGameRepository.AddPlayer(bot.Id, player.Id);
-				logger.Info(StringHelper.BotJoinGame(bot.Id, player.Id));
-			}
-
-			await _playerInGameRepository.AddHuman(player.Id);
-			logger.Info(StringHelper.HumanJoinGame(player.Id, player.Id));
-			return player.Id;
-		}
-
-		public async Task<IEnumerable<int>> GetPlayersIdInGame(int gameId)
-		{
-			var playerIdList = await _playerInGameRepository.GetAll(gameId);
-
-			if (playerIdList.Count() == 0)
-			{
-				throw new Exception(StringHelper.NoPlayersInGame());
-			}
-
-			return playerIdList;
-		}
-
-		public async Task PlaceBet(int playerId, int betValue, int gameId)
-		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
 
 			var player = await _playerRepository.GetById(playerId);
-
-			if (player.Points < betValue)
-			{
-				throw new Exception(StringHelper.NotEnoughPoints(playerId, betValue));
-			}
-
-			if (betValue <= 0)
-			{
-				throw new Exception(StringHelper.NoBetValue());
-			}
-
-			await _playerInGameRepository.PlaceBet(playerId, betValue, gameId);
-
-			logger.Info(StringHelper.PlayerPlaceBet(playerId, betValue, gameId));
-		}
-
-		public async Task<PlayerViewModel> GetHumanInGame(int humanId)
-		{
-			if (!(await _playerInGameRepository.IsInGame(humanId, humanId)))
-			{
-				throw new Exception(StringHelper.NoLastGame());
-			}
-
-			var player = await _playerRepository.GetById(humanId);
 
 			var playerViewModel = new PlayerViewModel
 			{
@@ -124,8 +53,6 @@ namespace BlackJack.BusinessLogic.Providers
 				}
 			};
 
-			playerViewModel.Hand = await _handService.GetPlayerHand(player.Id, player.Id);
-
 			return playerViewModel;
 		}
 
@@ -136,13 +63,73 @@ namespace BlackJack.BusinessLogic.Providers
 			var dealerViewModel = new DealerViewModel
 			{
 				Id = dealer.Id,
-				Name = dealer.Name,
-				Hand = await _handService.GetPlayerHand(dealer.Id, gameId)
+				Name = dealer.Name
 			};
 
 			return dealerViewModel;
 		}
 
+		public async Task<string> UpdateScore(int playerId, int playerBetValue, int playerCardsValue, int dealerCardsValue, int gameId)
+		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
+			logger.Info(StringHelper.PlayerValue(playerId, playerCardsValue, dealerCardsValue, gameId));
+
+			if ((playerCardsValue > dealerCardsValue)
+			&& (playerCardsValue <= Constant.WinValue))
+			{
+				await PlayerWinPoints(playerId, gameId, playerBetValue);
+				return OptionHelper.OptionWin();
+			}
+
+			if ((playerCardsValue <= Constant.WinValue)
+			&& (dealerCardsValue > Constant.WinValue))
+			{
+				await PlayerWinPoints(playerId, gameId, playerBetValue);
+				return OptionHelper.OptionWin();
+			}
+
+			if (playerCardsValue > Constant.WinValue)
+			{
+				await PlayerLosePoints(playerId, gameId, playerBetValue);
+				return OptionHelper.OptionLose();
+			}
+
+			if ((dealerCardsValue > playerCardsValue)
+			&& (dealerCardsValue <= Constant.WinValue))
+			{
+				await PlayerLosePoints(playerId, gameId, playerBetValue);
+				return OptionHelper.OptionLose();
+			}
+
+			if ((dealerCardsValue == playerCardsValue)
+			&& (playerCardsValue <= Constant.WinValue))
+			{
+				logger.Info(StringHelper.PlayerDraw(playerId, gameId));
+				return OptionHelper.OptionDraw();
+			}
+
+			return null;
+		}
+
+		private async Task PlayerLosePoints(int playerId, int gameId, int playerBetValue)
+		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
+			logger.Info(StringHelper.PlayerLose(playerId, playerBetValue, gameId));
+
+			var player = await GetPlayerInfo(playerId);
+			var newPointsValue = player.Points - playerBetValue;
+			await _playerRepository.UpdatePoints(playerId, newPointsValue);
+		}
+
+		private async Task PlayerWinPoints(int playerId, int gameId, int playerBetValue)
+		{
+			var logger = NLog.LogManager.GetCurrentClassLogger();
+			logger.Info(StringHelper.PlayerWin(playerId, playerBetValue, gameId));
+
+			var player = await GetPlayerInfo(playerId);
+			var newPointsValue = player.Points + playerBetValue;
+			await _playerRepository.UpdatePoints(playerId, newPointsValue);
+		}
 
 	}
 }

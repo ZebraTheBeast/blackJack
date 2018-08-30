@@ -15,7 +15,7 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-        public async Task<IEnumerable<int>> GetIdCardsByPlayerId(int playerId, int gameId)
+        public async Task<IEnumerable<int>> GetCardIdList(int playerId, int gameId)
         {
             IEnumerable<int> cards = new List<int>();
 
@@ -27,6 +27,19 @@ namespace BlackJack.DataAccess.Repositories
 
             return cards;
         }
+
+		public async Task<IEnumerable<int>> GetCardIdListByGameId(int gameId)
+		{
+			IEnumerable<int> cards = new List<int>();
+
+			using (var db = new SqlConnection(_connectionString))
+			{
+				var sqlQuery = $"SELECT CardId FROM Hand WHERE GameId = {gameId}";
+				cards = await db.QueryAsync<int>(sqlQuery);
+			}
+
+			return cards;
+		}
 
         public async Task GiveCardToPlayer(int playerId, int cardId, int gameId)
         {
@@ -43,7 +56,6 @@ namespace BlackJack.DataAccess.Repositories
             {
                 var sqlQuery = $"DELETE FROM Hand WHERE GameId = {gameId}";
                 await db.ExecuteAsync(sqlQuery);
-                
             }
         }
     }

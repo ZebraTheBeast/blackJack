@@ -9,7 +9,5 @@ namespace BlackJack.ViewModels
 		public List<CardViewModel> CardList { get; set; }
 		[JsonProperty("cardListValue")]
 		public int CardListValue { get; set; }
-		[JsonProperty("betValue")]
-		public int BetValue { get; set; }
     }
 }
