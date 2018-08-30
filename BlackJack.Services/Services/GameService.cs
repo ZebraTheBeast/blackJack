@@ -104,6 +104,7 @@ namespace BlackJack.BusinessLogic.Services
 					throw new Exception(StringHelper.NoBetValue());
 				}
 
+				await _handProvider.RemoveAllCardsInHand(gameId);
 				var gameViewModel = await GetGameViewModel(gameId);
 				var playersIdList = await _playerInGameRepository.GetAll(gameId);
 
@@ -116,9 +117,6 @@ namespace BlackJack.BusinessLogic.Services
 				{
 					throw new Exception(StringHelper.AlreadyBet());
 				}
-
-				await _handProvider.RemoveAllCardsInHand(gameId);
-				gameViewModel.Deck = CardHelper.GetNewRefreshedDeck();
 
 				await _playerInGameRepository.PlaceBet(gameViewModel.Human.Id, betValue, gameId);
 				logger.Info(StringHelper.PlayerPlaceBet(gameViewModel.Human.Id, betValue, gameId));

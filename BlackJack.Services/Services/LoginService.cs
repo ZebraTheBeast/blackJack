@@ -10,7 +10,6 @@ namespace BlackJack.BusinessLogic.Services
 {
 	public class LoginService : ILoginService
 	{
-
 		private IPlayerInGameRepository _playerInGameRepository;
 		private IPlayerRepository _playerRepository;
 		private IHandRepository _handRepository;
@@ -64,7 +63,6 @@ namespace BlackJack.BusinessLogic.Services
 			var logger = NLog.LogManager.GetCurrentClassLogger();
 			try
 			{
-				
 				if (playerName == Constant.DealerName)
 				{
 					throw new Exception(StringHelper.NotAvailibleName());
