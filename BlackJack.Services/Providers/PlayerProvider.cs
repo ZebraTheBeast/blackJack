@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BlackJack.BusinessLogic.Interfaces;
-using BlackJack.ViewModels;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.BusinessLogic.Helper;
 using BlackJack.Configurations;
+using BlackJack.Entities;
 
 namespace BlackJack.BusinessLogic.Providers
 {
@@ -18,17 +18,17 @@ namespace BlackJack.BusinessLogic.Providers
 			_playerRepository = playerRepository;
 		}
 
-		public async Task<List<PlayerViewModel>> GetBotsInfo(IEnumerable<int> botsIdList)
+		public async Task<List<Player>> GetBotsInfo(IEnumerable<int> botsIdList)
 		{
-			var playerViewModelList = new List<PlayerViewModel>();
+			var playersList = new List<Player>();
 
 			foreach (var botId in botsIdList)
 			{
 				var player = await GetPlayerInfo(botId);
-				playerViewModelList.Add(player);
+				playersList.Add(player);
 			}
 
-			return playerViewModelList;
+			return playersList;
 		}
 		
 		public async Task<int> GetIdByName(string name)
@@ -37,36 +37,17 @@ namespace BlackJack.BusinessLogic.Providers
 			return player.Id;
 		}
 
-		public async Task<PlayerViewModel> GetPlayerInfo(int playerId)
+		public async Task<Player> GetPlayerInfo(int playerId)
 		{
 
 			var player = await _playerRepository.GetById(playerId);
-
-			var playerViewModel = new PlayerViewModel
-			{
-				Id = player.Id,
-				Name = player.Name,
-				Points = player.Points,
-				Hand = new HandViewModel
-				{
-					CardList = new List<CardViewModel>()
-				}
-			};
-
-			return playerViewModel;
+			return player;
 		}
 
-		public async Task<DealerViewModel> GetDealer(int gameId)
+		public async Task<Player> GetDealer(int gameId)
 		{
 			var dealer = await _playerRepository.GetByName(Configurations.Constant.DealerName);
-
-			var dealerViewModel = new DealerViewModel
-			{
-				Id = dealer.Id,
-				Name = dealer.Name
-			};
-
-			return dealerViewModel;
+			return dealer;
 		}
 
 		public async Task<string> UpdateScore(int playerId, int playerBetValue, int playerCardsValue, int dealerCardsValue, int gameId)

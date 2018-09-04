@@ -10,7 +10,6 @@ namespace BlackJack.BusinessLogic.Configs
 	{
 		public static ContainerBuilder GetBuilderTypes(ContainerBuilder builder, string connectionString)
 		{
-			builder.RegisterType<HandProvider>().As<IHandProvider>();
 			builder.RegisterType<PlayerProvider>().As<IPlayerProvider>();
 
 			builder.RegisterType<LogService>().As<ILogService>();

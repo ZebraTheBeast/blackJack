@@ -235,3 +235,8 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\BlackJack.Configura
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\BlackJack.Configurations.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\Dapper.Contrib.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\Dapper.Contrib.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\AutoMapper.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\System.ValueTuple.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\AutoMapper.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\AutoMapper.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\System.ValueTuple.xml

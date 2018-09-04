@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using BlackJack.DataAccess.Interfaces;
 using Dapper;
 using System.Data.SqlClient;
-using BlackJack.Configurations;
 using Dapper.Contrib.Extensions;
 using BlackJack.Entities;
 
