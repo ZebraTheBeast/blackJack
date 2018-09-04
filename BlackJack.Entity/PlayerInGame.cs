@@ -1,10 +1,14 @@
-﻿namespace BlackJack.Entities
+﻿using Dapper.Contrib.Extensions;
+
+namespace BlackJack.Entities
 {
+	[Table("PlayerInGame")]
 	public class PlayerInGame
 	{
-        public int PlayerId { get; set; }
-        public int Bet { get; set; }
-		public bool Humanity { get; set; }
+		[ExplicitKey]
+		public int PlayerId { get; set; }
+		public int Bet { get; set; }
+		[ExplicitKey]
 		public int GameId { get; set; }
-    }
+	}
 }

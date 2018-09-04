@@ -21,7 +21,6 @@ namespace BlackJack.BusinessLogic.Providers
 
 		public async Task<HandViewModel> GetPlayerHand(int playerId, int gameId)
 		{
-
 			var deck = CardHelper.GetFullDeck();
 			var hand = new HandViewModel
 			{

@@ -31,7 +31,7 @@ namespace BlackJack.BusinessLogic.Helper
 		{
 			var cardColorValue = 0;
 			var cardTitleValue = 0;
-			var cardColorSize = Enum.GetNames(typeof(CardColor)).Length - 1;
+			var cardColorSize = Enum.GetNames(typeof(CardSuit)).Length - 1;
 			var deck = new List<CardViewModel>();
 			var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.AmountNumberCard).ToList();
 			var titleList = valueList.ConvertAll<string>(delegate (int i)
@@ -58,7 +58,7 @@ namespace BlackJack.BusinessLogic.Helper
 					Id = i + 1,
 					Title = titleList[cardTitleValue],
 					Value = valueList[cardTitleValue],
-					Color = ((CardColor)cardColorValue++).ToString()
+					Color = ((CardSuit)cardColorValue++).ToString()
 				};
 
 				deck.Add(card);

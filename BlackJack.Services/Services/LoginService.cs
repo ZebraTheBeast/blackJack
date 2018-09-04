@@ -13,12 +13,14 @@ namespace BlackJack.BusinessLogic.Services
 		private IPlayerInGameRepository _playerInGameRepository;
 		private IPlayerRepository _playerRepository;
 		private IHandRepository _handRepository;
+		private IGameRepository _gameRepository;
 
-		public LoginService(IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, IHandRepository handRepository)
+		public LoginService(IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, IHandRepository handRepository, IGameRepository gameRepository)
 		{
 			_playerInGameRepository = playerInGameRepository;
 			_playerRepository = playerRepository;
 			_handRepository = handRepository;
+			_gameRepository = gameRepository;
 
 			var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
 			NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
@@ -36,19 +38,28 @@ namespace BlackJack.BusinessLogic.Services
 
 				var human = await _playerRepository.GetByName(playerName);
 				var bots = await _playerRepository.GetBots(playerName, botsAmount);
+				var oldGameId = await _gameRepository.GetGameIdByHumanId(human.Id);
 
-				await _playerInGameRepository.RemoveAll(human.Id);
+				await _playerInGameRepository.RemoveAll(oldGameId);
+				if (oldGameId != 0)
+				{
+					await _gameRepository.Delete(oldGameId);
+				}
+
+				await _gameRepository.Create(human.Id);
+
+				var gameId = await _gameRepository.GetGameIdByHumanId(human.Id);
 
 				foreach (var bot in bots)
 				{
-					await _playerInGameRepository.AddPlayer(bot.Id, human.Id);
+					await _playerInGameRepository.AddPlayer(bot.Id, gameId);
 					logger.Info(StringHelper.BotJoinGame(bot.Id, human.Id));
 				}
 
-				await _playerInGameRepository.AddHuman(human.Id);
-				logger.Info(StringHelper.HumanJoinGame(human.Id, human.Id));
+				await _playerInGameRepository.AddPlayer(human.Id, gameId);
+				logger.Info(StringHelper.HumanJoinGame(human.Id, gameId));
 
-				await _handRepository.RemoveAll(human.Id);
+				await _handRepository.RemoveAll(gameId);
 				return human.Id;
 			}
 			catch (Exception exception)
@@ -69,9 +80,11 @@ namespace BlackJack.BusinessLogic.Services
 				}
 
 				var player = await _playerRepository.GetByName(playerName);
-				var playerIsInGame = await _playerInGameRepository.IsInGame(player.Id, player.Id);
+				var gameId = await _gameRepository.GetGameIdByHumanId(player.Id);
 
-				if(!playerIsInGame)
+				var playerIsInGame = await _playerInGameRepository.IsInGame(player.Id, gameId);
+
+				if (!playerIsInGame)
 				{
 					throw new Exception(StringHelper.NoLastGame());
 				}

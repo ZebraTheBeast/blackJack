@@ -233,3 +233,5 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\BlackJack.Entities.
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\NLog.config
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\BlackJack.Configurations.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\BlackJack.Configurations.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\Dapper.Contrib.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\Dapper.Contrib.xml

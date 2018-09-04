@@ -35,3 +35,5 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.D
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.DataAccess.dll.config
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.Entities.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\BlackJack.ViewModels.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Dapper.Contrib.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.Services\bin\Debug\Dapper.Contrib.xml

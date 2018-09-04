@@ -1,6 +1,6 @@
 ﻿using BlackJack.DataAccess.Interfaces;
 using BlackJack.Entities;
-using Dapper;
+using Dapper.Contrib.Extensions;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
@@ -15,13 +15,12 @@ namespace BlackJack.DataAccess.Repositories
 		{
 			_connectionString = connectionString;
 		}
-		
+
 		public async Task<IEnumerable<LogMessage>> GetAll()
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = $"SELECT * FROM LogInfo";
-				var messages = await db.QueryAsync<LogMessage>(sqlQuery);
+				var messages = await db.GetAllAsync<LogMessage>();
 				return messages;
 			}
 		}

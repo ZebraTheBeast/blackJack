@@ -5,7 +5,5 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModels.csproj.CopyComplete
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.ViewModels.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.ViewModels.pdb
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entities.dll
-C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\bin\Debug\BlackJack.Entities.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModels.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.ViewModel\obj\Debug\BlackJack.ViewModels.pdb

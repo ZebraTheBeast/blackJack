@@ -19,3 +19,5 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DataAc
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\obj\Debug\BlackJack.DataAccess.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\Autofac.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\Autofac.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\Dapper.Contrib.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.DAL\bin\Debug\Dapper.Contrib.xml

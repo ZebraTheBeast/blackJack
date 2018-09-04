@@ -1,6 +1,6 @@
 ﻿namespace BlackJack.Entities.Enums
 {
-	public enum CardColor
+	public enum CardSuit
     {
         Diamonds = 0,
         Hearts = 1,
