@@ -8,7 +8,7 @@ namespace BlackJack.BusinessLogic.Interfaces
     {
 		Task<List<Player>> GetBotsInfo(IEnumerable<int> botsIdList);
 		Task<int> GetIdByName(string name);
-		Task<Player> GetPlayerInfo(int playerId);
+		Task<Player> GetPlayerById(int playerId);
 		Task<Player> GetDealer(int gameId);
 		Task<string> UpdateScore(int playerId, int playerBetValue, int playerCardsValue, int dealerCardsValue, int gameId);
 

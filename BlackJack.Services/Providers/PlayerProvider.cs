@@ -24,7 +24,7 @@ namespace BlackJack.BusinessLogic.Providers
 
 			foreach (var botId in botsIdList)
 			{
-				var player = await GetPlayerInfo(botId);
+				var player = await GetPlayerById(botId);
 				playersList.Add(player);
 			}
 
@@ -37,9 +37,8 @@ namespace BlackJack.BusinessLogic.Providers
 			return player.Id;
 		}
 
-		public async Task<Player> GetPlayerInfo(int playerId)
+		public async Task<Player> GetPlayerById(int playerId)
 		{
-
 			var player = await _playerRepository.GetById(playerId);
 			return player;
 		}
@@ -97,7 +96,7 @@ namespace BlackJack.BusinessLogic.Providers
 			var logger = NLog.LogManager.GetCurrentClassLogger();
 			logger.Info(StringHelper.PlayerLose(playerId, playerBetValue, gameId));
 
-			var player = await GetPlayerInfo(playerId);
+			var player = await GetPlayerById(playerId);
 			var newPointsValue = player.Points - playerBetValue;
 			await _playerRepository.UpdatePoints(playerId, newPointsValue);
 		}
@@ -107,7 +106,7 @@ namespace BlackJack.BusinessLogic.Providers
 			var logger = NLog.LogManager.GetCurrentClassLogger();
 			logger.Info(StringHelper.PlayerWin(playerId, playerBetValue, gameId));
 
-			var player = await GetPlayerInfo(playerId);
+			var player = await GetPlayerById(playerId);
 			var newPointsValue = player.Points + playerBetValue;
 			await _playerRepository.UpdatePoints(playerId, newPointsValue);
 		}

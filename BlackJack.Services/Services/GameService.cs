@@ -45,7 +45,7 @@ namespace BlackJack.BusinessLogic.Services
 
 				var cardsList = await _handRepository.GetCardIdListByGameId(gameId);
 
-				gameViewModel.Human = Mapper.Map<Player, PlayerViewModel>(await _playerProvider.GetPlayerInfo(humanId));
+				gameViewModel.Human = Mapper.Map<Player, PlayerViewModel>(await _playerProvider.GetPlayerById(humanId));
 				gameViewModel.Human.BetValue = await _playerInGameRepository.GetBetByPlayerId(gameViewModel.Human.Id, gameId);
 				gameViewModel.Human.Hand = await GetPlayerHand(gameViewModel.Human.Id, gameId);
 				gameViewModel.Dealer = Mapper.Map<Player, DealerViewModel>(await _playerProvider.GetDealer(gameId));
@@ -85,7 +85,8 @@ namespace BlackJack.BusinessLogic.Services
 		{
 			try
 			{
-				var value = await GetPlayerHandValue(botId, gameId);
+				var hand = await GetPlayerHand(botId, gameId);
+				var value = hand.CardListValue;
 
 				if (value >= Constant.ValueToStopDraw)
 				{
@@ -171,7 +172,7 @@ namespace BlackJack.BusinessLogic.Services
 			try
 			{
 				var gameId = await _gameRepository.GetGameIdByHumanId(humanId);
-				var human = Mapper.Map<Player, PlayerViewModel>(await _playerProvider.GetPlayerInfo(humanId));
+				var human = Mapper.Map<Player, PlayerViewModel>(await _playerProvider.GetPlayerById(humanId));
 				human.BetValue = await _playerInGameRepository.GetBetByPlayerId(human.Id, gameId);
 				var cardsList = await _handRepository.GetCardIdListByGameId(gameId);
 				var deck = CardHelper.LoadDeck(cardsList);
@@ -228,7 +229,7 @@ namespace BlackJack.BusinessLogic.Services
 
 				for (var i = 0; i < gameViewModel.Bots.Count(); i++)
 				{
-					gameViewModel.Bots[i].Hand.CardListValue = await GetPlayerHandValue(gameViewModel.Bots[i].Id, gameId);
+					gameViewModel.Bots[i].Hand = await GetPlayerHand(gameViewModel.Bots[i].Id, gameId);
 					await _playerProvider.UpdateScore(gameViewModel.Bots[i].Id, gameViewModel.Bots[i].BetValue, gameViewModel.Bots[i].Hand.CardListValue, gameViewModel.Dealer.Hand.CardListValue, gameId);
 					await _playerInGameRepository.AnnulBet(gameViewModel.Bots[i].Id, gameId);
 				}
@@ -268,24 +269,6 @@ namespace BlackJack.BusinessLogic.Services
 			hand.CardListValue = CardHelper.CountCardsValue(hand.CardList);
 
 			return hand;
-		}
-
-		private async Task<int> GetPlayerHandValue(int playerId, int gameId)
-		{
-			var deck = CardHelper.GetFullDeck();
-			var cards = new List<CardViewModel>();
-			var playerCardsIdList = await _handRepository.GetCardIdList(playerId, gameId);
-
-			foreach (var cardId in playerCardsIdList)
-			{
-				var card = CardHelper.GetCardById(cardId, deck);
-				cards.Add(card);
-			}
-
-			var handValue = CardHelper.CountCardsValue(cards);
-
-			return handValue;
-
 		}
 
 		private async Task GiveCardFromDeck(int playerId, int cardId, int gameId)
