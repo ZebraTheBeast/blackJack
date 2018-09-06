@@ -1,11 +1,9 @@
 ﻿import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared.module';
-
 import { GridModule } from '@progress/kendo-angular-grid';
+import { SharedModule } from 'src/modules/shared.module';
+import { LogRoutingModule } from 'src/modules/log/log-routing.module';
 
-import { LogRoutingModule } from './log-routing.module';
-
-import { LogComponent } from '../../components/log.component';
+import { LogComponent } from 'src/modules/log/log.component';
 
 @NgModule({
     imports: [

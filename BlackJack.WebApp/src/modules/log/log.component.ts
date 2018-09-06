@@ -1,14 +1,15 @@
 ﻿import { Component } from '@angular/core';
 
-import { LogService } from '../services/log.service';
-import { MessageService } from '../services/message.service';
 import { State, process } from '@progress/kendo-data-query';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
+import { LogService } from 'src/services/log.service';
+import { MessageService } from 'src/services/message.service';
+
 @Component({
     selector: 'app-log',
-    styleUrls: ['../../Content/bootstrap.css', '../../Content/Site.css'],
-    templateUrl: '../views/log.component.html'
+    styleUrls: ['/Content/bootstrap.css', '/Content/Site.css'],
+    templateUrl: './log.component.html'
 })
 
 export class LogComponent {

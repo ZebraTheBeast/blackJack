@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using BlackJack.DataAccess.Interfaces;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using System.Data;
 using BlackJack.Entities.Properties;
 
 namespace BlackJack.DataAccess.Repositories

@@ -4,15 +4,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from '../../components/app.component';
-import { MessageComponent } from '../../components/message.component';
-import { GameModule } from '../game/game.module';
-import { LogModule } from '../log/log.module';
-import { LoginModule } from '../login/login.module';
-
-
+import { AppComponent } from 'src/app.component';
+import { MessageComponent } from 'src/components/message.component';
+import { AppRoutingModule } from 'src/modules/app/app-routing.module';
+import { GameModule } from 'src/modules/game/game.module';
+import { LogModule } from 'src/modules/log/log.module';
+import { LoginModule } from './modules/login/login.module';
 
 @NgModule({
     declarations: [

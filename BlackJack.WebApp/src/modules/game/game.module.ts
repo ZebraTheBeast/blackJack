@@ -1,9 +1,8 @@
 ﻿import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from 'src/modules/shared.module';
+import { GameRoutingModule } from 'src/modules/game/game-routing.module';
 
-import { GameRoutingModule } from './game-routing.module';
-
-import { GameComponent } from '../../components/game.component';
+import { GameComponent } from 'src/modules/game/game.component';
 
 @NgModule({
     imports: [

@@ -4,8 +4,8 @@ import { MessageService } from '../services/message.service';
 
 @Component({
     selector: 'app-error-message',
-    templateUrl: '../views/message.component.html',
-    styleUrls: ['../../Content/bootstrap.css', '../../Content/Site.css']
+    templateUrl: './message.component.html',
+    styleUrls: ['/Content/bootstrap.css', '/Content/Site.css']
 })
 
 export class MessageComponent implements OnInit {

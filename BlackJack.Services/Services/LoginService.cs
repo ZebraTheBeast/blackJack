@@ -40,6 +40,7 @@ namespace BlackJack.BusinessLogic.Services
 				var human = await _playerRepository.GetByName(playerName);
 				var bots = await _playerRepository.GetBots(playerName, botsAmount);
 				var oldGameId = await _gameRepository.GetGameIdByHumanId(human.Id);
+				await _handRepository.RemoveAll(oldGameId);
 
 				await _playerInGameRepository.RemoveAll(oldGameId);
 				if (oldGameId != 0)
@@ -60,7 +61,7 @@ namespace BlackJack.BusinessLogic.Services
 				await _playerInGameRepository.AddPlayer(human.Id, gameId);
 				logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame()));
 
-				await _handRepository.RemoveAll(gameId);
+				
 				return human.Id;
 			}
 			catch (Exception exception)
