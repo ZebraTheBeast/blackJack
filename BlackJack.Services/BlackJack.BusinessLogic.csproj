@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\CardHelper.cs" />
+    <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Interfaces\Services\IGameService.cs" />
     <Compile Include="Interfaces\Services\ILoginService.cs" />

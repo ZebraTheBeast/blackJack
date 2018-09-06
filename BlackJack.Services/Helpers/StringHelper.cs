@@ -3,9 +3,9 @@
 	public static class StringHelper
 	{
 		
-		public static string PlayerDrawCard(int playerId, int cardId, int gameId)
+		public static string PlayerDrawCard(int cardId)
 		{
-			return $"Player with id {playerId} draw card with id {cardId} in game №{gameId}";
+			return $"Player draw card with id {cardId}";
 		}
 
 		public static string PlayerNotInGame()
@@ -28,19 +28,19 @@
 			return $"You doesn't have {betValue} points to bet";
 		}
 
-		public static string PlayerPlaceBet(int playerId, int betValue, int gameId)
+		public static string PlayerPlaceBet(int betValue)
 		{
-			return $"Player with id {playerId} bet {betValue} points in game №{gameId}";
+			return $"Player bet {betValue} points";
 		}
 
-		public static string PlayerValue(int playerId, int playerValue, int dealerValue, int gameId)
+		public static string PlayerValue(int playerValue, int dealerValue)
 		{
-			return $"Player with id {playerId} has value {playerValue} against {dealerValue} in game №{gameId}";
+			return $"Player has value {playerValue} against {dealerValue}";
 		}
 
-		public static string PlayerDraw(int playerId, int gameId)
+		public static string PlayerDraw()
 		{
-			return $"Player with id {playerId} has draw with Dealer in game №{gameId}";
+			return $"Player has draw with Dealer";
 		}
 
 		public static string EmptyName()
@@ -53,24 +53,24 @@
 			return "Logs are empty 0_0";
 		}
 
-		public static string PlayerWin(int playerId, int betValue, int gameId)
+		public static string PlayerWin(int betValue)
 		{
-			return $"Player with id {playerId} win {betValue} points in game №{gameId}";
+			return $"Player win {betValue} points";
 		}
 
-		public static string PlayerLose(int playerId, int betValue, int gameId)
+		public static string PlayerLose(int betValue)
 		{
-			return $"Player with id {playerId} lose {betValue} points in game №{gameId}";
+			return $"Player lose {betValue} points";
 		}
 
-		public static string BotJoinGame(int botId, int gameId)
+		public static string BotJoinGame()
 		{
-			return $"Bot with id {botId} join to the game №{gameId}";
+			return "Bot join to the game";
 		}
 
-		public static string HumanJoinGame(int humanId, int gameId)
+		public static string HumanJoinGame()
 		{
-			return $"Human with id {humanId} join to the game №{gameId}";
+			return $"Human join to the game";
 		}
 
 		public static string BotsNotInGame()
@@ -105,6 +105,11 @@
 		public static string MinBotsAmount()
 		{
 			return "Tooooo few bots ☻";
+		}
+
+		public static string PlayerContinueGame()
+		{
+			return "Player continue game";
 		}
 
 	}

@@ -11,6 +11,7 @@ using BlackJack.DataAccess.Interfaces;
 using NLog;
 using AutoMapper;
 using BlackJack.Entities;
+using BlackJack.BusinessLogic.Helpers;
 
 namespace BlackJack.BusinessLogic.Services
 {
@@ -131,12 +132,12 @@ namespace BlackJack.BusinessLogic.Services
 				}
 
 				await _playerInGameRepository.PlaceBet(gameViewModel.Human.Id, betValue, gameId);
-				logger.Info(StringHelper.PlayerPlaceBet(gameViewModel.Human.Id, betValue, gameId));
+				logger.Log(LogHelper.GetEvent(gameViewModel.Human.Id, gameId, StringHelper.PlayerPlaceBet(betValue)));
 
 				foreach (var bot in gameViewModel.Bots)
 				{
 					await _playerInGameRepository.PlaceBet(bot.Id, Constant.BotsBetValue, gameId);
-					logger.Info(StringHelper.PlayerPlaceBet(bot.Id, Constant.BotsBetValue, gameId));
+					logger.Log(LogHelper.GetEvent(bot.Id, gameId,StringHelper.PlayerPlaceBet(Constant.BotsBetValue)));
 				}
 
 				foreach (var playerId in playersIdList)
@@ -275,7 +276,7 @@ namespace BlackJack.BusinessLogic.Services
 		{
 			var logger = LogManager.GetCurrentClassLogger();
 			await _handRepository.GiveCardToPlayer(playerId, cardId, gameId);
-			logger.Info(StringHelper.PlayerDrawCard(playerId, cardId, gameId));
+			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDrawCard(cardId)));
 		}
 	}
 }

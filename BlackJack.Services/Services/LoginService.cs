@@ -1,4 +1,5 @@
 ﻿using BlackJack.BusinessLogic.Helper;
+using BlackJack.BusinessLogic.Helpers;
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.Configurations;
 using BlackJack.DataAccess.Interfaces;
@@ -53,11 +54,11 @@ namespace BlackJack.BusinessLogic.Services
 				foreach (var bot in bots)
 				{
 					await _playerInGameRepository.AddPlayer(bot.Id, gameId);
-					logger.Info(StringHelper.BotJoinGame(bot.Id, human.Id));
+					logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame()));
 				}
 
 				await _playerInGameRepository.AddPlayer(human.Id, gameId);
-				logger.Info(StringHelper.HumanJoinGame(human.Id, gameId));
+				logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame()));
 
 				await _handRepository.RemoveAll(gameId);
 				return human.Id;
@@ -89,6 +90,7 @@ namespace BlackJack.BusinessLogic.Services
 					throw new Exception(StringHelper.NoLastGame());
 				}
 
+				logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerContinueGame()));
 				return player.Id;
 			}
 			catch (Exception exception)

@@ -5,6 +5,7 @@ using BlackJack.DataAccess.Interfaces;
 using BlackJack.BusinessLogic.Helper;
 using BlackJack.Configurations;
 using BlackJack.Entities;
+using BlackJack.BusinessLogic.Helpers;
 
 namespace BlackJack.BusinessLogic.Providers
 {
@@ -52,7 +53,7 @@ namespace BlackJack.BusinessLogic.Providers
 		public async Task<string> UpdateScore(int playerId, int playerBetValue, int playerCardsValue, int dealerCardsValue, int gameId)
 		{
 			var logger = NLog.LogManager.GetCurrentClassLogger();
-			logger.Info(StringHelper.PlayerValue(playerId, playerCardsValue, dealerCardsValue, gameId));
+			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerValue(playerCardsValue, dealerCardsValue)));
 
 			if ((playerCardsValue > dealerCardsValue)
 			&& (playerCardsValue <= Constant.WinValue))
@@ -84,7 +85,7 @@ namespace BlackJack.BusinessLogic.Providers
 			if ((dealerCardsValue == playerCardsValue)
 			&& (playerCardsValue <= Constant.WinValue))
 			{
-				logger.Info(StringHelper.PlayerDraw(playerId, gameId));
+				logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDraw()));
 				return OptionHelper.OptionDraw();
 			}
 
@@ -94,7 +95,7 @@ namespace BlackJack.BusinessLogic.Providers
 		private async Task PlayerLosePoints(int playerId, int gameId, int playerBetValue)
 		{
 			var logger = NLog.LogManager.GetCurrentClassLogger();
-			logger.Info(StringHelper.PlayerLose(playerId, playerBetValue, gameId));
+			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerLose(playerBetValue)));
 
 			var player = await GetPlayerById(playerId);
 			var newPointsValue = player.Points - playerBetValue;
@@ -104,7 +105,7 @@ namespace BlackJack.BusinessLogic.Providers
 		private async Task PlayerWinPoints(int playerId, int gameId, int playerBetValue)
 		{
 			var logger = NLog.LogManager.GetCurrentClassLogger();
-			logger.Info(StringHelper.PlayerWin(playerId, playerBetValue, gameId));
+			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerWin(playerBetValue)));
 
 			var player = await GetPlayerById(playerId);
 			var newPointsValue = player.Points + playerBetValue;

@@ -4,7 +4,6 @@ using System.Linq;
 using BlackJack.ViewModels;
 using BlackJack.Entities.Enums;
 using BlackJack.Configurations;
-using NLog;
 
 namespace BlackJack.BusinessLogic.Helper
 {
@@ -75,7 +74,6 @@ namespace BlackJack.BusinessLogic.Helper
 
 		public static List<int> GetNewRefreshedDeck()
 		{
-			var logger = LogManager.GetCurrentClassLogger();
 			var cardViewModelList = new List<CardViewModel>();
 			var deck = new List<int>();
 
@@ -86,7 +84,6 @@ namespace BlackJack.BusinessLogic.Helper
 			}
 
 			deck = ShuffleDeck(deck);
-			logger.Info(StringHelper.DeckShuffled());
 			return deck;
 		}
 

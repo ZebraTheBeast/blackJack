@@ -5,10 +5,14 @@
             [sortable]="true"
             [filterable]="true"
             (dataStateChange)="dataStateChange($event)">
-    <kendo-grid-column field="Id" title="ID" width="10%" filter="numeric">
+
+    <kendo-grid-column field="GameId" title="GameId" width="20%" filter="numeric">
     </kendo-grid-column>
-    <kendo-grid-column field="Message" title="Message" width="70%">
+    <kendo-grid-column field="PlayerId" title="PlayerId" width="20%" filter="numeric">
     </kendo-grid-column>
-    <kendo-grid-column field="Time" title="Time" width="20%"  filter="date" format="{0:dd.MM.yyyy HH:mm:ss}">
+    <kendo-grid-column field="Message" title="Message" width="40%">
     </kendo-grid-column>
+    <kendo-grid-column field="Time" title="Time" width="20%" filter="date" format="{0:dd.MM.yyyy HH:mm:ss}">
+    </kendo-grid-column>
+
 </kendo-grid>
