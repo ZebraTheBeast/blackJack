@@ -3,6 +3,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Http;
 using BlackJack.MVC.Configs;
+using BlackJack.BusinessLogic.Mappers;
 
 namespace BlackJack.MVC
 {
@@ -10,7 +11,7 @@ namespace BlackJack.MVC
     {
         protected void Application_Start()
         {
-
+			AutoMapperConfig.Initialize();
 			AutofacConfig.ConfigureContainer();
 			AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

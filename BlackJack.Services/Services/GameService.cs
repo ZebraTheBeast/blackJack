@@ -45,8 +45,9 @@ namespace BlackJack.BusinessLogic.Services
 				var gameId = await _gameRepository.GetGameIdByHumanId(humanId);
 
 				var cardsList = await _handRepository.GetCardIdListByGameId(gameId);
+				var human = await _playerProvider.GetPlayerById(humanId);
 
-				gameViewModel.Human = Mapper.Map<Player, PlayerViewModel>(await _playerProvider.GetPlayerById(humanId));
+				gameViewModel.Human = Mapper.Map<Player, PlayerViewModel>(human);
 				gameViewModel.Human.BetValue = await _playerInGameRepository.GetBetByPlayerId(gameViewModel.Human.Id, gameId);
 				gameViewModel.Human.Hand = await GetPlayerHand(gameViewModel.Human.Id, gameId);
 				gameViewModel.Dealer = Mapper.Map<Player, DealerViewModel>(await _playerProvider.GetDealer(gameId));
@@ -191,7 +192,7 @@ namespace BlackJack.BusinessLogic.Services
 
 				if (gameViewModel.Human.Hand.CardListValue >= Constant.WinValue)
 				{
-					gameViewModel = await Stand(gameId);
+					gameViewModel = await Stand(humanId);
 				}
 
 				return gameViewModel;
