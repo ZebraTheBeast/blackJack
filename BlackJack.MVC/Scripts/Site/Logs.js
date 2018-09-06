@@ -12,8 +12,12 @@
 				type: "json",
 				model: {
 					fields: {
-						Id: {
-							field: "Id",
+						PlayerId: {
+							field: "PlayerId",
+							type: "number"
+						}, 
+						GameId: {
+							field: "GameId",
 							type: "number"
 						},
 						Time: {
@@ -33,8 +37,17 @@
 		filterable: true,
 		columns: [
 			{
-				field: "Id",
-				width: "10%",
+				field: "GameId",
+				width: "20%",
+				filterable: {
+					cell: {
+						showOperators: false
+					}
+				}
+			},
+			{
+				field: "PlayerId",
+				width: "20%",
 				filterable: {
 					cell: {
 						showOperators: false
@@ -52,7 +65,7 @@
 			},
 			{
 				field: "Time",
-				width: "30%",
+				width: "0%",
 				format: "{0:dd.MM.yyyy HH:mm:ss}"
 			}
 		],

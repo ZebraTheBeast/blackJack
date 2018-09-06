@@ -378,3 +378,10 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.ViewModels.p
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DataAccess.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.DataAccess.dll.config
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\BlackJack.Entities.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\AutoMapper.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Dapper.Contrib.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.ValueTuple.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\AutoMapper.pdb
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\AutoMapper.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Dapper.Contrib.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.ValueTuple.xml
