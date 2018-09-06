@@ -205,7 +205,7 @@
     <Content Include="dist\BlackJackAPI\vendor.js.map" />
     <Content Include="src\modules\log\log.component.html" />
     <Content Include="src\app.component.html" />
-    <Content Include="src\components\message.component.html" />
+    <Content Include="src\modules\message\message.component.html" />
     <Content Include="src\modules\game\game.component.html" />
     <Content Include="src\modules\login\login.component.html" />
     <Content Include="src\styles.css" />
@@ -230,7 +230,7 @@
     <TypeScriptCompile Include="src\modules\log\log.component.ts" />
     <TypeScriptCompile Include="src\app.module.ts" />
     <TypeScriptCompile Include="src\modules\app\app-routing.module.ts" />
-    <TypeScriptCompile Include="src\components\message.component.ts" />
+    <TypeScriptCompile Include="src\modules\message\message.component.ts" />
     <TypeScriptCompile Include="src\modules\game\game.component.ts" />
     <TypeScriptCompile Include="src\modules\game\game-routing.module.ts" />
     <TypeScriptCompile Include="src\modules\log\log.module.ts" />
@@ -238,6 +238,7 @@
     <TypeScriptCompile Include="src\modules\login\login-routing.module.ts" />
     <TypeScriptCompile Include="src\modules\login\login.module.ts" />
     <TypeScriptCompile Include="src\modules\game\game.module.ts" />
+    <TypeScriptCompile Include="src\modules\message\message.module.ts" />
     <TypeScriptCompile Include="src\modules\shared.module.ts" />
     <TypeScriptCompile Include="src\services\game.service.ts" />
     <TypeScriptCompile Include="src\models\card.ts" />

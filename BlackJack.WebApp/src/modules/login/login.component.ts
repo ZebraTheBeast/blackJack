@@ -7,7 +7,7 @@ import { MessageService } from 'src/services/message.service';
 @Component({
     selector: 'app-login',
     styleUrls: ['/Content/bootstrap.css', '/Content/Site.css'],
-    templateUrl: './login.component.html'
+    templateUrl: '/src/modules/login/login.component.html'
 })
 
 export class LoginComponent {
