@@ -231,7 +231,7 @@
     <Content Include="src\modules\game\game.component.html" />
     <Content Include="src\modules\login\login.component.html" />
     <Content Include="src\styles.css" />
-    <Content Include="src\views\index.html" />
+    <Content Include="src\index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -249,6 +249,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\app.component.ts" />
+    <TypeScriptCompile Include="src\environment.ts" />
     <TypeScriptCompile Include="src\modules\log\log.component.ts" />
     <TypeScriptCompile Include="src\app.module.ts" />
     <TypeScriptCompile Include="src\modules\app\app-routing.module.ts" />

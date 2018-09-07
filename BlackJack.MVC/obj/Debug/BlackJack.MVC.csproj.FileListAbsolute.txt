@@ -385,3 +385,14 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\AutoMapper.pdb
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\AutoMapper.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Dapper.Contrib.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.ValueTuple.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Autofac.Integration.Owin.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Autofac.Integration.WebApi.Owin.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.Owin.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Owin.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Http.Owin.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Autofac.Integration.Owin.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Autofac.Integration.WebApi.Owin.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.Owin.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.MVC\bin\System.Web.Http.Owin.xml

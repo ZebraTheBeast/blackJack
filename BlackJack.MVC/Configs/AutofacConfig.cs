@@ -8,20 +8,19 @@ using System.Configuration;
 namespace BlackJack.MVC.Configs
 {
 	public class AutofacConfig
-    {
-        public static void ConfigureContainer()
-        {
-            var builder = new ContainerBuilder();
-            var config = GlobalConfiguration.Configuration;
+	{
+		public static IContainer ConfigureContainer()
+		{
+			var builder = new ContainerBuilder();
+			var config = GlobalConfiguration.Configuration;
 
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+			builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
 			builder = AutofacTypeConfig.GetBuilderTypes(builder, ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
-            var container = builder.Build();
+			var container = builder.Build();
 
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-
-        }
-    }
+			return container;
+		}
+	}
 }

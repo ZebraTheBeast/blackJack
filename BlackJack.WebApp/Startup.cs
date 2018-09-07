@@ -14,10 +14,10 @@ namespace BlackJack.WebApp
         public void Configuration(IAppBuilder app)
         {
             AutoMapperConfig.Initialize();
+
             var container = AutofacConfig.ConfigureContainer();
 
             var config = new HttpConfiguration();
-            config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
