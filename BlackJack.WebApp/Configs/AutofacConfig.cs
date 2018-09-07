@@ -9,7 +9,7 @@ namespace BlackJack.WebApp.Configs
 {
     public class AutofacConfig
     {
-        public static void ConfigureContainer()
+        public static IContainer ConfigureContainer()
         {
             var builder = new ContainerBuilder();
             var config = GlobalConfiguration.Configuration;
@@ -19,8 +19,8 @@ namespace BlackJack.WebApp.Configs
             builder = AutofacTypeConfig.GetBuilderTypes(builder, ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
             var container = builder.Build();
-
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            return container;
+            //config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
         }
     }

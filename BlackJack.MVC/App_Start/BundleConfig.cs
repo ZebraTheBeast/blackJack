@@ -10,11 +10,11 @@ namespace BlackJack.MVC
 						"~/Scripts/jquery-{version}.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/login").Include(
-					"~/Scripts/Site/Login.js"));
+					"~/Scripts/site/login.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/game").Include(
-						"~/Scripts/Site/Game.js",
-						"~/Scripts/Site/GameHelper.js"));
+						"~/Scripts/site/game.js",
+						"~/Scripts/site/game.helper.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 						"~/Scripts/modernizr-*"));
