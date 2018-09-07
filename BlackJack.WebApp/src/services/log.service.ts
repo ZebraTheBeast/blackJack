@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-const logUrl = '../../api/log/';
+import { environment } from 'src/environment';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,7 +15,7 @@ export class LogService {
     constructor(private http: HttpClient) { }
 
     loadLogs(): Observable<any> {
-        var loadLogUrl = logUrl + `GetLogs`;
+        var loadLogUrl = environment.logUrl + `GetLogs`;
         return this.http.get<any>(loadLogUrl);
     }
 }

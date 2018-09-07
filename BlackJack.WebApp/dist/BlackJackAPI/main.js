@@ -1063,7 +1063,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var gameUrl = '../../api/game/';
+var gameUrl = '/api/game/';
 var httpOptions = {
     headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({ 'Content-Type': 'application/json' })
 };

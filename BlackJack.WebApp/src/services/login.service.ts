@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-const loginUrl = '../../api/login/';
+import { environment } from 'src/environment';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,7 +20,7 @@ export class LoginService {
             botsAmount: botsAmount
         }
 
-        var startGameUrl = loginUrl + "StartGame";
+        var startGameUrl = environment.loginUrl + "StartGame";
         return this.http.post<number>(startGameUrl, loginViewModel, httpOptions);
     }
 
@@ -28,7 +28,7 @@ export class LoginService {
         if (playerName == undefined) {
             playerName = "";
         }
-        var loadGameUrl = loginUrl + `LoadGame?playerName=${playerName}`;
+        var loadGameUrl = environment.loginUrl + `LoadGame?playerName=${playerName}`;
         return this.http.get<number>(loadGameUrl);
     }
 }

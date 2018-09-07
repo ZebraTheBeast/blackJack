@@ -7,7 +7,7 @@ using System.Configuration;
 
 namespace BlackJack.WebApp.Configs
 {
-    public class AutofacConfig
+    public static class AutofacConfig
     {
         public static IContainer ConfigureContainer()
         {
@@ -20,8 +20,6 @@ namespace BlackJack.WebApp.Configs
 
             var container = builder.Build();
             return container;
-            //config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-
         }
     }
 }

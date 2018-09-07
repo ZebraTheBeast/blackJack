@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 
 import { Game } from 'src/models/game';
 
-const gameUrl = '../../api/game/';
+import { environment } from 'src/environment';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,17 +17,17 @@ export class GameService {
     constructor(private http: HttpClient) { }
 
     getGame(id: number): Observable<Game> {
-        var getGameUrl = gameUrl + `GetGameViewModel/${id}`;
+        var getGameUrl = environment.gameUrl + `GetGameViewModel/${id}`;
         return this.http.get<Game>(getGameUrl);
     }
 
     stand(id: number): Observable<Game> {
-        var standUrl = gameUrl + "Stand";
+        var standUrl = environment.gameUrl + "Stand";
         return this.http.post<Game>(standUrl, id, httpOptions);
     }
 
     draw(id: number): Observable<Game> {
-        var drawUrl = gameUrl + "Draw";
+        var drawUrl = environment.gameUrl + "Draw";
         return this.http.post<Game>(drawUrl, id, httpOptions);
     }
 
@@ -36,7 +36,7 @@ export class GameService {
             betValue: betValue,
             humanId: id
         };
-        var drawUrl = gameUrl + "Bet";
+        var drawUrl = environment.gameUrl + "Bet";
         return this.http.post<Game>(drawUrl, betViewModel, httpOptions);
     }
 }

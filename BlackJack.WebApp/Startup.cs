@@ -24,6 +24,7 @@ namespace BlackJack.WebApp
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
             app.UseAutofacMiddleware(container);
