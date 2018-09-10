@@ -195,7 +195,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -249,7 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\app.component.ts" />
-    <TypeScriptCompile Include="src\environment.ts" />
+    <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\log\log.component.ts" />
     <TypeScriptCompile Include="src\app.module.ts" />
     <TypeScriptCompile Include="src\app-routing.module.ts" />

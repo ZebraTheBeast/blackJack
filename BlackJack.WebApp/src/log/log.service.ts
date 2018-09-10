@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-import { environment } from 'src/environment';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

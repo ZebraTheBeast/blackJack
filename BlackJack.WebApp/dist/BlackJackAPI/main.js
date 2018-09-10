@@ -349,10 +349,10 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/environment.ts":
-/*!****************************!*\
-  !*** ./src/environment.ts ***!
-  \****************************/
+/***/ "./src/environments/environment.ts":
+/*!*****************************************!*\
+  !*** ./src/environments/environment.ts ***!
+  \*****************************************/
 /*! exports provided: environment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -360,9 +360,10 @@ var AppModule = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
 var environment = {
-    gameUrl: "/api/game/",
-    loginUrl: "/api/login/",
-    logUrl: "/api/log/"
+    production: false,
+    gameUrl: "http://localhost:60886/api/game/",
+    loginUrl: "http://localhost:60886/api/login/",
+    logUrl: "http://localhost:60886/api/log/"
 };
 
 
@@ -622,7 +623,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GameService", function() { return GameService; });
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var src_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/environment */ "./src/environment.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
@@ -637,15 +638,15 @@ var GameService = /** @class */ (function () {
         this.http = http;
     }
     GameService.prototype.getGame = function (id) {
-        var getGameUrl = src_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + ("GetGameViewModel/" + id);
+        var getGameUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + ("GetGameViewModel/" + id);
         return this.http.get(getGameUrl);
     };
     GameService.prototype.stand = function (id) {
-        var standUrl = src_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "Stand";
+        var standUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "Stand";
         return this.http.post(standUrl, id, httpOptions);
     };
     GameService.prototype.draw = function (id) {
-        var drawUrl = src_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "Draw";
+        var drawUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "Draw";
         return this.http.post(drawUrl, id, httpOptions);
     };
     GameService.prototype.bet = function (id, betValue) {
@@ -653,7 +654,7 @@ var GameService = /** @class */ (function () {
             betValue: betValue,
             humanId: id
         };
-        var drawUrl = src_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "Bet";
+        var drawUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "Bet";
         return this.http.post(drawUrl, betViewModel, httpOptions);
     };
     GameService.ngInjectableDef = _angular_core__WEBPACK_IMPORTED_MODULE_3__["defineInjectable"]({ factory: function GameService_Factory() { return new GameService(_angular_core__WEBPACK_IMPORTED_MODULE_3__["inject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"])); }, token: GameService, providedIn: "root" });
@@ -824,7 +825,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogService", function() { return LogService; });
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var src_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/environment */ "./src/environment.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
@@ -839,7 +840,7 @@ var LogService = /** @class */ (function () {
         this.http = http;
     }
     LogService.prototype.loadLogs = function () {
-        var loadLogUrl = src_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].logUrl + "GetLogs";
+        var loadLogUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].logUrl + "GetLogs";
         return this.http.get(loadLogUrl);
     };
     LogService.ngInjectableDef = _angular_core__WEBPACK_IMPORTED_MODULE_3__["defineInjectable"]({ factory: function LogService_Factory() { return new LogService(_angular_core__WEBPACK_IMPORTED_MODULE_3__["inject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"])); }, token: LogService, providedIn: "root" });
@@ -1045,7 +1046,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginService", function() { return LoginService; });
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var src_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/environment */ "./src/environment.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
@@ -1064,14 +1065,14 @@ var LoginService = /** @class */ (function () {
             playerName: playerName,
             botsAmount: botsAmount
         };
-        var startGameUrl = src_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].loginUrl + "StartGame";
+        var startGameUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].loginUrl + "StartGame";
         return this.http.post(startGameUrl, loginViewModel, httpOptions);
     };
     LoginService.prototype.loadGame = function (playerName) {
         if (playerName == undefined) {
             playerName = "";
         }
-        var loadGameUrl = src_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].loginUrl + ("LoadGame?playerName=" + playerName);
+        var loadGameUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].loginUrl + ("LoadGame?playerName=" + playerName);
         return this.http.get(loadGameUrl);
     };
     LoginService.ngInjectableDef = _angular_core__WEBPACK_IMPORTED_MODULE_3__["defineInjectable"]({ factory: function LoginService_Factory() { return new LoginService(_angular_core__WEBPACK_IMPORTED_MODULE_3__["inject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"])); }, token: LoginService, providedIn: "root" });

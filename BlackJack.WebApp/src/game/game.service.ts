@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 
 import { Game } from 'src/game/models/game';
 
-import { environment } from 'src/environment';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
