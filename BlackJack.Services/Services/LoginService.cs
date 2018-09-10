@@ -39,27 +39,27 @@ namespace BlackJack.BusinessLogic.Services
 
 				var human = await _playerRepository.GetByName(playerName);
 				var bots = await _playerRepository.GetBots(playerName, botsAmount);
-				var oldGameId = await _gameRepository.GetGameIdByHumanId(human.Id);
-				await _handRepository.RemoveAll(oldGameId);
+				var oldGame = await _gameRepository.GetGameByHumanId(human.Id);
+				await _handRepository.RemoveAll(oldGame.Id);
 
-				await _playerInGameRepository.RemoveAll(oldGameId);
-				if (oldGameId != 0)
+				await _playerInGameRepository.RemoveAll(oldGame.Id);
+				if (oldGame.Id != 0)
 				{
-					await _gameRepository.Delete(oldGameId);
+					await _gameRepository.Delete(oldGame.Id);
 				}
 
 				await _gameRepository.Create(human.Id);
 
-				var gameId = await _gameRepository.GetGameIdByHumanId(human.Id);
+				var game = await _gameRepository.GetGameByHumanId(human.Id);
 
 				foreach (var bot in bots)
 				{
-					await _playerInGameRepository.AddPlayer(bot.Id, gameId);
-					logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame()));
+					await _playerInGameRepository.AddPlayer(bot.Id, game.Id);
+					logger.Log(LogHelper.GetEvent(bot.Id, game.Id, StringHelper.BotJoinGame()));
 				}
 
-				await _playerInGameRepository.AddPlayer(human.Id, gameId);
-				logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame()));
+				await _playerInGameRepository.AddPlayer(human.Id, game.Id);
+				logger.Log(LogHelper.GetEvent(human.Id, game.Id, StringHelper.HumanJoinGame()));
 
 				
 				return human.Id;
@@ -82,16 +82,16 @@ namespace BlackJack.BusinessLogic.Services
 				}
 
 				var player = await _playerRepository.GetByName(playerName);
-				var gameId = await _gameRepository.GetGameIdByHumanId(player.Id);
+				var game = await _gameRepository.GetGameByHumanId(player.Id);
 
-				var playerIsInGame = await _playerInGameRepository.IsInGame(player.Id, gameId);
+				var playerIsInGame = await _playerInGameRepository.IsInGame(player.Id, game.Id);
 
 				if (!playerIsInGame)
 				{
 					throw new Exception(StringHelper.NoLastGame());
 				}
 
-				logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerContinueGame()));
+				logger.Log(LogHelper.GetEvent(player.Id, game.Id, StringHelper.PlayerContinueGame()));
 				return player.Id;
 			}
 			catch (Exception exception)

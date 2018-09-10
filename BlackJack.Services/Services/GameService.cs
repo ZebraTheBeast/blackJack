@@ -46,7 +46,7 @@ namespace BlackJack.BusinessLogic.Services
 
 				var cardsList = await _handRepository.GetCardIdListByGameId(game.Id);
 
-				gameViewModel.Human = Mapper.Map<Player, PlayerViewModel>(await _playerProvider.GetPlayerById(humanId));
+				gameViewModel.Human = Mapper.Map<Player, PlayerViewModel>(game.Human);
 				gameViewModel.Human.BetValue = await _playerInGameRepository.GetBetByPlayerId(game.Human.Id, game.Id);
 				gameViewModel.Human.Hand = await GetPlayerHand(game.Human.Id, game.Id);
 				gameViewModel.Dealer = Mapper.Map<Player, DealerViewModel>(await _playerProvider.GetDealer(game.Id));
@@ -173,7 +173,7 @@ namespace BlackJack.BusinessLogic.Services
 			try
 			{
 				var game = await _gameRepository.GetGameByHumanId(humanId);
-				var human = Mapper.Map<Player, PlayerViewModel>(await _playerProvider.GetPlayerById(game.Human.Id));
+				var human = Mapper.Map<Player, PlayerViewModel>(game.Human);
 				human.BetValue = await _playerInGameRepository.GetBetByPlayerId(human.Id, game.Id);
 				var cardsList = await _handRepository.GetCardIdListByGameId(game.Id);
 				var deck = CardHelper.LoadDeck(cardsList);

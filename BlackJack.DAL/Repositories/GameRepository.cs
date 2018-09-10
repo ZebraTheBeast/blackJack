@@ -17,16 +17,6 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task<int> GetGameIdByHumanId(int humanId)
-		{
-			using (var db = new SqlConnection(_connectionString))
-			{
-				var sqlQuery = "SELECT Id FROM Game WHERE HumanId = @humanId";
-				var gameId = (await db.QueryAsync<int>(sqlQuery, new { humanId })).FirstOrDefault();
-				return gameId;
-			}
-		}
-
 		public async Task Delete(int id)
 		{
 			using (var db = new SqlConnection(_connectionString))
