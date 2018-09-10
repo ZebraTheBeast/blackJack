@@ -1,8 +1,8 @@
 ﻿import { NgModule } from '@angular/core';
-import { SharedModule } from 'src/modules/shared.module';
-import { LoginRoutingModule } from 'src/modules/login/login-routing.module';
+import { SharedModule } from 'src/shared.module';
+import { LoginRoutingModule } from 'src/login/login-routing.module';
 
-import { LoginComponent } from 'src/modules/login/login.component';
+import { LoginComponent } from 'src/login/login.component';
 
 @NgModule({
     imports: [

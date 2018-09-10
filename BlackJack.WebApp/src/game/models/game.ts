@@ -1,4 +1,4 @@
-import { Player } from "src/models/player";
+import { Player } from "src/game/models/player";
 
 export class Game {
     dealer: Player;

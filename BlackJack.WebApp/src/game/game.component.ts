@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { GameService } from 'src/services/game.service';
-import { MessageService } from 'src/services/message.service';
+import { GameService } from 'src/game/game.service';
+import { MessageService } from 'src/message/message.service';
 
 @Component({
     selector: 'app-game',
     styleUrls: ['/Content/bootstrap.css', '/Content/Site.css'],
-    templateUrl: '/src/modules/game/game.component.html'
+    templateUrl: '/src/game/game.component.html'
 })
 
 export class GameComponent implements OnInit {

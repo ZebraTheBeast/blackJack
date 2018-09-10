@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LoginService } from 'src/services/login.service';
-import { MessageService } from 'src/services/message.service';
+import { LoginService } from 'src/login/login.service';
+import { MessageService } from 'src/message/message.service';
 
 @Component({
     selector: 'app-login',
     styleUrls: ['/Content/bootstrap.css', '/Content/Site.css'],
-    templateUrl: '/src/modules/login/login.component.html'
+    templateUrl: '/src/login/login.component.html'
 })
 
 export class LoginComponent {

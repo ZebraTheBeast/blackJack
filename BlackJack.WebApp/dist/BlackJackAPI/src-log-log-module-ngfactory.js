@@ -1,9 +1,9 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["src-modules-log-log-module-ngfactory"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["src-log-log-module-ngfactory"],{
 
-/***/ "./src/modules/log/log.module.ngfactory.js":
-/*!*************************************************!*\
-  !*** ./src/modules/log/log.module.ngfactory.js ***!
-  \*************************************************/
+/***/ "./src/log/log.module.ngfactory.js":
+/*!*****************************************!*\
+  !*** ./src/log/log.module.ngfactory.js ***!
+  \*****************************************/
 /*! exports provided: LogModuleNgFactory */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,24 +11,24 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogModuleNgFactory", function() { return LogModuleNgFactory; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _log_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./log.module */ "./src/modules/log/log.module.ts");
-/* harmony import */ var _node_modules_angular_router_router_ngfactory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/@angular/router/router.ngfactory */ "./node_modules/@angular/router/router.ngfactory.js");
-/* harmony import */ var _log_component_ngfactory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./log.component.ngfactory */ "./src/modules/log/log.component.ngfactory.js");
-/* harmony import */ var _node_modules_progress_kendo_angular_popup_dist_es2015_index_ngfactory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../node_modules/@progress/kendo-angular-popup/dist/es2015/index.ngfactory */ "./node_modules/@progress/kendo-angular-popup/dist/es2015/index.ngfactory.js");
-/* harmony import */ var _node_modules_progress_kendo_angular_grid_dist_es2015_index_ngfactory__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../node_modules/@progress/kendo-angular-grid/dist/es2015/index.ngfactory */ "./node_modules/@progress/kendo-angular-grid/dist/es2015/index.ngfactory.js");
+/* harmony import */ var _log_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./log.module */ "./src/log/log.module.ts");
+/* harmony import */ var _node_modules_angular_router_router_ngfactory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../node_modules/@angular/router/router.ngfactory */ "./node_modules/@angular/router/router.ngfactory.js");
+/* harmony import */ var _log_component_ngfactory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./log.component.ngfactory */ "./src/log/log.component.ngfactory.js");
+/* harmony import */ var _node_modules_progress_kendo_angular_popup_dist_es2015_index_ngfactory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../node_modules/@progress/kendo-angular-popup/dist/es2015/index.ngfactory */ "./node_modules/@progress/kendo-angular-popup/dist/es2015/index.ngfactory.js");
+/* harmony import */ var _node_modules_progress_kendo_angular_grid_dist_es2015_index_ngfactory__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../node_modules/@progress/kendo-angular-grid/dist/es2015/index.ngfactory */ "./node_modules/@progress/kendo-angular-grid/dist/es2015/index.ngfactory.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _progress_kendo_angular_intl__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @progress/kendo-angular-intl */ "./node_modules/@progress/kendo-angular-intl/dist/es/index.js");
 /* harmony import */ var _progress_kendo_angular_dateinputs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @progress/kendo-angular-dateinputs */ "./node_modules/@progress/kendo-angular-dateinputs/dist/es/index.js");
 /* harmony import */ var _progress_kendo_angular_popup__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @progress/kendo-angular-popup */ "./node_modules/@progress/kendo-angular-popup/dist/es/index.js");
-/* harmony import */ var _shared_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../shared.module */ "./src/modules/shared.module.ts");
+/* harmony import */ var _shared_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../shared.module */ "./src/shared.module.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _log_routing_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./log-routing.module */ "./src/modules/log/log-routing.module.ts");
+/* harmony import */ var _log_routing_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./log-routing.module */ "./src/log/log-routing.module.ts");
 /* harmony import */ var _progress_kendo_angular_grid__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @progress/kendo-angular-grid */ "./node_modules/@progress/kendo-angular-grid/dist/es/index.js");
 /* harmony import */ var _progress_kendo_angular_inputs__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @progress/kendo-angular-inputs */ "./node_modules/@progress/kendo-angular-inputs/dist/es/index.js");
 /* harmony import */ var _progress_kendo_angular_resize_sensor__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @progress/kendo-angular-resize-sensor */ "./node_modules/@progress/kendo-angular-resize-sensor/dist/es/index.js");
 /* harmony import */ var _progress_kendo_angular_dropdowns__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @progress/kendo-angular-dropdowns */ "./node_modules/@progress/kendo-angular-dropdowns/dist/es/index.js");
-/* harmony import */ var _log_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./log.component */ "./src/modules/log/log.component.ts");
+/* harmony import */ var _log_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./log.component */ "./src/log/log.component.ts");
 /**
  * @fileoverview This file was generated by the Angular template compiler. Do not edit.
  *
@@ -61,4 +61,4 @@ var LogModuleNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcmf"](_lo
 /***/ })
 
 }]);
-//# sourceMappingURL=src-modules-log-log-module-ngfactory.js.map
+//# sourceMappingURL=src-log-log-module-ngfactory.js.map

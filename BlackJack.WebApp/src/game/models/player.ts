@@ -1,4 +1,4 @@
-import { Hand } from "src/models/hand";
+import { Hand } from "src/game/models/hand";
 
 export class Player {
     id: number;
