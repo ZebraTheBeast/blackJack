@@ -7,8 +7,8 @@ namespace BlackJack.Entities
 	{
 		[ExplicitKey]
 		public int PlayerId { get; set; }
-		public int Bet { get; set; }
 		[ExplicitKey]
 		public int GameId { get; set; }
+		public int Bet { get; set; }
 	}
 }

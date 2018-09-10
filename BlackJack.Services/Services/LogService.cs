@@ -41,7 +41,7 @@ namespace BlackJack.BusinessLogic.Services
 					{
 						Id = message.Id,
 						Message = message.Message,
-						Time = message.Logged,
+						CreationDate = message.CreationDate,
 						GameId = message.GameId,
 						PlayerId = message.PlayerId
 					};

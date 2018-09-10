@@ -1,9 +1,6 @@
 ﻿using BlackJack.DataAccess.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
@@ -43,6 +40,16 @@ namespace BlackJack.DataAccess.Repositories
 			using (var db = new SqlConnection(_connectionString))
 			{
 				await db.InsertAsync(new Game { HumanId = humanId });
+			}
+		}
+
+		public async Task<Game> GetGameByHumanId(int humanId)
+		{
+			using (var db = new SqlConnection(_connectionString))
+			{
+				var sqlQuery = "SELECT * FROM Game INNER JOIN Player on Game.HumanId = Player.Id WHERE HumanId = @humanId";
+				var currnetGame = (await db.QueryAsync<Game, Player, Game>(sqlQuery, (game, player) => { game.Human = player; return game; }, new { humanId })).FirstOrDefault();
+				return currnetGame;
 			}
 		}
 	}

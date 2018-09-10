@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using BlackJack.Entities;
 using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Interfaces
@@ -11,5 +8,6 @@ namespace BlackJack.DataAccess.Interfaces
 		Task Create(int humanId);
 		Task<int> GetGameIdByHumanId(int humanId);
 		Task Delete(int id);
+		Task<Game> GetGameByHumanId(int humanId);
 	}
 }

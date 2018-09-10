@@ -8,11 +8,5 @@ namespace BlackJack.Entities
 	{
         public string Name { get; set; }
         public int Points { get; set; }
-		public DateTime CreationDate { get; set; }
-
-		public Player()
-		{
-			CreationDate = DateTime.Now;
-		}
-    }
+	}
 }
