@@ -239,6 +239,7 @@ namespace BlackJack.BusinessLogic.Services
 				await _playerInGameRepository.AnnulBet(game.Human.Id, game.Id);
 
 				gameViewModel = await GetGameViewModel(game.Human.Id);
+
 				gameViewModel.Options = OptionHelper.OptionSetBet(message);
 
 				return gameViewModel;

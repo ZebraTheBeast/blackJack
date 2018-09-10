@@ -583,6 +583,11 @@ var GameComponent = /** @class */ (function () {
             && (this.game.human.betValue != 0)) {
             this.disableBet();
         }
+        if (this.game.human.points <= 0) {
+            this.game.options = "You lose, restart the game.";
+            this.isDrawDisabled = true;
+            this.isBetDisabled = true;
+        }
     };
     return GameComponent;
 }());
