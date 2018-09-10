@@ -19,7 +19,7 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<GameViewModel> GetGameViewModel(int Id)
+        public async Task<IHttpActionResult> GetGameViewModel(int Id)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace BlackJack.WebApp.Controllers
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
 
-                return gameViewModel;
+                return Ok(gameViewModel);
             }
             catch (Exception exception)
             {
@@ -48,13 +48,13 @@ namespace BlackJack.WebApp.Controllers
        
 
         [HttpPost]
-        public async Task<GameViewModel> Bet([FromBody]BetViewModel betViewModel)
+        public async Task<IHttpActionResult> Bet([FromBody]BetViewModel betViewModel)
         {
             try
             {
                 var gameViewModel = new GameViewModel();
                 gameViewModel = await _gameService.PlaceBet(betViewModel.BetValue, betViewModel.HumanId);
-                return gameViewModel;
+                return Ok(gameViewModel);
             }
             catch (Exception exception)
             {
@@ -63,13 +63,13 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<GameViewModel> Draw([FromBody]int humanId)
+        public async Task<IHttpActionResult> Draw([FromBody]int humanId)
         {
             try
             {
                 var gameViewModel = new GameViewModel();
                 gameViewModel = await _gameService.Draw(humanId);
-                return gameViewModel;
+                return Ok(gameViewModel);
             }
             catch (Exception exception)
             {
@@ -78,13 +78,13 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<GameViewModel> Stand([FromBody]int humanId)
+        public async Task<IHttpActionResult> Stand([FromBody]int humanId)
         {
             try
             {
                 var gameViewModel = new GameViewModel();
                 gameViewModel = await _gameService.Stand(humanId);
-                return gameViewModel;
+                return Ok(gameViewModel);
             }
             catch (Exception exception)
             {

@@ -20,7 +20,7 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 		}
 
 		[HttpPost]
-		public async Task<int> StartGame([FromBody]LoginViewModel loginViewModel)
+		public async Task<IHttpActionResult> StartGame([FromBody]LoginViewModel loginViewModel)
 		{
 			try
 			{
@@ -39,7 +39,8 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 					throw new Exception(StringHelper.EmptyName());
 				}
 
-				return await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
+				var humanId = await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
+				return Ok(humanId);
 			}
 			catch (Exception exception)
 			{
@@ -48,7 +49,7 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 		}
 
 		[HttpPost]
-		public async Task<int> LoadGame([FromBody]string playerName)
+		public async Task<IHttpActionResult> LoadGame([FromBody]string playerName)
 		{
 			try
 			{
@@ -56,8 +57,8 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 				{
 					throw new Exception(StringHelper.EmptyName());
 				}
-
-				return await _loginService.LoadGame(playerName);
+				var humanId = await _loginService.LoadGame(playerName);
+				return Ok(humanId);
 			}
 			catch (Exception exception)
 			{

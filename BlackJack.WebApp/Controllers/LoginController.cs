@@ -20,7 +20,7 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<int> StartGame([FromBody]LoginViewModel loginViewModel)
+        public async Task<IHttpActionResult> StartGame([FromBody]LoginViewModel loginViewModel)
         {
             try
             {
@@ -39,7 +39,9 @@ namespace BlackJack.WebApp.Controllers
                     throw new Exception(StringHelper.EmptyName());
                 }
 
-                return await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
+                var humanId = await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
+
+                return Ok(humanId);
             }
             catch (Exception exception)
             {
@@ -48,7 +50,7 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<int> LoadGame(string playerName)
+        public async Task<IHttpActionResult> LoadGame(string playerName)
         {
             try
             {
@@ -56,8 +58,8 @@ namespace BlackJack.WebApp.Controllers
                 {
                     throw new Exception(StringHelper.EmptyName());
                 }
-
-                return await _loginService.LoadGame(playerName);
+                var humanId = await _loginService.LoadGame(playerName);
+                return Ok(humanId);
             }
             catch (Exception exception)
             {

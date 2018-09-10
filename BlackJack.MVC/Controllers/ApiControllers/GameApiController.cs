@@ -20,7 +20,7 @@ namespace BlackJack.MVC.Controllers
 		}
 
 		[HttpPost]
-		public async Task<GameViewModel> GetGameViewModel([FromBody]int humanId)
+		public async Task<IHttpActionResult> GetGameViewModel([FromBody]int humanId)
 		{
 			try
 			{
@@ -43,7 +43,7 @@ namespace BlackJack.MVC.Controllers
 					throw new Exception(StringHelper.PlayerNotInGame());
 				}
 
-				return gameViewModel;
+				return Ok(gameViewModel);
 			}
 			catch (Exception exception)
 			{
@@ -53,13 +53,13 @@ namespace BlackJack.MVC.Controllers
 		}
 
 		[HttpPost]
-		public async Task<GameViewModel> Bet([FromBody]BetViewModel betViewModel)
+		public async Task<IHttpActionResult> Bet([FromBody]BetViewModel betViewModel)
 		{
 			try
 			{
 				var gameViewModel = new GameViewModel();
 				gameViewModel = await _gameService.PlaceBet(betViewModel.BetValue, betViewModel.HumanId);
-				return gameViewModel;
+				return Ok(gameViewModel);
 			}
 			catch (Exception exception)
 			{
@@ -68,13 +68,13 @@ namespace BlackJack.MVC.Controllers
 		}
 
 		[HttpPost]
-		public async Task<GameViewModel> Draw([FromBody]int humanId)
+		public async Task<IHttpActionResult> Draw([FromBody]int humanId)
 		{
 			try
 			{
 				var gameViewModel = new GameViewModel();
 				gameViewModel = await _gameService.Draw(humanId);
-				return gameViewModel;
+				return Ok(gameViewModel);
 			}
 			catch (Exception exception)
 			{
@@ -84,13 +84,13 @@ namespace BlackJack.MVC.Controllers
 		}
 
 		[HttpPost]
-		public async Task<GameViewModel> Stand([FromBody]int humanId)
+		public async Task<IHttpActionResult> Stand([FromBody]int humanId)
 		{
 			try
 			{
 				var gameViewModel = new GameViewModel();
 				gameViewModel = await _gameService.Stand(humanId);
-				return gameViewModel;
+				return Ok(gameViewModel);
 			}
 			catch (Exception exception)
 			{

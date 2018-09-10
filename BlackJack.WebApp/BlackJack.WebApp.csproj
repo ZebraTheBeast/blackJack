@@ -252,7 +252,7 @@
     <TypeScriptCompile Include="src\environment.ts" />
     <TypeScriptCompile Include="src\log\log.component.ts" />
     <TypeScriptCompile Include="src\app.module.ts" />
-    <TypeScriptCompile Include="src\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="src\app-routing.module.ts" />
     <TypeScriptCompile Include="src\message\message.component.ts" />
     <TypeScriptCompile Include="src\game\game.component.ts" />
     <TypeScriptCompile Include="src\game\game-routing.module.ts" />

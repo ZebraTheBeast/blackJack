@@ -19,12 +19,12 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 			_logService = logService;
 		}
 
-		public async Task<List<LogMessageViewModel>> GetLogs()
+		public async Task<IHttpActionResult> GetLogs()
 		{
 			try
 			{
 				var logMessageViewModel = (await _logService.GetMessages()).ToList();
-				return logMessageViewModel;
+				return Ok(logMessageViewModel);
 			}
 			catch (Exception exception)
 			{
