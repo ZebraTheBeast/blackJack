@@ -106,7 +106,7 @@ function WriteResponse(gameViewModel) {
     $("#dealerName").html(gameViewModel.dealer.name);
 
     $.each(gameViewModel.dealer.hand.cardList, function (index, card) {
-        dealerCards += "<li class='list-group-item'>" + card.title + " of " + card.color + "</li>";
+        dealerCards += "<li class='list-group-item'>" + card.title + " of " + card.suit + "</li>";
     });
 
     $("#dealerCards").html(dealerCards);
@@ -118,7 +118,7 @@ function WriteResponse(gameViewModel) {
             "<h3>" + bot.name + "</h3>" +
             "<ul class = 'list-group'>";
         $.each(bot.hand.cardList, function (index, card) {
-            botResult += "<li class='list-group-item'>" + card.title + " of " + card.color + "</li>";
+            botResult += "<li class='list-group-item'>" + card.title + " of " + card.suit + "</li>";
         });
         botResult += "</ul>" +
             "<h4>Value: " + bot.hand.cardListValue + " </h4>" +
@@ -132,7 +132,7 @@ function WriteResponse(gameViewModel) {
 	}
 
 	$.each(gameViewModel.human.hand.cardList, function (index, card) {
-		humanCards += "<li class='list-group-item'>" + card.title + " of " + card.color + "</li>";
+		humanCards += "<li class='list-group-item'>" + card.title + " of " + card.suit + "</li>";
 	});
 
 	humanResult = `<div class="col-md-2">

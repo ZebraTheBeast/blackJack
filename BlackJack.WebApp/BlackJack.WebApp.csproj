@@ -249,6 +249,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\app.component.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
+    <TypeScriptCompile Include="src\game\card-suit.pipe.ts" />
     <TypeScriptCompile Include="src\game\models\dealer.ts" />
     <TypeScriptCompile Include="src\log\log.component.ts" />
     <TypeScriptCompile Include="src\app.module.ts" />

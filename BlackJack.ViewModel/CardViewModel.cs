@@ -10,7 +10,7 @@ namespace BlackJack.ViewModels
 		public string Title { get; set; }
 		[JsonProperty("value")]
 		public int Value { get; set; }
-		[JsonProperty("color")]
-		public string Color { get; set; }
+		[JsonProperty("suit")]
+		public string Suit { get; set; }
     }
 }

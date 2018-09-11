@@ -19,7 +19,7 @@ namespace BlackJack.BusinessLogic.Helper
 			{
 				Id = card.Id,
 				Title = card.Title,
-				Color = card.Color,
+				Suit = card.Suit,
 				Value = card.Value
 			};
 
@@ -57,7 +57,7 @@ namespace BlackJack.BusinessLogic.Helper
 					Id = i + 1,
 					Title = titleList[cardTitleValue],
 					Value = valueList[cardTitleValue],
-					Color = ((CardSuit)cardColorValue++).ToString()
+					Suit = ((CardSuit)cardColorValue++).ToString()
 				};
 
 				deck.Add(card);

@@ -175,8 +175,8 @@ namespace BlackJack.BusinessLogic.Services
 				var game = await _gameRepository.GetGameByHumanId(humanId);
 				var human = Mapper.Map<Player, PlayerViewModel>(game.Human);
 				human.BetValue = await _playerInGameRepository.GetBetByPlayerId(human.Id, game.Id);
-				var cardsList = await _handRepository.GetCardIdListByGameId(game.Id);
-				var deck = CardHelper.LoadDeck(cardsList);
+				var cardsInGameList = await _handRepository.GetCardIdListByGameId(game.Id);
+				var deck = CardHelper.LoadDeck(cardsInGameList);
 
 				if (human.BetValue == 0)
 				{
