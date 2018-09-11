@@ -1,7 +1,8 @@
 import { Player } from "src/game/models/player";
+import { Dealer } from "src/game/models/dealer";
 
 export class Game {
-    dealer: Player;
+    dealer: Dealer;
     human: Player;
     bots: Player[];
     deck: number[];
