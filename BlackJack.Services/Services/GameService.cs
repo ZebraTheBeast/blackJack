@@ -155,7 +155,7 @@ namespace BlackJack.BusinessLogic.Services
 				if ((gameViewModel.Human.Hand.CardListValue >= Constant.WinValue)
 					|| (gameViewModel.Dealer.Hand.CardListValue >= Constant.WinValue))
 				{
-					gameViewModel = await Stand(game.Id);
+					gameViewModel = await Stand(game.Human.Id);
 				}
 
 				return gameViewModel;
