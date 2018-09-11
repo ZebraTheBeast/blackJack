@@ -21,7 +21,7 @@
 							type: "number"
 						},
 						Time: {
-							field: "Time",
+							field: "CreationDate",
 							type: "date"
 						},
 						Message: {

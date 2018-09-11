@@ -10,8 +10,7 @@ import { GameComponent } from 'src/game/game.component';
         GameRoutingModule
     ],
     declarations: [
-        GameComponent,
-        CardSuitPipe
+        GameComponent
     ]
 })
 

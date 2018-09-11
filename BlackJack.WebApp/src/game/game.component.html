@@ -53,7 +53,7 @@
             </h3>
             <ul class="list-group">
                 <li class="list-group-item" *ngFor="let card of bot.hand.cardList">
-                    {{ card.title }} of {{ card.suit | cardSuitPipe }}
+                    {{ card.title }} of {{ card.suit }}
                 </li>
             </ul>
             <h4 *ngIf="bot.hand.cardListValue != 0">Value: {{ bot.hand.cardListValue }}</h4>
