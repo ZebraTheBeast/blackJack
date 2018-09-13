@@ -40,11 +40,11 @@ namespace BlackJack.BusinessLogic.Services
 				var human = await _playerRepository.GetByName(playerName);
 				var bots = await _playerRepository.GetBots(playerName, botsAmount);
 				var oldGame = await _gameRepository.GetGameByHumanId(human.Id);
-				await _handRepository.RemoveAll(oldGame.Id);
-
-				await _playerInGameRepository.RemoveAll(oldGame.Id);
-				if (oldGame.Id != 0)
+				
+				if (oldGame != null)
 				{
+					await _handRepository.RemoveAll(oldGame.Id);
+					await _playerInGameRepository.RemoveAll(oldGame.Id);
 					await _gameRepository.Delete(oldGame.Id);
 				}
 

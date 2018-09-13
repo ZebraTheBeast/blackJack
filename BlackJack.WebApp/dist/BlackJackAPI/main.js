@@ -537,6 +537,7 @@ var GameComponent = /** @class */ (function () {
         this.gameService.stand(this.game.human.id).subscribe(function (game) {
             _this.game = game;
             _this.disableDraw();
+            _this.checkGameStatus();
         }, function (response) {
             _this.messageService.showError(response);
         });

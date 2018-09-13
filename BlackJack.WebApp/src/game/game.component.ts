@@ -43,6 +43,7 @@ export class GameComponent implements OnInit {
             game => {
                 this.game = game;
                 this.disableDraw();
+                this.checkGameStatus();
             },
             response => {
                 this.messageService.showError(response);
