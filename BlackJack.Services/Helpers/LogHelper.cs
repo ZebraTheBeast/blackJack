@@ -1,6 +1,6 @@
 ﻿using NLog;
 
-namespace BlackJack.BusinessLogic.Helpers
+namespace BlackJack.BusinessLogic.Helper
 {
 	public static class LogHelper
 	{

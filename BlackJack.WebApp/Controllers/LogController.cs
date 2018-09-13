@@ -1,7 +1,5 @@
 ﻿using BlackJack.BusinessLogic.Interfaces;
-using BlackJack.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -10,7 +8,7 @@ using System.Web.Http;
 
 namespace BlackJack.WebApp.Controllers
 {
-	public class LogController : ApiController
+    public class LogController : ApiController
     {
 		private ILogService _logService;
 
