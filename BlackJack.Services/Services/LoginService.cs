@@ -15,12 +15,16 @@ namespace BlackJack.BusinessLogic.Services
 		private IHandRepository _handRepository;
 		private IGameRepository _gameRepository;
 
-		public LoginService(IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, IHandRepository handRepository, IGameRepository gameRepository)
+		private ICardProvider _cardProvider;
+
+		public LoginService(ICardProvider cardProvider, IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, IHandRepository handRepository, IGameRepository gameRepository)
 		{
 			_playerInGameRepository = playerInGameRepository;
 			_playerRepository = playerRepository;
 			_handRepository = handRepository;
 			_gameRepository = gameRepository;
+
+			_cardProvider = cardProvider;
 
 			var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
 			NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
@@ -31,6 +35,7 @@ namespace BlackJack.BusinessLogic.Services
 			var logger = NLog.LogManager.GetCurrentClassLogger();
 			try
 			{
+				await _cardProvider.CheckDeck();
 				if (playerName == Constant.DealerName)
 				{
 					throw new Exception(StringHelper.NotAvailibleName());
@@ -75,6 +80,8 @@ namespace BlackJack.BusinessLogic.Services
 			var logger = NLog.LogManager.GetCurrentClassLogger();
 			try
 			{
+				await _cardProvider.CheckDeck();
+
 				if (playerName == Constant.DealerName)
 				{
 					throw new Exception(StringHelper.NotAvailibleName());

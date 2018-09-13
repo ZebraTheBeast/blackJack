@@ -16,17 +16,21 @@ namespace BlackJack.BusinessLogic.Services
 {
 	public class GameService : IGameService
 	{
+		ICardProvider _cardProvider;
+
 		IPlayerInGameRepository _playerInGameRepository;
 		IGameRepository _gameRepository;
 		IHandRepository _handRepository;
 		IPlayerRepository _playerRepository;
 
-		public GameService(IHandRepository handRepository, IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository, IGameRepository gameRepository)
+		public GameService(ICardProvider cardProvider, IHandRepository handRepository, IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository, IGameRepository gameRepository)
 		{
 			_handRepository = handRepository;
 			_playerRepository = playerRepository;
 			_playerInGameRepository = playerInGameRepository;
 			_gameRepository = gameRepository;
+
+			_cardProvider = cardProvider;
 
 			var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
 			NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
@@ -48,8 +52,8 @@ namespace BlackJack.BusinessLogic.Services
 				gameViewModel.Human.Hand = await GetPlayerHand(game.Human.Id, game.Id);
 				gameViewModel.Dealer = Mapper.Map<Player, DealerViewModel>(await _playerRepository.GetByName(Configurations.Constant.DealerName));
 				gameViewModel.Dealer.Hand = await GetPlayerHand(gameViewModel.Dealer.Id, game.Id);
-				gameViewModel.Deck = CardHelper.LoadDeck(cardsList);
-
+				gameViewModel.Deck = await _cardProvider.LoadDeck(cardsList);
+				gameViewModel.Bots = new List<PlayerViewModel>();
 				var bots = await _playerInGameRepository.GetBotsInGame(game.Id, game.Human.Id, gameViewModel.Dealer.Id);
 				
 				foreach (var botId in bots)
@@ -178,7 +182,7 @@ namespace BlackJack.BusinessLogic.Services
 				var human = Mapper.Map<Player, PlayerViewModel>(game.Human);
 				human.BetValue = await _playerInGameRepository.GetBetByPlayerId(human.Id, game.Id);
 				var cardsInGameList = await _handRepository.GetCardIdListByGameId(game.Id);
-				var deck = CardHelper.LoadDeck(cardsInGameList);
+				var deck = await _cardProvider.LoadDeck(cardsInGameList);
 
 				if (human.BetValue == 0)
 				{
@@ -255,7 +259,6 @@ namespace BlackJack.BusinessLogic.Services
 
 		private async Task<HandViewModel> GetPlayerHand(int playerId, int gameId)
 		{
-			var deck = CardHelper.GetFullDeck();
 
 			var hand = new HandViewModel
 			{
@@ -266,8 +269,9 @@ namespace BlackJack.BusinessLogic.Services
 
 			foreach (var cardId in cardsIdList)
 			{
-				var card = CardHelper.GetCardById(cardId, deck);
-				hand.CardList.Add(card);
+				var card = await _cardProvider.GetCardById(cardId);
+				var cardViewModel = Mapper.Map<Card, CardViewModel>(card);
+				hand.CardList.Add(cardViewModel);
 			}
 
 			hand.CardListValue = CardHelper.CountCardsValue(hand.CardList);
