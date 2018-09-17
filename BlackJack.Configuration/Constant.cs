@@ -9,7 +9,7 @@
         public const int NumberStartCard = 2;
         public const int AmountNumberCard = 9;
         public const int NumberCardForBlackJack = 2;
-        public const string NameCardForBlackJack = "Ace";
+        public const string AceCardTitle = "Ace";
         public const int DefaultPointsValue = 1000;
         public const int ValueToStopDraw = 17;
         public const int MinPointsValueToPlay = 10;
