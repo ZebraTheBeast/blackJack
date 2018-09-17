@@ -79,6 +79,7 @@ namespace BlackJack.BusinessLogic.Providers
 		public async Task<List<int>> LoadDeck(IEnumerable<int> cardsInGame)
 		{
 			var deck = new List<int>();
+			Random rng = new Random();
 
 			var cards = (await _cardRepository.GetAll()).ToList();
 
@@ -92,19 +93,11 @@ namespace BlackJack.BusinessLogic.Providers
 				deck.Add(card.Id);
 			}
 
-			deck = ShuffleDeck(deck);
-
-			return deck;
-		}
-
-		private List<int> ShuffleDeck(List<int> deck)
-		{
-			Random rng = new Random();
-			int deckSize = deck.Count();
+			var deckSize = deck.Count();
 
 			for (var i = 0; i < deckSize; i++)
 			{
-				int index = rng.Next(deckSize);
+				var index = rng.Next(deckSize);
 				var value = deck[i];
 				deck[i] = deck[index];
 				deck[index] = value;

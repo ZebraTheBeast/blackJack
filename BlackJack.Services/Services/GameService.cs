@@ -54,14 +54,15 @@ namespace BlackJack.BusinessLogic.Services
 				gameViewModel.Dealer.Hand = await GetPlayerHand(gameViewModel.Dealer.Id, game.Id);
 				gameViewModel.Deck = await _cardProvider.LoadDeck(cardsList);
 				gameViewModel.Bots = new List<PlayerViewModel>();
+
 				var bots = await _playerInGameRepository.GetBotsInGame(game.Id, game.Human.Id, gameViewModel.Dealer.Id);
-				
+
 				foreach (var botId in bots)
 				{
 					var player = await _playerRepository.GetById(botId);
 					gameViewModel.Bots.Add(Mapper.Map<Player, PlayerViewModel>(player));
 				}
-				
+
 				foreach (var bot in gameViewModel.Bots)
 				{
 					bot.Hand = await GetPlayerHand(bot.Id, game.Id);
@@ -84,29 +85,6 @@ namespace BlackJack.BusinessLogic.Services
 			catch (Exception exception)
 			{
 				logger.Error(exception.Message);
-				throw exception;
-			}
-		}
-
-		private async Task<bool> BotTurn(int botId, List<int> deck, int gameId)
-		{
-			try
-			{
-				var hand = await GetPlayerHand(botId, gameId);
-				var value = hand.CardListValue;
-
-				if (value >= Constant.ValueToStopDraw)
-				{
-					return false;
-				}
-
-				await GiveCardFromDeck(botId, deck[0], gameId);
-				deck.Remove(deck[0]);
-
-				return await BotTurn(botId, deck, gameId);
-			}
-			catch (Exception exception)
-			{
 				throw exception;
 			}
 		}
@@ -143,7 +121,7 @@ namespace BlackJack.BusinessLogic.Services
 				foreach (var bot in gameViewModel.Bots)
 				{
 					await _playerInGameRepository.PlaceBet(bot.Id, Constant.BotsBetValue, game.Id);
-					logger.Log(LogHelper.GetEvent(bot.Id, game.Id,StringHelper.PlayerPlaceBet(Constant.BotsBetValue)));
+					logger.Log(LogHelper.GetEvent(bot.Id, game.Id, StringHelper.PlayerPlaceBet(Constant.BotsBetValue)));
 				}
 
 				foreach (var playerId in playersIdList)
@@ -257,6 +235,29 @@ namespace BlackJack.BusinessLogic.Services
 			}
 		}
 
+		private async Task<bool> BotTurn(int botId, List<int> deck, int gameId)
+		{
+			try
+			{
+				var hand = await GetPlayerHand(botId, gameId);
+				var value = hand.CardListValue;
+
+				if (value >= Constant.ValueToStopDraw)
+				{
+					return false;
+				}
+
+				await GiveCardFromDeck(botId, deck[0], gameId);
+				deck.Remove(deck[0]);
+
+				return await BotTurn(botId, deck, gameId);
+			}
+			catch (Exception exception)
+			{
+				throw exception;
+			}
+		}
+
 		private async Task<HandViewModel> GetPlayerHand(int playerId, int gameId)
 		{
 			var hand = new HandViewModel
@@ -280,7 +281,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			foreach (var card in hand.CardList)
 			{
-				if ((card.Title == Constant.AceCardTitle)
+				if ((card.Title.Replace(" ", string.Empty) == Constant.AceCardTitle)
 					&& (hand.CardListValue > Constant.WinValue))
 				{
 					hand.CardListValue -= Constant.ImageCardValue;
@@ -329,14 +330,8 @@ namespace BlackJack.BusinessLogic.Services
 				return OptionHelper.OptionLose();
 			}
 
-			if ((dealerCardsValue == playerCardsValue)
-			&& (playerCardsValue <= Constant.WinValue))
-			{
-				logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDraw()));
-				return OptionHelper.OptionDraw();
-			}
-
-			return null;
+			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDraw()));
+			return OptionHelper.OptionDraw();
 		}
 
 		private async Task PlayerLosePoints(int playerId, int gameId, int playerBetValue)
