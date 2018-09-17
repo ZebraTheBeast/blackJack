@@ -2,6 +2,7 @@
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.ViewModels;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,12 +20,13 @@ namespace BlackJack.BusinessLogic.Services
 			_logMessageRepository = logMessageRepository;
 
 			var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
-			NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
+			LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
 		}
 
 		public async Task<IEnumerable<LogMessageViewModel>> GetMessages()
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
+			var logger = 
+			LogManager.GetCurrentClassLogger();
 			try
 			{
 				var messagesModel = new List<LogMessageViewModel>();

@@ -2,6 +2,7 @@
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.Configurations;
 using BlackJack.DataAccess.Interfaces;
+using NLog;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -27,12 +28,12 @@ namespace BlackJack.BusinessLogic.Services
 			_cardProvider = cardProvider;
 
 			var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
-			NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
+			LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
 		}
 
 		public async Task<int> StartGame(string playerName, int botsAmount)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
+			var logger = LogManager.GetCurrentClassLogger();
 			try
 			{
 				await _cardProvider.CheckDeck();
@@ -77,7 +78,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<int> LoadGame(string playerName)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
+			var logger = LogManager.GetCurrentClassLogger();
 			try
 			{
 				await _cardProvider.CheckDeck();

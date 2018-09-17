@@ -786,7 +786,7 @@ var LogComponent = /** @class */ (function () {
         var _this = this;
         this.logService.loadLogs().subscribe(function (data) {
             _this.data = data;
-            _this.data.forEach(function (item) { return item.Time = new Date(item.Time); });
+            _this.data.forEach(function (item) { return item.CreationDate = new Date(item.CreationDate); });
             _this.gridData = Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_0__["process"])(_this.data, _this.state);
         }, function (response) {
             _this.messageService.showError(response);

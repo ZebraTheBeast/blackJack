@@ -35,7 +35,7 @@ export class LogComponent {
         this.logService.loadLogs().subscribe(
             data => {
                 this.data = data;
-                this.data.forEach(item => item.Time = new Date(item.Time));
+                this.data.forEach(item => item.CreationDate = new Date(item.CreationDate));
                 this.gridData = process(this.data, this.state);
             },
             response => {

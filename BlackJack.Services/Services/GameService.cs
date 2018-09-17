@@ -33,12 +33,12 @@ namespace BlackJack.BusinessLogic.Services
 			_cardProvider = cardProvider;
 
 			var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
-			NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
+			LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
 		}
 
 		public async Task<GameViewModel> GetGameViewModel(int humanId)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
+			var logger = LogManager.GetCurrentClassLogger();
 			try
 			{
 				var gameViewModel = new GameViewModel();
@@ -50,7 +50,7 @@ namespace BlackJack.BusinessLogic.Services
 				gameViewModel.Human = Mapper.Map<Player, PlayerViewModel>(game.Human);
 				gameViewModel.Human.BetValue = await _playerInGameRepository.GetBetByPlayerId(game.Human.Id, game.Id);
 				gameViewModel.Human.Hand = await GetPlayerHand(game.Human.Id, game.Id);
-				gameViewModel.Dealer = Mapper.Map<Player, DealerViewModel>(await _playerRepository.GetByName(Configurations.Constant.DealerName));
+				gameViewModel.Dealer = Mapper.Map<Player, DealerViewModel>(await _playerRepository.GetByName(Constant.DealerName));
 				gameViewModel.Dealer.Hand = await GetPlayerHand(gameViewModel.Dealer.Id, game.Id);
 				gameViewModel.Deck = await _cardProvider.LoadDeck(cardsList);
 				gameViewModel.Bots = new List<PlayerViewModel>();
@@ -113,7 +113,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<GameViewModel> PlaceBet(int betValue, int humanId)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
+			var logger = LogManager.GetCurrentClassLogger();
 			try
 			{
 				var game = await _gameRepository.GetGameByHumanId(humanId);
@@ -175,7 +175,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<GameViewModel> Draw(int humanId)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
+			var logger = LogManager.GetCurrentClassLogger();
 			try
 			{
 				var game = await _gameRepository.GetGameByHumanId(humanId);
@@ -211,7 +211,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<GameViewModel> Stand(int humanId)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
+			var logger = LogManager.GetCurrentClassLogger();
 			try
 			{
 				var game = await _gameRepository.GetGameByHumanId(humanId);
@@ -259,7 +259,6 @@ namespace BlackJack.BusinessLogic.Services
 
 		private async Task<HandViewModel> GetPlayerHand(int playerId, int gameId)
 		{
-
 			var hand = new HandViewModel
 			{
 				CardList = new List<CardViewModel>()
@@ -300,7 +299,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		private async Task<string> UpdateScore(int playerId, int playerBetValue, int playerCardsValue, int dealerCardsValue, int gameId)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
+			var logger = LogManager.GetCurrentClassLogger();
 			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerValue(playerCardsValue, dealerCardsValue)));
 
 			if ((playerCardsValue > dealerCardsValue)
@@ -342,7 +341,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		private async Task PlayerLosePoints(int playerId, int gameId, int playerBetValue)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
+			var logger = LogManager.GetCurrentClassLogger();
 			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerLose(playerBetValue)));
 
 			var player = await _playerRepository.GetById(playerId);
@@ -352,7 +351,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		private async Task PlayerWinPoints(int playerId, int gameId, int playerBetValue)
 		{
-			var logger = NLog.LogManager.GetCurrentClassLogger();
+			var logger = LogManager.GetCurrentClassLogger();
 			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerWin(playerBetValue)));
 
 			var player = await _playerRepository.GetById(playerId);
