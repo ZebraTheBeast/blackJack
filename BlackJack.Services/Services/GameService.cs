@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlackJack.ViewModels;
 using BlackJack.Configurations;
-using BlackJack.BusinessLogic.Helper;
+using BlackJack.BusinessLogic.Helpers;
 using BlackJack.BusinessLogic.Interfaces;
 using System.IO;
 using BlackJack.DataAccess.Interfaces;

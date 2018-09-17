@@ -47,7 +47,7 @@ namespace BlackJack.DataAccess.Repositories
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
-				await db.InsertAsync<Hand>(new Hand { CardId = cardId, GameId = gameId, PlayerId = playerId });
+				await db.InsertAsync(new Hand { CardId = cardId, GameId = gameId, PlayerId = playerId });
 			}
 		}
 

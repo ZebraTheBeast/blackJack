@@ -1,4 +1,4 @@
-﻿using BlackJack.BusinessLogic.Helper;
+﻿using BlackJack.BusinessLogic.Helpers;
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.Configurations;
 using BlackJack.ViewModels;

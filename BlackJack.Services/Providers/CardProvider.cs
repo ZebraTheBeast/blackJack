@@ -78,10 +78,9 @@ namespace BlackJack.BusinessLogic.Providers
 
 		public async Task<List<int>> LoadDeck(IEnumerable<int> cardsInGame)
 		{
-			var cards = new List<Card>();
 			var deck = new List<int>();
 
-			cards = (await _cardRepository.GetAll()).ToList();
+			var cards = (await _cardRepository.GetAll()).ToList();
 
 			foreach (var cardId in cardsInGame)
 			{

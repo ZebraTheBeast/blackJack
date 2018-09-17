@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using BlackJack.ViewModels;
 using BlackJack.BusinessLogic.Interfaces;
-using BlackJack.BusinessLogic.Helper;
+using BlackJack.BusinessLogic.Helpers;
 
 namespace BlackJack.MVC.Controllers
 {
