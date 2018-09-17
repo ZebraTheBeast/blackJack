@@ -75,9 +75,9 @@
     <Compile Include="Helpers\CardHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
-    <Compile Include="Interfaces\IGameService.cs" />
-    <Compile Include="Interfaces\ILoginService.cs" />
-    <Compile Include="Interfaces\ILogService.cs" />
+    <Compile Include="Interfaces\Services\IGameService.cs" />
+    <Compile Include="Interfaces\Services\ILoginService.cs" />
+    <Compile Include="Interfaces\Services\ILogService.cs" />
     <Compile Include="Configs\AutoMapperConfig.cs" />
     <Compile Include="Interfaces\ICardProvider.cs" />
     <Compile Include="Providers\CardProvider.cs" />

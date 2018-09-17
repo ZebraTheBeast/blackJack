@@ -274,9 +274,45 @@ namespace BlackJack.BusinessLogic.Services
 				hand.CardList.Add(cardViewModel);
 			}
 
-			hand.CardListValue = CardHelper.CountCardsValue(hand.CardList);
-
+			hand.CardListValue = CountCardsValue(hand.CardList);
+						
 			return hand;
+		}
+
+		private int CountCardsValue(List<CardViewModel> cards)
+		{
+			var cardListValue = 0;
+
+			foreach (var card in cards)
+			{
+				cardListValue += card.Value;
+			}
+
+			foreach (var card in cards)
+			{
+				if ((card.Title == Constant.NameCardForBlackJack)
+					&& (cardListValue > Constant.WinValue))
+				{
+					cardListValue -= Constant.ImageCardValue;
+				}
+			}
+
+			if (cards.Count() != Constant.NumberCardForBlackJack)
+			{
+				return cardListValue;
+			}
+
+			foreach (var card in cards)
+			{
+				if (card.Title != Constant.NameCardForBlackJack)
+				{
+					return cardListValue;
+				}
+			}
+
+			cardListValue = Constant.WinValue;
+
+			return cardListValue;
 		}
 
 		private async Task GiveCardFromDeck(int playerId, int cardId, int gameId)
