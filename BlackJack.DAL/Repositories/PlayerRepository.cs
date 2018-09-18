@@ -11,7 +11,7 @@ using BlackJack.Configurations;
 namespace BlackJack.DataAccess.Repositories
 {
 	public class PlayerRepository : IPlayerRepository
-    {
+	{
 		private string _connectionString;
 
 		public PlayerRepository(string connectionString)
@@ -20,87 +20,108 @@ namespace BlackJack.DataAccess.Repositories
 		}
 
 		public async Task Create(Player player)
-        {
-            using (var db = new SqlConnection(_connectionString))
-            {
-				await db.InsertAsync(new Player { Name = player.Name, CreationDate = player.CreationDate});
+		{
+			using (var db = new SqlConnection(_connectionString))
+			{
+				await db.InsertAsync(new Player { Name = player.Name, CreationDate = player.CreationDate });
 			}
-        }
+		}
 
-        public async Task<IEnumerable<Player>> GetBots(string playerName, int botsAmount)
-        {
+		public async Task<List<Player>> GetBots(string playerName, int botsAmount)
+		{
 			var players = new List<Player>();
+			var playersIdWithoutPoints = new List<int>();
 			var dealer = await GetByName(Constant.DealerName);
-
+			var sqlQuery = "SELECT TOP(@botsAmount) * FROM Player WHERE Name <> @playerName AND Name <> @dealerName";
 			players.Add(dealer);
 
 			using (var db = new SqlConnection(_connectionString))
-            {
-				var sqlQuery = "SELECT TOP(@botsAmount) * FROM Player WHERE Name <> @playerName AND Name <> @dealerName";
-                var bots = await db.QueryAsync<Player>(sqlQuery, new { botsAmount, playerName, dealerName = Constant.DealerName });
+			{
+				var bots = await db.QueryAsync<Player>(sqlQuery, new { botsAmount, playerName, dealerName = Constant.DealerName });
 				players.AddRange(bots);
 			}
 
-            foreach (var player in players)
-            {
-                player.Points = await PointsCheck(player.Id, player.Points);
-            }
+			foreach (var player in players)
+			{
+				if (player.Points < Constant.MinPointsValueToPlay)
+				{
+					playersIdWithoutPoints.Add(player.Id);
+					player.Points = Constant.DefaultPointsValue;
+				}
+			}
+			if (playersIdWithoutPoints.Count != 0)
+			{
+				await RestorePointsToPlayers(playersIdWithoutPoints);
+			}
 
-            return players;
-        }
+			return players;
+		}
 
-        public async Task<Player> GetByName(string name)
-        {
-            var player = new Player();
+		public async Task<Player> GetByName(string name)
+		{
+			var player = new Player();
 
-            using (var db = new SqlConnection(_connectionString))
-            {
-                var sqlQuery = "SELECT * FROM Player WHERE Name = @name";
-                player = (await db.QueryAsync<Player>(sqlQuery, new { name })).FirstOrDefault();
-            }
+			using (var db = new SqlConnection(_connectionString))
+			{
+				var sqlQuery = "SELECT * FROM Player WHERE Name = @name";
+				player = (await db.QueryAsync<Player>(sqlQuery, new { name })).FirstOrDefault();
+			}
 
-            if (player == null)
-            {
-                player = new Player { Name = name };
-                await Create(player);
-                return await GetByName(name);
-            }
+			if (player == null)
+			{
+				player = new Player { Name = name };
+				await Create(player);
+				return await GetByName(name);
+			}
 
 			player.Points = await PointsCheck(player.Id, player.Points);
 
 			return player;
-        }
+		}
 
-        public async Task UpdatePoints(int playerId, int newPointsValue)
-        {
-            using (var db = new SqlConnection(_connectionString))
-            {
-                var sqlQuery = $"UPDATE Player SET Points = @newPointsValue WHERE Id = @playerId";
-                await db.ExecuteAsync(sqlQuery, new { newPointsValue, playerId });
-            }
-        }
+		public async Task UpdatePoints(int playerId, int newPointsValue)
+		{
+			using (var db = new SqlConnection(_connectionString))
+			{
+				var sqlQuery = $"UPDATE Player SET Points = @newPointsValue WHERE Id = @playerId";
+				await db.ExecuteAsync(sqlQuery, new { newPointsValue, playerId });
+			}
+		}
 
-        public async Task RestorePoints(int playerId)
-        {
-            using (var db = new SqlConnection(_connectionString))
-            {
-                var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id = @playerId";
-                await db.ExecuteAsync(sqlQuery, new { defaultPointsValue = Constant.DefaultPointsValue , playerId });
-            }
-        }
+		public async Task RestorePoints(int playerId)
+		{
+			using (var db = new SqlConnection(_connectionString))
+			{
+				var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id = @playerId";
+				await db.ExecuteAsync(sqlQuery, new { defaultPointsValue = Constant.DefaultPointsValue, playerId });
+			}
+		}
 
-        public async Task<Player> GetById(int id)
-        {
-            var player = new Player();
+		public async Task<Player> GetById(int id)
+		{
+			var player = new Player();
 
-            using (var db = new SqlConnection(_connectionString))
-            {
+			using (var db = new SqlConnection(_connectionString))
+			{
 				player = await db.GetAsync<Player>(id);
 				player.Points = await PointsCheck(player.Id, player.Points);
 			}
 
-            return player;
-        }
+			return player;
+		}
+
+		public async Task<List<Player>> GetPlayers(List<int> idList)
+		{
+			var players = new List<Player>();
+			var sqlQuery = "SELECT * FROM Player WHERE Id IN @idList";
+
+			using (var db = new SqlConnection(_connectionString))
+			{
+				players = (await db.QueryAsync<Player>(sqlQuery, new { idList })).ToList();
+			}
+
+			return players;
+		}
 
 		private async Task<int> PointsCheck(int playerId, int playerPoints)
 		{
@@ -112,5 +133,16 @@ namespace BlackJack.DataAccess.Repositories
 
 			return playerPoints;
 		}
-    }
+
+		private async Task RestorePointsToPlayers(List<int> playersId)
+		{
+
+			var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id on @playersId";
+
+			using (var db = new SqlConnection(_connectionString))
+			{
+				await db.QueryAsync(sqlQuery, new { defaultPointsValue = Constant.DefaultPointsValue, playersId });
+			}
+		}
+	}
 }

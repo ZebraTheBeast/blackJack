@@ -76,7 +76,7 @@ namespace BlackJack.BusinessLogic.Providers
 			}
 		}
 
-		public async Task<List<int>> LoadDeck(IEnumerable<int> cardsInGame)
+		public async Task<List<int>> LoadDeck(List<int> cardsInGame)
 		{
 			var deck = new List<int>();
 			Random randomNumericGenerator = new Random();
@@ -103,10 +103,10 @@ namespace BlackJack.BusinessLogic.Providers
 			return deck;
 		}
 
-		public async Task<Card> GetCardById(int id)
+		public async Task<List<Card>> GetCardsByIds(List<int> idList)
 		{
-			Card card = await _cardRepository.GetById(id);
-			return card;
+			List<Card> cards = await _cardRepository.GetCardsById(idList);
+			return cards;
 		}
 	}
 }

@@ -3,7 +3,9 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
 using BlackJack.Entities;
+using System.Linq;
 using System.Collections.Generic;
+using Dapper;
 
 namespace BlackJack.DataAccess.Repositories
 {
@@ -27,22 +29,27 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<IEnumerable<Card>> GetAll()
+		public async Task<List<Card>> GetAll()
 		{
+			var cards = new List<Card>();
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var cards = await db.GetAllAsync<Card>();
-				return cards;
+				cards = (await db.GetAllAsync<Card>()).ToList();
 			}
+			return cards;
 		}
 
-		public async Task<Card> GetById(int cardId)
+		public async Task<List<Card>> GetCardsById(List<int> cardsId)
 		{
+			var cards = new List<Card>();
+			var sqlQuery = "SELECT * FROM Card WHERE Id IN @cardsId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var card = await db.GetAsync<Card>(cardId);
-				return card;
+				cards = (await db.QueryAsync<Card>(sqlQuery, new { cardsId })).ToList();
 			}
+
+			return cards;
 		}
 	}
 }

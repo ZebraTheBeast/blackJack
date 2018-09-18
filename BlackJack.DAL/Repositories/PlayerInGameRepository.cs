@@ -6,6 +6,7 @@ using Dapper;
 using System.Data.SqlClient;
 using Dapper.Contrib.Extensions;
 using BlackJack.Entities;
+using BlackJack.Configurations;
 
 namespace BlackJack.DataAccess.Repositories
 {
@@ -26,36 +27,35 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<IEnumerable<int>> GetBotsInGame(int gameId, int humanId, int dealerId)
+		public async Task<List<int>> GetBotsInGame(int gameId, int humanId, int dealerId)
 		{
-			IEnumerable<int> players = new List<int>();
+			var players = new List<int>();
+			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE PlayerId <> @humanId AND PlayerId <> @dealerId AND GameId = @gameId";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE PlayerId <> @humanId AND PlayerId <> @dealerId AND GameId = @gameId";
-				players = await db.QueryAsync<int>(sqlQuery, new { humanId, dealerId, gameId });
+				players = (await db.QueryAsync<int>(sqlQuery, new { humanId, dealerId, gameId })).ToList();
 			}
 
 			return players;
 		}
 
-		public async Task<IEnumerable<int>> GetAll(int gameId)
+		public async Task<List<int>> GetAll(int gameId)
 		{
-			IEnumerable<int> players = new List<int>();
-
+			var players = new List<int>();
+			var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE GameId = @gameId";
-				players = await db.QueryAsync<int>(sqlQuery, new { gameId });
+				players = (await db.QueryAsync<int>(sqlQuery, new { gameId })).ToList();
 			}
 			return players;
 		}
 
 		public async Task RemoveAll(int gameId)
 		{
+			var sqlQuery = "DELETE FROM PlayerInGame WHERE GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = "DELETE FROM PlayerInGame WHERE GameId = @gameId";
 				await db.ExecuteAsync(sqlQuery, new { gameId });
 			}
 		}
@@ -76,12 +76,22 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
+		public async Task AnnulBet(List<int> playersId, int gameId)
+		{
+			var sqlQuery = "UPDATE PlayerInGame SET Bet = 0 WHERE GameId = @gameId AND PlayerId in @playersId";
+			using (var db = new SqlConnection(_connectionString))
+			{
+				await db.QueryAsync(sqlQuery, new { gameId, playersId });
+			}
+		}
+
 		public async Task<int> GetBetByPlayerId(int playerId, int gameId)
 		{
 			int betValue;
+			var sqlQuery = "SELECT Bet FROM PlayerInGame WHERE PlayerId = @playerId AND GameId = @gameId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = "SELECT Bet FROM PlayerInGame WHERE PlayerId = @playerId AND GameId = @gameId";
 				betValue = (await db.QueryAsync<int>(sqlQuery, new { playerId, gameId })).FirstOrDefault();
 			}
 			return betValue;
@@ -90,10 +100,10 @@ namespace BlackJack.DataAccess.Repositories
 		public async Task<bool> IsInGame(int playerId, int gameId)
 		{
 			var player = 0;
+			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE PlayerId = @playerId AND GameId = @gameId";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE PlayerId = @playerId AND GameId = @gameId";
 				player = (await db.QueryAsync<int>(sqlQuery, new { playerId, gameId })).FirstOrDefault();
 			}
 
@@ -103,6 +113,26 @@ namespace BlackJack.DataAccess.Repositories
 			}
 
 			return true;
+		}
+
+		public async Task PlaceBet(List<int> playersId, int gameId)
+		{
+			var sqlQuery = "UPDATE PlayerInGame SET Bet = @betValue WHERE GameId = @gameId AND PlayerId IN @playersId";
+			using (var db = new SqlConnection(_connectionString))
+			{
+				await db.QueryAsync(sqlQuery, new { betValue = Constant.BotsBetValue, gameId, playersId });
+			}
+		}
+
+		public async Task<List<PlayerInGame>> GetPlayersInGame(List<int> playersId, int gameId)
+		{
+			var players = new List<PlayerInGame>();
+			var sqlQuery = "SELECT * FROM PlayerInGame WHERE GameId = @gameId AND PlayerId in @playersId";
+			using (var db = new SqlConnection(_connectionString))
+			{
+				players = (await db.QueryAsync<PlayerInGame>(sqlQuery, new { gameId, playersId })).ToList();	
+			}
+			return players;
 		}
 	}
 }

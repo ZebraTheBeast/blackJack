@@ -5,6 +5,7 @@ using BlackJack.DataAccess.Interfaces;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using BlackJack.Entities.Properties;
+using System.Linq;
 
 namespace BlackJack.DataAccess.Repositories
 {
@@ -17,27 +18,25 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task<IEnumerable<int>> GetCardIdList(int playerId, int gameId)
+		public async Task<List<int>> GetCardIdList(int playerId, int gameId)
 		{
-			IEnumerable<int> cards = new List<int>();
-
+			var cards = new List<int>();
+			var sqlQuery = "SELECT CardId FROM Hand WHERE PlayerId = @playerId AND GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = "SELECT CardId FROM Hand WHERE PlayerId = @playerId AND GameId = @gameId";
-				cards = await db.QueryAsync<int>(sqlQuery, new { playerId, gameId });
+				cards = (await db.QueryAsync<int>(sqlQuery, new { playerId, gameId })).ToList();
 			}
 
 			return cards;
 		}
 
-		public async Task<IEnumerable<int>> GetCardIdListByGameId(int gameId)
+		public async Task<List<int>> GetCardIdListByGameId(int gameId)
 		{
-			IEnumerable<int> cards = new List<int>();
-
+			var cards = new List<int>();
+			var sqlQuery = "SELECT CardId FROM Hand WHERE GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = "SELECT CardId FROM Hand WHERE GameId = @gameId";
-				cards = await db.QueryAsync<int>(sqlQuery, new { gameId });
+				cards = (await db.QueryAsync<int>(sqlQuery, new { gameId })).ToList();
 			}
 
 			return cards;
@@ -53,9 +52,9 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task RemoveAll(int gameId)
 		{
+			var sqlQuery = $"DELETE FROM Hand WHERE GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = $"DELETE FROM Hand WHERE GameId = @gameId";
 				await db.ExecuteAsync(sqlQuery, new { gameId });
 			}
 		}

@@ -6,8 +6,8 @@ namespace BlackJack.DataAccess.Interfaces
 {
 	public interface ICardRepository
 	{
-		Task<Card> GetById(int cardId);
+		Task<List<Card>> GetCardsById(List<int> cardsId);
 		Task FillDB(List<Card> cards);
-		Task<IEnumerable<Card>> GetAll();
+		Task<List<Card>> GetAll();
 	}
 }

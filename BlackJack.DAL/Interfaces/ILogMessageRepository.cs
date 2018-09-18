@@ -6,6 +6,6 @@ namespace BlackJack.DataAccess.Interfaces
 {
 	public interface ILogMessageRepository
 	{
-		Task<IEnumerable<LogMessage>> GetAll();
+		Task<List<LogMessage>> GetAll();
 	}
 }

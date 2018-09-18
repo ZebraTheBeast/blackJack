@@ -8,7 +8,8 @@ namespace BlackJack.DataAccess.Interfaces
     {
         Task<Player> GetByName(string name);
         Task<Player> GetById(int id);
-        Task<IEnumerable<Player>> GetBots(string name, int botsAmount);
+		Task<List<Player>> GetPlayers(List<int> idList);
+        Task<List<Player>> GetBots(string name, int botsAmount);
         Task Create(Player player);
         Task UpdatePoints(int playerId, int newPointsValue);
         Task RestorePoints(int playerId);
