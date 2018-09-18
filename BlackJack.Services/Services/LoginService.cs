@@ -20,6 +20,8 @@ namespace BlackJack.BusinessLogic.Services
 
 		private ICardProvider _cardProvider;
 
+		Logger _logger;
+
 		public LoginService(ICardProvider cardProvider, IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, IHandRepository handRepository, IGameRepository gameRepository)
 		{
 			var path = string.Empty;
@@ -33,11 +35,12 @@ namespace BlackJack.BusinessLogic.Services
 
 			path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
 			LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
+			_logger = LogManager.GetCurrentClassLogger();
 		}
 
 		public async Task<int> StartGame(string playerName, int botsAmount)
 		{
-			Logger logger = LogManager.GetCurrentClassLogger();
+			
 			try
 			{
 				if (playerName == Constant.DealerName)
@@ -65,24 +68,23 @@ namespace BlackJack.BusinessLogic.Services
 				foreach (var bot in bots)
 				{
 					await _playerInGameRepository.AddPlayer(bot.Id, game.Id);
-					logger.Log(LogHelper.GetEvent(bot.Id, game.Id, StringHelper.BotJoinGame()));
+					_logger.Log(LogHelper.GetEvent(bot.Id, game.Id, StringHelper.BotJoinGame()));
 				}
 
 				await _playerInGameRepository.AddPlayer(human.Id, game.Id);
-				logger.Log(LogHelper.GetEvent(human.Id, game.Id, StringHelper.HumanJoinGame()));
+				_logger.Log(LogHelper.GetEvent(human.Id, game.Id, StringHelper.HumanJoinGame()));
 
 				return game.Id;
 			}
 			catch (Exception exception)
 			{
-				logger.Error(exception.Message);
+				_logger.Error(exception.Message);
 				throw exception;
 			}
 		}
 
 		public async Task<int> LoadGame(string playerName)
 		{
-			Logger logger = LogManager.GetCurrentClassLogger();
 			try
 			{
 				if (playerName == Constant.DealerName)
@@ -101,12 +103,12 @@ namespace BlackJack.BusinessLogic.Services
 					throw new Exception(StringHelper.NoLastGame());
 				}
 
-				logger.Log(LogHelper.GetEvent(player.Id, game.Id, StringHelper.PlayerContinueGame()));
+				_logger.Log(LogHelper.GetEvent(player.Id, game.Id, StringHelper.PlayerContinueGame()));
 				return game.Id;
 			}
 			catch (Exception exception)
 			{
-				logger.Error(exception.Message);
+				_logger.Error(exception.Message);
 				throw exception;
 			}
 		}

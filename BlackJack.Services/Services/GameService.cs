@@ -23,6 +23,8 @@ namespace BlackJack.BusinessLogic.Services
 		IHandRepository _handRepository;
 		IPlayerRepository _playerRepository;
 
+		Logger _logger;
+
 		public GameService(ICardProvider cardProvider, IHandRepository handRepository, IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository, IGameRepository gameRepository)
 		{
 			var path = string.Empty;
@@ -35,11 +37,12 @@ namespace BlackJack.BusinessLogic.Services
 
 			path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
 			LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
+
+			_logger = LogManager.GetCurrentClassLogger();
 		}
 
 		public async Task<GetGameViewModel> GetGame(int gameId)
 		{
-			Logger logger = LogManager.GetCurrentClassLogger();
 			try
 			{
 				var getGameViewModel = new GetGameViewModel();
@@ -86,14 +89,13 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
-				logger.Error(exception.Message);
+				_logger.Error(exception.Message);
 				throw exception;
 			}
 		}
 
 		public async Task<ResponseBetGameViewModel> PlaceBet(RequestBetGameViewModel requestBetGameViewModel)
 		{
-			Logger logger = LogManager.GetCurrentClassLogger();
 			try
 			{
 				if (requestBetGameViewModel.BetValue <= 0)
@@ -119,12 +121,12 @@ namespace BlackJack.BusinessLogic.Services
 				}
 
 				await _playerInGameRepository.PlaceBet(game.Human.Id, requestBetGameViewModel.BetValue, game.Id);
-				logger.Log(LogHelper.GetEvent(game.Human.Id, game.Id, StringHelper.PlayerPlaceBet(requestBetGameViewModel.BetValue)));
+				_logger.Log(LogHelper.GetEvent(game.Human.Id, game.Id, StringHelper.PlayerPlaceBet(requestBetGameViewModel.BetValue)));
 
 				foreach (var bot in getGameViewModel.Bots)
 				{
 					await _playerInGameRepository.PlaceBet(bot.Id, Constant.BotsBetValue, game.Id);
-					logger.Log(LogHelper.GetEvent(bot.Id, game.Id, StringHelper.PlayerPlaceBet(Constant.BotsBetValue)));
+					_logger.Log(LogHelper.GetEvent(bot.Id, game.Id, StringHelper.PlayerPlaceBet(Constant.BotsBetValue)));
 				}
 
 				foreach (var playerId in playersIdList)
@@ -151,14 +153,13 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
-				logger.Error(exception.Message);
+				_logger.Error(exception.Message);
 				throw exception;
 			}
 		}
 
 		public async Task<DrawGameViewModel> DrawCard(int gameId)
 		{
-			Logger logger = LogManager.GetCurrentClassLogger();
 			try
 			{
 				var drawGameViewModel = new DrawGameViewModel();
@@ -193,14 +194,13 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
-				logger.Error(exception.Message);
+				_logger.Error(exception.Message);
 				throw exception;
 			}
 		}
 
 		public async Task<StandGameViewModel> Stand(int gameId)
 		{
-			Logger logger = LogManager.GetCurrentClassLogger();
 			try
 			{
 				var standGameViewModel = new StandGameViewModel();
@@ -245,7 +245,7 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
-				logger.Error(exception.Message);
+				_logger.Error(exception.Message);
 				throw new Exception(exception.Message);
 			}
 		}
@@ -308,15 +308,13 @@ namespace BlackJack.BusinessLogic.Services
 
 		private async Task GiveCardFromDeck(int playerId, int cardId, int gameId)
 		{
-			Logger logger = LogManager.GetCurrentClassLogger();
 			await _handRepository.GiveCardToPlayer(playerId, cardId, gameId);
-			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDrawCard(cardId)));
+			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDrawCard(cardId)));
 		}
 
 		private async Task<string> UpdateScore(int playerId, int playerBetValue, int playerCardsValue, int dealerCardsValue, int gameId)
 		{
-			Logger logger = LogManager.GetCurrentClassLogger();
-			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerValue(playerCardsValue, dealerCardsValue)));
+			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerValue(playerCardsValue, dealerCardsValue)));
 
 			if ((playerCardsValue > dealerCardsValue)
 			&& (playerCardsValue <= Constant.WinValue))
@@ -345,28 +343,26 @@ namespace BlackJack.BusinessLogic.Services
 				return OptionHelper.OptionLose();
 			}
 
-			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDraw()));
+			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDraw()));
 			return OptionHelper.OptionDraw();
 		}
 
 		private async Task UpdateLostPlayersPoints(int playerId, int gameId, int playerBetValue)
 		{
-			Logger logger = LogManager.GetCurrentClassLogger();
 			Player player = await _playerRepository.GetById(playerId);
 			int newPointsValue = player.Points - playerBetValue;
 
-			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerLose(playerBetValue)));
+			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerLose(playerBetValue)));
 
 			await _playerRepository.UpdatePoints(playerId, newPointsValue);
 		}
 
 		private async Task UpdateWonPlayersPoints(int playerId, int gameId, int playerBetValue)
 		{
-			Logger logger = LogManager.GetCurrentClassLogger();
 			Player player = await _playerRepository.GetById(playerId);
 			int newPointsValue = player.Points + playerBetValue;
 
-			logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerWin(playerBetValue)));
+			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerWin(playerBetValue)));
 			await _playerRepository.UpdatePoints(playerId, newPointsValue);
 		}
 	}

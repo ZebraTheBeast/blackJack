@@ -15,6 +15,8 @@ namespace BlackJack.BusinessLogic.Services
 	{
 		ILogMessageRepository _logMessageRepository;
 
+		Logger _logger;
+
 		public LogService(ILogMessageRepository logMessageRepository)
 		{
 			var path = string.Empty;
@@ -23,11 +25,13 @@ namespace BlackJack.BusinessLogic.Services
 
 			path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
 			LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
+
+			_logger = LogManager.GetCurrentClassLogger();
 		}
 
 		public async Task<IEnumerable<GetLogsLogViewModel>> GetMessages()
 		{
-			Logger logger = LogManager.GetCurrentClassLogger();
+			
 			try
 			{
 				var messagesModel = new List<GetLogsLogViewModel>();
@@ -56,7 +60,7 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
-				logger.Error(exception.Message);
+				_logger.Error(exception.Message);
 				throw exception;
 			}
 		}
