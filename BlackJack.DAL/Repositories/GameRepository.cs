@@ -38,7 +38,11 @@ namespace BlackJack.DataAccess.Repositories
 			using (var db = new SqlConnection(_connectionString))
 			{
 				var sqlQuery = "SELECT * FROM Game INNER JOIN Player on Game.HumanId = Player.Id WHERE HumanId = @humanId";
-				Game currentGame = (await db.QueryAsync<Game, Player, Game>(sqlQuery, (game, player) => { game.Human = player; return game; }, new { humanId })).FirstOrDefault();
+				Game currentGame = (await db.QueryAsync<Game, Player, Game>(sqlQuery, (game, player) =>
+				{
+					game.Human = player;
+					return game;
+				}, new { humanId })).FirstOrDefault();
 				return currentGame;
 			}
 		}
@@ -48,7 +52,11 @@ namespace BlackJack.DataAccess.Repositories
 			using (var db = new SqlConnection(_connectionString))
 			{
 				var sqlQuery = "SELECT * FROM Game INNER JOIN Player on Game.HumanId = Player.Id WHERE Game.Id = @gameId";
-				Game currentGame = (await db.QueryAsync<Game, Player, Game>(sqlQuery, (game, player) => { game.Human = player; return game; }, new { gameId })).FirstOrDefault();
+				Game currentGame = (await db.QueryAsync<Game, Player, Game>(sqlQuery, (game, player) =>
+				{
+					game.Human = player;
+					return game;
+				}, new { gameId })).FirstOrDefault();
 				return currentGame;
 			}
 		}
