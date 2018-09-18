@@ -18,25 +18,25 @@ namespace BlackJack.WebApp.Controllers
             _gameService = gameService;
         }
 
-        [HttpGet]
-        public async Task<IHttpActionResult> GetGameViewModel(int Id)
+        [HttpPost]
+        public async Task<IHttpActionResult> GetGame([FromBody]int gameId)
         {
             try
             {
-                var gameViewModel = new GameViewModel();
-                gameViewModel = await _gameService.GetGameViewModel(Id);
+                var getGameViewModel = new GetGameViewModel();
+                getGameViewModel = await _gameService.GetGame(gameId);
 
-                if (gameViewModel.Dealer == null)
+                if (getGameViewModel.Dealer == null)
                 {
                     throw new Exception(StringHelper.DealerNotInGame());
                 }
 
-                if (gameViewModel.Human == null)
+                if (getGameViewModel.Human == null)
                 {
                     throw new Exception(StringHelper.PlayerNotInGame());
                 }
 
-                return Ok(gameViewModel);
+                return Ok(getGameViewModel);
             }
             catch (Exception exception)
             {
@@ -45,13 +45,13 @@ namespace BlackJack.WebApp.Controllers
         }
         
         [HttpPost]
-        public async Task<IHttpActionResult> Bet([FromBody]BetViewModel betViewModel)
+        public async Task<IHttpActionResult> Bet([FromBody]RequestBetGameViewModel betViewModel)
         {
             try
             {
-                var gameViewModel = new GameViewModel();
-                gameViewModel = await _gameService.PlaceBet(betViewModel.BetValue, betViewModel.HumanId);
-                return Ok(gameViewModel);
+                var responseBetGameViewModel = new ResponseBetGameViewModel();
+                responseBetGameViewModel = await _gameService.PlaceBet(betViewModel);
+                return Ok(responseBetGameViewModel);
             }
             catch (Exception exception)
             {
@@ -60,13 +60,13 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> Draw([FromBody]int humanId)
+        public async Task<IHttpActionResult> Draw([FromBody]int gameId)
         {
             try
             {
-                var gameViewModel = new GameViewModel();
-                gameViewModel = await _gameService.Draw(humanId);
-                return Ok(gameViewModel);
+                var drawGameViewModel = new DrawGameViewModel();
+                drawGameViewModel = await _gameService.DrawCard(gameId);
+                return Ok(drawGameViewModel);
             }
             catch (Exception exception)
             {
@@ -75,13 +75,13 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> Stand([FromBody]int humanId)
+        public async Task<IHttpActionResult> Stand([FromBody]int gameId)
         {
             try
             {
-                var gameViewModel = new GameViewModel();
-                gameViewModel = await _gameService.Stand(humanId);
-                return Ok(gameViewModel);
+                var standGameViewModel = new StandGameViewModel();
+                standGameViewModel = await _gameService.Stand(gameId);
+                return Ok(standGameViewModel);
             }
             catch (Exception exception)
             {

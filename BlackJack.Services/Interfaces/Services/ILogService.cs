@@ -6,6 +6,6 @@ namespace BlackJack.BusinessLogic.Interfaces
 {
 	public interface ILogService
 	{
-		Task<IEnumerable<LogMessageViewModel>> GetMessages();
+		Task<IEnumerable<GetLogsLogViewModel>> GetMessages();
 	}
 }

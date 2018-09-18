@@ -26,7 +26,7 @@ namespace BlackJack.BusinessLogic.Providers
 			var cardColorSize = Enum.GetNames(typeof(CardSuit)).Length - 1;
 			var deck = new List<Card>();
 			var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.AmountNumberCard).ToList();
-			var titleList = valueList.ConvertAll<string>(delegate (int i)
+			List<string> titleList = valueList.ConvertAll<string>(delegate (int i)
 			{
 				return i.ToString();
 			});
@@ -67,11 +67,11 @@ namespace BlackJack.BusinessLogic.Providers
 
 		public async Task CheckDeck()
 		{
-			var cardsInDb = await _cardRepository.GetAll();
+			IEnumerable<Card> cardsInDb = await _cardRepository.GetAll();
 
-			if(cardsInDb.Count() == 0)
+			if (cardsInDb.Count() == 0)
 			{
-				var cards = GenerateCards();
+				List<Card> cards = GenerateCards();
 				await _cardRepository.FillDB(cards);
 			}
 		}
@@ -79,9 +79,8 @@ namespace BlackJack.BusinessLogic.Providers
 		public async Task<List<int>> LoadDeck(IEnumerable<int> cardsInGame)
 		{
 			var deck = new List<int>();
-			Random rng = new Random();
-
-			var cards = (await _cardRepository.GetAll()).ToList();
+			Random randomNumericGenerator = new Random();
+			List<Card> cards = (await _cardRepository.GetAll()).ToList();
 
 			foreach (var cardId in cardsInGame)
 			{
@@ -93,11 +92,9 @@ namespace BlackJack.BusinessLogic.Providers
 				deck.Add(card.Id);
 			}
 
-			var deckSize = deck.Count();
-
-			for (var i = 0; i < deckSize; i++)
+			for (var i = 0; i < deck.Count(); i++)
 			{
-				var index = rng.Next(deckSize);
+				var index = randomNumericGenerator.Next(deck.Count());
 				var value = deck[i];
 				deck[i] = deck[index];
 				deck[index] = value;
@@ -108,7 +105,7 @@ namespace BlackJack.BusinessLogic.Providers
 
 		public async Task<Card> GetCardById(int id)
 		{
-			var card = await _cardRepository.GetById(id);
+			Card card = await _cardRepository.GetById(id);
 			return card;
 		}
 	}

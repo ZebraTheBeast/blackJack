@@ -45,8 +45,8 @@ namespace BlackJack.DataAccess.Repositories
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE GameId = {gameId}";
-				players = await db.QueryAsync<int>(sqlQuery);
+				var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE GameId = @gameId";
+				players = await db.QueryAsync<int>(sqlQuery, new { gameId });
 			}
 			return players;
 		}

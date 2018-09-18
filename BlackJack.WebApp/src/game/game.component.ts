@@ -13,21 +13,17 @@ import { MessageService } from 'src/message/message.service';
 export class GameComponent implements OnInit {
     betValue = 10;
     game: any;
-    humanId: any;
     isDrawDisabled = false;
     isBetDisabled = false;
 
-    constructor(private gameService: GameService, private route: ActivatedRoute, private router: Router, private messageService: MessageService) { }
+    constructor(private gameService: GameService, private router: Router, private messageService: MessageService) { }
 
     ngOnInit() {
-        this.route.params.subscribe(params => {
-            this.humanId = params['id'];
-        });
         this.getGame();
     }
 
     getGame(): void {
-        this.gameService.getGame(this.humanId).subscribe(
+        this.gameService.getGame().subscribe(
             game => {
                 this.game = game;
                 this.checkGameStatus();
@@ -39,7 +35,7 @@ export class GameComponent implements OnInit {
     }
 
     stand(): void {
-        this.gameService.stand(this.game.human.id).subscribe(
+        this.gameService.stand().subscribe(
             game => {
                 this.game = game;
                 this.disableDraw();
@@ -51,7 +47,7 @@ export class GameComponent implements OnInit {
     }
 
     draw(): void {
-        this.gameService.draw(this.game.human.id).subscribe(
+        this.gameService.draw().subscribe(
             game => {
                 this.game = game;
                 this.checkGameStatus();
@@ -62,7 +58,7 @@ export class GameComponent implements OnInit {
     }
 
     bet(): void {
-        this.gameService.bet(this.game.human.id, this.betValue).subscribe(
+        this.gameService.bet(this.betValue).subscribe(
             game => {
                 this.game = game;
                 this.disableBet();

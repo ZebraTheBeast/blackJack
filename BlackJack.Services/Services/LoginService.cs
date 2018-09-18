@@ -2,8 +2,10 @@
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.Configurations;
 using BlackJack.DataAccess.Interfaces;
+using BlackJack.Entities;
 using NLog;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -20,6 +22,8 @@ namespace BlackJack.BusinessLogic.Services
 
 		public LoginService(ICardProvider cardProvider, IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, IHandRepository handRepository, IGameRepository gameRepository)
 		{
+			var path = string.Empty;
+
 			_playerInGameRepository = playerInGameRepository;
 			_playerRepository = playerRepository;
 			_handRepository = handRepository;
@@ -27,25 +31,26 @@ namespace BlackJack.BusinessLogic.Services
 
 			_cardProvider = cardProvider;
 
-			var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
+			path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
 			LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
 		}
 
 		public async Task<int> StartGame(string playerName, int botsAmount)
 		{
-			var logger = LogManager.GetCurrentClassLogger();
+			Logger logger = LogManager.GetCurrentClassLogger();
 			try
 			{
-				await _cardProvider.CheckDeck();
 				if (playerName == Constant.DealerName)
 				{
 					throw new Exception(StringHelper.NotAvailibleName());
 				}
 
-				var human = await _playerRepository.GetByName(playerName);
-				var bots = await _playerRepository.GetBots(playerName, botsAmount);
-				var oldGame = await _gameRepository.GetGameByHumanId(human.Id);
-				
+				Player human = await _playerRepository.GetByName(playerName);
+				IEnumerable<Player> bots = await _playerRepository.GetBots(playerName, botsAmount);
+				Game oldGame = await _gameRepository.GetGameByHumanId(human.Id);
+
+				await _cardProvider.CheckDeck();
+
 				if (oldGame != null)
 				{
 					await _handRepository.RemoveAll(oldGame.Id);
@@ -66,8 +71,7 @@ namespace BlackJack.BusinessLogic.Services
 				await _playerInGameRepository.AddPlayer(human.Id, game.Id);
 				logger.Log(LogHelper.GetEvent(human.Id, game.Id, StringHelper.HumanJoinGame()));
 
-				
-				return human.Id;
+				return game.Id;
 			}
 			catch (Exception exception)
 			{
@@ -78,20 +82,19 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<int> LoadGame(string playerName)
 		{
-			var logger = LogManager.GetCurrentClassLogger();
+			Logger logger = LogManager.GetCurrentClassLogger();
 			try
 			{
-				await _cardProvider.CheckDeck();
-
 				if (playerName == Constant.DealerName)
 				{
 					throw new Exception(StringHelper.NotAvailibleName());
 				}
 
-				var player = await _playerRepository.GetByName(playerName);
-				var game = await _gameRepository.GetGameByHumanId(player.Id);
+				Player player = await _playerRepository.GetByName(playerName);
+				Game game = await _gameRepository.GetGameByHumanId(player.Id);
+				bool playerIsInGame = await _playerInGameRepository.IsInGame(player.Id, game.Id);
 
-				var playerIsInGame = await _playerInGameRepository.IsInGame(player.Id, game.Id);
+				await _cardProvider.CheckDeck();
 
 				if (!playerIsInGame)
 				{
@@ -99,7 +102,7 @@ namespace BlackJack.BusinessLogic.Services
 				}
 
 				logger.Log(LogHelper.GetEvent(player.Id, game.Id, StringHelper.PlayerContinueGame()));
-				return player.Id;
+				return game.Id;
 			}
 			catch (Exception exception)
 			{

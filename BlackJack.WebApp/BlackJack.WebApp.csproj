@@ -249,7 +249,11 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\app.component.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
+    <TypeScriptCompile Include="src\game\models\card.ts" />
     <TypeScriptCompile Include="src\game\models\dealer.ts" />
+    <TypeScriptCompile Include="src\game\models\game.ts" />
+    <TypeScriptCompile Include="src\game\models\hand.ts" />
+    <TypeScriptCompile Include="src\game\models\player.ts" />
     <TypeScriptCompile Include="src\log\log.component.ts" />
     <TypeScriptCompile Include="src\app.module.ts" />
     <TypeScriptCompile Include="src\app-routing.module.ts" />
@@ -264,10 +268,6 @@
     <TypeScriptCompile Include="src\message\message.module.ts" />
     <TypeScriptCompile Include="src\shared.module.ts" />
     <TypeScriptCompile Include="src\game\game.service.ts" />
-    <TypeScriptCompile Include="src\game\models\card.ts" />
-    <TypeScriptCompile Include="src\game\models\game.ts" />
-    <TypeScriptCompile Include="src\game\models\hand.ts" />
-    <TypeScriptCompile Include="src\game\models\player.ts" />
     <TypeScriptCompile Include="src\login\login.component.ts" />
     <TypeScriptCompile Include="src\log\log.service.ts" />
     <TypeScriptCompile Include="src\login\login.service.ts" />

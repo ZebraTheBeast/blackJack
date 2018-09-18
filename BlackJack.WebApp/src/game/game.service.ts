@@ -14,29 +14,35 @@ const httpOptions = {
 
 export class GameService {
 
+    gameId: number = 0;
+
     constructor(private http: HttpClient) { }
 
-    getGame(id: number): Observable<Game> {
-        var getGameUrl = environment.gameUrl + `GetGameViewModel/${id}`;
-        return this.http.get<Game>(getGameUrl);
+    getGame(): Observable<Game> {
+        var getGameUrl = environment.gameUrl + `GetGame`;
+        return this.http.post<Game>(getGameUrl, this.gameId, httpOptions);
     }
 
-    stand(id: number): Observable<Game> {
+    stand(): Observable<Game> {
         var standUrl = environment.gameUrl + "Stand";
-        return this.http.post<Game>(standUrl, id, httpOptions);
+        return this.http.post<Game>(standUrl, this.gameId, httpOptions);
     }
 
-    draw(id: number): Observable<Game> {
+    draw(): Observable<Game> {
         var drawUrl = environment.gameUrl + "Draw";
-        return this.http.post<Game>(drawUrl, id, httpOptions);
+        return this.http.post<Game>(drawUrl, this.gameId, httpOptions);
     }
 
-    bet(id: number, betValue: number): Observable<Game> {
-        var betViewModel = {
+    bet(betValue: number): Observable<Game> {
+        var responseBetGameViewModel = {
             betValue: betValue,
-            humanId: id
+            gameId: this.gameId
         };
         var drawUrl = environment.gameUrl + "Bet";
-        return this.http.post<Game>(drawUrl, betViewModel, httpOptions);
+        return this.http.post<Game>(drawUrl, responseBetGameViewModel, httpOptions);
+    }
+
+    setGameId(gameId: number): void {
+        this.gameId = gameId;
     }
 }

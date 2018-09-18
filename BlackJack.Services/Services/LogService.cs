@@ -17,19 +17,20 @@ namespace BlackJack.BusinessLogic.Services
 
 		public LogService(ILogMessageRepository logMessageRepository)
 		{
+			var path = string.Empty;
+
 			_logMessageRepository = logMessageRepository;
 
-			var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
+			path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
 			LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
 		}
 
-		public async Task<IEnumerable<LogMessageViewModel>> GetMessages()
+		public async Task<IEnumerable<GetLogsLogViewModel>> GetMessages()
 		{
-			var logger = 
-			LogManager.GetCurrentClassLogger();
+			Logger logger = LogManager.GetCurrentClassLogger();
 			try
 			{
-				var messagesModel = new List<LogMessageViewModel>();
+				var messagesModel = new List<GetLogsLogViewModel>();
 				var messages = (await _logMessageRepository.GetAll()).ToList();
 
 				if (messages.Count() == 0)
@@ -39,7 +40,7 @@ namespace BlackJack.BusinessLogic.Services
 
 				foreach (var message in messages)
 				{
-					var messageModel = new LogMessageViewModel
+					var messageModel = new GetLogsLogViewModel
 					{
 						Id = message.Id,
 						Message = message.Message,

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using BlackJack.BusinessLogic.Helpers;
 using BlackJack.BusinessLogic.Interfaces;
-using BlackJack.ViewModels;
 using BlackJack.Configurations;
+using BlackJack.ViewModels;
 
 namespace BlackJack.WebApp.Controllers
 {
@@ -20,10 +20,12 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> StartGame([FromBody]LoginViewModel loginViewModel)
+        public async Task<IHttpActionResult> StartGame([FromBody]RequestStartGameLoginViewModel loginViewModel)
         {
             try
             {
+                var gameId = 0;
+
                 if(loginViewModel.BotsAmount < Constant.MinBotsAmount)
                 {
                     throw new Exception(StringHelper.MinBotsAmount());
@@ -39,9 +41,10 @@ namespace BlackJack.WebApp.Controllers
                     throw new Exception(StringHelper.EmptyName());
                 }
 
-                var humanId = await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
+                gameId = await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
+                var response = new { gameId };
 
-                return Ok(humanId);
+                return Ok(response);
             }
             catch (Exception exception)
             {
@@ -54,12 +57,16 @@ namespace BlackJack.WebApp.Controllers
         {
             try
             {
+                var gameId = 0;
+
                 if (String.IsNullOrEmpty(playerName))
                 {
                     throw new Exception(StringHelper.EmptyName());
                 }
-                var humanId = await _loginService.LoadGame(playerName);
-                return Ok(humanId);
+                gameId = await _loginService.LoadGame(playerName);
+                var response = new { gameId };
+
+                return Ok(response);
             }
             catch (Exception exception)
             {
