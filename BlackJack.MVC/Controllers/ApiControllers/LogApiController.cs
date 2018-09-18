@@ -1,5 +1,7 @@
 ﻿using BlackJack.BusinessLogic.Interfaces;
+using BlackJack.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,7 +23,7 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 		{
 			try
 			{
-				var logMessageViewModel = (await _logService.GetMessages()).ToList();
+				List<GetLogsLogViewModel> logMessageViewModel = (await _logService.GetMessages()).ToList();
 				return Ok(logMessageViewModel);
 			}
 			catch (Exception exception)

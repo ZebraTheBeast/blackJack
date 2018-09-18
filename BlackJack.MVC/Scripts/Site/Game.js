@@ -26,11 +26,11 @@
 });
 
 function Stand() {
-    var humanId = $.cookie("human-data");
+    var gameId = $.cookie("game-data");
     $.ajax({
         url: '/api/gameApi/Stand',
         type: 'POST',
-        data: JSON.stringify(humanId),
+        data: JSON.stringify(gameId),
         contentType: "application/json;charset=utf-8",
         success: function (gameViewModel) {
             disableDraw();
@@ -43,11 +43,11 @@ function Stand() {
 }
 
 function GetGameViewModel() {
-    var humanId = $.cookie("human-data");
+    var gameId = $.cookie("game-data");
     $.ajax({
-		url: `/api/gameApi/GetGameViewModel`,
+		url: `/api/gameApi/GetGame`,
 		type: 'POST',
-		data: JSON.stringify(humanId),
+		data: JSON.stringify(gameId),
         contentType: "application/json;charset=utf-8",
 		success: function (gameViewModel) {
             WriteResponse(gameViewModel);
@@ -59,11 +59,11 @@ function GetGameViewModel() {
 }
 
 function Draw() {
-    var humanId = $.cookie("human-data");
+    var gameId = $.cookie("game-data");
     $.ajax({
 		url: '/api/gameApi/Draw',
         type: 'POST',
-        data: JSON.stringify(humanId),
+        data: JSON.stringify(gameId),
         contentType: "application/json;charset=utf-8",
         success: function (data) {
             WriteResponse(data);
@@ -78,7 +78,7 @@ function Bet() {
 
     var betViewModel = {
         BetValue: $("#betValue").val(),
-        HumanId: $.cookie("human-data")
+        GameId: $.cookie("game-data")
     };
 
     $.ajax({

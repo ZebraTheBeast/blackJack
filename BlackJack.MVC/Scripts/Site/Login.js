@@ -22,7 +22,7 @@ function StartGame() {
 		data: JSON.stringify(loginViewModel),
         contentType: "application/json;charset=utf-8",
         success: function (data) {
-            $.cookie("human-data", JSON.stringify(data));
+            $.cookie("game-data", JSON.stringify(data.gameId));
 			$("#loginForm").submit();
         },
 		error: function (exception) {
@@ -39,7 +39,7 @@ function LoadGame() {
         data: JSON.stringify(playerName),
         contentType: "application/json;charset=utf-8",
         success: function (data) {
-            $.cookie("human-data", JSON.stringify(data));
+            $.cookie("game-data", JSON.stringify(data.gameId));
             $("#loginForm").submit();
         },
         error: function (exception) {

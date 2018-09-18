@@ -24,6 +24,8 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 		{
 			try
 			{
+				var gameId = 0;
+
 				if (loginViewModel.BotsAmount < Constant.MinBotsAmount)
 				{
 					throw new Exception(StringHelper.MinBotsAmount());
@@ -39,8 +41,10 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 					throw new Exception(StringHelper.EmptyName());
 				}
 
-				var humanId = await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
-				return Ok(humanId);
+				gameId = await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
+				var response = new { gameId };
+
+				return Ok(response);
 			}
 			catch (Exception exception)
 			{
@@ -48,17 +52,21 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 			}
 		}
 
-		[HttpPost]
-		public async Task<IHttpActionResult> LoadGame([FromBody]string playerName)
+		[HttpGet]
+		public async Task<IHttpActionResult> LoadGame(string playerName)
 		{
 			try
 			{
+				var gameId = 0;
+
 				if (String.IsNullOrEmpty(playerName))
 				{
 					throw new Exception(StringHelper.EmptyName());
 				}
-				var humanId = await _loginService.LoadGame(playerName);
-				return Ok(humanId);
+				gameId = await _loginService.LoadGame(playerName);
+				var response = new { gameId };
+
+				return Ok(response);
 			}
 			catch (Exception exception)
 			{

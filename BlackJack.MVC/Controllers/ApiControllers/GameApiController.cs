@@ -12,7 +12,7 @@ namespace BlackJack.MVC.Controllers
 {
 	public class GameApiController : ApiController
 	{
-		private IGameService _gameService;
+		IGameService _gameService;
 
 		public GameApiController(IGameService gameService)
 		{
@@ -20,46 +20,39 @@ namespace BlackJack.MVC.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IHttpActionResult> GetGameViewModel([FromBody]int humanId)
+		public async Task<IHttpActionResult> GetGame([FromBody]int gameId)
 		{
 			try
 			{
-				var gameViewModel = new GetGameViewModel();
+				var getGameViewModel = new GetGameViewModel();
+				getGameViewModel = await _gameService.GetGame(gameId);
 
-				gameViewModel = await _gameService.GetGame(humanId);
-
-				if (gameViewModel.Bots.Count() == 0)
-				{
-					throw new Exception(StringHelper.BotsNotInGame());
-				}
-
-				if (gameViewModel.Dealer == null)
+				if (getGameViewModel.Dealer == null)
 				{
 					throw new Exception(StringHelper.DealerNotInGame());
 				}
 
-				if (gameViewModel.Human == null)
+				if (getGameViewModel.Human == null)
 				{
 					throw new Exception(StringHelper.PlayerNotInGame());
 				}
 
-				return Ok(gameViewModel);
+				return Ok(getGameViewModel);
 			}
 			catch (Exception exception)
 			{
 				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
 			}
-
 		}
 
 		[HttpPost]
-		public async Task<IHttpActionResult> Bet([FromBody]RequestBetGameViewModel requestBetGameViewModel)
+		public async Task<IHttpActionResult> Bet([FromBody]RequestBetGameViewModel betViewModel)
 		{
 			try
 			{
-				var gameViewModel = new ResponseBetGameViewModel();
-				gameViewModel = await _gameService.PlaceBet(requestBetGameViewModel);
-				return Ok(gameViewModel);
+				var responseBetGameViewModel = new ResponseBetGameViewModel();
+				responseBetGameViewModel = await _gameService.PlaceBet(betViewModel);
+				return Ok(responseBetGameViewModel);
 			}
 			catch (Exception exception)
 			{
@@ -68,28 +61,27 @@ namespace BlackJack.MVC.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IHttpActionResult> Draw([FromBody]int humanId)
+		public async Task<IHttpActionResult> Draw([FromBody]int gameId)
 		{
 			try
 			{
-				var gameViewModel = new DrawGameViewModel();
-				gameViewModel = await _gameService.DrawCard(humanId);
-				return Ok(gameViewModel);
+				var drawGameViewModel = new DrawGameViewModel();
+				drawGameViewModel = await _gameService.DrawCard(gameId);
+				return Ok(drawGameViewModel);
 			}
 			catch (Exception exception)
 			{
 				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
-
 			}
 		}
 
 		[HttpPost]
-		public async Task<IHttpActionResult> Stand([FromBody]int humanId)
+		public async Task<IHttpActionResult> Stand([FromBody]int gameId)
 		{
 			try
 			{
 				var standGameViewModel = new StandGameViewModel();
-				standGameViewModel = await _gameService.Stand(humanId);
+				standGameViewModel = await _gameService.Stand(gameId);
 				return Ok(standGameViewModel);
 			}
 			catch (Exception exception)
