@@ -15,7 +15,7 @@ namespace BlackJack.DataAccess.Interfaces
 		Task PlaceBet(List<int> playerId, int gameId);
 		Task AnnulBet(int playerId, int gameId);
 		Task AnnulBet(List<int> playersId, int gameId);
-		Task<bool> IsInGame(int playerId, int gameId);
+		Task<int> IsInGame(int playerId, int gameId);
 		Task<List<PlayerInGame>> GetPlayersInGame(List<int> playersId, int gameId);
     }
 }

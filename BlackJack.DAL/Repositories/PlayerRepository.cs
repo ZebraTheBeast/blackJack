@@ -41,19 +41,6 @@ namespace BlackJack.DataAccess.Repositories
 				players.AddRange(bots);
 			}
 
-			foreach (var player in players)
-			{
-				if (player.Points < Constant.MinPointsValueToPlay)
-				{
-					playersIdWithoutPoints.Add(player.Id);
-					player.Points = Constant.DefaultPointsValue;
-				}
-			}
-			if (playersIdWithoutPoints.Count != 0)
-			{
-				await RestorePointsToPlayers(playersIdWithoutPoints);
-			}
-
 			return players;
 		}
 
@@ -66,15 +53,6 @@ namespace BlackJack.DataAccess.Repositories
 				var sqlQuery = "SELECT * FROM Player WHERE Name = @name";
 				player = (await db.QueryAsync<Player>(sqlQuery, new { name })).FirstOrDefault();
 			}
-
-			if (player == null)
-			{
-				player = new Player { Name = name };
-				await Create(player);
-				return await GetByName(name);
-			}
-
-			player.Points = await PointsCheck(player.Id, player.Points);
 
 			return player;
 		}
@@ -104,7 +82,6 @@ namespace BlackJack.DataAccess.Repositories
 			using (var db = new SqlConnection(_connectionString))
 			{
 				player = await db.GetAsync<Player>(id);
-				player.Points = await PointsCheck(player.Id, player.Points);
 			}
 
 			return player;
@@ -123,18 +100,7 @@ namespace BlackJack.DataAccess.Repositories
 			return players;
 		}
 
-		private async Task<int> PointsCheck(int playerId, int playerPoints)
-		{
-			if (playerPoints < Constant.MinPointsValueToPlay)
-			{
-				await RestorePoints(playerId);
-				playerPoints = Constant.DefaultPointsValue;
-			}
-
-			return playerPoints;
-		}
-
-		private async Task RestorePointsToPlayers(List<int> playersId)
+		public async Task RestorePoints(List<int> playersId)
 		{
 
 			var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id on @playersId";

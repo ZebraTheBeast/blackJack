@@ -13,5 +13,7 @@ namespace BlackJack.DataAccess.Interfaces
         Task Create(Player player);
         Task UpdatePoints(int playerId, int newPointsValue);
         Task RestorePoints(int playerId);
-    }
+		Task RestorePoints(List<int> playersId);
+
+	}
 }

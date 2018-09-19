@@ -26,9 +26,9 @@ namespace BlackJack.BusinessLogic.Providers
 			var cardColorSize = Enum.GetNames(typeof(CardSuit)).Length - 1;
 			var deck = new List<Card>();
 			var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.AmountNumberCard).ToList();
-			List<string> titleList = valueList.ConvertAll<string>(delegate (int i)
+			List<string> titleList = valueList.ConvertAll<string>(delegate (int value)
 			{
-				return i.ToString();
+				return value.ToString();
 			});
 
 			foreach (var value in Enum.GetNames(typeof(CardTitle)))
@@ -72,7 +72,7 @@ namespace BlackJack.BusinessLogic.Providers
 			if (cardsInDb.Count() == 0)
 			{
 				List<Card> cards = GenerateCards();
-				await _cardRepository.FillDB(cards);
+				await _cardRepository.PopulateCards(cards);
 			}
 		}
 

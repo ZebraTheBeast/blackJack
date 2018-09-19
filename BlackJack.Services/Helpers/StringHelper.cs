@@ -50,7 +50,7 @@
 
 		public static string EmptyLog()
 		{
-			return "Logs are empty 0_0";
+			return "Logs are empty";
 		}
 
 		public static string PlayerWin(int betValue)

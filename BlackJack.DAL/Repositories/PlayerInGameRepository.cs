@@ -97,22 +97,15 @@ namespace BlackJack.DataAccess.Repositories
 			return betValue;
 		}
 
-		public async Task<bool> IsInGame(int playerId, int gameId)
+		public async Task<int> IsInGame(int playerId, int gameId)
 		{
 			var player = 0;
 			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE PlayerId = @playerId AND GameId = @gameId";
-
 			using (var db = new SqlConnection(_connectionString))
 			{
 				player = (await db.QueryAsync<int>(sqlQuery, new { playerId, gameId })).FirstOrDefault();
 			}
-
-			if (player == 0)
-			{
-				return false;
-			}
-
-			return true;
+			return player;
 		}
 
 		public async Task PlaceBet(List<int> playersId, int gameId)

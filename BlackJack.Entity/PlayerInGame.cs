@@ -12,6 +12,11 @@ namespace BlackJack.Entities
 		public int Bet { get; set; }
 
 		[Write(false)]
+		public virtual Player Player { get; set; }
+		[Write(false)]
+		public virtual Game Game { get; set; }
+
+		[Write(false)]
 		public override int Id { get; set; }
 	}
 }

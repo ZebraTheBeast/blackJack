@@ -18,7 +18,7 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task FillDB(List<Card> cards)
+		public async Task PopulateCards(List<Card> cards)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{

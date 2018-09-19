@@ -53,6 +53,13 @@ namespace BlackJack.BusinessLogic.Services
 				var botsIdList = new List<int>();
 
 				getGameViewModel.Human = Mapper.Map<Player, PlayerViewModel>(game.Human);
+
+				if (getGameViewModel.Human.Points <= Constant.MinPointsValueToPlay)
+				{
+					await _playerRepository.RestorePoints(getGameViewModel.Human.Id);
+					getGameViewModel.Human.Points = Constant.DefaultPointsValue;
+				}
+
 				getGameViewModel.Human.BetValue = await _playerInGameRepository.GetBetByPlayerId(game.Human.Id, game.Id);
 				getGameViewModel.Human.Hand = await GetPlayerHand(game.Human.Id, game.Id);
 				getGameViewModel.Dealer = Mapper.Map<Player, DealerViewModel>(await _playerRepository.GetByName(Constant.DealerName));

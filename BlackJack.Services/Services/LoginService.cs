@@ -48,9 +48,38 @@ namespace BlackJack.BusinessLogic.Services
 					throw new Exception(StringHelper.NotAvailibleName());
 				}
 
-				Player human = await _playerRepository.GetByName(playerName);
-				IEnumerable<Player> bots = await _playerRepository.GetBots(playerName, botsAmount);
+				Player human = await _playerRepository.GetByName(playerName);			
+
+				if (human == null)
+				{
+					var player = new Player { Name = playerName };
+					await _playerRepository.Create(player);
+					human = await _playerRepository.GetByName(playerName);
+				}
+
+				if (human.Points <= Constant.MinPointsValueToPlay)
+				{
+					await _playerRepository.RestorePoints(human.Id);
+					human.Points = Constant.DefaultPointsValue;
+				}
+
+				List<Player> bots = await _playerRepository.GetBots(playerName, botsAmount);
 				Game oldGame = await _gameRepository.GetGameByHumanId(human.Id);
+				var playersIdWithoutPoints = new List<int>();
+
+				foreach (var bot in bots)
+				{
+					if (bot.Points < Constant.MinPointsValueToPlay)
+					{
+						playersIdWithoutPoints.Add(bot.Id);
+						bot.Points = Constant.DefaultPointsValue;
+					}
+				}
+
+				if (playersIdWithoutPoints.Count != 0)
+				{
+					await _playerRepository.RestorePoints(playersIdWithoutPoints);
+				}	
 
 				await _cardProvider.CheckDeck();
 
@@ -93,12 +122,25 @@ namespace BlackJack.BusinessLogic.Services
 				}
 
 				Player player = await _playerRepository.GetByName(playerName);
+
+				if (player == null)
+				{
+					var newPlayer = new Player { Name = playerName };
+					await _playerRepository.Create(newPlayer);
+					player = await _playerRepository.GetByName(playerName);
+				}
+
+				if (player.Points <= Constant.MinPointsValueToPlay)
+				{
+					await _playerRepository.RestorePoints(player.Id);
+					player.Points = Constant.DefaultPointsValue;
+				}
+
 				Game game = await _gameRepository.GetGameByHumanId(player.Id);
-				bool playerIsInGame = await _playerInGameRepository.IsInGame(player.Id, game.Id);
 
 				await _cardProvider.CheckDeck();
 
-				if (!playerIsInGame)
+				if (game == null)
 				{
 					throw new Exception(StringHelper.NoLastGame());
 				}
