@@ -1,4 +1,5 @@
 ﻿using Dapper.Contrib.Extensions;
+using System.Collections.Generic;
 
 namespace BlackJack.Entities
 {
@@ -6,8 +7,10 @@ namespace BlackJack.Entities
 	public class Game : BaseEntity
 	{
 		public int HumanId { get; set; }
-
+		
 		[Write(false)]
-		public virtual Player Human { get; set; }
+		public virtual List<PlayerInGame> PlayersInGame { get; set; }
+		//[Write(false)]
+		//public virtual List<LogMessage> GameHistory { get; set; }
 	}
 }

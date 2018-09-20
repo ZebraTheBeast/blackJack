@@ -4,8 +4,9 @@ using System.Data.SqlClient;
 using BlackJack.DataAccess.Interfaces;
 using Dapper;
 using Dapper.Contrib.Extensions;
-using BlackJack.Entities.Properties;
 using System.Linq;
+using BlackJack.Entities;
+using System;
 
 namespace BlackJack.DataAccess.Repositories
 {
@@ -18,10 +19,13 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task<List<int>> GetCardIdList(int playerId, int gameId)
+		public async Task<List<int>> GetCardIdListByPlayerId(int playerId, int gameId)
 		{
 			var cards = new List<int>();
-			var sqlQuery = "SELECT CardId FROM Hand WHERE PlayerId = @playerId AND GameId = @gameId";
+			var sqlQuery = "SELECT CardId FROM Hand " +
+				"INNER JOIN PlayerInGame ON Hand.PlayerInGameId = PlayerInGame.Id " +
+				"WHERE PlayerInGame.PlayerId = @playerId " +
+				"AND PlayerInGame.GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
 				cards = (await db.QueryAsync<int>(sqlQuery, new { playerId, gameId })).ToList();
@@ -33,7 +37,9 @@ namespace BlackJack.DataAccess.Repositories
 		public async Task<List<int>> GetCardIdListByGameId(int gameId)
 		{
 			var cards = new List<int>();
-			var sqlQuery = "SELECT CardId FROM Hand WHERE GameId = @gameId";
+			var sqlQuery = "SELECT CardId FROM Hand " +
+				"INNER JOIN PlayerInGame ON Hand.PlayerInGameId = PlayerInGame.Id " +
+				"WHERE PlayerInGame.GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
 				cards = (await db.QueryAsync<int>(sqlQuery, new { gameId })).ToList();
@@ -44,15 +50,17 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task GiveCardToPlayer(int playerId, int cardId, int gameId)
 		{
+			var sqlQuery = "INSERT INTO Hand (CardId, PlayerInGameId, CreationDate) VALUES(@cardId," +
+				"(SELECT Id FROM PlayerInGame WHERE GameId = @gameId AND PlayerId = @playerId), @date)";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				await db.InsertAsync(new Hand { CardId = cardId, GameId = gameId, PlayerId = playerId });
+				await db.QueryAsync(sqlQuery, new { cardId,  gameId, playerId, date = DateTime.Now});
 			}
 		}
 
 		public async Task RemoveAll(int gameId)
 		{
-			var sqlQuery = $"DELETE FROM Hand WHERE GameId = @gameId";
+			var sqlQuery = "DELETE Hand FROM Hand INNER JOIN PlayerInGame ON Hand.PlayerInGameId = PlayerInGame.Id WHERE PlayerInGame.GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
 				await db.ExecuteAsync(sqlQuery, new { gameId });

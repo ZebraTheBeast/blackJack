@@ -52,7 +52,7 @@ namespace BlackJack.BusinessLogic.Services
 				List<int> cardsList = await _handRepository.GetCardIdListByGameId(game.Id);
 				var botsIdList = new List<int>();
 
-				getGameViewModel.Human = Mapper.Map<Player, PlayerViewModel>(game.Human);
+				getGameViewModel.Human = Mapper.Map<Player, PlayerViewModel>(await _playerRepository.GetById(game.HumanId));
 
 				if (getGameViewModel.Human.Points <= Constant.MinPointsValueToPlay)
 				{
@@ -60,14 +60,14 @@ namespace BlackJack.BusinessLogic.Services
 					getGameViewModel.Human.Points = Constant.DefaultPointsValue;
 				}
 
-				getGameViewModel.Human.BetValue = await _playerInGameRepository.GetBetByPlayerId(game.Human.Id, game.Id);
-				getGameViewModel.Human.Hand = await GetPlayerHand(game.Human.Id, game.Id);
+				getGameViewModel.Human.BetValue = await _playerInGameRepository.GetBetByPlayerId(game.HumanId, game.Id);
+				getGameViewModel.Human.Hand = await GetPlayerHand(game.HumanId, game.Id);
 				getGameViewModel.Dealer = Mapper.Map<Player, DealerViewModel>(await _playerRepository.GetByName(Constant.DealerName));
 				getGameViewModel.Dealer.Hand = await GetPlayerHand(getGameViewModel.Dealer.Id, game.Id);
 				getGameViewModel.Deck = await _cardProvider.LoadDeck(cardsList);
 				getGameViewModel.Bots = new List<PlayerViewModel>();
 
-				botsIdList = await _playerInGameRepository.GetBotsInGame(game.Id, game.Human.Id, getGameViewModel.Dealer.Id);
+				botsIdList = await _playerInGameRepository.GetBotsInGame(game.Id, game.HumanId, getGameViewModel.Dealer.Id);
 				var bots = await _playerRepository.GetPlayers(botsIdList);
 				var botsInGame = await _playerInGameRepository.GetPlayersInGame(botsIdList, game.Id);
 
@@ -129,8 +129,8 @@ namespace BlackJack.BusinessLogic.Services
 					throw new Exception(StringHelper.AlreadyBet());
 				}
 
-				await _playerInGameRepository.PlaceBet(game.Human.Id, requestBetGameViewModel.BetValue, game.Id);
-				_logger.Log(LogHelper.GetEvent(game.Human.Id, game.Id, StringHelper.PlayerPlaceBet(requestBetGameViewModel.BetValue)));
+				await _playerInGameRepository.PlaceBet(game.HumanId, requestBetGameViewModel.BetValue, game.Id);
+				_logger.Log(LogHelper.GetEvent(game.HumanId, game.Id, StringHelper.PlayerPlaceBet(requestBetGameViewModel.BetValue)));
 
 				foreach (var bot in getGameViewModel.Bots)
 				{
@@ -176,7 +176,7 @@ namespace BlackJack.BusinessLogic.Services
 				var drawGameViewModel = new DrawGameViewModel();
 				GetGameViewModel getGameViewModel = new GetGameViewModel();
 				Game game = await _gameRepository.GetGameById(gameId);
-				PlayerViewModel human = Mapper.Map<Player, PlayerViewModel>(game.Human);
+				PlayerViewModel human = Mapper.Map<Player, PlayerViewModel>(await _playerRepository.GetById(game.HumanId));
 				List<int> cardsInGameList = await _handRepository.GetCardIdListByGameId(game.Id);
 				List<int> deck = await _cardProvider.LoadDeck(cardsInGameList);
 
@@ -187,7 +187,7 @@ namespace BlackJack.BusinessLogic.Services
 					throw new Exception(StringHelper.NoBetValue());
 				}
 
-				await GiveCardFromDeck(game.Human.Id, deck[0], game.Id);
+				await GiveCardFromDeck(game.HumanId, deck[0], game.Id);
 				deck.Remove(deck[0]);
 
 				getGameViewModel = await GetGame(game.Id);
@@ -247,7 +247,7 @@ namespace BlackJack.BusinessLogic.Services
 				await _playerInGameRepository.AnnulBet(botsId, game.Id);
 				
 				message = await UpdateScore(getGameViewModel.Human.Id, getGameViewModel.Human.BetValue, getGameViewModel.Human.Hand.CardListValue, getGameViewModel.Dealer.Hand.CardListValue, game.Id);
-				await _playerInGameRepository.AnnulBet(game.Human.Id, game.Id);
+				await _playerInGameRepository.AnnulBet(game.HumanId, game.Id);
 
 				getGameViewModel = await GetGame(game.Id);
 
@@ -294,7 +294,7 @@ namespace BlackJack.BusinessLogic.Services
 				CardList = new List<CardViewModel>()
 			};
 
-			List<int> cardsIdList = await _handRepository.GetCardIdList(playerId, gameId);
+			List<int> cardsIdList = await _handRepository.GetCardIdListByPlayerId(playerId, gameId);
 
 			var cards = await _cardProvider.GetCardsByIds(cardsIdList);
 			hand.CardList = Mapper.Map<List<Card>, List<CardViewModel>>(cards);

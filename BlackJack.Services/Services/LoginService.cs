@@ -64,7 +64,7 @@ namespace BlackJack.BusinessLogic.Services
 				}
 
 				List<Player> bots = await _playerRepository.GetBots(playerName, botsAmount);
-				Game oldGame = await _gameRepository.GetGameByHumanId(human.Id);
+				var oldGame = await _gameRepository.GetGameIdByHumanId(human.Id);
 				var playersIdWithoutPoints = new List<int>();
 
 				foreach (var bot in bots)
@@ -83,27 +83,27 @@ namespace BlackJack.BusinessLogic.Services
 
 				await _cardProvider.CheckDeck();
 
-				if (oldGame != null)
+				if (oldGame != 0)
 				{
-					await _handRepository.RemoveAll(oldGame.Id);
-					await _playerInGameRepository.RemoveAll(oldGame.Id);
-					await _gameRepository.Delete(oldGame.Id);
+					await _handRepository.RemoveAll(oldGame);
+					await _playerInGameRepository.RemoveAll(oldGame);
+					await _gameRepository.Delete(oldGame);
 				}
 
 				await _gameRepository.Create(human.Id);
 
-				var game = await _gameRepository.GetGameByHumanId(human.Id);
+				var gameId = await _gameRepository.GetGameIdByHumanId(human.Id);
 
 				foreach (var bot in bots)
 				{
-					await _playerInGameRepository.AddPlayer(bot.Id, game.Id);
-					_logger.Log(LogHelper.GetEvent(bot.Id, game.Id, StringHelper.BotJoinGame()));
+					await _playerInGameRepository.AddPlayer(bot.Id, gameId);
+					_logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame()));
 				}
 
-				await _playerInGameRepository.AddPlayer(human.Id, game.Id);
-				_logger.Log(LogHelper.GetEvent(human.Id, game.Id, StringHelper.HumanJoinGame()));
+				await _playerInGameRepository.AddPlayer(human.Id, gameId);
+				_logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame()));
 
-				return game.Id;
+				return gameId;
 			}
 			catch (Exception exception)
 			{
@@ -136,17 +136,17 @@ namespace BlackJack.BusinessLogic.Services
 					player.Points = Constant.DefaultPointsValue;
 				}
 
-				Game game = await _gameRepository.GetGameByHumanId(player.Id);
+				var gameId = await _gameRepository.GetGameIdByHumanId(player.Id);
 
 				await _cardProvider.CheckDeck();
 
-				if (game == null)
+				if (gameId == 0)
 				{
 					throw new Exception(StringHelper.NoLastGame());
 				}
 
-				_logger.Log(LogHelper.GetEvent(player.Id, game.Id, StringHelper.PlayerContinueGame()));
-				return game.Id;
+				_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerContinueGame()));
+				return gameId;
 			}
 			catch (Exception exception)
 			{

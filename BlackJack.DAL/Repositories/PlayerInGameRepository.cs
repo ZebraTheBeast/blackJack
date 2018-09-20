@@ -62,17 +62,19 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task PlaceBet(int playerId, int betValue, int gameId)
 		{
+			var sqlQuery = "UPDATE PlayerInGame SET Bet = @betValue WHERE GameId = @gameId AND PlayerId = @playerId";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				await db.UpdateAsync(new PlayerInGame() { PlayerId = playerId, Bet = betValue, GameId = gameId });
+				await db.QueryAsync(sqlQuery, new { betValue, gameId, playerId });
 			}
 		}
 
 		public async Task AnnulBet(int playerId, int gameId)
 		{
+			var sqlQuery = "UPDATE PlayerInGame SET Bet = 0 WHERE GameId = @gameId AND PlayerId = @playerId";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				await db.UpdateAsync(new PlayerInGame() { PlayerId = playerId, Bet = 0, GameId = gameId });
+				await db.QueryAsync(sqlQuery, new { gameId, playerId });
 			}
 		}
 
