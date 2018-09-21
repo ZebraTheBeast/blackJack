@@ -11,9 +11,9 @@ namespace BlackJack.BusinessLogic.Mappers
 		{
 			Mapper.Initialize(cfg =>
 			{
-				cfg.CreateMap<Player, PlayerViewModel>();
-				cfg.CreateMap<Player, DealerViewModel>();
-				cfg.CreateMap<Card, CardViewModel>();
+				cfg.CreateMap<Player, PlayerGetGameViewModelItem>();
+				cfg.CreateMap<Player, DealerGetGameViewModelItem>();
+				cfg.CreateMap<Card, CardGetGameViewModelItem>();
 				cfg.CreateMap<GetGameViewModel, ResponseBetGameViewModel>();
 				cfg.CreateMap<GetGameViewModel, DrawGameViewModel>();
 				cfg.CreateMap<GetGameViewModel, StandGameViewModel>();

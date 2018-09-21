@@ -49,7 +49,7 @@ namespace BlackJack.BusinessLogic.Services
 				List<int> cardsList = await _handRepository.GetCardIdListByGameId(game.Id);
 				var botsIdList = new List<int>();
 
-				getGameViewModel.Human = Mapper.Map<Player, PlayerViewModel>(human.Player);
+				getGameViewModel.Human = Mapper.Map<Player, PlayerGetGameViewModelItem>(human.Player);
 				getGameViewModel.Human.BetValue = human.BetValue;
 
 				if (getGameViewModel.Human.Points <= Constant.MinPointsValueToPlay)
@@ -60,16 +60,16 @@ namespace BlackJack.BusinessLogic.Services
 
 				getGameViewModel.Human.Hand = await GetPlayerHand(getGameViewModel.Human.Id, gameId);
 
-				getGameViewModel.Dealer = Mapper.Map<Player, DealerViewModel>(await _playerRepository.GetByName(Constant.DealerName));
+				getGameViewModel.Dealer = Mapper.Map<Player, DealerGetGameViewModelItem>(await _playerRepository.GetByName(Constant.DealerName));
 				getGameViewModel.Dealer.Hand = await GetPlayerHand(getGameViewModel.Dealer.Id, game.Id);
 				getGameViewModel.Deck = await _cardProvider.LoadDeck(cardsList);
-				getGameViewModel.Bots = new List<PlayerViewModel>();
+				getGameViewModel.Bots = new List<PlayerGetGameViewModelItem>();
 
 				botsIdList = await _playerInGameRepository.GetBotsInGame(game.Id, game.HumanId, getGameViewModel.Dealer.Id);
 				var bots = await _playerRepository.GetPlayers(botsIdList);
 				var botsInGame = await _playerInGameRepository.GetPlayersInGame(botsIdList, game.Id);
 
-				getGameViewModel.Bots.AddRange(Mapper.Map<List<Player>, List<PlayerViewModel>>(bots));
+				getGameViewModel.Bots.AddRange(Mapper.Map<List<Player>, List<PlayerGetGameViewModelItem>>(bots));
 
 				foreach (var bot in getGameViewModel.Bots)
 				{
@@ -271,7 +271,7 @@ namespace BlackJack.BusinessLogic.Services
 		{
 			try
 			{
-				HandViewModel hand = await GetPlayerHand(botId, gameId);
+				HandGetGameViewModelItem hand = await GetPlayerHand(botId, gameId);
 				var value = hand.CardListValue;
 
 				if (value >= Constant.ValueToStopDraw)
@@ -286,21 +286,22 @@ namespace BlackJack.BusinessLogic.Services
 			}
 			catch (Exception exception)
 			{
+				_logger.Error(exception.Message);
 				throw exception;
 			}
 		}
 
-		private async Task<HandViewModel> GetPlayerHand(int playerId, int gameId)
+		private async Task<HandGetGameViewModelItem> GetPlayerHand(int playerId, int gameId)
 		{
-			var hand = new HandViewModel
+			var hand = new HandGetGameViewModelItem
 			{
-				CardList = new List<CardViewModel>()
+				CardList = new List<CardGetGameViewModelItem>()
 			};
 
 			List<int> cardsIdList = await _handRepository.GetCardIdListByPlayerId(playerId, gameId);
 
 			var cards = await _cardProvider.GetCardsByIds(cardsIdList);
-			hand.CardList = Mapper.Map<List<Card>, List<CardViewModel>>(cards);
+			hand.CardList = Mapper.Map<List<Card>, List<CardGetGameViewModelItem>>(cards);
 
 			foreach (var card in hand.CardList)
 			{
