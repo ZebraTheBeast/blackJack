@@ -110,28 +110,33 @@ namespace BlackJack.BusinessLogic.Services
 					throw new Exception(StringHelper.NoBetValue());
 				}
 				var botsId = new List<int>();
-				List<int> cardsList = await _handRepository.GetCardIdListByGameId(requestBetGameViewModel.GameId);
 				var responseBetGameViewModel = new ResponseBetGameViewModel();
-				
-				var getGameViewModel = await GetGame(requestBetGameViewModel.GameId);
+				var getGameViewModel = new GetGameViewModel();
+
+				List<int> cardsList = await _handRepository.GetCardIdListByGameId(requestBetGameViewModel.GameId);
+				List<int> deck = await _cardProvider.LoadDeck(cardsList);
+				int humanId = await _gameRepository.GetHumanIdByGameId(requestBetGameViewModel.GameId);
+				Player human = await _playerRepository.GetById(humanId);
+				var dealer = await _playerRepository.GetByName(Constant.DealerName);
+				int humanBetValue = await _playerInGameRepository.GetBetByPlayerId(humanId, requestBetGameViewModel.GameId);
 				IEnumerable<int> playersIdList = await _playerInGameRepository.GetAll(requestBetGameViewModel.GameId);
 
 				await _handRepository.RemoveAll(requestBetGameViewModel.GameId);
 
-				if (getGameViewModel.Human.Points < requestBetGameViewModel.BetValue)
+				if (human.Points < requestBetGameViewModel.BetValue)
 				{
 					throw new Exception(StringHelper.NotEnoughPoints(requestBetGameViewModel.BetValue));
 				}
 
-				if (getGameViewModel.Human.BetValue != 0)
+				if (humanBetValue != 0)
 				{
 					throw new Exception(StringHelper.AlreadyBet());
 				}
 
-				await _playerInGameRepository.PlaceBet(getGameViewModel.Human.Id, requestBetGameViewModel.BetValue, requestBetGameViewModel.GameId);
-				_logger.Log(LogHelper.GetEvent(getGameViewModel.Human.Id, requestBetGameViewModel.GameId, StringHelper.PlayerPlaceBet(requestBetGameViewModel.BetValue)));
+				await _playerInGameRepository.PlaceBet(human.Id, requestBetGameViewModel.BetValue, requestBetGameViewModel.GameId);
+				_logger.Log(LogHelper.GetEvent(human.Id, requestBetGameViewModel.GameId, StringHelper.PlayerPlaceBet(requestBetGameViewModel.BetValue)));
 
-				botsId = await _playerInGameRepository.GetBotsInGame(requestBetGameViewModel.GameId, getGameViewModel.Human.Id, getGameViewModel.Dealer.Id);
+				botsId = await _playerInGameRepository.GetBotsInGame(requestBetGameViewModel.GameId, human.Id, dealer.Id);
 
 				foreach (var botId in botsId)
 				{
@@ -140,14 +145,12 @@ namespace BlackJack.BusinessLogic.Services
 
 				await _playerInGameRepository.PlaceBet(botsId, requestBetGameViewModel.GameId);
 
-				getGameViewModel.Deck = await _cardProvider.LoadDeck(cardsList);
-
 				foreach (var playerId in playersIdList)
 				{
 					for (var i = 0; i < Constant.NumberStartCard; i++)
 					{
-						await GiveCardFromDeck(playerId, getGameViewModel.Deck[0], requestBetGameViewModel.GameId);
-						getGameViewModel.Deck.Remove(getGameViewModel.Deck[0]);
+						await GiveCardFromDeck(playerId, deck[0], requestBetGameViewModel.GameId);
+						deck.Remove(deck[0]);
 					}
 				}
 
