@@ -14,7 +14,6 @@ namespace BlackJack.DataAccess.Configs
 			builder.RegisterType<LogMessageRepository>().As<ILogMessageRepository>().WithParameter("connectionString", connectionString);
 			builder.RegisterType<GameRepository>().As<IGameRepository>().WithParameter("connectionString", connectionString);
 			builder.RegisterType<CardRepository>().As<ICardRepository>().WithParameter("connectionString", connectionString);
-
 			return builder;
 		}
 	}

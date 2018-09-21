@@ -10,12 +10,9 @@ namespace BlackJack.Entities
 		public int PlayerId { get; set; }
 		[ExplicitKey]
 		public int GameId { get; set; }
-		public int Bet { get; set; }
+		public int BetValue { get; set; }
 
 		[Write(false)]
 		public virtual Player Player { get; set; }
-
-		[Write(false)]
-		public virtual List<Hand> CardsInHand { get; set; }
 	}
 }

@@ -9,5 +9,6 @@ namespace BlackJack.DataAccess.Interfaces
 		Task Delete(int id);
 		Task<int> GetGameIdByHumanId(int humanId);
 		Task<Game> GetGameById(int id);
+		Task<int> GetHumanIdByGameId(int gameId);
 	}
 }

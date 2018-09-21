@@ -10,7 +10,5 @@ namespace BlackJack.Entities
 		
 		[Write(false)]
 		public virtual List<PlayerInGame> PlayersInGame { get; set; }
-		//[Write(false)]
-		//public virtual List<LogMessage> GameHistory { get; set; }
 	}
 }

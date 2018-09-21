@@ -8,28 +8,12 @@
 			return message;
 		}
 
-		static public string OptionDrawCard()
-		{
-			var message = "Draw card or stand.";
-			return message;
-		}
+		static public string OptionDrawCard = "Draw card or stand.";
 
-		static public string OptionWin()
-		{
-			var message = "You win! ";
-			return message;
-		}
+		static public string OptionWin = "You win! ";
 
-		static public string OptionLose()
-		{
-			var message = "You lose! ";
-			return message;
-		}
+		static public string OptionLose = "You lose! ";
 
-		static public string OptionDraw()
-		{
-			var message = "You have draw! ";
-			return message;
-		}
+		static public string OptionDraw = "You have draw! ";
 	}
 }

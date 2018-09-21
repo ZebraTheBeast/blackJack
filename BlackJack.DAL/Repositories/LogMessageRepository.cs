@@ -26,21 +26,6 @@ namespace BlackJack.DataAccess.Repositories
 
 			}
 
-			//using (var db = new SqlConnection(_connectionString))
-			//{
-			//	var sqlQuery = "SELECT * FROM LogInfo INNER JOIN Player on LogInfo.PlayerId = Player.Id ";
-			//	Game currentGame = (await db.QueryAsync<Game, Player, Game>(sqlQuery,
-			//	(game, player) =>
-			//	{
-			//		game.Human = player;
-			//		return game;
-			//	}, new { gameId }))
-			//	.FirstOrDefault();
-			//	return currentGame;
-			//}
-
-
-
 			return messages;
 		}
 	}

@@ -6,6 +6,7 @@ using System.Web.Http;
 using BlackJack.ViewModels;
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.BusinessLogic.Helpers;
+using BlackJack.Configurations;
 
 namespace BlackJack.WebApp.Controllers
 {
@@ -66,6 +67,7 @@ namespace BlackJack.WebApp.Controllers
             {
                 var drawGameViewModel = new DrawGameViewModel();
                 drawGameViewModel = await _gameService.DrawCard(gameId);
+               
                 return Ok(drawGameViewModel);
             }
             catch (Exception exception)

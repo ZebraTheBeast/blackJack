@@ -23,9 +23,6 @@ namespace BlackJack.BusinessLogic.Services
 
 			_logMessageRepository = logMessageRepository;
 
-			path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\"));
-			LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(path + "BlackJack.Configuration\\Nlog.config", true);
-
 			_logger = LogManager.GetCurrentClassLogger();
 		}
 
