@@ -19,31 +19,41 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task AddPlayer(int playerId, int gameId)
+		public async Task AddPlayer(int playerId, int gameId, bool isHuman)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
-				await db.InsertAsync(new PlayerInGame() { PlayerId = playerId, BetValue = 0, GameId = gameId });
+				await db.InsertAsync(new PlayerInGame() { PlayerId = playerId, BetValue = 0, GameId = gameId, IsHuman = isHuman });
 			}
 		}
 
-		public async Task<List<int>> GetBotsInGame(int gameId, int humanId, int dealerId)
+		public async Task<List<int>> GetBotsInGame(int gameId, int dealerId)
 		{
 			var players = new List<int>();
-			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE PlayerId <> @humanId AND PlayerId <> @dealerId AND GameId = @gameId";
+			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE IsHuman = 0 AND PlayerId <> @dealerId AND GameId = @gameId";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				players = (await db.QueryAsync<int>(sqlQuery, new { humanId, dealerId, gameId })).ToList();
+				players = (await db.QueryAsync<int>(sqlQuery, new {  dealerId, gameId })).ToList();
 			}
 
 			return players;
 		}
 
+		public async Task<int> GetHumanIdByGameId(int gameId)
+		{
+			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE GameId = @gameId AND IsHuman = 1";
+			using (var db = new SqlConnection(_connectionString))
+			{
+				int humanId = (await db.QueryAsync<int>(sqlQuery, new { gameId })).FirstOrDefault();
+				return humanId;
+			}
+		}
+
 		public async Task<List<int>> GetAll(int gameId)
 		{
 			var players = new List<int>();
-			var sqlQuery = $"SELECT PlayerId FROM PlayerInGame WHERE GameId = @gameId";
+			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
 				players = (await db.QueryAsync<int>(sqlQuery, new { gameId })).ToList();

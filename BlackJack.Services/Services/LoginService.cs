@@ -87,17 +87,15 @@ namespace BlackJack.BusinessLogic.Services
 					await _gameRepository.Delete(oldGame);
 				}
 
-				await _gameRepository.Create(human.Id);
-
-				var gameId = await _gameRepository.GetGameIdByHumanId(human.Id);
+				int gameId = await _gameRepository.Create();
 
 				foreach (var bot in bots)
 				{
-					await _playerInGameRepository.AddPlayer(bot.Id, gameId);
+					await _playerInGameRepository.AddPlayer(bot.Id, gameId, false);
 					_logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame()));
 				}
 
-				await _playerInGameRepository.AddPlayer(human.Id, gameId);
+				await _playerInGameRepository.AddPlayer(human.Id, gameId, true);
 				_logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame()));
 
 				return gameId;

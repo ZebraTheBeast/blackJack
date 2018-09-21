@@ -11,6 +11,7 @@ namespace BlackJack.Entities
 		[ExplicitKey]
 		public int GameId { get; set; }
 		public int BetValue { get; set; }
+		public bool IsHuman { get; set; }
 
 		[Write(false)]
 		public virtual Player Player { get; set; }

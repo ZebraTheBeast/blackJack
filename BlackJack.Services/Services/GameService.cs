@@ -44,7 +44,7 @@ namespace BlackJack.BusinessLogic.Services
 				var getGameViewModel = new GetGameViewModel();
 				var humanCards = new List<Card>();
 				Game game = await _gameRepository.GetGameById(gameId);
-				var human = game.PlayersInGame.Where(p => p.PlayerId == game.HumanId).FirstOrDefault();
+				var human = game.PlayersInGame.Where(player => player.IsHuman == true).FirstOrDefault();
 				List<int> cardsList = await _handRepository.GetCardIdListByGameId(game.Id);
 				var botsIdList = new List<int>();
 
@@ -64,7 +64,7 @@ namespace BlackJack.BusinessLogic.Services
 				getGameViewModel.Deck = await _cardProvider.LoadDeck(cardsList);
 				getGameViewModel.Bots = new List<PlayerGetGameViewModelItem>();
 
-				botsIdList = await _playerInGameRepository.GetBotsInGame(game.Id, game.HumanId, getGameViewModel.Dealer.Id);
+				botsIdList = await _playerInGameRepository.GetBotsInGame(game.Id, getGameViewModel.Dealer.Id);
 				var bots = await _playerRepository.GetPlayers(botsIdList);
 				var botsInGame = await _playerInGameRepository.GetPlayersInGame(botsIdList, game.Id);
 
@@ -114,7 +114,7 @@ namespace BlackJack.BusinessLogic.Services
 
 				List<int> cardsList = await _handRepository.GetCardIdListByGameId(requestBetGameViewModel.GameId);
 				List<int> deck = await _cardProvider.LoadDeck(cardsList);
-				int humanId = await _gameRepository.GetHumanIdByGameId(requestBetGameViewModel.GameId);
+				int humanId = await _playerInGameRepository.GetHumanIdByGameId(requestBetGameViewModel.GameId);
 				Player human = await _playerRepository.GetById(humanId);
 				var dealer = await _playerRepository.GetByName(Constant.DealerName);
 				int humanBetValue = await _playerInGameRepository.GetBetByPlayerId(humanId, requestBetGameViewModel.GameId);
@@ -135,7 +135,7 @@ namespace BlackJack.BusinessLogic.Services
 				await _playerInGameRepository.PlaceBet(human.Id, requestBetGameViewModel.BetValue, requestBetGameViewModel.GameId);
 				_logger.Log(LogHelper.GetEvent(human.Id, requestBetGameViewModel.GameId, StringHelper.PlayerPlaceBet(requestBetGameViewModel.BetValue)));
 
-				botsId = await _playerInGameRepository.GetBotsInGame(requestBetGameViewModel.GameId, human.Id, dealer.Id);
+				botsId = await _playerInGameRepository.GetBotsInGame(requestBetGameViewModel.GameId, dealer.Id);
 
 				foreach (var botId in botsId)
 				{
@@ -179,7 +179,7 @@ namespace BlackJack.BusinessLogic.Services
 			{
 				var drawGameViewModel = new DrawGameViewModel();
 				var getGameViewModel = new GetGameViewModel();
-				int humanId = await _gameRepository.GetHumanIdByGameId(gameId);
+				int humanId = await _playerInGameRepository.GetHumanIdByGameId(gameId);
 				List<int> cardsInGameList = await _handRepository.GetCardIdListByGameId(gameId);
 				List<int> deck = await _cardProvider.LoadDeck(cardsInGameList);
 

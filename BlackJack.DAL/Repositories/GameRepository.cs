@@ -26,31 +26,25 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task Create(int humanId)
+		public async Task<int> Create()
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
-				await db.InsertAsync(new Game { HumanId = humanId });
+				var gameId = await db.InsertAsync(new Game ());
+				return gameId;
 			}
 		}
 
 		public async Task<int> GetGameIdByHumanId(int humanId)
 		{
-			var sqlQuery = "SELECT Id FROM Game WHERE HumanId = @humanId";
+			var sqlQuery = "SELECT Game.Id FROM Game " +
+				"INNER JOIN PlayerInGame ON Game.Id = PlayerInGame.GameId " +
+				"WHERE PlayerId = @humanId " +
+				"AND IsHuman = 1";
 			using (var db = new SqlConnection(_connectionString))
 			{
 				int gameId = (await db.QueryAsync<int>(sqlQuery, new { humanId })).FirstOrDefault();
 				return gameId;
-			}
-		}
-
-		public async Task<int> GetHumanIdByGameId(int gameId)
-		{
-			var sqlQuery = "SELECT HumanId FROM Game WHERE Id = @gameId";
-			using (var db = new SqlConnection(_connectionString))
-			{
-				int humanId = (await db.QueryAsync<int>(sqlQuery, new { gameId })).FirstOrDefault();
-				return humanId;
 			}
 		}
 
