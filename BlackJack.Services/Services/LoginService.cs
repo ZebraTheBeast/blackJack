@@ -6,7 +6,6 @@ using BlackJack.Entities;
 using NLog;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Services

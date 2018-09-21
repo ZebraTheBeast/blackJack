@@ -6,7 +6,6 @@ using BlackJack.ViewModels;
 using BlackJack.Configurations;
 using BlackJack.BusinessLogic.Helpers;
 using BlackJack.BusinessLogic.Interfaces;
-using System.IO;
 using BlackJack.DataAccess.Interfaces;
 using NLog;
 using AutoMapper;

@@ -43,11 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\CardViewModel.cs" />
-    <Compile Include="Game\DealerViewModel.cs" />
     <Compile Include="Game\DrawGameViewModel.cs" />
-    <Compile Include="Game\HandViewModel.cs" />
-    <Compile Include="Game\PlayerViewModel.cs" />
     <Compile Include="Game\RequestBetGameViewModel.cs" />
     <Compile Include="Game\GetGameViewModel.cs" />
     <Compile Include="Login\StartGameLoginViewModel.cs" />
