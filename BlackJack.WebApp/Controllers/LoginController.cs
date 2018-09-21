@@ -7,6 +7,7 @@ using BlackJack.BusinessLogic.Helpers;
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.Configurations;
 using BlackJack.ViewModels;
+using NLog;
 
 namespace BlackJack.WebApp.Controllers
 {
@@ -14,9 +15,13 @@ namespace BlackJack.WebApp.Controllers
     {
         private ILoginService _loginService;
 
+        private Logger _logger;
+
         public LoginController(ILoginService loginService)
         {
             _loginService = loginService;
+
+            _logger = LogManager.GetCurrentClassLogger();
         }
 
         [HttpPost]
@@ -48,6 +53,7 @@ namespace BlackJack.WebApp.Controllers
             }
             catch (Exception exception)
             {
+                _logger.Error(exception.Message);
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
             }
         }
@@ -70,6 +76,7 @@ namespace BlackJack.WebApp.Controllers
             }
             catch (Exception exception)
             {
+                _logger.Error(exception.Message);
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
             }
         }

@@ -2,6 +2,7 @@
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.Configurations;
 using BlackJack.ViewModels;
+using NLog;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -13,10 +14,12 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 	public class LoginApiController : ApiController
     {
 		private ILoginService _loginService;
-
+		private Logger _logger;
 		public LoginApiController(ILoginService loginService)
 		{
 			_loginService = loginService;
+
+			_logger = LogManager.GetCurrentClassLogger();
 		}
 
 		[HttpPost]
@@ -48,6 +51,7 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 			}
 			catch (Exception exception)
 			{
+				_logger.Error(exception.Message);
 				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
 			}
 		}
@@ -70,6 +74,7 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 			}
 			catch (Exception exception)
 			{
+				_logger.Error(exception.Message);
 				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
 			}
 		}

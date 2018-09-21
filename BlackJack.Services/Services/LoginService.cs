@@ -19,7 +19,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		private ICardProvider _cardProvider;
 
-		Logger _logger;
+		private Logger _logger;
 
 		public LoginService(ICardProvider cardProvider, IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, IHandRepository handRepository, IGameRepository gameRepository)
 		{
@@ -37,117 +37,100 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<int> StartGame(string playerName, int botsAmount)
 		{
-			
-			try
+			if (playerName == Constant.DealerName)
 			{
-				if (playerName == Constant.DealerName)
-				{
-					throw new Exception(StringHelper.NotAvailibleName());
-				}
-
-				Player human = await _playerRepository.GetByName(playerName);			
-
-				if (human == null)
-				{
-					var player = new Player { Name = playerName };
-					await _playerRepository.Create(player);
-					human = await _playerRepository.GetByName(playerName);
-				}
-
-				if (human.Points <= Constant.MinPointsValueToPlay)
-				{
-					await _playerRepository.RestorePoints(human.Id);
-					human.Points = Constant.DefaultPointsValue;
-				}
-
-				List<Player> bots = await _playerRepository.GetBots(playerName, botsAmount);
-				var oldGame = await _gameRepository.GetGameIdByHumanId(human.Id);
-				var playersIdWithoutPoints = new List<int>();
-
-				foreach (var bot in bots)
-				{
-					if (bot.Points < Constant.MinPointsValueToPlay)
-					{
-						playersIdWithoutPoints.Add(bot.Id);
-						bot.Points = Constant.DefaultPointsValue;
-					}
-				}
-
-				if (playersIdWithoutPoints.Count != 0)
-				{
-					await _playerRepository.RestorePoints(playersIdWithoutPoints);
-				}	
-
-				await _cardProvider.CheckDeck();
-
-				if (oldGame != 0)
-				{
-					await _handRepository.RemoveAll(oldGame);
-					await _playerInGameRepository.RemoveAll(oldGame);
-					await _gameRepository.Delete(oldGame);
-				}
-
-				int gameId = await _gameRepository.Create();
-
-				foreach (var bot in bots)
-				{
-					await _playerInGameRepository.AddPlayer(bot.Id, gameId, false);
-					_logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame()));
-				}
-
-				await _playerInGameRepository.AddPlayer(human.Id, gameId, true);
-				_logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame()));
-
-				return gameId;
+				throw new Exception(StringHelper.NotAvailibleName());
 			}
-			catch (Exception exception)
+
+			Player human = await _playerRepository.GetByName(playerName);
+
+			if (human == null)
 			{
-				_logger.Error(exception.Message);
-				throw exception;
+				var player = new Player { Name = playerName };
+				await _playerRepository.Create(player);
+				human = await _playerRepository.GetByName(playerName);
 			}
+
+			if (human.Points <= Constant.MinPointsValueToPlay)
+			{
+				await _playerRepository.RestorePoints(human.Id);
+				human.Points = Constant.DefaultPointsValue;
+			}
+
+			List<Player> bots = await _playerRepository.GetBots(playerName, botsAmount);
+			var oldGame = await _gameRepository.GetGameIdByHumanId(human.Id);
+			var playersIdWithoutPoints = new List<int>();
+
+			foreach (var bot in bots)
+			{
+				if (bot.Points < Constant.MinPointsValueToPlay)
+				{
+					playersIdWithoutPoints.Add(bot.Id);
+					bot.Points = Constant.DefaultPointsValue;
+				}
+			}
+
+			if (playersIdWithoutPoints.Count != 0)
+			{
+				await _playerRepository.RestorePoints(playersIdWithoutPoints);
+			}
+
+			await _cardProvider.CheckDeck();
+
+			if (oldGame != 0)
+			{
+				await _handRepository.RemoveAll(oldGame);
+				await _playerInGameRepository.RemoveAll(oldGame);
+				await _gameRepository.Delete(oldGame);
+			}
+
+			int gameId = await _gameRepository.Create();
+
+			foreach (var bot in bots)
+			{
+				await _playerInGameRepository.AddPlayer(bot.Id, gameId, false);
+				_logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame()));
+			}
+
+			await _playerInGameRepository.AddPlayer(human.Id, gameId, true);
+			_logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame()));
+
+			return gameId;
 		}
 
 		public async Task<int> LoadGame(string playerName)
 		{
-			try
+			if (playerName == Constant.DealerName)
 			{
-				if (playerName == Constant.DealerName)
-				{
-					throw new Exception(StringHelper.NotAvailibleName());
-				}
-
-				Player player = await _playerRepository.GetByName(playerName);
-
-				if (player == null)
-				{
-					var newPlayer = new Player { Name = playerName };
-					await _playerRepository.Create(newPlayer);
-					player = await _playerRepository.GetByName(playerName);
-				}
-
-				if (player.Points <= Constant.MinPointsValueToPlay)
-				{
-					await _playerRepository.RestorePoints(player.Id);
-					player.Points = Constant.DefaultPointsValue;
-				}
-
-				var gameId = await _gameRepository.GetGameIdByHumanId(player.Id);
-
-				await _cardProvider.CheckDeck();
-
-				if (gameId == 0)
-				{
-					throw new Exception(StringHelper.NoLastGame());
-				}
-
-				_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerContinueGame()));
-				return gameId;
+				throw new Exception(StringHelper.NotAvailibleName());
 			}
-			catch (Exception exception)
+
+			Player player = await _playerRepository.GetByName(playerName);
+
+			if (player == null)
 			{
-				_logger.Error(exception.Message);
-				throw exception;
+				var newPlayer = new Player { Name = playerName };
+				await _playerRepository.Create(newPlayer);
+				player = await _playerRepository.GetByName(playerName);
 			}
+
+			if (player.Points <= Constant.MinPointsValueToPlay)
+			{
+				await _playerRepository.RestorePoints(player.Id);
+				player.Points = Constant.DefaultPointsValue;
+			}
+
+			var gameId = await _gameRepository.GetGameIdByHumanId(player.Id);
+
+			await _cardProvider.CheckDeck();
+
+			if (gameId == 0)
+			{
+				throw new Exception(StringHelper.NoLastGame());
+			}
+
+			_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerContinueGame()));
+			return gameId;
 		}
 	}
 }

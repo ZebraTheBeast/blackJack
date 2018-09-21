@@ -2,7 +2,6 @@
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.ViewModels;
-using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,51 +13,38 @@ namespace BlackJack.BusinessLogic.Services
 	{
 		ILogMessageRepository _logMessageRepository;
 
-		Logger _logger;
-
 		public LogService(ILogMessageRepository logMessageRepository)
 		{
 			var path = string.Empty;
 
 			_logMessageRepository = logMessageRepository;
-
-			_logger = LogManager.GetCurrentClassLogger();
 		}
 
 		public async Task<IEnumerable<GetLogsLogViewModel>> GetMessages()
 		{
-			
-			try
+			var messagesModel = new List<GetLogsLogViewModel>();
+			var messages = (await _logMessageRepository.GetAll()).ToList();
+
+			if (messages.Count() == 0)
 			{
-				var messagesModel = new List<GetLogsLogViewModel>();
-				var messages = (await _logMessageRepository.GetAll()).ToList();
-
-				if (messages.Count() == 0)
-				{
-					throw new Exception(StringHelper.EmptyLog());
-				}
-
-				foreach (var message in messages)
-				{
-					var messageModel = new GetLogsLogViewModel
-					{
-						Id = message.Id,
-						Message = message.Message,
-						CreationDate = message.CreationDate,
-						GameId = message.GameId,
-						PlayerId = message.PlayerId
-					};
-
-					messagesModel.Add(messageModel);
-				}
-
-				return messagesModel;
+				throw new Exception(StringHelper.EmptyLog());
 			}
-			catch (Exception exception)
+
+			foreach (var message in messages)
 			{
-				_logger.Error(exception.Message);
-				throw exception;
+				var messageModel = new GetLogsLogViewModel
+				{
+					Id = message.Id,
+					Message = message.Message,
+					CreationDate = message.CreationDate,
+					GameId = message.GameId,
+					PlayerId = message.PlayerId
+				};
+
+				messagesModel.Add(messageModel);
 			}
+
+			return messagesModel;
 		}
 	}
 }

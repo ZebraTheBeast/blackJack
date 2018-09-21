@@ -6,6 +6,7 @@ using System.Web.Http;
 using BlackJack.ViewModels;
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.BusinessLogic.Helpers;
+using NLog;
 
 namespace BlackJack.MVC.Controllers
 {
@@ -13,9 +14,12 @@ namespace BlackJack.MVC.Controllers
 	{
 		IGameService _gameService;
 
+		private Logger _logger;
+
 		public GameApiController(IGameService gameService)
 		{
 			_gameService = gameService;
+			_logger = LogManager.GetCurrentClassLogger();
 		}
 
 		[HttpPost]
@@ -40,6 +44,7 @@ namespace BlackJack.MVC.Controllers
 			}
 			catch (Exception exception)
 			{
+				_logger.Error(exception.Message);
 				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
 			}
 		}
@@ -55,6 +60,7 @@ namespace BlackJack.MVC.Controllers
 			}
 			catch (Exception exception)
 			{
+				_logger.Error(exception.Message);
 				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
 			}
 		}
@@ -66,10 +72,12 @@ namespace BlackJack.MVC.Controllers
 			{
 				var drawGameViewModel = new DrawGameViewModel();
 				drawGameViewModel = await _gameService.DrawCard(gameId);
+
 				return Ok(drawGameViewModel);
 			}
 			catch (Exception exception)
 			{
+				_logger.Error(exception.Message);
 				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
 			}
 		}
@@ -85,6 +93,7 @@ namespace BlackJack.MVC.Controllers
 			}
 			catch (Exception exception)
 			{
+				_logger.Error(exception.Message);
 				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
 			}
 		}
