@@ -37,10 +37,10 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task<int> GetGameIdByHumanId(int humanId)
 		{
-			var sqlQuery = "SELECT Game.Id FROM Game " +
-				"INNER JOIN PlayerInGame ON Game.Id = PlayerInGame.GameId " +
-				"WHERE PlayerId = @humanId " +
-				"AND IsHuman = 1";
+			var sqlQuery = @"SELECT Game.Id FROM Game 
+				INNER JOIN PlayerInGame ON Game.Id = PlayerInGame.GameId 
+				WHERE PlayerId = @humanId 
+				AND IsHuman = 1";
 			using (var db = new SqlConnection(_connectionString))
 			{
 				int gameId = (await db.QueryAsync<int>(sqlQuery, new { humanId })).FirstOrDefault();
@@ -52,10 +52,10 @@ namespace BlackJack.DataAccess.Repositories
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = "SELECT * FROM Game " +
-					"INNER JOIN PlayerInGame ON Game.Id = PlayerInGame.GameId " +
-					"INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id " +
-					"WHERE Game.Id = @gameId";
+				var sqlQuery = @"SELECT * FROM Game 
+					INNER JOIN PlayerInGame ON Game.Id = PlayerInGame.GameId 
+					INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id 
+					WHERE Game.Id = @gameId";
 
 				var gameDictionary = new Dictionary<int, Game>();
 
