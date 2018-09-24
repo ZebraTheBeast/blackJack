@@ -69,8 +69,9 @@ namespace BlackJack.BusinessLogic.Providers
 		{
 			IEnumerable<Card> cardsInDb = await _cardRepository.GetAll();
 
-			if (cardsInDb.Count() == 0)
+			if (cardsInDb.Count() != Constant.DeckSize)
 			{
+				await _cardRepository.DeleteAll();
 				List<Card> cards = GenerateCards();
 				await _cardRepository.PopulateCards(cards);
 			}

@@ -9,5 +9,6 @@ namespace BlackJack.DataAccess.Interfaces
 		Task<List<Card>> GetCardsById(List<int> cardsId);
 		Task PopulateCards(List<Card> cards);
 		Task<List<Card>> GetAll();
+		Task DeleteAll();
 	}
 }

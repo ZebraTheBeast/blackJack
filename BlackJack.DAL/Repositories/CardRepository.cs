@@ -18,6 +18,14 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
+		public async Task DeleteAll()
+		{
+			using (var db = new SqlConnection(_connectionString))
+			{
+				await db.DeleteAllAsync<Card>();
+			}
+		}
+
 		public async Task PopulateCards(List<Card> cards)
 		{
 			using (var db = new SqlConnection(_connectionString))
