@@ -105,23 +105,23 @@ function WriteResponse(gameViewModel) {
 
     $("#dealerName").html(gameViewModel.dealer.name);
 
-    $.each(gameViewModel.dealer.hand.cardList, function (index, card) {
+    $.each(gameViewModel.dealer.hand.cardsInHand, function (index, card) {
         dealerCards += "<li class='list-group-item'>" + card.title + " of " + card.suit + "</li>";
     });
 
     $("#dealerCards").html(dealerCards);
-    $("#dealerValue").html(gameViewModel.dealer.hand.cardListValue);
+    $("#dealerValue").html(gameViewModel.dealer.hand.cardsInHandValue);
     $.each(gameViewModel.bots, function (index, bot) {
         statsResult += "<li class='list-group-item d-flex justify-content-between'>" + bot.name + "<span>" + bot.points + "</span></li>";
 
         botResult += "<div class = 'col-md-2'>" +
             "<h3>" + bot.name + "</h3>" +
-            "<ul class = 'list-group'>";
-        $.each(bot.hand.cardList, function (index, card) {
+			"<ul class = 'list-group'>";
+		$.each(bot.hand.cardsInHand, function (index, card) {
             botResult += "<li class='list-group-item'>" + card.title + " of " + card.suit + "</li>";
         });
         botResult += "</ul>" +
-            "<h4>Value: " + bot.hand.cardListValue + " </h4>" +
+			"<h4>Value: " + bot.hand.cardsInHandValue + " </h4>" +
             "<h4>Bet: " + bot.betValue + "</h4>" +
             "</div>";
     });
@@ -131,7 +131,7 @@ function WriteResponse(gameViewModel) {
         $("#cardsCount").html(gameViewModel.deck.length);
 	}
 
-	$.each(gameViewModel.human.hand.cardList, function (index, card) {
+	$.each(gameViewModel.human.hand.cardsInHand, function (index, card) {
 		humanCards += "<li class='list-group-item'>" + card.title + " of " + card.suit + "</li>";
 	});
 
@@ -140,7 +140,7 @@ function WriteResponse(gameViewModel) {
 			`+ gameViewModel.human.name + `
 		</h3>
 		<ul class="list-group">`+ humanCards +`</ul>
-		<h4>Value: <span>`+ gameViewModel.human.hand.cardListValue +`</span></h4>
+		<h4>Value: <span>`+ gameViewModel.human.hand.cardsInHandValue +`</span></h4>
 		<h4>Bet: <span>`+ gameViewModel.human.betValue +`</span></h4>
 	</div>`;
 
@@ -151,7 +151,7 @@ function WriteResponse(gameViewModel) {
 
     $("#betValue").attr("max", gameViewModel.human.points);
 
-    if (gameViewModel.human.hand.cardListValue >= 21) {
+	if (gameViewModel.human.hand.cardsInHandValue >= 21) {
         disableDraw();
     }
 
@@ -159,11 +159,11 @@ function WriteResponse(gameViewModel) {
         disableDraw();
     }
 
-    if (gameViewModel.dealer.hand.cardListValue === 21) {
+	if (gameViewModel.dealer.hand.cardsInHandValue === 21) {
         disableDraw();
     }
 
-    if ((gameViewModel.human.hand.cardList.length !== 0) && (gameViewModel.human.betValue !== 0)) {
+	if ((gameViewModel.human.hand.cardsInHandValue.length !== 0) && (gameViewModel.human.betValue !== 0)) {
         disableBet();
     }
 

@@ -81,7 +81,7 @@ export class GameComponent implements OnInit {
     }
 
     checkGameStatus(): void {
-        if (this.game.human.cardListValue >= 21) {
+        if (this.game.human.cardsInHandValue >= 21) {
             this.disableDraw();
         }
 
@@ -89,7 +89,7 @@ export class GameComponent implements OnInit {
             this.disableDraw();
         }
 
-        if (this.game.dealer.cardListValue == 21) {
+        if (this.game.dealer.cardInHandValue == 21) {
             this.disableDraw();
         }
 
