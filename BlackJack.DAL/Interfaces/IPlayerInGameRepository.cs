@@ -6,10 +6,10 @@ namespace BlackJack.DataAccess.Interfaces
 {
 	public interface IPlayerInGameRepository
     {
-        Task AddPlayer(int playerId, int gameId, bool isHuman);
-        Task RemoveAll(int gameId);
-        Task<List<int>> GetAll(int gameId);
-        Task<List<int>> GetBotsInGame(int gameId, int dealerId);
+        Task AddPlayerToGame(int playerId, int gameId, bool isHuman);
+        Task RemoveAllPlayersFromGame(int gameId);
+        Task<List<int>> GetAllPlayersIdByGameId(int gameId);
+        Task<List<int>> GetBotsIdByGameId(int gameId, int dealerId);
         Task<int> GetBetByPlayerId(int playerId, int gameId);
         Task PlaceBet(int playerId, int bet, int gameId);
 		Task PlaceBet(List<int> playerId, int gameId);

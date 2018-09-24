@@ -19,7 +19,7 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task AddPlayer(int playerId, int gameId, bool isHuman)
+		public async Task AddPlayerToGame(int playerId, int gameId, bool isHuman)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -27,7 +27,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<List<int>> GetBotsInGame(int gameId, int dealerId)
+		public async Task<List<int>> GetBotsIdByGameId(int gameId, int dealerId)
 		{
 			var players = new List<int>();
 			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE IsHuman = 0 AND PlayerId <> @dealerId AND GameId = @gameId";
@@ -50,7 +50,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<List<int>> GetAll(int gameId)
+		public async Task<List<int>> GetAllPlayersIdByGameId(int gameId)
 		{
 			var players = new List<int>();
 			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE GameId = @gameId";
@@ -61,7 +61,7 @@ namespace BlackJack.DataAccess.Repositories
 			return players;
 		}
 
-		public async Task RemoveAll(int gameId)
+		public async Task RemoveAllPlayersFromGame(int gameId)
 		{
 			var sqlQuery = "DELETE FROM PlayerInGame WHERE GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))

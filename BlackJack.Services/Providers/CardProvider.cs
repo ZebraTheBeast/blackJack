@@ -67,11 +67,11 @@ namespace BlackJack.BusinessLogic.Providers
 
 		public async Task CheckDeck()
 		{
-			IEnumerable<Card> cardsInDb = await _cardRepository.GetAll();
+			IEnumerable<Card> cardsInDb = await _cardRepository.GetAllCards();
 
 			if (cardsInDb.Count() != Constant.DeckSize)
 			{
-				await _cardRepository.DeleteAll();
+				await _cardRepository.DeleteAllCards();
 				List<Card> cards = GenerateCards();
 				await _cardRepository.PopulateCards(cards);
 			}
@@ -81,7 +81,7 @@ namespace BlackJack.BusinessLogic.Providers
 		{
 			var deck = new List<int>();
 			Random randomNumericGenerator = new Random();
-			List<Card> cards = (await _cardRepository.GetAll()).ToList();
+			List<Card> cards = (await _cardRepository.GetAllCards()).ToList();
 
 			foreach (var cardId in cardsInGame)
 			{

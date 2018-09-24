@@ -18,7 +18,7 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task DeleteAll()
+		public async Task DeleteAllCards()
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -34,7 +34,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<List<Card>> GetAll()
+		public async Task<List<Card>> GetAllCards()
 		{
 			var cards = new List<Card>();
 			using (var db = new SqlConnection(_connectionString))

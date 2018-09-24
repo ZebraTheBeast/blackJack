@@ -17,7 +17,7 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task<List<int>> GetCardIdListByPlayerId(int playerId, int gameId)
+		public async Task<List<int>> GetCardsIdByPlayerId(int playerId, int gameId)
 		{
 			var cards = new List<int>();
 			var sqlQuery = @"SELECT CardId FROM Hand 
@@ -32,7 +32,7 @@ namespace BlackJack.DataAccess.Repositories
 			return cards;
 		}
 
-		public async Task<List<int>> GetCardIdListByGameId(int gameId)
+		public async Task<List<int>> GetCardsIdByGameId(int gameId)
 		{
 			var cards = new List<int>();
 			var sqlQuery = @"SELECT CardId FROM Hand 
@@ -56,7 +56,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task RemoveAll(int gameId)
+		public async Task RemoveAllCardsInHand(int gameId)
 		{
 			var sqlQuery = "DELETE Hand FROM Hand INNER JOIN PlayerInGame ON Hand.PlayerInGameId = PlayerInGame.Id WHERE PlayerInGame.GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))

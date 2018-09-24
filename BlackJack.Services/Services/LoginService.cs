@@ -42,18 +42,18 @@ namespace BlackJack.BusinessLogic.Services
 				throw new Exception(StringHelper.NotAvailibleName());
 			}
 
-			Player human = await _playerRepository.GetByName(playerName);
+			Player human = await _playerRepository.GetPlayerByName(playerName);
 
 			if (human == null)
 			{
 				var player = new Player { Name = playerName };
-				await _playerRepository.Create(player);
-				human = await _playerRepository.GetByName(playerName);
+				await _playerRepository.CreateNewPlayer(player);
+				human = await _playerRepository.GetPlayerByName(playerName);
 			}
 
 			if (human.Points <= Constant.MinPointsValueToPlay)
 			{
-				await _playerRepository.RestorePoints(human.Id);
+				await _playerRepository.RestorePlayerPoints(human.Id);
 				human.Points = Constant.DefaultPointsValue;
 			}
 
@@ -72,27 +72,27 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (playersIdWithoutPoints.Count != 0)
 			{
-				await _playerRepository.RestorePoints(playersIdWithoutPoints);
+				await _playerRepository.RestorePlayersPoints(playersIdWithoutPoints);
 			}
 
 			await _cardProvider.CheckDeck();
 
 			if (oldGame != 0)
 			{
-				await _handRepository.RemoveAll(oldGame);
-				await _playerInGameRepository.RemoveAll(oldGame);
-				await _gameRepository.Delete(oldGame);
+				await _handRepository.RemoveAllCardsInHand(oldGame);
+				await _playerInGameRepository.RemoveAllPlayersFromGame(oldGame);
+				await _gameRepository.DeleteGameById(oldGame);
 			}
 
-			int gameId = await _gameRepository.Create();
+			int gameId = await _gameRepository.StartNewGame();
 
 			foreach (var bot in bots)
 			{
-				await _playerInGameRepository.AddPlayer(bot.Id, gameId, false);
+				await _playerInGameRepository.AddPlayerToGame(bot.Id, gameId, false);
 				_logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame()));
 			}
 
-			await _playerInGameRepository.AddPlayer(human.Id, gameId, true);
+			await _playerInGameRepository.AddPlayerToGame(human.Id, gameId, true);
 			_logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame()));
 
 			return gameId;
@@ -105,18 +105,18 @@ namespace BlackJack.BusinessLogic.Services
 				throw new Exception(StringHelper.NotAvailibleName());
 			}
 
-			Player player = await _playerRepository.GetByName(playerName);
+			Player player = await _playerRepository.GetPlayerByName(playerName);
 
 			if (player == null)
 			{
 				var newPlayer = new Player { Name = playerName };
-				await _playerRepository.Create(newPlayer);
-				player = await _playerRepository.GetByName(playerName);
+				await _playerRepository.CreateNewPlayer(newPlayer);
+				player = await _playerRepository.GetPlayerByName(playerName);
 			}
 
 			if (player.Points <= Constant.MinPointsValueToPlay)
 			{
-				await _playerRepository.RestorePoints(player.Id);
+				await _playerRepository.RestorePlayerPoints(player.Id);
 				player.Points = Constant.DefaultPointsValue;
 			}
 

@@ -5,9 +5,9 @@ namespace BlackJack.ViewModels
 {
 	public class HandViewModelItem
 	{
-		[JsonProperty("cardList")]
-		public List<CardViewModelItem> CardList { get; set; }
-		[JsonProperty("cardListValue")]
-		public int CardListValue { get; set; }
+		[JsonProperty("cardsInHand")]
+		public List<CardViewModelItem> CardsInHand { get; set; }
+		[JsonProperty("cardsInHandValue")]
+		public int CardsInHandValue { get; set; }
 	}
 }

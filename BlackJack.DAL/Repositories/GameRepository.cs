@@ -18,7 +18,7 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task Delete(int id)
+		public async Task DeleteGameById(int id)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -26,7 +26,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<int> Create()
+		public async Task<int> StartNewGame()
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{

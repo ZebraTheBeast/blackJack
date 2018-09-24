@@ -5,11 +5,11 @@
                 {{ game.dealer.name }}
             </h2>
             <ul class="list-group">
-                <li class="list-group-item" *ngFor="let card of game.dealer.hand.cardList">
+                <li class="list-group-item" *ngFor="let card of game.dealer.hand.cardsInHand">
                     {{ card.title }} of {{ card.suit }}
                 </li>
             </ul>
-            <h4 *ngIf="game.dealer.hand.cardListValue != 0">Value: {{ game.dealer.hand.cardListValue }}</h4>
+            <h4 *ngIf="game.dealer.hand.cardsInHandValue != 0">Value: {{ game.dealer.hand.cardsInHandValue }}</h4>
         </div>
         <div class="col-md-6">
             <div class="row text-center game-option">
@@ -52,11 +52,11 @@
                 {{ bot.name }}
             </h3>
             <ul class="list-group">
-                <li class="list-group-item" *ngFor="let card of bot.hand.cardList">
+                <li class="list-group-item" *ngFor="let card of bot.hand.cardsInHand">
                     {{ card.title }} of {{ card.suit }}
                 </li>
             </ul>
-            <h4 *ngIf="bot.hand.cardListValue != 0">Value: {{ bot.hand.cardListValue }}</h4>
+            <h4 *ngIf="bot.hand.cardsInHandValue != 0">Value: {{ bot.hand.cardsInHandValue }}</h4>
             <h4 *ngIf="bot.hand.betValue != 0">Bet: {{ bot.betValue }}</h4>
         </div>
 
@@ -66,11 +66,11 @@
             </h3>
 
             <ul class="list-group">
-                <li class="list-group-item" *ngFor="let card of game.human.hand.cardList">
+                <li class="list-group-item" *ngFor="let card of game.human.hand.cardsInHand">
                     {{ card.title }} of {{ card.suit }}
                 </li>
             </ul>
-            <h4 *ngIf="game.human.hand.cardListValue != 0">Value: {{ game.human.hand.cardListValue }}</h4>
+            <h4 *ngIf="game.human.hand.cardsInHandValue != 0">Value: {{ game.human.hand.cardsInHandValue }}</h4>
             <h4 *ngIf="game.human.hand.betValue != 0">Bet: {{ game.human.betValue }}</h4>
         </div>
     </div>

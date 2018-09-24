@@ -93,7 +93,7 @@ export class GameComponent implements OnInit {
             this.disableDraw();
         }
 
-        if ((this.game.human.hand.cardList.length != 0)
+        if ((this.game.human.hand.cardsInHand.length != 0)
             && (this.game.human.betValue != 0)) {
             this.disableBet();
         }

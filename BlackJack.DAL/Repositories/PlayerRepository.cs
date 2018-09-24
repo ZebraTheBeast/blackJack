@@ -19,7 +19,7 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task Create(Player player)
+		public async Task CreateNewPlayer(Player player)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -31,7 +31,7 @@ namespace BlackJack.DataAccess.Repositories
 		{
 			var players = new List<Player>();
 			var playersIdWithoutPoints = new List<int>();
-			var dealer = await GetByName(Constant.DealerName);
+			var dealer = await GetPlayerByName(Constant.DealerName);
 			var sqlQuery = "SELECT TOP(@botsAmount) * FROM Player WHERE Name <> @playerName AND Name <> @dealerName";
 			players.Add(dealer);
 
@@ -44,7 +44,7 @@ namespace BlackJack.DataAccess.Repositories
 			return players;
 		}
 
-		public async Task<Player> GetByName(string name)
+		public async Task<Player> GetPlayerByName(string name)
 		{
 			var player = new Player();
 
@@ -57,7 +57,7 @@ namespace BlackJack.DataAccess.Repositories
 			return player;
 		}
 
-		public async Task UpdatePoints(int playerId, int newPointsValue)
+		public async Task UpdatePlayerPoints(int playerId, int newPointsValue)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -66,7 +66,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task RestorePoints(int playerId)
+		public async Task RestorePlayerPoints(int playerId)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -75,7 +75,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<Player> GetById(int id)
+		public async Task<Player> GetPlayerById(int id)
 		{
 			var player = new Player();
 
@@ -87,7 +87,7 @@ namespace BlackJack.DataAccess.Repositories
 			return player;
 		}
 
-		public async Task<List<Player>> GetPlayers(List<int> idList)
+		public async Task<List<Player>> GetPlayersByIds(List<int> idList)
 		{
 			var players = new List<Player>();
 			var sqlQuery = "SELECT * FROM Player WHERE Id IN @idList";
@@ -100,7 +100,7 @@ namespace BlackJack.DataAccess.Repositories
 			return players;
 		}
 
-		public async Task RestorePoints(List<int> playersId)
+		public async Task RestorePlayersPoints(List<int> playersId)
 		{
 
 			var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id on @playersId";

@@ -17,7 +17,7 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task<List<LogMessage>> GetAll()
+		public async Task<List<LogMessage>> GetAllMessages()
 		{
 			var messages = new List<LogMessage>();
 			using (var db = new SqlConnection(_connectionString))
