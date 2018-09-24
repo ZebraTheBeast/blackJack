@@ -6,7 +6,7 @@ namespace BlackJack.Entities
 	public class BaseEntity
 	{
 		[Key]
-		public virtual int Id { get; set; }
+		public int Id { get; set; }
 		public DateTime CreationDate { get; set; }
 		
 		public BaseEntity()
