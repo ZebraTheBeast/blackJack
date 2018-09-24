@@ -61,13 +61,11 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 		{
 			try
 			{
-				var gameId = 0;
-
 				if (String.IsNullOrEmpty(playerName))
 				{
 					throw new Exception(StringHelper.EmptyName());
 				}
-				gameId = await _loginService.LoadGame(playerName);
+				int gameId = await _loginService.LoadGame(playerName);
 				var response = new { gameId };
 
 				return Ok(response);

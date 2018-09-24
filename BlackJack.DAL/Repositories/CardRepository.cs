@@ -22,10 +22,7 @@ namespace BlackJack.DataAccess.Repositories
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
-				foreach (var card in cards)
-				{
-					await db.InsertAsync(card);
-				}
+				await db.InsertAsync(cards);
 			}
 		}
 

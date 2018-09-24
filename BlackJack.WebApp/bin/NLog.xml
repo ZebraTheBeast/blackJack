@@ -2582,7 +2582,17 @@
             Variables defined in xml or in API. name is case case insensitive. 
             </summary>
         </member>
+        <member name="P:NLog.Config.LoggingConfiguration.LogFactory">
+            <summary>
+            Gets the factory that will be configured
+            </summary>
+        </member>
         <member name="M:NLog.Config.LoggingConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Config.LoggingConfiguration" /> class.
+            </summary>
+        </member>
+        <member name="M:NLog.Config.LoggingConfiguration.#ctor(NLog.LogFactory)">
             <summary>
             Initializes a new instance of the <see cref="T:NLog.Config.LoggingConfiguration" /> class.
             </summary>
@@ -2822,6 +2832,19 @@
             Copies all variables from provided dictionary into current configuration variables. 
             </summary>
             <param name="masterVariables">Master variables dictionary</param>
+        </member>
+        <member name="M:NLog.Config.LoggingConfiguration.ExpandSimpleVariables(System.String)">
+            <summary>
+            Replace a simple variable with a value. The orginal value is removed and thus we cannot redo this in a later stage.
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Config.LoggingConfiguration.CheckUnusedTargets">
+            <summary>
+            Checks whether unused targets exist. If found any, just write an internal log at Warn level.
+            <remarks>If initializing not started or failed, then checking process will be canceled</remarks>
+            </summary>
         </member>
         <member name="T:NLog.Config.LoggingConfigurationChangedEventArgs">
             <summary>
@@ -3506,12 +3529,6 @@
             </summary>
             <param name="rootContentElement">Root NLog configuration xml element</param>
         </member>
-        <member name="M:NLog.Config.XmlLoggingConfiguration.CheckUnusedTargets">
-            <summary>
-            Checks whether unused targets exist. If found any, just write an internal log at Warn level.
-            <remarks>If initializing not started or failed, then checking process will be canceled</remarks>
-            </summary>
-        </member>
         <member name="M:NLog.Config.XmlLoggingConfiguration.ConfigureFromFile(System.String,System.Boolean)">
             <summary>
             Add a file with configuration. Check if not already included.
@@ -3571,15 +3588,6 @@
             <param name="baseDirectory">base directory in case if <paramref name="fileMask"/> is relative</param>
             <param name="fileMask">relative or absolute fileMask</param>
             <param name="autoReloadDefault"></param>
-        </member>
-        <member name="M:NLog.Config.XmlLoggingConfiguration.ExpandSimpleVariables(System.String)">
-            <summary>
-            Replace a simple variable with a value. The orginal value is removed and thus we cannot redo this in a later stage.
-            
-            Use for that: <see cref="T:NLog.LayoutRenderers.VariableLayoutRenderer"/>
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
         </member>
         <member name="T:NLog.Filters.ConditionBasedFilter">
             <summary>
@@ -8976,6 +8984,18 @@
             <param name="file">optional file</param>
             <returns></returns>
         </member>
+        <member name="F:NLog.Internal.PathHelpers.DirectorySeparatorChars">
+            <summary>
+            Cached directory separator char array to avoid memory allocation on each method call.
+            </summary>
+        </member>
+        <member name="M:NLog.Internal.PathHelpers.TrimDirectorySeparators(System.String)">
+            <summary>
+            Trims directory separators from the path
+            </summary>
+            <param name="path">path, could be null</param>
+            <returns>never null</returns>
+        </member>
         <member name="T:NLog.Internal.PlatformDetector">
             <summary>
             Detects the platform the NLog is running on.
@@ -9711,6 +9731,30 @@
             </summary>
             <param name="builder">StringBuilder source</param>
             <param name="destination">StringBuilder destination</param>
+        </member>
+        <member name="M:NLog.Internal.StringBuilderExt.IndexOf(System.Text.StringBuilder,System.Char,System.Int32)">
+            <summary>
+            Scans the StringBuilder for the position of needle character
+            </summary>
+            <param name="builder">StringBuilder source</param>
+            <param name="needle">needle character to search for</param>
+            <param name="startPos"></param>
+            <returns>Index of the first occurrence (Else -1)</returns>
+        </member>
+        <member name="M:NLog.Internal.StringBuilderExt.EqualTo(System.Text.StringBuilder,System.Text.StringBuilder)">
+            <summary>
+            Compares the contents of two StringBuilders
+            </summary>
+            <remarks>
+            Correct implementation of <see cref="M:System.Text.StringBuilder.Equals(System.Text.StringBuilder)" /> that also works when <see cref="P:System.Text.StringBuilder.Capacity"/> is not the same
+            </remarks>
+            <returns>True when content is the same</returns>
+        </member>
+        <member name="M:NLog.Internal.StringBuilderExt.EqualTo(System.Text.StringBuilder,System.String)">
+            <summary>
+            Compares the contents of a StringBuilder and a String
+            </summary>
+            <returns>True when content is the same</returns>
         </member>
         <member name="M:NLog.Internal.StringBuilderExt.Append2DigitsZeroPadded(System.Text.StringBuilder,System.Int32)">
             <summary>
@@ -12569,11 +12613,11 @@
             </summary>
             <docgen category='Advanced Options' order='10' />
         </member>
+        <member name="M:NLog.LayoutRenderers.Wrappers.FileSystemNormalizeLayoutRendererWrapper.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <inheritdoc/>
+        </member>
         <member name="M:NLog.LayoutRenderers.Wrappers.FileSystemNormalizeLayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
-            <summary>
-            Replaces all non-safe characters with underscore to make valid filepath
-            </summary>
-            <param name="target">Output to be transformed.</param>
+            <inheritdoc/>
         </member>
         <member name="T:NLog.LayoutRenderers.Wrappers.JsonEncodeLayoutRendererWrapper">
             <summary>
@@ -12597,18 +12641,11 @@
             </summary>
             <docgen category="Transformation Options" order="10"/>
         </member>
-        <member name="M:NLog.LayoutRenderers.Wrappers.JsonEncodeLayoutRendererWrapper.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
-            <summary>
-            Render to local target using Inner Layout, and then transform before final append
-            </summary>
-            <param name="builder"></param>
-            <param name="logEvent"></param>
+        <member name="M:NLog.LayoutRenderers.Wrappers.JsonEncodeLayoutRendererWrapper.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <inheritdoc/>
         </member>
         <member name="M:NLog.LayoutRenderers.Wrappers.JsonEncodeLayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
-            <summary>
-            Post-processes the rendered message. 
-            </summary>
-            <param name="target">The text to be JSON-encoded.</param>
+            <inheritdoc/>
         </member>
         <member name="T:NLog.LayoutRenderers.Wrappers.LowercaseLayoutRendererWrapper">
             <summary>
@@ -12633,16 +12670,19 @@
             </summary>
             <docgen category='Transformation Options' order='10' />
         </member>
+        <member name="M:NLog.LayoutRenderers.Wrappers.LowercaseLayoutRendererWrapper.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <inheritdoc/>
+        </member>
         <member name="M:NLog.LayoutRenderers.Wrappers.LowercaseLayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
-            <summary>
-            Post-processes the rendered message. 
-            </summary>
-            <param name="target">Output to be post-processed.</param>
+            <inheritdoc/>
         </member>
         <member name="T:NLog.LayoutRenderers.Wrappers.OnExceptionLayoutRendererWrapper">
             <summary>
             Only outputs the inner layout when exception has been defined for log message.
             </summary>
+        </member>
+        <member name="M:NLog.LayoutRenderers.Wrappers.OnExceptionLayoutRendererWrapper.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <inheritdoc/>
         </member>
         <member name="M:NLog.LayoutRenderers.Wrappers.OnExceptionLayoutRendererWrapper.Transform(System.String)">
             <summary>
@@ -12650,15 +12690,6 @@
             </summary>
             <param name="text">Output to be transform.</param>
             <returns>Transformed text.</returns>
-        </member>
-        <member name="M:NLog.LayoutRenderers.Wrappers.OnExceptionLayoutRendererWrapper.RenderInner(NLog.LogEventInfo)">
-            <summary>
-            Renders the inner layout contents.
-            </summary>
-            <param name="logEvent">The log event.</param>
-            <returns>
-            Contents of inner layout.
-            </returns>
         </member>
         <member name="T:NLog.LayoutRenderers.Wrappers.PaddingHorizontalAlignment">
             <summary>
@@ -12821,11 +12852,11 @@
             </summary>
             <docgen category='Transformation Options' order='10' />
         </member>
+        <member name="M:NLog.LayoutRenderers.Wrappers.ReplaceNewLinesLayoutRendererWrapper.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <inheritdoc/>
+        </member>
         <member name="M:NLog.LayoutRenderers.Wrappers.ReplaceNewLinesLayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
-            <summary>
-            Post-processes the rendered message. 
-            </summary>
-            <param name="target">Output to be post-processed.</param>
+            <inheritdoc/>
         </member>
         <member name="T:NLog.LayoutRenderers.Wrappers.Rot13LayoutRendererWrapper">
             <summary>
@@ -12850,17 +12881,16 @@
             <param name="encodedValue">The string to be encoded/decoded.</param>
             <returns>Encoded/Decoded text.</returns>
         </member>
-        <member name="M:NLog.LayoutRenderers.Wrappers.Rot13LayoutRendererWrapper.DecodeRot13(System.Text.StringBuilder)">
+        <member name="M:NLog.LayoutRenderers.Wrappers.Rot13LayoutRendererWrapper.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NLog.LayoutRenderers.Wrappers.Rot13LayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NLog.LayoutRenderers.Wrappers.Rot13LayoutRendererWrapper.DecodeRot13(System.Text.StringBuilder,System.Int32)">
             <summary>
             Encodes/Decodes ROT-13-encoded string.
             </summary>
-            <param name="encodedValue">The string to be encoded/decoded.</param>
-        </member>
-        <member name="M:NLog.LayoutRenderers.Wrappers.Rot13LayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
-            <summary>
-            Post-processes the rendered message. 
-            </summary>
-            <param name="target">Output to be transform.</param>
         </member>
         <member name="T:NLog.LayoutRenderers.Wrappers.TrimWhiteSpaceLayoutRendererWrapper">
             <summary>
@@ -12879,11 +12909,11 @@
             <value>A value of <c>true</c> if lower case conversion should be applied; otherwise, <c>false</c>.</value>
             <docgen category='Transformation Options' order='10' />
         </member>
+        <member name="M:NLog.LayoutRenderers.Wrappers.TrimWhiteSpaceLayoutRendererWrapper.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <inheritdoc/>
+        </member>
         <member name="M:NLog.LayoutRenderers.Wrappers.TrimWhiteSpaceLayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
-            <summary>
-            Removes white-spaces from both sides of the provided target
-            </summary>
-            <param name="target">Output to be transform.</param>
+            <inheritdoc/>
         </member>
         <member name="T:NLog.LayoutRenderers.Wrappers.UppercaseLayoutRendererWrapper">
             <summary>
@@ -12913,11 +12943,11 @@
             </summary>
             <docgen category='Transformation Options' order='10' />
         </member>
+        <member name="M:NLog.LayoutRenderers.Wrappers.UppercaseLayoutRendererWrapper.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <inheritdoc/>
+        </member>
         <member name="M:NLog.LayoutRenderers.Wrappers.UppercaseLayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
-            <summary>
-            Post-processes the rendered message. 
-            </summary>
-            <param name="target">Output to be post-processed.</param>
+            <inheritdoc/>
         </member>
         <member name="T:NLog.LayoutRenderers.Wrappers.UrlEncodeLayoutRendererWrapper">
             <summary>
@@ -12968,18 +12998,11 @@
             </summary>
             <docgen category="Transformation Options" order="10"/>
         </member>
-        <member name="M:NLog.LayoutRenderers.Wrappers.WhenEmptyLayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
-            <summary>
-            Transforms the output of another layout.
-            </summary>
-            <param name="target">Output to be transform.</param>
+        <member name="M:NLog.LayoutRenderers.Wrappers.WhenEmptyLayoutRendererWrapper.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="M:NLog.LayoutRenderers.Wrappers.WhenEmptyLayoutRendererWrapper.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
-            <summary>
-            Renders the inner layout contents.
-            </summary>
-            <param name="builder"><see cref="T:System.Text.StringBuilder"/> for the result</param>
-            <param name="logEvent">The log event.</param>
+        <member name="M:NLog.LayoutRenderers.Wrappers.WhenEmptyLayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
+            <inheritdoc/>
         </member>
         <member name="T:NLog.LayoutRenderers.Wrappers.WhenLayoutRendererWrapper">
             <summary>
@@ -12998,18 +13021,11 @@
             </summary>
             <docgen category="Transformation Options" order="10"/>
         </member>
-        <member name="M:NLog.LayoutRenderers.Wrappers.WhenLayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
-            <summary>
-            Transforms the output of another layout.
-            </summary>
-            <param name="target">Output to be transform.</param>
+        <member name="M:NLog.LayoutRenderers.Wrappers.WhenLayoutRendererWrapper.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="M:NLog.LayoutRenderers.Wrappers.WhenLayoutRendererWrapper.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
-            <summary>
-            Renders the inner layout contents.
-            </summary>
-            <param name="builder"><see cref="T:System.Text.StringBuilder"/> for the result</param>
-            <param name="logEvent">The log event.</param>
+        <member name="M:NLog.LayoutRenderers.Wrappers.WhenLayoutRendererWrapper.TransformFormattedMesssage(System.Text.StringBuilder)">
+            <inheritdoc/>
         </member>
         <member name="T:NLog.LayoutRenderers.Wrappers.WrapLineLayoutRendererWrapper">
             <summary>
@@ -13063,6 +13079,14 @@
             <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
             <param name="logEvent">Logging event.</param>
         </member>
+        <member name="M:NLog.LayoutRenderers.Wrappers.WrapperLayoutRendererBase.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <summary>
+            Appends the rendered output from <see cref="P:NLog.LayoutRenderers.Wrappers.WrapperLayoutRendererBase.Inner"/>-layout and transforms the added output (when necessary)
+            </summary>
+            <param name="logEvent">Logging event.</param>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="orgLength">Start position for any necessary transformation of <see cref="T:System.Text.StringBuilder"/>.</param>
+        </member>
         <member name="M:NLog.LayoutRenderers.Wrappers.WrapperLayoutRendererBase.Transform(NLog.LogEventInfo,System.String)">
             <summary>
             Transforms the output of another layout.
@@ -13093,11 +13117,10 @@
             </summary>
         </member>
         <member name="M:NLog.LayoutRenderers.Wrappers.WrapperLayoutRendererBuilderBase.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
-            <summary>
-            Render to local target using Inner Layout, and then transform before final append
-            </summary>
-            <param name="builder"></param>
-            <param name="logEvent"></param>
+            <inheritdoc/>
+        </member>
+        <member name="M:NLog.LayoutRenderers.Wrappers.WrapperLayoutRendererBuilderBase.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
+            <inheritdoc/>
         </member>
         <member name="M:NLog.LayoutRenderers.Wrappers.WrapperLayoutRendererBuilderBase.TransformFormattedMesssage(NLog.LogEventInfo,System.Text.StringBuilder)">
             <summary>
@@ -21796,12 +21819,10 @@
             <param name="depth">The current depth (level) of recursion.</param>
             <returns>Object serialized succesfully (true/false).</returns>
         </member>
-        <member name="M:NLog.Targets.DefaultJsonSerializer.SkipQuotes(System.TypeCode)">
+        <member name="M:NLog.Targets.DefaultJsonSerializer.SkipQuotes(System.Object,System.TypeCode)">
             <summary>
             No quotes needed for this type?
             </summary>
-            <param name="objTypeCode"></param>
-            <returns></returns>
         </member>
         <member name="M:NLog.Targets.DefaultJsonSerializer.IsNumericTypeCode(System.TypeCode,System.Boolean)">
             <summary>
@@ -23758,14 +23779,28 @@
             </summary>
             <param name="name">Name of the target.</param>
         </member>
+        <member name="M:NLog.Targets.MethodCallTarget.#ctor(System.String,System.Action{NLog.LogEventInfo,System.Object[]})">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Targets.MethodCallTarget" /> class.
+            </summary>
+            <param name="name">Name of the target.</param>
+            <param name="logEventAction">Method to call on logevent.</param>
+        </member>
         <member name="M:NLog.Targets.MethodCallTarget.InitializeTarget">
             <summary>
             Initializes the target.
             </summary>
         </member>
-        <member name="M:NLog.Targets.MethodCallTarget.DoInvoke(System.Object[])">
+        <member name="M:NLog.Targets.MethodCallTarget.DoInvoke(System.Object[],NLog.Common.AsyncLogEventInfo)">
             <summary>
             Calls the specified Method.
+            </summary>
+            <param name="parameters">Method parameters.</param>
+            <param name="logEvent">The logging event.</param>
+        </member>
+        <member name="M:NLog.Targets.MethodCallTarget.DoInvoke(System.Object[])">
+            <summary>
+            Calls the specified Method. 
             </summary>
             <param name="parameters">Method parameters.</param>
         </member>

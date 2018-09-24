@@ -14,7 +14,7 @@ namespace BlackJack.WebApp.Controllers
     public class LogController : ApiController
     {
 		private ILogService _logService;
-        Logger _logger;
+        private Logger _logger;
 
         public LogController(ILogService logService)
 		{
