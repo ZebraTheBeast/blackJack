@@ -46,6 +46,10 @@
     <Compile Include="Game\DrawGameViewModel.cs" />
     <Compile Include="Game\RequestBetGameViewModel.cs" />
     <Compile Include="Game\GetGameViewModel.cs" />
+    <Compile Include="Game\Shared\CardViewModelItem.cs" />
+    <Compile Include="Game\Shared\DealerViewModelItem.cs" />
+    <Compile Include="Game\Shared\HandViewModelItem.cs" />
+    <Compile Include="Game\Shared\PlayerViewModelItem.cs" />
     <Compile Include="Login\StartGameLoginViewModel.cs" />
     <Compile Include="Log\GetLogsLogViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

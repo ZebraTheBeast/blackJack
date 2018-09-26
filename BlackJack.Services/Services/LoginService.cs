@@ -75,7 +75,7 @@ namespace BlackJack.BusinessLogic.Services
 				await _playerRepository.RestorePlayersPoints(playersIdWithoutPoints);
 			}
 
-			await _cardProvider.CheckDeck();
+			await _cardProvider.RestoreCardsInDb();
 
 			if (oldGame != 0)
 			{
@@ -122,7 +122,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			var gameId = await _gameRepository.GetGameIdByHumanId(player.Id);
 
-			await _cardProvider.CheckDeck();
+			await _cardProvider.RestoreCardsInDb();
 
 			if (gameId == 0)
 			{

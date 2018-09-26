@@ -43,7 +43,6 @@ namespace BlackJack.BusinessLogic.Services
 			var humanCards = new List<Card>();
 			Game game = await _gameRepository.GetGameById(gameId);
 			var human = game.PlayersInGame.Where(player => player.IsHuman == true).FirstOrDefault();
-			List<int> cardsInGameId = await _handRepository.GetCardsIdByGameId(game.Id);
 			var botsId = new List<int>();
 
 			getGameViewModel.Human = Mapper.Map<Player, PlayerViewModelItem>(human.Player);
@@ -59,7 +58,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			getGameViewModel.Dealer = Mapper.Map<Player, DealerViewModelItem>(await _playerRepository.GetPlayerByName(Constant.DealerName));
 			getGameViewModel.Dealer.Hand = await GetPlayerHand(getGameViewModel.Dealer.Id, game.Id);
-			getGameViewModel.Deck = await _cardProvider.LoadDeck(cardsInGameId);
+			getGameViewModel.Deck = await GetInGameDeck(gameId);
 			getGameViewModel.Bots = new List<PlayerViewModelItem>();
 
 			botsId = await _playerInGameRepository.GetBotsIdByGameId(game.Id, getGameViewModel.Dealer.Id);
@@ -103,8 +102,7 @@ namespace BlackJack.BusinessLogic.Services
 			var responseBetGameViewModel = new ResponseBetGameViewModel();
 			var getGameViewModel = new GetGameViewModel();
 
-			List<int> cardsList = await _handRepository.GetCardsIdByGameId(requestBetGameViewModel.GameId);
-			List<int> deck = await _cardProvider.LoadDeck(cardsList);
+			List<int> deck = await GetInGameDeck(requestBetGameViewModel.GameId);
 			int humanId = await _playerInGameRepository.GetHumanIdByGameId(requestBetGameViewModel.GameId);
 			Player human = await _playerRepository.GetPlayerById(humanId);
 			var dealer = await _playerRepository.GetPlayerByName(Constant.DealerName);
@@ -163,8 +161,7 @@ namespace BlackJack.BusinessLogic.Services
 			var drawGameViewModel = new DrawGameViewModel();
 			var getGameViewModel = new GetGameViewModel();
 			int humanId = await _playerInGameRepository.GetHumanIdByGameId(gameId);
-			List<int> cardsInGameId = await _handRepository.GetCardsIdByGameId(gameId);
-			List<int> deck = await _cardProvider.LoadDeck(cardsInGameId);
+			List<int> deck = await GetInGameDeck(gameId);
 
 			int humanBetValue = await _playerInGameRepository.GetBetByPlayerId(humanId, gameId);
 
@@ -217,13 +214,13 @@ namespace BlackJack.BusinessLogic.Services
 			for (var i = 0; i < getGameViewModel.Bots.Count(); i++)
 			{
 				getGameViewModel.Bots[i].Hand = await GetPlayerHand(getGameViewModel.Bots[i].Id, gameId);
-				await UpdateScore(getGameViewModel.Bots[i].Id, getGameViewModel.Bots[i].BetValue, getGameViewModel.Bots[i].Hand.CardsInHandValue, getGameViewModel.Dealer.Hand.CardsInHandValue, gameId);
+				await UpdateScore(getGameViewModel.Bots[i], getGameViewModel.Dealer.Hand.CardsInHandValue, gameId);
 				botsId.Add(getGameViewModel.Bots[i].Id);
 			}
 
 			await _playerInGameRepository.AnnulBet(botsId, gameId);
 
-			message = await UpdateScore(getGameViewModel.Human.Id, getGameViewModel.Human.BetValue, getGameViewModel.Human.Hand.CardsInHandValue, getGameViewModel.Dealer.Hand.CardsInHandValue, gameId);
+			message = await UpdateScore(getGameViewModel.Human, getGameViewModel.Dealer.Hand.CardsInHandValue, gameId);
 			await _playerInGameRepository.AnnulBet(getGameViewModel.Human.Id, gameId);
 
 			getGameViewModel = await GetGame(gameId);
@@ -233,6 +230,13 @@ namespace BlackJack.BusinessLogic.Services
 			standGameViewModel = Mapper.Map<GetGameViewModel, StandGameViewModel>(getGameViewModel);
 
 			return standGameViewModel;
+		}
+
+		private async Task<List<int>> GetInGameDeck(int gameId)
+		{
+			List<int> cardsInGameId = await _handRepository.GetCardsIdByGameId(gameId);
+			var deck = await _cardProvider.LoadInGameDeck(cardsInGameId);
+			return deck;
 		}
 
 		private async Task<bool> BotTurn(int botId, List<int> deck, int gameId)
@@ -286,38 +290,38 @@ namespace BlackJack.BusinessLogic.Services
 			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDrawCard(cardId)));
 		}
 
-		private async Task<string> UpdateScore(int playerId, int playerBetValue, int playerCardsValue, int dealerCardsValue, int gameId)
+		private async Task<string> UpdateScore(PlayerViewModelItem player, int dealerCardsValue, int gameId)
 		{
-			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerValue(playerCardsValue, dealerCardsValue)));
+			_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerValue(player.Hand.CardsInHandValue, dealerCardsValue)));
 
-			if ((playerCardsValue > dealerCardsValue)
-			&& (playerCardsValue <= Constant.WinValue))
+			if ((player.Hand.CardsInHandValue > dealerCardsValue)
+			&& (player.Hand.CardsInHandValue <= Constant.WinValue))
 			{
-				await UpdateWonPlayersPoints(playerId, gameId, playerBetValue);
+				await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue);
 				return OptionHelper.OptionWin;
 			}
 
-			if ((playerCardsValue <= Constant.WinValue)
+			if ((player.Hand.CardsInHandValue <= Constant.WinValue)
 			&& (dealerCardsValue > Constant.WinValue))
 			{
-				await UpdateWonPlayersPoints(playerId, gameId, playerBetValue);
+				await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue);
 				return OptionHelper.OptionWin;
 			}
 
-			if (playerCardsValue > Constant.WinValue)
+			if (player.Hand.CardsInHandValue > Constant.WinValue)
 			{
-				await UpdateLostPlayersPoints(playerId, gameId, playerBetValue);
+				await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue);
 				return OptionHelper.OptionLose;
 			}
 
-			if ((dealerCardsValue > playerCardsValue)
+			if ((dealerCardsValue > player.Hand.CardsInHandValue)
 			&& (dealerCardsValue <= Constant.WinValue))
 			{
-				await UpdateLostPlayersPoints(playerId, gameId, playerBetValue);
+				await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue);
 				return OptionHelper.OptionLose;
 			}
 
-			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDraw()));
+			_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerDraw()));
 			return OptionHelper.OptionDraw;
 		}
 
