@@ -118,7 +118,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			await _playerInGameRepository.PlaceBet(human.Id, requestBetGameViewModel.BetValue, requestBetGameViewModel.GameId);
 			_logger.Log(LogHelper.GetEvent(human.Id, requestBetGameViewModel.GameId, StringHelper.PlayerPlaceBet(requestBetGameViewModel.BetValue)));
-			
+
 			List<int> botsId = await _playerInGameRepository.GetBotsIdByGameId(requestBetGameViewModel.GameId);
 
 			foreach (var botId in botsId)
@@ -133,11 +133,8 @@ namespace BlackJack.BusinessLogic.Services
 
 			foreach (var playerId in playersId)
 			{
-				for (var i = 0; i < Constant.NumberStartCard; i++)
-				{
-					await GiveCardFromDeck(playerId, deck[0], requestBetGameViewModel.GameId);
-					deck.Remove(deck[0]);
-				}
+				deck = await GiveCardFromDeck(playerId, deck, requestBetGameViewModel.GameId);
+				deck = await GiveCardFromDeck(playerId, deck, requestBetGameViewModel.GameId);
 			}
 
 			getGameViewModel = await GetGame(requestBetGameViewModel.GameId);
@@ -167,8 +164,7 @@ namespace BlackJack.BusinessLogic.Services
 				throw new Exception(StringHelper.NoBetValue());
 			}
 
-			await GiveCardFromDeck(humanId, deck[0], gameId);
-			deck.Remove(deck[0]);
+			deck = await GiveCardFromDeck(humanId, deck, gameId);
 
 			getGameViewModel = await GetGame(gameId);
 			getGameViewModel.Options = OptionHelper.OptionDrawCard;
@@ -246,8 +242,7 @@ namespace BlackJack.BusinessLogic.Services
 				return false;
 			}
 
-			await GiveCardFromDeck(botId, deck[0], gameId);
-			deck.Remove(deck[0]);
+			deck = await GiveCardFromDeck(botId, deck, gameId);
 
 			return await BotTurn(botId, deck, gameId);
 		}
@@ -281,10 +276,12 @@ namespace BlackJack.BusinessLogic.Services
 			return hand;
 		}
 
-		private async Task GiveCardFromDeck(int playerId, int cardId, int gameId)
+		private async Task<List<int>> GiveCardFromDeck(int playerId, List<int> deck, int gameId)
 		{
-			await _handRepository.GiveCardToPlayerInGame(playerId, cardId, gameId);
-			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDrawCard(cardId)));
+			await _handRepository.GiveCardToPlayerInGame(playerId, deck[0], gameId);
+			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDrawCard(deck[0])));
+			deck.Remove(deck[0]);
+			return deck;
 		}
 
 		private async Task<string> UpdateScore(PlayerViewModelItem player, int dealerCardsValue, int gameId)
