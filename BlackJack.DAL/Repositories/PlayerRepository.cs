@@ -7,6 +7,7 @@ using Dapper;
 using Dapper.Contrib.Extensions;
 using System.Data.SqlClient;
 using BlackJack.Configurations;
+using BlackJack.Entities.Enums;
 
 namespace BlackJack.DataAccess.Repositories
 {
@@ -23,21 +24,21 @@ namespace BlackJack.DataAccess.Repositories
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
-				await db.InsertAsync(new Player { Name = player.Name, CreationDate = player.CreationDate });
+				await db.InsertAsync(new Player { Name = player.Name, CreationDate = player.CreationDate, Type = PlayerType.Human });
 			}
 		}
 
-		public async Task<List<Player>> GetBots(string playerName, int botsAmount)
+		public async Task<List<Player>> GetBotsWithDealer(string playerName, int botsAmount)
 		{
 			var players = new List<Player>();
 			var playersIdWithoutPoints = new List<int>();
-			var dealer = await GetPlayerByName(Constant.DealerName);
-			var sqlQuery = "SELECT TOP(@botsAmount) * FROM Player WHERE Name <> @playerName AND Name <> @dealerName";
+			var dealer = await GetDealer();
+			var sqlQuery = "SELECT TOP(@botsAmount) * FROM Player WHERE Type = @playerType";
 			players.Add(dealer);
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var bots = await db.QueryAsync<Player>(sqlQuery, new { botsAmount, playerName, dealerName = Constant.DealerName });
+				var bots = await db.QueryAsync<Player>(sqlQuery, new { botsAmount, playerType = PlayerType.Bot });
 				players.AddRange(bots);
 			}
 
@@ -50,8 +51,8 @@ namespace BlackJack.DataAccess.Repositories
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = "SELECT * FROM Player WHERE Name = @name";
-				player = (await db.QueryAsync<Player>(sqlQuery, new { name })).FirstOrDefault();
+				var sqlQuery = "SELECT * FROM Player WHERE Name = @name AND Type = @playerType";
+				player = (await db.QueryAsync<Player>(sqlQuery, new { name, playerType = PlayerType.Human })).FirstOrDefault();
 			}
 
 			return player;
@@ -61,7 +62,7 @@ namespace BlackJack.DataAccess.Repositories
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = $"UPDATE Player SET Points = @newPointsValue WHERE Id = @playerId";
+				var sqlQuery = "UPDATE Player SET Points = @newPointsValue WHERE Id = @playerId";
 				await db.ExecuteAsync(sqlQuery, new { newPointsValue, playerId });
 			}
 		}
@@ -110,5 +111,31 @@ namespace BlackJack.DataAccess.Repositories
 				await db.QueryAsync(sqlQuery, new { defaultPointsValue = Constant.DefaultPointsValue, playersId });
 			}
 		}
+
+		public async Task<Player> GetDealerByGameId(int gameId)
+		{
+			var player = new Player();
+			var sqlQuery = "SELECT Player.* FROM Player INNER JOIN PlayerInGame ON Player.Id = PlayerInGame.PlayerId WHERE Type = @playerType AND GameId = @gameId";
+
+			using (var db = new SqlConnection(_connectionString))
+			{
+				player = (await db.QueryAsync<Player>(sqlQuery, new { playerType = PlayerType.Dealer, gameId })).FirstOrDefault();
+			}
+
+			return player;
+		}
+
+		private async Task<Player> GetDealer()
+		{
+			var player = new Player();
+			var sqlQuery = "SELECT TOP(1) * FROM Player WHERE Type = @playerType";
+
+			using (var db = new SqlConnection(_connectionString))
+			{
+				player = (await db.QueryAsync<Player>(sqlQuery, new { playerType = PlayerType.Dealer })).FirstOrDefault();
+			}
+
+			return player;
+		}		
 	}
 }

@@ -37,11 +37,6 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<int> StartGame(string playerName, int botsAmount)
 		{
-			if (playerName == Constant.DealerName)
-			{
-				throw new Exception(StringHelper.NotAvailibleName());
-			}
-
 			Player human = await _playerRepository.GetPlayerByName(playerName);
 
 			if (human == null)
@@ -57,7 +52,7 @@ namespace BlackJack.BusinessLogic.Services
 				human.Points = Constant.DefaultPointsValue;
 			}
 
-			List<Player> bots = await _playerRepository.GetBots(playerName, botsAmount);
+			List<Player> bots = await _playerRepository.GetBotsWithDealer(playerName, botsAmount);
 			var oldGame = await _gameRepository.GetGameIdByHumanId(human.Id);
 			var playersIdWithoutPoints = new List<int>();
 
@@ -100,18 +95,11 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<int> LoadGame(string playerName)
 		{
-			if (playerName == Constant.DealerName)
-			{
-				throw new Exception(StringHelper.NotAvailibleName());
-			}
-
 			Player player = await _playerRepository.GetPlayerByName(playerName);
 
 			if (player == null)
 			{
-				var newPlayer = new Player { Name = playerName };
-				await _playerRepository.CreateNewPlayer(newPlayer);
-				player = await _playerRepository.GetPlayerByName(playerName);
+				throw new Exception(StringHelper.NoLastGame());
 			}
 
 			if (player.Points <= Constant.MinPointsValueToPlay)

@@ -14,7 +14,6 @@
         public const int ValueToStopDraw = 17;
         public const int MinPointsValueToPlay = 10;
         public const int BotsBetValue = 50;
-		public const string DealerName = "Dealer";
 		public const int MinBotsAmount = 0;
 		public const int MaxBotsAmount = 5;
 	}

@@ -1,4 +1,5 @@
-﻿using Dapper.Contrib.Extensions;
+﻿using BlackJack.Entities.Enums;
+using Dapper.Contrib.Extensions;
 
 namespace BlackJack.Entities
 {
@@ -7,5 +8,6 @@ namespace BlackJack.Entities
 	{
         public string Name { get; set; }
         public int Points { get; set; }
+		public PlayerType Type { get; set; }
 	}
 }

@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using Dapper.Contrib.Extensions;
 using BlackJack.Entities;
 using BlackJack.Configurations;
+using BlackJack.Entities.Enums;
 
 namespace BlackJack.DataAccess.Repositories
 {
@@ -27,14 +28,14 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<List<int>> GetBotsIdByGameId(int gameId, int dealerId)
+		public async Task<List<int>> GetBotsIdByGameId(int gameId)
 		{
 			var players = new List<int>();
-			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE IsHuman = 0 AND PlayerId <> @dealerId AND GameId = @gameId";
+			var sqlQuery = "SELECT PlayerId FROM PlayerInGame INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id WHERE IsHuman = 0 AND Player.Type = @playerType AND GameId = @gameId";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				players = (await db.QueryAsync<int>(sqlQuery, new {  dealerId, gameId })).ToList();
+				players = (await db.QueryAsync<int>(sqlQuery, new { playerType = PlayerType.Bot, gameId })).ToList();
 			}
 
 			return players;
