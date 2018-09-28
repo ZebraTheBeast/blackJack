@@ -18,11 +18,6 @@
 			return "You already placed a bet";
 		}
 
-		public static string DeckShuffled()
-		{
-			return "Deck was refreshed and shuffled";
-		}
-
 		public static string NotEnoughPoints(int betValue)
 		{
 			return $"You doesn't have {betValue} points to bet";
