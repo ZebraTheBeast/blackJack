@@ -11,7 +11,7 @@ namespace BlackJack.BusinessLogic.Services
 {
 	public class LogService : ILogService
 	{
-		ILogMessageRepository _logMessageRepository;
+		private ILogMessageRepository _logMessageRepository;
 
 		public LogService(ILogMessageRepository logMessageRepository)
 		{

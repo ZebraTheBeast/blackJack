@@ -14,6 +14,5 @@ namespace BlackJack.DataAccess.Interfaces
         Task UpdatePlayerPoints(long playerId, int newPointsValue);
         Task RestorePlayerPoints(long playerId);
 		Task RestorePlayersPoints(List<long> playersId);
-		Task<Player> GetDealerByGameId(long gameId);
 	}
 }

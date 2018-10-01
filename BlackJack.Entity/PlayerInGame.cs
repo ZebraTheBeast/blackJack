@@ -15,5 +15,7 @@ namespace BlackJack.Entities
 
 		[Write(false)]
 		public virtual Player Player { get; set; }
+		[Write(false)]
+		public virtual List<Hand> CardsInHand { get; set; }
 	}
 }

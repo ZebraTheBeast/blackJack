@@ -57,7 +57,7 @@ namespace BlackJack.DataAccess.Repositories
 					INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id 
 					WHERE Game.Id = @gameId";
 
-				var gameDictionary = new Dictionary<int, Game>();
+				var gameDictionary = new Dictionary<long, Game>();
 
 				Game currentGame = (await db.QueryAsync<Game, PlayerInGame, Player, Game>(
 				sqlQuery,
@@ -68,9 +68,9 @@ namespace BlackJack.DataAccess.Repositories
 									
 					playerInGame.Player = player;
 					
-					if (!gameDictionary.TryGetValue((int)game.Id, out gameResult))
+					if (!gameDictionary.TryGetValue(game.Id, out gameResult))
 					{
-						gameDictionary.Add((int)game.Id, gameResult = game);
+						gameDictionary.Add(game.Id, gameResult = game);
 					}
 
 					if (gameResult.PlayersInGame == null)
@@ -83,6 +83,37 @@ namespace BlackJack.DataAccess.Repositories
 				},
 				param: new { gameId }
 				)).FirstOrDefault();
+
+				sqlQuery = "SELECT * FROM PlayerInGame " +
+					"INNER JOIN Hand ON PlayerInGame.Id = Hand.PlayerInGameId " +
+					"INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id " +
+					"INNER JOIN Card ON Hand.CardId = Card.Id " +
+					"WHERE PlayerInGameId in @Ids";
+
+				var playerInGameDictionary = new Dictionary<long, PlayerInGame>();
+				List<PlayerInGame> playersInGame = (await db.QueryAsync<PlayerInGame, Player, Hand, Card, PlayerInGame>(sqlQuery,
+			   (playerInGame, player, hand, card) =>
+			   {
+				   PlayerInGame playerInGameResult;
+				   hand.Card = card;
+				   if (!playerInGameDictionary.TryGetValue(playerInGame.Id, out playerInGameResult))
+				   {
+					   playerInGameDictionary.Add(playerInGame.Id, playerInGameResult = playerInGame);
+					   playerInGameResult.Player = player;
+				   }
+				   if (playerInGameResult.CardsInHand == null)
+				   {
+					   playerInGameResult.CardsInHand = new List<Hand>();
+				   }
+				   playerInGameResult.CardsInHand.Add(hand);
+				   return playerInGameResult;
+			   },
+			   param: new { Ids = currentGame.PlayersInGame.Select(p => p.Id) }
+			   )).ToList();
+				if (playerInGameDictionary.Count() != 0)
+				{
+					currentGame.PlayersInGame = playerInGameDictionary.Values.ToList();
+				}
 
 				return currentGame;
 			}

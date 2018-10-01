@@ -10,6 +10,7 @@ using BlackJack.DataAccess.Interfaces;
 using NLog;
 using AutoMapper;
 using BlackJack.Entities;
+using BlackJack.BusinessLogic.Mappers;
 
 namespace BlackJack.BusinessLogic.Services
 {
@@ -33,55 +34,21 @@ namespace BlackJack.BusinessLogic.Services
 			_cardProvider = cardProvider;
 
 			_logger = LogManager.GetCurrentClassLogger();
+
 		}
 
 		public async Task<GetGameViewModel> GetGame(long gameId)
 		{
-			var getGameViewModel = new GetGameViewModel();
+			var getGameMapper = new GetGameMapper();
 			Game game = await _gameRepository.GetGameById(gameId);
-			var human = game.PlayersInGame.Where(player => player.IsHuman == true).FirstOrDefault();
+			var deck = await GetInGameDeck(gameId);
 
-			getGameViewModel.Human = Mapper.Map<Player, PlayerViewModelItem>(human.Player);
-			getGameViewModel.Human.BetValue = human.BetValue;
+			var getGameViewModel = getGameMapper.GetViewModel(game, deck);
 
 			if (getGameViewModel.Human.Points <= Constant.MinPointsValueToPlay)
 			{
 				await _playerRepository.RestorePlayerPoints(getGameViewModel.Human.Id);
 				getGameViewModel.Human.Points = Constant.DefaultPointsValue;
-			}
-
-			getGameViewModel.Human.Hand = await GetPlayerHand(getGameViewModel.Human.Id, gameId);
-
-			getGameViewModel.Dealer = Mapper.Map<Player, DealerViewModelItem>(await _playerRepository.GetDealerByGameId(gameId));
-			getGameViewModel.Dealer.Hand = await GetPlayerHand(getGameViewModel.Dealer.Id, game.Id);
-			getGameViewModel.Deck = await GetInGameDeck(gameId);
-			getGameViewModel.Bots = new List<PlayerViewModelItem>();
-
-			List<long> botsId = await _playerInGameRepository.GetBotsIdByGameId(game.Id);
-			var bots = await _playerRepository.GetPlayersByIds(botsId);
-			var botsInGame = await _playerInGameRepository.GetPlayersInGame(botsId, game.Id);
-
-			getGameViewModel.Bots.AddRange(Mapper.Map<List<Player>, List<PlayerViewModelItem>>(bots));
-
-			foreach (var bot in getGameViewModel.Bots)
-			{
-				bot.Hand = await GetPlayerHand(bot.Id, game.Id);
-			}
-
-			foreach (var bot in botsInGame)
-			{
-				getGameViewModel.Bots.Where(item => item.Id == bot.PlayerId).FirstOrDefault().BetValue = bot.BetValue;
-			}
-
-			if (getGameViewModel.Human.Hand.CardsInHand.Count() != 0)
-			{
-				getGameViewModel.Options = StringHelper.OptionDrawCard;
-			}
-
-			if ((getGameViewModel.Human.Hand.CardsInHand.Count() == 0)
-				|| (getGameViewModel.Human.BetValue == 0))
-			{
-				getGameViewModel.Options = StringHelper.OptionSetBet(string.Empty);
 			}
 
 			return getGameViewModel;
@@ -90,11 +57,12 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<ResponseBetGameViewModel> PlaceBet(RequestBetGameViewModel requestBetGameViewModel)
 		{
+			
 			if (requestBetGameViewModel.BetValue <= 0)
 			{
 				throw new Exception(StringHelper.NoBetValue());
 			}
-
+			
 			var responseBetGameViewModel = new ResponseBetGameViewModel();
 			var getGameViewModel = new GetGameViewModel();
 			long humanId = await _playerInGameRepository.GetHumanIdByGameId(requestBetGameViewModel.GameId);

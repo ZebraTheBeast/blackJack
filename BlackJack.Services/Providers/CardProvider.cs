@@ -19,6 +19,51 @@ namespace BlackJack.BusinessLogic.Providers
 			_cardRepository = cardRepository;
 		}
 
+		public async Task RestoreCardsInDb()
+		{
+			IEnumerable<Card> cardsInDb = await _cardRepository.GetAll();
+
+			if (cardsInDb.Count() != Constant.DeckSize)
+			{
+				await _cardRepository.DeleteAll();
+				List<Card> cards = GenerateCards();
+				await _cardRepository.PopulateCards(cards);
+			}
+		}
+
+		public async Task<List<long>> LoadInGameDeck(List<long> cardsInGame)
+		{
+			var deck = new List<long>();
+			Random randomNumericGenerator = new Random();
+			List<Card> cards = (await _cardRepository.GetAll()).ToList();
+
+			foreach (var cardId in cardsInGame)
+			{
+				cards.RemoveAll(c => c.Id == cardId);
+			}
+
+			foreach (var card in cards)
+			{
+				deck.Add(card.Id);
+			}
+
+			for (var i = 0; i < deck.Count(); i++)
+			{
+				var index = randomNumericGenerator.Next(deck.Count());
+				var value = deck[i];
+				deck[i] = deck[index];
+				deck[index] = value;
+			}
+
+			return deck;
+		}
+
+		public async Task<List<Card>> GetCardsByIds(List<long> idList)
+		{
+			List<Card> cards = await _cardRepository.GetCardsById(idList);
+			return cards;
+		}
+
 		private List<Card> GenerateCards()
 		{
 			var cardColorValue = 0;
@@ -63,51 +108,6 @@ namespace BlackJack.BusinessLogic.Providers
 			}
 
 			return deck;
-		}
-
-		public async Task RestoreCardsInDb()
-		{
-			IEnumerable<Card> cardsInDb = await _cardRepository.GetAll();
-
-			if (cardsInDb.Count() != Constant.DeckSize)
-			{
-				await _cardRepository.DeleteAll();
-				List<Card> cards = GenerateCards();
-				await _cardRepository.PopulateCards(cards);
-			}
-		}
-
-		public async Task<List<long>> LoadInGameDeck(List<long> cardsInGame)
-		{
-			var deck = new List<long>();
-			Random randomNumericGenerator = new Random();
-			List<Card> cards = (await _cardRepository.GetAll()).ToList();
-
-			foreach (var cardId in cardsInGame)
-			{
-				cards.RemoveAll(c => c.Id == cardId);
-			}
-
-			foreach (var card in cards)
-			{
-				deck.Add(card.Id);
-			}
-
-			for (var i = 0; i < deck.Count(); i++)
-			{
-				var index = randomNumericGenerator.Next(deck.Count());
-				var value = deck[i];
-				deck[i] = deck[index];
-				deck[index] = value;
-			}
-
-			return deck;
-		}
-
-		public async Task<List<Card>> GetCardsByIds(List<long> idList)
-		{
-			List<Card> cards = await _cardRepository.GetCardsById(idList);
-			return cards;
 		}
 	}
 }
