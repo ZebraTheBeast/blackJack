@@ -5,9 +5,9 @@ namespace BlackJack.DataAccess.Interfaces
 {
 	public interface IGameRepository
 	{
-		Task<int> StartNewGame();
-		Task DeleteGameById(int id);
-		Task<int> GetGameIdByHumanId(int humanId);
-		Task<Game> GetGameById(int id);
+		Task<long> StartNewGame();
+		Task DeleteGameById(long gameId);
+		Task<long> GetGameIdByHumanId(long humanId);
+		Task<Game> GetGameById(long gameId);
 	}
 }

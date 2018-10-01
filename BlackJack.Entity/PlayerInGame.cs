@@ -7,9 +7,9 @@ namespace BlackJack.Entities
 	public class PlayerInGame : BaseEntity
 	{
 		[ExplicitKey]
-		public int PlayerId { get; set; }
+		public long PlayerId { get; set; }
 		[ExplicitKey]
-		public int GameId { get; set; }
+		public long GameId { get; set; }
 		public int BetValue { get; set; }
 		public bool IsHuman { get; set; }
 

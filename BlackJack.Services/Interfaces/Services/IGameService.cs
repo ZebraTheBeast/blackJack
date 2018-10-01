@@ -5,9 +5,9 @@ namespace BlackJack.BusinessLogic.Interfaces
 {
 	public interface IGameService
     {
-        Task<GetGameViewModel> GetGame(int gameId);
+        Task<GetGameViewModel> GetGame(long gameId);
         Task<ResponseBetGameViewModel> PlaceBet(RequestBetGameViewModel requestBetGameViewModel);
-        Task<DrawGameViewModel> DrawCard(int humanId);
-        Task<StandGameViewModel> Stand(int humanId);
+        Task<DrawGameViewModel> DrawCard(long humanId);
+        Task<StandGameViewModel> Stand(long humanId);
     }
 }

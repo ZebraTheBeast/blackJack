@@ -12,7 +12,7 @@ namespace BlackJack.ViewModels
 		[JsonProperty("bots")]
 		public List<PlayerViewModelItem> Bots { get; set; }
 		[JsonProperty("deck")]
-		public List<int> Deck { get; set; }
+		public List<long> Deck { get; set; }
 		[JsonProperty("options")]
 		public string Options { get; set; }
 	}

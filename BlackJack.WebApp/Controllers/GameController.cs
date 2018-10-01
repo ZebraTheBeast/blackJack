@@ -23,7 +23,7 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> GetGame([FromBody]int gameId)
+        public async Task<IHttpActionResult> GetGame([FromBody]long gameId)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> Draw([FromBody]int gameId)
+        public async Task<IHttpActionResult> Draw([FromBody]long gameId)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> Stand([FromBody]int gameId)
+        public async Task<IHttpActionResult> Stand([FromBody]long gameId)
         {
             try
             {

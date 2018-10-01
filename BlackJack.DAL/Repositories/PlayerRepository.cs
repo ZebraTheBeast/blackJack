@@ -58,7 +58,7 @@ namespace BlackJack.DataAccess.Repositories
 			return player;
 		}
 
-		public async Task UpdatePlayerPoints(int playerId, int newPointsValue)
+		public async Task UpdatePlayerPoints(long playerId, int newPointsValue)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -67,7 +67,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task RestorePlayerPoints(int playerId)
+		public async Task RestorePlayerPoints(long playerId)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -76,7 +76,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<Player> GetPlayerById(int id)
+		public async Task<Player> GetPlayerById(long id)
 		{
 			var player = new Player();
 
@@ -88,7 +88,7 @@ namespace BlackJack.DataAccess.Repositories
 			return player;
 		}
 
-		public async Task<List<Player>> GetPlayersByIds(List<int> idList)
+		public async Task<List<Player>> GetPlayersByIds(List<long> idList)
 		{
 			var players = new List<Player>();
 			var sqlQuery = "SELECT * FROM Player WHERE Id IN @idList";
@@ -101,7 +101,7 @@ namespace BlackJack.DataAccess.Repositories
 			return players;
 		}
 
-		public async Task RestorePlayersPoints(List<int> playersId)
+		public async Task RestorePlayersPoints(List<long> playersId)
 		{
 
 			var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id on @playersId";
@@ -112,7 +112,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<Player> GetDealerByGameId(int gameId)
+		public async Task<Player> GetDealerByGameId(long gameId)
 		{
 			var player = new Player();
 			var sqlQuery = "SELECT Player.* FROM Player INNER JOIN PlayerInGame ON Player.Id = PlayerInGame.PlayerId WHERE Type = @playerType AND GameId = @gameId";

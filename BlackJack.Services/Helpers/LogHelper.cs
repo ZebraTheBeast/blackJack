@@ -4,7 +4,7 @@ namespace BlackJack.BusinessLogic.Helpers
 {
 	public static class LogHelper
 	{
-		public static LogEventInfo GetEvent(int playerId, int gameId, string message)
+		public static LogEventInfo GetEvent(long playerId, long gameId, string message)
 		{
 			LogEventInfo theEvent = new LogEventInfo(LogLevel.Info, string.Empty, message);
 			theEvent.Properties["playerId"] = playerId;

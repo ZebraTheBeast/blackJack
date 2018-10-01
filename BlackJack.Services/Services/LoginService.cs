@@ -23,8 +23,6 @@ namespace BlackJack.BusinessLogic.Services
 
 		public LoginService(ICardProvider cardProvider, IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, IHandRepository handRepository, IGameRepository gameRepository)
 		{
-			var path = string.Empty;
-
 			_playerInGameRepository = playerInGameRepository;
 			_playerRepository = playerRepository;
 			_handRepository = handRepository;
@@ -35,7 +33,7 @@ namespace BlackJack.BusinessLogic.Services
 			_logger = LogManager.GetCurrentClassLogger();
 		}
 
-		public async Task<int> StartGame(string playerName, int botsAmount)
+		public async Task<long> StartGame(string playerName, int botsAmount)
 		{
 			Player human = await _playerRepository.GetPlayerByName(playerName);
 
@@ -54,7 +52,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			List<Player> bots = await _playerRepository.GetBotsWithDealer(playerName, botsAmount);
 			var oldGame = await _gameRepository.GetGameIdByHumanId(human.Id);
-			var playersIdWithoutPoints = new List<int>();
+			var playersIdWithoutPoints = new List<long>();
 
 			foreach (var bot in bots)
 			{
@@ -79,7 +77,7 @@ namespace BlackJack.BusinessLogic.Services
 				await _gameRepository.DeleteGameById(oldGame);
 			}
 
-			int gameId = await _gameRepository.StartNewGame();
+			long gameId = await _gameRepository.StartNewGame();
 
 			foreach (var bot in bots)
 			{
@@ -93,7 +91,7 @@ namespace BlackJack.BusinessLogic.Services
 			return gameId;
 		}
 
-		public async Task<int> LoadGame(string playerName)
+		public async Task<long> LoadGame(string playerName)
 		{
 			Player player = await _playerRepository.GetPlayerByName(playerName);
 

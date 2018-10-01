@@ -44,7 +44,7 @@ namespace BlackJack.DataAccess.Repositories
 			return cards;
 		}
 
-		public async Task<List<Card>> GetCardsById(List<int> cardsId)
+		public async Task<List<Card>> GetCardsById(List<long> cardsId)
 		{
 			var cards = new List<Card>();
 			var sqlQuery = "SELECT * FROM Card WHERE Id IN @cardsId";

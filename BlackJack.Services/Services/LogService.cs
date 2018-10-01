@@ -15,8 +15,6 @@ namespace BlackJack.BusinessLogic.Services
 
 		public LogService(ILogMessageRepository logMessageRepository)
 		{
-			var path = string.Empty;
-
 			_logMessageRepository = logMessageRepository;
 		}
 

@@ -7,7 +7,7 @@ namespace BlackJack.BusinessLogic.Interfaces
 	public interface ICardProvider
 	{
 		Task RestoreCardsInDb();
-		Task<List<int>> LoadInGameDeck(List<int> cardsInGame);
-		Task<List<Card>> GetCardsByIds(List<int> id);
+		Task<List<long>> LoadInGameDeck(List<long> cardsInGame);
+		Task<List<Card>> GetCardsByIds(List<long> id);
 	}
 }

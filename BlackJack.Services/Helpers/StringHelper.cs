@@ -2,8 +2,16 @@
 {
 	public static class StringHelper
 	{
-		
-		public static string PlayerDrawCard(int cardId)
+
+		static public string OptionDrawCard = "Draw card or stand.";
+
+		static public string OptionWin = "You win! ";
+
+		static public string OptionLose = "You lose! ";
+
+		static public string OptionDraw = "You have draw! ";
+
+		public static string PlayerDrawCard(long cardId)
 		{
 			return $"Player draw card with id {cardId}";
 		}
@@ -102,6 +110,13 @@
 		{
 			return "Player continue game";
 		}
+
+		static public string OptionSetBet(string message)
+		{
+			message += "Please, place a bet.";
+			return message;
+		}
+
 
 	}
 }

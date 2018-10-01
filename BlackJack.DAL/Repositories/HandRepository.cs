@@ -17,36 +17,36 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task<List<int>> GetCardsIdByPlayerId(int playerId, int gameId)
+		public async Task<List<long>> GetCardsIdByPlayerId(long playerId, long gameId)
 		{
-			var cards = new List<int>();
+			var cards = new List<long>();
 			var sqlQuery = @"SELECT CardId FROM Hand 
 				INNER JOIN PlayerInGame ON Hand.PlayerInGameId = PlayerInGame.Id
 				WHERE PlayerInGame.PlayerId = @playerId 
 				AND PlayerInGame.GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				cards = (await db.QueryAsync<int>(sqlQuery, new { playerId, gameId })).ToList();
+				cards = (await db.QueryAsync<long>(sqlQuery, new { playerId, gameId })).ToList();
 			}
 
 			return cards;
 		}
 
-		public async Task<List<int>> GetCardsIdByGameId(int gameId)
+		public async Task<List<long>> GetCardsIdByGameId(long gameId)
 		{
-			var cards = new List<int>();
+			var cards = new List<long>();
 			var sqlQuery = @"SELECT CardId FROM Hand 
 				INNER JOIN PlayerInGame ON Hand.PlayerInGameId = PlayerInGame.Id 
 				WHERE PlayerInGame.GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				cards = (await db.QueryAsync<int>(sqlQuery, new { gameId })).ToList();
+				cards = (await db.QueryAsync<long>(sqlQuery, new { gameId })).ToList();
 			}
 
 			return cards;
 		}
 
-		public async Task GiveCardToPlayerInGame(int playerId, int cardId, int gameId)
+		public async Task GiveCardToPlayerInGame(long playerId, long cardId, long gameId)
 		{
 			var sqlQuery = @"INSERT INTO Hand (CardId, PlayerInGameId, CreationDate) VALUES(@cardId,
 				(SELECT Id FROM PlayerInGame WHERE GameId = @gameId AND PlayerId = @playerId), @date)";
@@ -56,7 +56,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task RemoveAllCardsInHand(int gameId)
+		public async Task RemoveAllCardsInHand(long gameId)
 		{
 			var sqlQuery = "DELETE Hand FROM Hand INNER JOIN PlayerInGame ON Hand.PlayerInGameId = PlayerInGame.Id WHERE PlayerInGame.GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))

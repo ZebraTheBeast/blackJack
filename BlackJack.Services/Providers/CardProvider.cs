@@ -77,9 +77,9 @@ namespace BlackJack.BusinessLogic.Providers
 			}
 		}
 
-		public async Task<List<int>> LoadInGameDeck(List<int> cardsInGame)
+		public async Task<List<long>> LoadInGameDeck(List<long> cardsInGame)
 		{
-			var deck = new List<int>();
+			var deck = new List<long>();
 			Random randomNumericGenerator = new Random();
 			List<Card> cards = (await _cardRepository.GetAll()).ToList();
 
@@ -104,7 +104,7 @@ namespace BlackJack.BusinessLogic.Providers
 			return deck;
 		}
 
-		public async Task<List<Card>> GetCardsByIds(List<int> idList)
+		public async Task<List<Card>> GetCardsByIds(List<long> idList)
 		{
 			List<Card> cards = await _cardRepository.GetCardsById(idList);
 			return cards;

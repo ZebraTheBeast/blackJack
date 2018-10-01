@@ -27,7 +27,7 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 		{
 			try
 			{
-				var gameId = 0;
+				long gameId;
 
 				if (loginViewModel.BotsAmount < Constant.MinBotsAmount)
 				{
@@ -65,7 +65,7 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 				{
 					throw new Exception(StringHelper.EmptyName());
 				}
-				int gameId = await _loginService.LoadGame(playerName);
+				long gameId = await _loginService.LoadGame(playerName);
 				var response = new { gameId };
 
 				return Ok(response);

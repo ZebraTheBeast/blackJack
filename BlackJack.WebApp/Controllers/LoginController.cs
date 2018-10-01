@@ -29,8 +29,6 @@ namespace BlackJack.WebApp.Controllers
         {
             try
             {
-                var gameId = 0;
-
                 if(loginViewModel.BotsAmount < Constant.MinBotsAmount)
                 {
                     throw new Exception(StringHelper.MinBotsAmount());
@@ -46,7 +44,7 @@ namespace BlackJack.WebApp.Controllers
                     throw new Exception(StringHelper.EmptyName());
                 }
 
-                gameId = await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
+                var gameId = await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
                 var response = new { gameId };
 
                 return Ok(response);
@@ -67,7 +65,7 @@ namespace BlackJack.WebApp.Controllers
                 {
                     throw new Exception(StringHelper.EmptyName());
                 }
-                int gameId = await _loginService.LoadGame(playerName);
+                long gameId = await _loginService.LoadGame(playerName);
                 var response = new { gameId };
 
                 return Ok(response);

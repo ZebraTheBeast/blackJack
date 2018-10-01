@@ -18,7 +18,7 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task DeleteGameById(int id)
+		public async Task DeleteGameById(long id)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -26,7 +26,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<int> StartNewGame()
+		public async Task<long> StartNewGame()
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -35,7 +35,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<int> GetGameIdByHumanId(int humanId)
+		public async Task<long> GetGameIdByHumanId(long humanId)
 		{
 			var sqlQuery = @"SELECT Game.Id FROM Game 
 				INNER JOIN PlayerInGame ON Game.Id = PlayerInGame.GameId 
@@ -43,12 +43,12 @@ namespace BlackJack.DataAccess.Repositories
 				AND IsHuman = 1";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				int gameId = (await db.QueryAsync<int>(sqlQuery, new { humanId })).FirstOrDefault();
+				var gameId = (await db.QueryAsync<long>(sqlQuery, new { humanId })).FirstOrDefault();
 				return gameId;
 			}
 		}
 
-		public async Task<Game> GetGameById(int gameId)
+		public async Task<Game> GetGameById(long gameId)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -68,9 +68,9 @@ namespace BlackJack.DataAccess.Repositories
 									
 					playerInGame.Player = player;
 					
-					if (!gameDictionary.TryGetValue(game.Id, out gameResult))
+					if (!gameDictionary.TryGetValue((int)game.Id, out gameResult))
 					{
-						gameDictionary.Add(game.Id, gameResult = game);
+						gameDictionary.Add((int)game.Id, gameResult = game);
 					}
 
 					if (gameResult.PlayersInGame == null)

@@ -4,7 +4,7 @@ namespace BlackJack.BusinessLogic.Interfaces
 {
 	public interface ILoginService
 	{
-		Task<int> StartGame(string playerName, int botsAmount);
-		Task<int> LoadGame(string playerName);
+		Task<long> StartGame(string playerName, int botsAmount);
+		Task<long> LoadGame(string playerName);
 	}
 }
