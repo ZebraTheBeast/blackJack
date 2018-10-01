@@ -98,12 +98,12 @@
 
 		public static string MaxBotsAmount()
 		{
-			return "Tooooo much bots";
+			return "Too much bots";
 		}
 
 		public static string MinBotsAmount()
 		{
-			return "Tooooo few bots";
+			return "Too few bots";
 		}
 
 		public static string PlayerContinueGame()

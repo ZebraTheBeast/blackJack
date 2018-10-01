@@ -6,7 +6,7 @@ namespace BlackJack.Entities
 	public class LogMessage : BaseEntity
 	{
 		public string Message { get; set; }
-		public int GameId { get; set; }
-		public int PlayerId { get; set; }
+		public long GameId { get; set; }
+		public long PlayerId { get; set; }
 	}
 }

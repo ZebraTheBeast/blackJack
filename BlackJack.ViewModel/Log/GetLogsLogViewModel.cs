@@ -7,7 +7,7 @@ namespace BlackJack.ViewModels
 		public long Id { get; set; }
 		public DateTime CreationDate { get; set; }
 		public string Message { get; set; }
-		public int PlayerId { get; set; }
-		public int GameId { get; set; }
+		public long PlayerId { get; set; }
+		public long GameId { get; set; }
 	}
 }

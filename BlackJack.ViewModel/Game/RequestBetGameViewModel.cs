@@ -7,6 +7,6 @@ namespace BlackJack.ViewModels
 		[JsonProperty("betValue")]
 		public int BetValue { get; set; }
 		[JsonProperty("gameId")]
-		public int GameId { get; set; }
+		public long GameId { get; set; }
     }
 }
