@@ -99,20 +99,25 @@ namespace BlackJack.DataAccess.Repositories
 				   if (!playerInGameDictionary.TryGetValue(playerInGame.Id, out playerInGameResult))
 				   {
 					   playerInGameDictionary.Add(playerInGame.Id, playerInGameResult = playerInGame);
-					   playerInGameResult.Player = player;
 				   }
+
 				   if (playerInGameResult.CardsInHand == null)
 				   {
 					   playerInGameResult.CardsInHand = new List<Hand>();
 				   }
+
 				   playerInGameResult.CardsInHand.Add(hand);
 				   return playerInGameResult;
 			   },
 			   param: new { Ids = currentGame.PlayersInGame.Select(p => p.Id) }
 			   )).ToList();
+
 				if (playerInGameDictionary.Count() != 0)
 				{
-					currentGame.PlayersInGame = playerInGameDictionary.Values.ToList();
+					foreach(var playerInGame in playerInGameDictionary)
+					{
+						currentGame.PlayersInGame.Where(player => player.PlayerId == playerInGame.Value.PlayerId).FirstOrDefault().CardsInHand = playerInGame.Value.CardsInHand;
+					}
 				}
 
 				return currentGame;

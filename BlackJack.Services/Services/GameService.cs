@@ -56,15 +56,14 @@ namespace BlackJack.BusinessLogic.Services
 
 
 		public async Task<ResponseBetGameViewModel> PlaceBet(RequestBetGameViewModel requestBetGameViewModel)
-		{
-			
+		{	
 			if (requestBetGameViewModel.BetValue <= 0)
 			{
 				throw new Exception(StringHelper.NoBetValue());
 			}
 			
 			var responseBetGameViewModel = new ResponseBetGameViewModel();
-			var getGameViewModel = new GetGameViewModel();
+			
 			long humanId = await _playerInGameRepository.GetHumanIdByGameId(requestBetGameViewModel.GameId);
 			Player human = await _playerRepository.GetPlayerById(humanId);
 
@@ -103,7 +102,7 @@ namespace BlackJack.BusinessLogic.Services
 				deck = await GiveCardFromDeck(playerId, deck, requestBetGameViewModel.GameId);
 			}
 
-			getGameViewModel = await GetGame(requestBetGameViewModel.GameId);
+			var getGameViewModel = await GetGame(requestBetGameViewModel.GameId);
 			getGameViewModel.Options = StringHelper.OptionDrawCard;
 
 			if ((getGameViewModel.Human.Hand.CardsInHandValue >= Constant.WinValue)
@@ -119,7 +118,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<DrawGameViewModel> DrawCard(long gameId)
 		{
-			var getGameViewModel = new GetGameViewModel();
+			
 			long humanId = await _playerInGameRepository.GetHumanIdByGameId(gameId);
 			List<long> deck = await GetInGameDeck(gameId);
 
@@ -132,7 +131,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			deck = await GiveCardFromDeck(humanId, deck, gameId);
 
-			getGameViewModel = await GetGame(gameId);
+			var getGameViewModel = await GetGame(gameId);
 			getGameViewModel.Options = StringHelper.OptionDrawCard;
 
 			if (getGameViewModel.Human.Hand.CardsInHandValue >= Constant.WinValue)
@@ -151,7 +150,7 @@ namespace BlackJack.BusinessLogic.Services
 			var botsId = new List<long>();
 			var standGameViewModel = new StandGameViewModel();
 			var message = string.Empty;
-			GetGameViewModel getGameViewModel = await GetGame(gameId);
+			var getGameViewModel = await GetGame(gameId);
 
 			if (getGameViewModel.Human.BetValue == 0)
 			{

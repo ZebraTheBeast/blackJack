@@ -12,7 +12,7 @@ namespace BlackJack.BusinessLogic.Mappers
 	{
 		public GetGameViewModel GetViewModel(Game game, List<long> deck)
 		{
-			var getGameViewModel = new GetGameViewModel();
+			var getGameViewModel = new GetGameViewModel() { Bots = new List<PlayerViewModelItem>() };
 
 			var human = game.PlayersInGame.Where(player => player.IsHuman == true).FirstOrDefault();
 			var dealer = game.PlayersInGame.Where(player => player.Player.Type == Entities.Enums.PlayerType.Dealer).FirstOrDefault();
@@ -20,7 +20,8 @@ namespace BlackJack.BusinessLogic.Mappers
 			getGameViewModel.Human = Mapper.Map<Player, PlayerViewModelItem>(human.Player);
 			getGameViewModel.Human.BetValue = human.BetValue;
 			getGameViewModel.Human.Hand = GetHand(game.PlayersInGame.Where(player => player.IsHuman == true).FirstOrDefault().CardsInHand);
-			getGameViewModel.Dealer.Hand = GetHand(game.PlayersInGame.Where(player => player.PlayerId == dealer.Id).FirstOrDefault().CardsInHand);
+			getGameViewModel.Dealer = Mapper.Map<Player, DealerViewModelItem>(dealer.Player);
+			getGameViewModel.Dealer.Hand = GetHand(game.PlayersInGame.Where(player => player.PlayerId == dealer.PlayerId).FirstOrDefault().CardsInHand);
 
 			foreach (var playerInGame in game.PlayersInGame.Where(player => player.Player.Type == Entities.Enums.PlayerType.Bot))
 			{
@@ -30,6 +31,8 @@ namespace BlackJack.BusinessLogic.Mappers
 				bot.BetValue = playerInGame.BetValue;
 
 				bot.Hand = GetHand(playerInGame.CardsInHand);
+
+				getGameViewModel.Bots.Add(bot);
 			}
 
 			if (getGameViewModel.Human.Hand.CardsInHand.Count() != 0)
@@ -51,22 +54,23 @@ namespace BlackJack.BusinessLogic.Mappers
 		private HandViewModelItem GetHand(List<Hand> hands)
 		{
 			var hand = new HandViewModelItem { CardsInHand = new List<CardViewModelItem>() };
-
-			foreach (var cardInHand in hands)
+			if (hands != null)
 			{
-				hand.CardsInHand.Add(Mapper.Map<Card, CardViewModelItem>(cardInHand.Card));
-				hand.CardsInHandValue += cardInHand.Card.Value;
-			}
-
-			foreach (var card in hand.CardsInHand)
-			{
-				if ((card.Title.Replace(" ", string.Empty) == Constant.AceCardTitle)
-					&& (hand.CardsInHandValue > Constant.WinValue))
+				foreach (var cardInHand in hands)
 				{
-					hand.CardsInHandValue -= Constant.ImageCardValue;
+					hand.CardsInHand.Add(Mapper.Map<Card, CardViewModelItem>(cardInHand.Card));
+					hand.CardsInHandValue += cardInHand.Card.Value;
+				}
+
+				foreach (var card in hand.CardsInHand)
+				{
+					if ((card.Title.Replace(" ", string.Empty) == Constant.AceCardTitle)
+						&& (hand.CardsInHandValue > Constant.WinValue))
+					{
+						hand.CardsInHandValue -= Constant.ImageCardValue;
+					}
 				}
 			}
-
 			return hand;
 		}
 	}
