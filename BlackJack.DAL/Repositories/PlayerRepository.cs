@@ -77,7 +77,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<Player> GetByIdAsync(long id)
+		public async Task<Player> GetById(long id)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{

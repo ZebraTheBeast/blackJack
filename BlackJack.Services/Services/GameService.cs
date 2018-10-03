@@ -40,7 +40,7 @@ namespace BlackJack.BusinessLogic.Services
 		public async Task<GetGameViewModel> GetGame(long gameId)
 		{
 			var getGameMapper = new GetGameMapper();
-			Game game = await _gameRepository.GetByIdAsync(gameId);
+			Game game = await _gameRepository.GetById(gameId);
 			var deck = await GetInGameDeck(gameId);
 
 			var getGameViewModel = getGameMapper.GetViewModel(game, deck);
@@ -65,7 +65,7 @@ namespace BlackJack.BusinessLogic.Services
 			var responseBetGameViewModel = new ResponseBetGameViewModel();
 			
 			long humanId = await _playerInGameRepository.GetHumanIdByGameId(requestBetGameViewModel.GameId);
-			Player human = await _playerRepository.GetByIdAsync(humanId);
+			Player human = await _playerRepository.GetById(humanId);
 
 			await _handRepository.RemoveAllCardsInHand(requestBetGameViewModel.GameId);
 
@@ -286,7 +286,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		private async Task UpdateLostPlayersPoints(long playerId, long gameId, int playerBetValue)
 		{
-			Player player = await _playerRepository.GetByIdAsync(playerId);
+			Player player = await _playerRepository.GetById(playerId);
 			int newPointsValue = player.Points - playerBetValue;
 
 			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerLose(playerBetValue)));
@@ -296,7 +296,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		private async Task UpdateWonPlayersPoints(long playerId, long gameId, int playerBetValue)
 		{
-			Player player = await _playerRepository.GetByIdAsync(playerId);
+			Player player = await _playerRepository.GetById(playerId);
 			int newPointsValue = player.Points + playerBetValue;
 
 			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerWin(playerBetValue)));
