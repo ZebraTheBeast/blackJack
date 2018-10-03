@@ -58,6 +58,7 @@ namespace BlackJack.DataAccess.Repositories
 					WHERE Game.Id = @gameId";
 
 				var gameDictionary = new Dictionary<long, Game>();
+				var playerInGameDictionary = new Dictionary<long, PlayerInGame>();
 
 				Game currentGame = (await db.QueryAsync<Game, PlayerInGame, Player, Game>(
 				sqlQuery,
@@ -90,7 +91,6 @@ namespace BlackJack.DataAccess.Repositories
 					INNER JOIN Card ON Hand.CardId = Card.Id
 					WHERE PlayerInGameId in @Ids";
 
-				var playerInGameDictionary = new Dictionary<long, PlayerInGame>();
 				List<PlayerInGame> playersInGame = (await db.QueryAsync<PlayerInGame, Player, Hand, Card, PlayerInGame>(sqlQuery,
 			   (playerInGame, player, hand, card) =>
 			   {

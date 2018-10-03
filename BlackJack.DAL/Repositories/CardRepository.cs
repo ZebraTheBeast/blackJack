@@ -37,34 +37,33 @@ namespace BlackJack.DataAccess.Repositories
 		public async Task<List<Card>> GetAll()
 		{
 			var cards = new List<Card>();
+
 			using (var db = new SqlConnection(_connectionString))
 			{
 				cards = (await db.GetAllAsync<Card>()).ToList();
 			}
+
 			return cards;
 		}
 
 		public async Task<List<Card>> GetCardsById(List<long> cardsId)
 		{
-			var cards = new List<Card>();
 			var sqlQuery = "SELECT * FROM Card WHERE Id IN @cardsId";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				cards = (await db.QueryAsync<Card>(sqlQuery, new { cardsId })).ToList();
+				var cards = (await db.QueryAsync<Card>(sqlQuery, new { cardsId })).ToList();
+				return cards;
 			}
-
-			return cards;
 		}
 
 		public async Task<Card> GetByIdAsync(long id)
 		{
-			var card = new Card();
 			using (var db = new SqlConnection(_connectionString))
 			{
-				card = await db.GetAsync<Card>(id);
+				var card = await db.GetAsync<Card>(id);
+				return card;
 			}
-			return card;
 		}
 
 	}

@@ -30,15 +30,13 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task<List<long>> GetBotsIdByGameId(long gameId)
 		{
-			var players = new List<long>();
 			var sqlQuery = "SELECT PlayerId FROM PlayerInGame INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id WHERE IsHuman = 0 AND Player.Type = @playerType AND GameId = @gameId";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				players = (await db.QueryAsync<long>(sqlQuery, new { playerType = PlayerType.Bot, gameId })).ToList();
+				var players = (await db.QueryAsync<long>(sqlQuery, new { playerType = PlayerType.Bot, gameId })).ToList();
+				return players;
 			}
-
-			return players;
 		}
 
 		public async Task<long> GetHumanIdByGameId(long gameId)
@@ -53,18 +51,19 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task<List<long>> GetAllPlayersIdByGameId(long gameId)
 		{
-			var players = new List<long>();
 			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				players = (await db.QueryAsync<long>(sqlQuery, new { gameId })).ToList();
+				var playersId = (await db.QueryAsync<long>(sqlQuery, new { gameId })).ToList();
+				return playersId;
 			}
-			return players;
+
 		}
 
 		public async Task RemoveAllPlayersFromGame(long gameId)
 		{
 			var sqlQuery = "DELETE FROM PlayerInGame WHERE GameId = @gameId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
 				await db.ExecuteAsync(sqlQuery, new { gameId });
@@ -74,6 +73,7 @@ namespace BlackJack.DataAccess.Repositories
 		public async Task PlaceBet(long playerId, int betValue, long gameId)
 		{
 			var sqlQuery = "UPDATE PlayerInGame SET BetValue = @betValue WHERE GameId = @gameId AND PlayerId = @playerId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
 				await db.QueryAsync(sqlQuery, new { betValue, gameId, playerId });
@@ -83,6 +83,7 @@ namespace BlackJack.DataAccess.Repositories
 		public async Task AnnulBet(long playerId, long gameId)
 		{
 			var sqlQuery = "UPDATE PlayerInGame SET BetValue = 0 WHERE GameId = @gameId AND PlayerId = @playerId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
 				await db.QueryAsync(sqlQuery, new { gameId, playerId });
@@ -92,6 +93,7 @@ namespace BlackJack.DataAccess.Repositories
 		public async Task AnnulBet(List<long> playersId, long gameId)
 		{
 			var sqlQuery = "UPDATE PlayerInGame SET BetValue = 0 WHERE GameId = @gameId AND PlayerId in @playersId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
 				await db.QueryAsync(sqlQuery, new { gameId, playersId });
@@ -100,25 +102,25 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task<int> GetBetByPlayerId(long playerId, long gameId)
 		{
-			int betValue;
 			var sqlQuery = "SELECT BetValue FROM PlayerInGame WHERE PlayerId = @playerId AND GameId = @gameId";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				betValue = (await db.QueryAsync<int>(sqlQuery, new { playerId, gameId })).FirstOrDefault();
+				var betValue = (await db.QueryAsync<int>(sqlQuery, new { playerId, gameId })).FirstOrDefault();
+				return betValue;
 			}
-			return betValue;
 		}
 
 		public async Task<long> IsInGame(long playerId, long gameId)
 		{
-			long player;
 			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE PlayerId = @playerId AND GameId = @gameId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
-				player = (await db.QueryAsync<long>(sqlQuery, new { playerId, gameId })).FirstOrDefault();
+				var player = (await db.QueryAsync<long>(sqlQuery, new { playerId, gameId })).FirstOrDefault();
+				return player;
 			}
-			return player;
+
 		}
 
 		public async Task PlaceBet(List<long> playersId, long gameId)
@@ -132,12 +134,12 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task<PlayerInGame> GetByIdAsync(long id)
 		{
-			var playerInGame = new PlayerInGame();
 			using (var db = new SqlConnection(_connectionString))
 			{
-				playerInGame = await db.GetAsync<PlayerInGame>(id);
+				var playerInGame = await db.GetAsync<PlayerInGame>(id);
+				return playerInGame;
 			}
-			return playerInGame;
+
 		}
 	}
 }

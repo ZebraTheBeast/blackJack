@@ -47,63 +47,60 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task<Player> GetPlayerByName(string name)
 		{
-			var player = new Player();
+			var sqlQuery = "SELECT * FROM Player WHERE Name = @name AND Type = @playerType";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = "SELECT * FROM Player WHERE Name = @name AND Type = @playerType";
-				player = (await db.QueryAsync<Player>(sqlQuery, new { name, playerType = PlayerType.Human })).FirstOrDefault();
+				var player = (await db.QueryAsync<Player>(sqlQuery, new { name, playerType = PlayerType.Human })).FirstOrDefault();
+				return player;
 			}
 
-			return player;
 		}
 
 		public async Task UpdatePlayerPoints(long playerId, int newPointsValue)
 		{
+			var sqlQuery = "UPDATE Player SET Points = @newPointsValue WHERE Id = @playerId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = "UPDATE Player SET Points = @newPointsValue WHERE Id = @playerId";
 				await db.ExecuteAsync(sqlQuery, new { newPointsValue, playerId });
 			}
 		}
 
 		public async Task RestorePlayerPoints(long playerId)
 		{
+			var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id = @playerId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
-				var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id = @playerId";
 				await db.ExecuteAsync(sqlQuery, new { defaultPointsValue = Constant.DefaultPointsValue, playerId });
 			}
 		}
 
 		public async Task<Player> GetByIdAsync(long id)
 		{
-			var player = new Player();
-
 			using (var db = new SqlConnection(_connectionString))
 			{
-				player = await db.GetAsync<Player>(id);
+				var player = await db.GetAsync<Player>(id);
+				return player;
 			}
 
-			return player;
 		}
 
 		public async Task<List<Player>> GetPlayersByIds(List<long> idList)
 		{
-			var players = new List<Player>();
 			var sqlQuery = "SELECT * FROM Player WHERE Id IN @idList";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				players = (await db.QueryAsync<Player>(sqlQuery, new { idList })).ToList();
+				var players = (await db.QueryAsync<Player>(sqlQuery, new { idList })).ToList();
+				return players;
 			}
 
-			return players;
 		}
 
 		public async Task RestorePlayersPoints(List<long> playersId)
 		{
-
 			var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id on @playersId";
 
 			using (var db = new SqlConnection(_connectionString))
@@ -114,15 +111,13 @@ namespace BlackJack.DataAccess.Repositories
 
 		private async Task<Player> GetDealer()
 		{
-			var player = new Player();
 			var sqlQuery = "SELECT TOP(1) * FROM Player WHERE Type = @playerType";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				player = (await db.QueryAsync<Player>(sqlQuery, new { playerType = PlayerType.Dealer })).FirstOrDefault();
+				var player = (await db.QueryAsync<Player>(sqlQuery, new { playerType = PlayerType.Dealer })).FirstOrDefault();
+				return player;
 			}
-
-			return player;
 		}		
 	}
 }

@@ -21,31 +21,32 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task<List<long>> GetCardsIdByPlayerId(long playerId, long gameId)
 		{
-			var cards = new List<long>();
 			var sqlQuery = @"SELECT CardId FROM Hand 
 				INNER JOIN PlayerInGame ON Hand.PlayerInGameId = PlayerInGame.Id
 				WHERE PlayerInGame.PlayerId = @playerId 
 				AND PlayerInGame.GameId = @gameId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
-				cards = (await db.QueryAsync<long>(sqlQuery, new { playerId, gameId })).ToList();
+				var cards = (await db.QueryAsync<long>(sqlQuery, new { playerId, gameId })).ToList();
+				return cards;
 			}
 
-			return cards;
+
 		}
 
 		public async Task<List<long>> GetCardsIdByGameId(long gameId)
 		{
-			var cards = new List<long>();
 			var sqlQuery = @"SELECT CardId FROM Hand 
 				INNER JOIN PlayerInGame ON Hand.PlayerInGameId = PlayerInGame.Id 
 				WHERE PlayerInGame.GameId = @gameId";
 			using (var db = new SqlConnection(_connectionString))
 			{
-				cards = (await db.QueryAsync<long>(sqlQuery, new { gameId })).ToList();
+				var cards = (await db.QueryAsync<long>(sqlQuery, new { gameId })).ToList();
+				return cards;
 			}
 
-			return cards;
+
 		}
 
 		public async Task GiveCardToPlayerInGame(long playerId, long cardId, long gameId)
@@ -69,12 +70,12 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task<Hand> GetByIdAsync(long id)
 		{
-			var hand = new Hand();
 			using (var db = new SqlConnection(_connectionString))
 			{
-				hand = await db.GetAsync<Hand>(id);
+				var hand = await db.GetAsync<Hand>(id);
+				return hand;
 			}
-			return hand;
+
 		}
 	}
 }

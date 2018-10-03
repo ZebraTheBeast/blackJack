@@ -19,23 +19,22 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task<List<LogMessage>> GetAllMessages()
 		{
-			var messages = new List<LogMessage>();
 			using (var db = new SqlConnection(_connectionString))
 			{
-				messages = (await db.GetAllAsync<LogMessage>()).ToList();
+				var messages = (await db.GetAllAsync<LogMessage>()).ToList();
+				return messages;
 			}
 
-			return messages;
 		}
 
 		public async Task<LogMessage> GetByIdAsync(long id)
 		{
-			var logMessage = new LogMessage();
 			using (var db = new SqlConnection(_connectionString))
 			{
-				logMessage = await db.GetAsync<LogMessage>(id);
+				var logMessage = await db.GetAsync<LogMessage>(id);
+				return logMessage;
 			}
-			return logMessage;
+			
 		}
 	}
 }
