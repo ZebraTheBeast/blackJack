@@ -57,7 +57,6 @@ namespace BlackJack.DataAccess.Repositories
 				var playersId = (await db.QueryAsync<long>(sqlQuery, new { gameId })).ToList();
 				return playersId;
 			}
-
 		}
 
 		public async Task RemoveAllPlayersFromGame(long gameId)
@@ -120,7 +119,6 @@ namespace BlackJack.DataAccess.Repositories
 				var player = (await db.QueryAsync<long>(sqlQuery, new { playerId, gameId })).FirstOrDefault();
 				return player;
 			}
-
 		}
 
 		public async Task PlaceBet(List<long> playersId, long gameId)
@@ -139,7 +137,6 @@ namespace BlackJack.DataAccess.Repositories
 				var playerInGame = await db.GetAsync<PlayerInGame>(id);
 				return playerInGame;
 			}
-
 		}
 	}
 }

@@ -24,7 +24,6 @@ namespace BlackJack.DataAccess.Repositories
 				var messages = (await db.GetAllAsync<LogMessage>()).ToList();
 				return messages;
 			}
-
 		}
 
 		public async Task<LogMessage> GetByIdAsync(long id)
@@ -34,7 +33,6 @@ namespace BlackJack.DataAccess.Repositories
 				var logMessage = await db.GetAsync<LogMessage>(id);
 				return logMessage;
 			}
-			
 		}
 	}
 }

@@ -31,8 +31,6 @@ namespace BlackJack.DataAccess.Repositories
 				var cards = (await db.QueryAsync<long>(sqlQuery, new { playerId, gameId })).ToList();
 				return cards;
 			}
-
-
 		}
 
 		public async Task<List<long>> GetCardsIdByGameId(long gameId)
@@ -45,8 +43,6 @@ namespace BlackJack.DataAccess.Repositories
 				var cards = (await db.QueryAsync<long>(sqlQuery, new { gameId })).ToList();
 				return cards;
 			}
-
-
 		}
 
 		public async Task GiveCardToPlayerInGame(long playerId, long cardId, long gameId)
@@ -75,7 +71,6 @@ namespace BlackJack.DataAccess.Repositories
 				var hand = await db.GetAsync<Hand>(id);
 				return hand;
 			}
-
 		}
 	}
 }

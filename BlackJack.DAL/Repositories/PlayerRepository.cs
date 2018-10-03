@@ -84,7 +84,6 @@ namespace BlackJack.DataAccess.Repositories
 				var player = await db.GetAsync<Player>(id);
 				return player;
 			}
-
 		}
 
 		public async Task<List<Player>> GetPlayersByIds(List<long> idList)
@@ -96,7 +95,6 @@ namespace BlackJack.DataAccess.Repositories
 				var players = (await db.QueryAsync<Player>(sqlQuery, new { idList })).ToList();
 				return players;
 			}
-
 		}
 
 		public async Task RestorePlayersPoints(List<long> playersId)
