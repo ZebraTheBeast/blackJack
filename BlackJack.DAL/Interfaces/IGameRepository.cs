@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Interfaces
 {
-	public interface IGameRepository : IGenericRepository<Game>
+	public interface IGameRepository  : IGenericRepository<Game>
 	{
 		Task<long> StartNewGame();
 		Task DeleteGameById(long gameId);

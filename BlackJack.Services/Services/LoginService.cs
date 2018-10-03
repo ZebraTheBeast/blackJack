@@ -39,8 +39,8 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (human == null)
 			{
-				var player = new Player { Name = playerName };
-				await _playerRepository.CreateNewPlayer(player);
+				var player = new Player { Name = playerName, Type = Entities.Enums.PlayerType.Human };
+				await _playerRepository.Add(player);
 				human = await _playerRepository.GetPlayerByName(playerName);
 			}
 
@@ -81,11 +81,13 @@ namespace BlackJack.BusinessLogic.Services
 
 			foreach (var bot in bots)
 			{
-				await _playerInGameRepository.AddPlayerToGame(bot.Id, gameId, false);
+				var botInGame = new PlayerInGame() { PlayerId = bot.Id, GameId = gameId, IsHuman = false };
+				await _playerInGameRepository.Add(botInGame);
 				_logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame()));
 			}
 
-			await _playerInGameRepository.AddPlayerToGame(human.Id, gameId, true);
+			var humanInGame = new PlayerInGame() { PlayerId = human.Id, GameId = gameId, IsHuman = true };
+			await _playerInGameRepository.Add(humanInGame);
 			_logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame()));
 
 			return gameId;

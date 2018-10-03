@@ -4,28 +4,19 @@ using System.Threading.Tasks;
 using BlackJack.Entities;
 using BlackJack.DataAccess.Interfaces;
 using Dapper;
-using Dapper.Contrib.Extensions;
 using System.Data.SqlClient;
 using BlackJack.Configurations;
 using BlackJack.Entities.Enums;
 
 namespace BlackJack.DataAccess.Repositories
 {
-	public class PlayerRepository : IPlayerRepository
+	public class PlayerRepository : GenericRepository<Player>, IPlayerRepository
 	{
 		private string _connectionString;
 
-		public PlayerRepository(string connectionString)
+		public PlayerRepository(string connectionString) : base(connectionString)
 		{
 			_connectionString = connectionString;
-		}
-
-		public async Task CreateNewPlayer(Player player)
-		{
-			using (var db = new SqlConnection(_connectionString))
-			{
-				await db.InsertAsync(new Player { Name = player.Name, CreationDate = player.CreationDate, Type = PlayerType.Human });
-			}
 		}
 
 		public async Task<List<Player>> GetBotsWithDealer(string playerName, int botsAmount)
@@ -74,15 +65,6 @@ namespace BlackJack.DataAccess.Repositories
 			using (var db = new SqlConnection(_connectionString))
 			{
 				await db.ExecuteAsync(sqlQuery, new { defaultPointsValue = Constant.DefaultPointsValue, playerId });
-			}
-		}
-
-		public async Task<Player> GetById(long id)
-		{
-			using (var db = new SqlConnection(_connectionString))
-			{
-				var player = await db.GetAsync<Player>(id);
-				return player;
 			}
 		}
 

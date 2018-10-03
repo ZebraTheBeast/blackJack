@@ -11,16 +11,16 @@ using BlackJack.Entities.Enums;
 
 namespace BlackJack.DataAccess.Repositories
 {
-	public class PlayerInGameRepository : IPlayerInGameRepository
+	public class PlayerInGameRepository : GenericRepository<PlayerInGame>, IPlayerInGameRepository
 	{
 		private string _connectionString;
 
-		public PlayerInGameRepository(string connectionString)
+		public PlayerInGameRepository(string connectionString) : base(connectionString)
 		{
 			_connectionString = connectionString;
 		}
 
-		public async Task AddPlayerToGame(long playerId, long gameId, bool isHuman)
+		public async Task Add(long playerId, long gameId, bool isHuman)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -127,15 +127,6 @@ namespace BlackJack.DataAccess.Repositories
 			using (var db = new SqlConnection(_connectionString))
 			{
 				await db.QueryAsync(sqlQuery, new { betValue = Constant.BotsBetValue, gameId, playersId });
-			}
-		}
-
-		public async Task<PlayerInGame> GetById(long id)
-		{
-			using (var db = new SqlConnection(_connectionString))
-			{
-				var playerInGame = await db.GetAsync<PlayerInGame>(id);
-				return playerInGame;
 			}
 		}
 	}

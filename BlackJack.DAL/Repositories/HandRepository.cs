@@ -6,15 +6,14 @@ using Dapper;
 using System.Linq;
 using System;
 using BlackJack.Entities;
-using Dapper.Contrib.Extensions;
 
 namespace BlackJack.DataAccess.Repositories
 {
-	public class HandRepository : IHandRepository
+	public class HandRepository : GenericRepository<Hand>, IHandRepository
 	{
 		private string _connectionString;
 
-		public HandRepository(string connectionString)
+		public HandRepository(string connectionString) : base(connectionString)
 		{
 			_connectionString = connectionString;
 		}
@@ -61,15 +60,6 @@ namespace BlackJack.DataAccess.Repositories
 			using (var db = new SqlConnection(_connectionString))
 			{
 				await db.ExecuteAsync(sqlQuery, new { gameId });
-			}
-		}
-
-		public async Task<Hand> GetById(long id)
-		{
-			using (var db = new SqlConnection(_connectionString))
-			{
-				var hand = await db.GetAsync<Hand>(id);
-				return hand;
 			}
 		}
 	}

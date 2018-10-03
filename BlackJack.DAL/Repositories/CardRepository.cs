@@ -9,21 +9,13 @@ using Dapper;
 
 namespace BlackJack.DataAccess.Repositories
 {
-	public class CardRepository : ICardRepository
+	public class CardRepository : GenericRepository<Card>, ICardRepository
 	{
 		private string _connectionString;
 
-		public CardRepository(string connectionString)
+		public CardRepository(string connectionString) : base(connectionString)
 		{
 			_connectionString = connectionString;
-		}
-
-		public async Task DeleteAll()
-		{
-			using (var db = new SqlConnection(_connectionString))
-			{
-				await db.DeleteAllAsync<Card>();
-			}
 		}
 
 		public async Task PopulateCards(List<Card> cards)
@@ -32,18 +24,6 @@ namespace BlackJack.DataAccess.Repositories
 			{
 				await db.InsertAsync(cards);
 			}
-		}
-
-		public async Task<List<Card>> GetAll()
-		{
-			var cards = new List<Card>();
-
-			using (var db = new SqlConnection(_connectionString))
-			{
-				cards = (await db.GetAllAsync<Card>()).ToList();
-			}
-
-			return cards;
 		}
 
 		public async Task<List<Card>> GetCardsById(List<long> cardsId)
@@ -56,15 +36,5 @@ namespace BlackJack.DataAccess.Repositories
 				return cards;
 			}
 		}
-
-		public async Task<Card> GetById(long id)
-		{
-			using (var db = new SqlConnection(_connectionString))
-			{
-				var card = await db.GetAsync<Card>(id);
-				return card;
-			}
-		}
-
 	}
 }

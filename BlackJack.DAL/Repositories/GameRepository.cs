@@ -9,11 +9,11 @@ using System.Collections.Generic;
 
 namespace BlackJack.DataAccess.Repositories
 {
-	public class GameRepository : IGameRepository
+	public class GameRepository : GenericRepository<Game>, IGameRepository
 	{
 		private string _connectionString;
 
-		public GameRepository(string connectionString)
+		public GameRepository(string connectionString) : base(connectionString)
 		{
 			_connectionString = connectionString;
 		}
@@ -48,7 +48,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<Game> GetById(long gameId)
+		public override async Task<Game> GetById(long gameId)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{

@@ -21,7 +21,7 @@ namespace BlackJack.BusinessLogic.Services
 		public async Task<IEnumerable<GetLogsLogViewModel>> GetMessages()
 		{
 			var messagesModel = new List<GetLogsLogViewModel>();
-			var messages = (await _logMessageRepository.GetAllMessages()).ToList();
+			var messages = (await _logMessageRepository.GetAll()).ToList();
 
 			if (messages.Count() == 0)
 			{
