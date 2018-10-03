@@ -76,7 +76,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<Player> GetPlayerById(long id)
+		public async Task<Player> GetByIdAsync(long id)
 		{
 			var player = new Player();
 

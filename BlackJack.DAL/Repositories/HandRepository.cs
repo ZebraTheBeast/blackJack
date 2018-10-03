@@ -5,6 +5,8 @@ using BlackJack.DataAccess.Interfaces;
 using Dapper;
 using System.Linq;
 using System;
+using BlackJack.Entities;
+using Dapper.Contrib.Extensions;
 
 namespace BlackJack.DataAccess.Repositories
 {
@@ -63,6 +65,16 @@ namespace BlackJack.DataAccess.Repositories
 			{
 				await db.ExecuteAsync(sqlQuery, new { gameId });
 			}
+		}
+
+		public async Task<Hand> GetByIdAsync(long id)
+		{
+			var hand = new Hand();
+			using (var db = new SqlConnection(_connectionString))
+			{
+				hand = await db.GetAsync<Hand>(id);
+			}
+			return hand;
 		}
 	}
 }

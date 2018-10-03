@@ -130,15 +130,14 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<List<PlayerInGame>> GetPlayersInGame(List<long> playersId, long gameId)
+		public async Task<PlayerInGame> GetByIdAsync(long id)
 		{
-			var players = new List<PlayerInGame>();
-			var sqlQuery = "SELECT * FROM PlayerInGame WHERE GameId = @gameId AND PlayerId in @playersId";
+			var playerInGame = new PlayerInGame();
 			using (var db = new SqlConnection(_connectionString))
 			{
-				players = (await db.QueryAsync<PlayerInGame>(sqlQuery, new { gameId, playersId })).ToList();	
+				playerInGame = await db.GetAsync<PlayerInGame>(id);
 			}
-			return players;
+			return playerInGame;
 		}
 	}
 }

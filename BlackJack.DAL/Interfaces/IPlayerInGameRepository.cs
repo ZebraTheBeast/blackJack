@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Interfaces
 {
-	public interface IPlayerInGameRepository
+	public interface IPlayerInGameRepository : IGenericRepository<PlayerInGame>
     {
         Task AddPlayerToGame(long playerId, long gameId, bool isHuman);
         Task RemoveAllPlayersFromGame(long gameId);
@@ -16,7 +16,6 @@ namespace BlackJack.DataAccess.Interfaces
 		Task AnnulBet(long playerId, long gameId);
 		Task AnnulBet(List<long> playersId, long gameId);
 		Task<long> IsInGame(long playerId, long gameId);
-		Task<List<PlayerInGame>> GetPlayersInGame(List<long> playersId, long gameId);
 		Task<long> GetHumanIdByGameId(long gameId);
 	}
 }

@@ -23,10 +23,19 @@ namespace BlackJack.DataAccess.Repositories
 			using (var db = new SqlConnection(_connectionString))
 			{
 				messages = (await db.GetAllAsync<LogMessage>()).ToList();
-
 			}
 
 			return messages;
+		}
+
+		public async Task<LogMessage> GetByIdAsync(long id)
+		{
+			var logMessage = new LogMessage();
+			using (var db = new SqlConnection(_connectionString))
+			{
+				logMessage = await db.GetAsync<LogMessage>(id);
+			}
+			return logMessage;
 		}
 	}
 }

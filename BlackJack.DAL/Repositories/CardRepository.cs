@@ -56,5 +56,16 @@ namespace BlackJack.DataAccess.Repositories
 
 			return cards;
 		}
+
+		public async Task<Card> GetByIdAsync(long id)
+		{
+			var card = new Card();
+			using (var db = new SqlConnection(_connectionString))
+			{
+				card = await db.GetAsync<Card>(id);
+			}
+			return card;
+		}
+
 	}
 }
