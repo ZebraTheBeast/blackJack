@@ -47,7 +47,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (getGameViewModel.Human.Points <= Constant.MinPointsValueToPlay)
 			{
-				await _playerRepository.RestorePlayerPoints(getGameViewModel.Human.Id);
+				await _playerRepository.UpdatePlayerPoints(getGameViewModel.Human.Id, Constant.DefaultPointsValue);
 				getGameViewModel.Human.Points = Constant.DefaultPointsValue;
 			}
 
@@ -81,7 +81,7 @@ namespace BlackJack.BusinessLogic.Services
 				throw new Exception(StringHelper.AlreadyBet());
 			}
 
-			await _playerInGameRepository.PlaceBet(human.Id, requestBetGameViewModel.BetValue, requestBetGameViewModel.GameId);
+			await _playerInGameRepository.UpdateBet(human.Id, requestBetGameViewModel.GameId, requestBetGameViewModel.BetValue);
 			_logger.Log(LogHelper.GetEvent(human.Id, requestBetGameViewModel.GameId, StringHelper.PlayerPlaceBet(requestBetGameViewModel.BetValue)));
 
 			List<long> botsId = await _playerInGameRepository.GetBotsIdByGameId(requestBetGameViewModel.GameId);
@@ -91,7 +91,7 @@ namespace BlackJack.BusinessLogic.Services
 				_logger.Log(LogHelper.GetEvent(botId, requestBetGameViewModel.GameId, StringHelper.PlayerPlaceBet(Constant.BotsBetValue)));
 			}
 
-			await _playerInGameRepository.PlaceBet(botsId, requestBetGameViewModel.GameId);
+			await _playerInGameRepository.UpdateBet(botsId, requestBetGameViewModel.GameId, Constant.BotsBetValue);
 
 			List<long> deck = await GetInGameDeck(requestBetGameViewModel.GameId);
 			List<long> playersId = await _playerInGameRepository.GetAllPlayersIdByGameId(requestBetGameViewModel.GameId);
@@ -176,10 +176,10 @@ namespace BlackJack.BusinessLogic.Services
 				botsId.Add(getGameViewModel.Bots[i].Id);
 			}
 
-			await _playerInGameRepository.AnnulBet(botsId, gameId);
+			await _playerInGameRepository.UpdateBet(botsId, gameId, 0);
 
 			message = await UpdateScore(getGameViewModel.Human, getGameViewModel.Dealer.Hand.CardsInHandValue, gameId);
-			await _playerInGameRepository.AnnulBet(getGameViewModel.Human.Id, gameId);
+			await _playerInGameRepository.UpdateBet(getGameViewModel.Human.Id, gameId, 0);
 
 			getGameViewModel = await GetGame(gameId);
 

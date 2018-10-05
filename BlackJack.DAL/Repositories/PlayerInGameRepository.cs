@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using BlackJack.DataAccess.Interfaces;
 using Dapper;
 using System.Data.SqlClient;
-using Dapper.Contrib.Extensions;
 using BlackJack.Entities;
-using BlackJack.Configurations;
 using BlackJack.Entities.Enums;
 
 namespace BlackJack.DataAccess.Repositories
@@ -20,17 +18,11 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task Add(long playerId, long gameId, bool isHuman)
-		{
-			using (var db = new SqlConnection(_connectionString))
-			{
-				await db.InsertAsync(new PlayerInGame() { PlayerId = playerId, BetValue = 0, GameId = gameId, IsHuman = isHuman });
-			}
-		}
-
 		public async Task<List<long>> GetBotsIdByGameId(long gameId)
 		{
-			var sqlQuery = "SELECT PlayerId FROM PlayerInGame INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id WHERE IsHuman = 0 AND Player.Type = @playerType AND GameId = @gameId";
+			var sqlQuery = @"SELECT PlayerId FROM PlayerInGame 
+				INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id 
+				WHERE IsHuman = 0 AND Player.Type = @playerType AND GameId = @gameId";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -69,39 +61,11 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task PlaceBet(long playerId, int betValue, long gameId)
-		{
-			var sqlQuery = "UPDATE PlayerInGame SET BetValue = @betValue WHERE GameId = @gameId AND PlayerId = @playerId";
-
-			using (var db = new SqlConnection(_connectionString))
-			{
-				await db.QueryAsync(sqlQuery, new { betValue, gameId, playerId });
-			}
-		}
-
-		public async Task AnnulBet(long playerId, long gameId)
-		{
-			var sqlQuery = "UPDATE PlayerInGame SET BetValue = 0 WHERE GameId = @gameId AND PlayerId = @playerId";
-
-			using (var db = new SqlConnection(_connectionString))
-			{
-				await db.QueryAsync(sqlQuery, new { gameId, playerId });
-			}
-		}
-
-		public async Task AnnulBet(List<long> playersId, long gameId)
-		{
-			var sqlQuery = "UPDATE PlayerInGame SET BetValue = 0 WHERE GameId = @gameId AND PlayerId in @playersId";
-
-			using (var db = new SqlConnection(_connectionString))
-			{
-				await db.QueryAsync(sqlQuery, new { gameId, playersId });
-			}
-		}
 
 		public async Task<int> GetBetByPlayerId(long playerId, long gameId)
 		{
-			var sqlQuery = "SELECT BetValue FROM PlayerInGame WHERE PlayerId = @playerId AND GameId = @gameId";
+			var sqlQuery = @"SELECT BetValue FROM PlayerInGame 
+				WHERE PlayerId = @playerId AND GameId = @gameId";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -112,7 +76,8 @@ namespace BlackJack.DataAccess.Repositories
 
 		public async Task<long> IsInGame(long playerId, long gameId)
 		{
-			var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE PlayerId = @playerId AND GameId = @gameId";
+			var sqlQuery = @"SELECT PlayerId FROM PlayerInGame 
+				WHERE PlayerId = @playerId AND GameId = @gameId";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -121,12 +86,24 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task PlaceBet(List<long> playersId, long gameId)
+		public async Task UpdateBet(long playerId, long gameId, int betValue)
 		{
-			var sqlQuery = "UPDATE PlayerInGame SET BetValue = @betValue WHERE GameId = @gameId AND PlayerId IN @playersId";
+			var sqlQuery = @"UPDATE PlayerInGame SET BetValue = @betValue 
+				WHERE GameId = @gameId AND PlayerId = @playerId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
-				await db.QueryAsync(sqlQuery, new { betValue = Constant.BotsBetValue, gameId, playersId });
+				await db.QueryAsync(sqlQuery, new { betValue, gameId, playerId });
+			}
+		}
+
+		public async Task UpdateBet(List<long> playersId, long gameId, int betValue)
+		{
+			var sqlQuery = @"UPDATE PlayerInGame SET BetValue = @betValue 
+				WHERE GameId = @gameId AND PlayerId IN @playersId";
+			using (var db = new SqlConnection(_connectionString))
+			{
+				await db.QueryAsync(sqlQuery, new { betValue , gameId, playersId });
 			}
 		}
 	}

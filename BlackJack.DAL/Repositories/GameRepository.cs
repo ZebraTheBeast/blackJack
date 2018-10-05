@@ -26,15 +26,6 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<long> StartNewGame()
-		{
-			using (var db = new SqlConnection(_connectionString))
-			{
-				var gameId = await db.InsertAsync(new Game ());
-				return gameId;
-			}
-		}
-
 		public async Task<long> GetGameIdByHumanId(long humanId)
 		{
 			var sqlQuery = @"SELECT Game.Id FROM Game 

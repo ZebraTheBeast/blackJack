@@ -10,10 +10,8 @@ namespace BlackJack.DataAccess.Interfaces
         Task<List<long>> GetAllPlayersIdByGameId(long gameId);
         Task<List<long>> GetBotsIdByGameId(long gameId);
         Task<int> GetBetByPlayerId(long playerId, long gameId);
-        Task PlaceBet(long playerId, int bet, long gameId);
-		Task PlaceBet(List<long> playerId, long gameId);
-		Task AnnulBet(long playerId, long gameId);
-		Task AnnulBet(List<long> playersId, long gameId);
+        Task UpdateBet(long playerId, long gameId, int betValue);
+		Task UpdateBet(List<long> playerId, long gameId, int betValue);
 		Task<long> IsInGame(long playerId, long gameId);
 		Task<long> GetHumanIdByGameId(long gameId);
 	}

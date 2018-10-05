@@ -46,7 +46,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (human.Points <= Constant.MinPointsValueToPlay)
 			{
-				await _playerRepository.RestorePlayerPoints(human.Id);
+				await _playerRepository.UpdatePlayerPoints(human.Id, Constant.DefaultPointsValue);
 				human.Points = Constant.DefaultPointsValue;
 			}
 
@@ -65,7 +65,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (playersIdWithoutPoints.Count != 0)
 			{
-				await _playerRepository.RestorePlayersPoints(playersIdWithoutPoints);
+				await _playerRepository.UpdatePlayersPoints(playersIdWithoutPoints);
 			}
 
 			await _cardProvider.RestoreCardsInDb();
@@ -77,7 +77,7 @@ namespace BlackJack.BusinessLogic.Services
 				await _gameRepository.DeleteGameById(oldGame);
 			}
 
-			long gameId = await _gameRepository.StartNewGame();
+			long gameId = await _gameRepository.Add(new Game());
 
 			foreach (var bot in bots)
 			{
@@ -104,7 +104,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (player.Points <= Constant.MinPointsValueToPlay)
 			{
-				await _playerRepository.RestorePlayerPoints(player.Id);
+				await _playerRepository.UpdatePlayerPoints(player.Id, Constant.DefaultPointsValue);
 				player.Points = Constant.DefaultPointsValue;
 			}
 

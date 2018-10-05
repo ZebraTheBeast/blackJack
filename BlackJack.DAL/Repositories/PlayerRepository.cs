@@ -58,16 +58,6 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task RestorePlayerPoints(long playerId)
-		{
-			var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id = @playerId";
-
-			using (var db = new SqlConnection(_connectionString))
-			{
-				await db.ExecuteAsync(sqlQuery, new { defaultPointsValue = Constant.DefaultPointsValue, playerId });
-			}
-		}
-
 		public async Task<List<Player>> GetPlayersByIds(List<long> idList)
 		{
 			var sqlQuery = "SELECT * FROM Player WHERE Id IN @idList";
@@ -79,7 +69,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task RestorePlayersPoints(List<long> playersId)
+		public async Task UpdatePlayersPoints(List<long> playersId)
 		{
 			var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id on @playersId";
 

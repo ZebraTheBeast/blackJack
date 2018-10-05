@@ -43,11 +43,12 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task Add(TEntity entity)
+		public async Task<long> Add(TEntity entity)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
-				await db.InsertAsync<TEntity>(entity);
+				long id = await db.InsertAsync<TEntity>(entity);
+				return id;
 			}
 		}
 	}
