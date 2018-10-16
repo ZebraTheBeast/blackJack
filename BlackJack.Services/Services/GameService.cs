@@ -208,32 +208,34 @@ namespace BlackJack.BusinessLogic.Services
                 await GiveCardFromDeck(botId, hand, gameId);
                 return false;
             }
+
             var card = Mapper.Map<Card, CardViewModelItem>(deck[0]);
             _logger.Log(LogHelper.GetEvent(botId, gameId, StringHelper.PlayerDrawCard(deck[0].Id)));
             deck.Remove(deck[0]);
             hand.CardsInHand.Add(card);
-            hand = CalculateCards(hand);
+            hand.CardsInHandValue = CalculateCardsValue(hand.CardsInHand);
+
             return await BotTurn(botId, deck, gameId, hand);
         }
 
-        private HandViewModelItem CalculateCards(HandViewModelItem hand)
+        private int CalculateCardsValue(List<CardViewModelItem> cards)
         {
-            hand.CardsInHandValue = 0;
+            var cardsInHandValue = 0;
 
-            foreach (var card in hand.CardsInHand)
+            foreach (var card in cards)
             {
-                hand.CardsInHandValue += card.Value;
+                cardsInHandValue += card.Value;
             }
 
-            foreach (var card in hand.CardsInHand)
+            foreach (var card in cards)
             {
                 if ((card.Title.Replace(" ", string.Empty) == Constant.AceCardTitle)
-                    && (hand.CardsInHandValue > Constant.WinValue))
+                    && (cardsInHandValue > Constant.WinValue))
                 {
-                    hand.CardsInHandValue -= Constant.ImageCardValue;
+                    cardsInHandValue -= Constant.ImageCardValue;
                 }
             }
-            return hand;
+            return cardsInHandValue;
         }
 
         private async Task GiveCardFromDeck(long playerId, HandViewModelItem handViewModelItem, long gameId)
@@ -277,7 +279,7 @@ namespace BlackJack.BusinessLogic.Services
 			var cards = await _cardProvider.GetCardsByIds(cardsIdInPlayersHand);
 			hand.CardsInHand = Mapper.Map<List<Card>, List<CardViewModelItem>>(cards);
 
-            hand = CalculateCards(hand);
+            hand.CardsInHandValue = CalculateCardsValue(hand.CardsInHand);
 
 			return hand;
 		}
