@@ -151,6 +151,7 @@ namespace BlackJack.BusinessLogic.Services
 			var standGameViewModel = new StandGameViewModel();
 			var message = string.Empty;
 			var getGameViewModel = await GetGame(gameId);
+            var deck = await _cardProvider.GetCardsByIds(getGameViewModel.Deck);
 
 			if (getGameViewModel.Human.BetValue == 0)
 			{
@@ -162,11 +163,14 @@ namespace BlackJack.BusinessLogic.Services
 			{
 				for (var i = 0; i < getGameViewModel.Bots.Count(); i++)
 				{
-					await BotTurn(getGameViewModel.Bots[i].Id, getGameViewModel.Deck, gameId);
+                    var botHand = await GetPlayerHand(getGameViewModel.Bots[i].Id, gameId);
+					await BotTurn(getGameViewModel.Bots[i].Id, deck, gameId, botHand);
 				}
 			}
 
-			await BotTurn(getGameViewModel.Dealer.Id, getGameViewModel.Deck, gameId);
+            var dealerHand = await GetPlayerHand(getGameViewModel.Dealer.Id, gameId);
+            await BotTurn(getGameViewModel.Dealer.Id, deck, gameId, dealerHand);
+
 			getGameViewModel.Dealer.Hand = await GetPlayerHand(getGameViewModel.Dealer.Id, gameId);
 
 			for (var i = 0; i < getGameViewModel.Bots.Count(); i++)
@@ -197,20 +201,69 @@ namespace BlackJack.BusinessLogic.Services
 			return deck;
 		}
 
-		private async Task<bool> BotTurn(long botId, List<long> deck, long gameId)
-		{
-			HandViewModelItem hand = await GetPlayerHand(botId, gameId);
-			var value = hand.CardsInHandValue;
+        private async Task<bool> BotTurn(long botId, List<Card> deck, long gameId, HandViewModelItem hand)
+        {
+            if(hand.CardsInHandValue >= Constant.ValueToStopDraw)
+            {
+                await GiveCardFromDeck(botId, hand, gameId);
+                return false;
+            }
+            var card = Mapper.Map<Card, CardViewModelItem>(deck[0]);
+            _logger.Log(LogHelper.GetEvent(botId, gameId, StringHelper.PlayerDrawCard(deck[0].Id)));
+            deck.Remove(deck[0]);
+            hand.CardsInHand.Add(card);
+            hand = CalculateCards(hand);
+            return await BotTurn(botId, deck, gameId, hand);
+        }
 
-			if (value >= Constant.ValueToStopDraw)
-			{
-				return false;
-			}
+        private HandViewModelItem CalculateCards(HandViewModelItem hand)
+        {
+            hand.CardsInHandValue = 0;
 
-			deck = await GiveCardFromDeck(botId, deck, gameId);
+            foreach (var card in hand.CardsInHand)
+            {
+                hand.CardsInHandValue += card.Value;
+            }
 
-			return await BotTurn(botId, deck, gameId);
-		}
+            foreach (var card in hand.CardsInHand)
+            {
+                if ((card.Title.Replace(" ", string.Empty) == Constant.AceCardTitle)
+                    && (hand.CardsInHandValue > Constant.WinValue))
+                {
+                    hand.CardsInHandValue -= Constant.ImageCardValue;
+                }
+            }
+            return hand;
+        }
+
+        private async Task GiveCardFromDeck(long playerId, HandViewModelItem handViewModelItem, long gameId)
+        {
+            var cardsId = await _handRepository.GetCardsIdByPlayerId(playerId, gameId);
+            var newCards = new List<long>();
+            var hands = new List<Hand>();
+            var playerInGameId = await _playerInGameRepository.GetIdByPlayerIdAndGameId(playerId, gameId);
+
+            foreach(var card in handViewModelItem.CardsInHand)
+            {
+                newCards.Add(card.Id);
+            }
+            
+            foreach(var cardId in cardsId)
+            {
+                newCards.Remove(cardId);
+            }
+
+            foreach(var newCard in newCards)
+            {
+                var hand = new Hand();
+                hand.CardId = newCard;
+                hand.PlayerInGameId = playerInGameId;
+
+                hands.Add(hand);
+            }
+            await _handRepository.Add(hands);
+
+        }
 
 		private async Task<HandViewModelItem> GetPlayerHand(long playerId, long gameId)
 		{
@@ -224,19 +277,7 @@ namespace BlackJack.BusinessLogic.Services
 			var cards = await _cardProvider.GetCardsByIds(cardsIdInPlayersHand);
 			hand.CardsInHand = Mapper.Map<List<Card>, List<CardViewModelItem>>(cards);
 
-			foreach (var card in hand.CardsInHand)
-			{
-				hand.CardsInHandValue += card.Value;
-			}
-
-			foreach (var card in hand.CardsInHand)
-			{
-				if ((card.Title.Replace(" ", string.Empty) == Constant.AceCardTitle)
-					&& (hand.CardsInHandValue > Constant.WinValue))
-				{
-					hand.CardsInHandValue -= Constant.ImageCardValue;
-				}
-			}
+            hand = CalculateCards(hand);
 
 			return hand;
 		}

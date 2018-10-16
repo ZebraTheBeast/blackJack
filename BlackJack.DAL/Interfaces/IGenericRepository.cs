@@ -8,6 +8,7 @@ namespace BlackJack.DataAccess.Interfaces
 		Task<TEntity> GetById(long id);
 		Task<List<TEntity>> GetAll();
 		Task DeleteAll();
-		Task<long> Add(TEntity entity);
+		Task<long> Add(TEntity item);
+        Task Add(List<TEntity> items);
 	}
 }
