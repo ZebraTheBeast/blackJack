@@ -41,7 +41,7 @@ namespace BlackJack.BusinessLogic.Services
 		{
 			var getGameMapper = new GetGameMapper();
 			Game game = await _gameRepository.GetById(gameId);
-			var deck = await GetInGameDeck(gameId);
+			var deck = await GetDeckInGame(gameId);
 
 			var getGameViewModel = getGameMapper.GetViewModel(game, deck);
 
@@ -93,7 +93,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			await _playerInGameRepository.UpdateBet(botsId, requestBetGameViewModel.GameId, Constant.BotsBetValue);
 
-			List<long> deck = await GetInGameDeck(requestBetGameViewModel.GameId);
+			List<long> deck = await GetDeckInGame(requestBetGameViewModel.GameId);
 			List<long> playersId = await _playerInGameRepository.GetAllPlayersIdByGameId(requestBetGameViewModel.GameId);
 
 			foreach (var playerId in playersId)
@@ -120,7 +120,7 @@ namespace BlackJack.BusinessLogic.Services
 		{
 			
 			long humanId = await _playerInGameRepository.GetHumanIdByGameId(gameId);
-			List<long> deck = await GetInGameDeck(gameId);
+			List<long> deck = await GetDeckInGame(gameId);
 
 			int humanBetValue = await _playerInGameRepository.GetBetByPlayerId(humanId, gameId);
 
@@ -194,7 +194,7 @@ namespace BlackJack.BusinessLogic.Services
 			return standGameViewModel;
 		}
 
-		private async Task<List<long>> GetInGameDeck(long gameId)
+		private async Task<List<long>> GetDeckInGame(long gameId)
 		{
 			List<long> cardsInGameId = await _handRepository.GetCardsIdByGameId(gameId);
 			var deck = await _cardProvider.LoadInGameDeck(cardsInGameId);
@@ -205,7 +205,7 @@ namespace BlackJack.BusinessLogic.Services
         {
             if(hand.CardsInHandValue >= Constant.ValueToStopDraw)
             {
-                await GiveCardFromDeck(botId, hand, gameId);
+                await GiveMultipleCards(botId, hand.CardsInHand, gameId);
                 return false;
             }
 
@@ -238,14 +238,14 @@ namespace BlackJack.BusinessLogic.Services
             return cardsInHandValue;
         }
 
-        private async Task GiveCardFromDeck(long playerId, HandViewModelItem handViewModelItem, long gameId)
+        private async Task GiveMultipleCards(long playerId, List<CardViewModelItem> cards, long gameId)
         {
             var cardsId = await _handRepository.GetCardsIdByPlayerId(playerId, gameId);
             var newCards = new List<long>();
             var hands = new List<Hand>();
             var playerInGameId = await _playerInGameRepository.GetIdByPlayerIdAndGameId(playerId, gameId);
 
-            foreach(var card in handViewModelItem.CardsInHand)
+            foreach(var card in cards)
             {
                 newCards.Add(card.Id);
             }
@@ -343,6 +343,7 @@ namespace BlackJack.BusinessLogic.Services
 			int newPointsValue = player.Points + playerBetValue;
 
 			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerWin(playerBetValue)));
+
 			await _playerRepository.UpdatePlayerPoints(playerId, newPointsValue);
 		}
 	}
