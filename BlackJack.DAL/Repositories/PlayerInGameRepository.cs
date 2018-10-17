@@ -74,29 +74,6 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<long> IsInGame(long playerId, long gameId)
-		{
-			var sqlQuery = @"SELECT PlayerId FROM PlayerInGame 
-				WHERE PlayerId = @playerId AND GameId = @gameId";
-
-			using (var db = new SqlConnection(_connectionString))
-			{
-				var player = (await db.QueryAsync<long>(sqlQuery, new { playerId, gameId })).FirstOrDefault();
-				return player;
-			}
-		}
-
-		public async Task UpdateBet(long playerId, long gameId, int betValue)
-		{
-			var sqlQuery = @"UPDATE PlayerInGame SET BetValue = @betValue 
-				WHERE GameId = @gameId AND PlayerId = @playerId";
-
-			using (var db = new SqlConnection(_connectionString))
-			{
-				await db.QueryAsync(sqlQuery, new { betValue, gameId, playerId });
-			}
-		}
-
 		public async Task UpdateBet(List<long> playersId, long gameId, int betValue)
 		{
 			var sqlQuery = @"UPDATE PlayerInGame SET BetValue = @betValue 

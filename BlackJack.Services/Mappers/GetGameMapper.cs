@@ -10,7 +10,7 @@ namespace BlackJack.BusinessLogic.Mappers
 {
 	public class GetGameMapper
 	{
-		public GetGameGameView GetViewModel(Game game, List<long> deck)
+		public GetGameGameView GetView(Game game, List<long> deck)
 		{
 			var getGameViewModel = new GetGameGameView() { Bots = new List<PlayerViewItem>() };
 
