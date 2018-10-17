@@ -48,13 +48,13 @@ namespace BlackJack.DataAccess.Repositories
 
 		}
 
-		public async Task UpdatePlayerPoints(long playerId, int newPointsValue)
+		public async Task UpdatePlayersPoints(List<long> playerIds, int newPointsValue)
 		{
-			var sqlQuery = "UPDATE Player SET Points = @newPointsValue WHERE Id = @playerId";
+			var sqlQuery = "UPDATE Player SET Points = @newPointsValue WHERE Id IN @playerIds";
 
 			using (var db = new SqlConnection(_connectionString))
 			{
-				await db.ExecuteAsync(sqlQuery, new { newPointsValue, playerId });
+				await db.ExecuteAsync(sqlQuery, new { newPointsValue, playerIds });
 			}
 		}
 
@@ -66,16 +66,6 @@ namespace BlackJack.DataAccess.Repositories
 			{
 				var players = (await db.QueryAsync<Player>(sqlQuery, new { idList })).ToList();
 				return players;
-			}
-		}
-
-		public async Task UpdatePlayersPoints(List<long> playersId)
-		{
-			var sqlQuery = "UPDATE Player SET Points = @defaultPointsValue WHERE Id on @playersId";
-
-			using (var db = new SqlConnection(_connectionString))
-			{
-				await db.QueryAsync(sqlQuery, new { defaultPointsValue = Constant.DefaultPointsValue, playersId });
 			}
 		}
 

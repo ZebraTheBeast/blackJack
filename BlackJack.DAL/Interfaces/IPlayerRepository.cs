@@ -9,7 +9,6 @@ namespace BlackJack.DataAccess.Interfaces
         Task<Player> GetPlayerByName(string name);
 		Task<List<Player>> GetPlayersByIds(List<long> idList);
         Task<List<Player>> GetBotsWithDealer(string name, int botsAmount);
-        Task UpdatePlayerPoints(long playerId, int newPointsValue);
-		Task UpdatePlayersPoints(List<long> playersId);
+		Task UpdatePlayersPoints(List<long> playersId, int newPointsValue);
 	}
 }

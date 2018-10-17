@@ -51,7 +51,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (getGameView.Human.Points <= Constant.MinPointsValueToPlay)
 			{
-				await _playerRepository.UpdatePlayerPoints(getGameView.Human.Id, Constant.DefaultPointsValue);
+				await _playerRepository.UpdatePlayersPoints(new List<long> { getGameView.Human.Id }, Constant.DefaultPointsValue);
 				getGameView.Human.Points = Constant.DefaultPointsValue;
 			}
 
@@ -337,7 +337,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerLose(playerBetValue)));
 
-			await _playerRepository.UpdatePlayerPoints(playerId, newPointsValue);
+			await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
 		}
 
 		private async Task UpdateWonPlayersPoints(long playerId, long gameId, int playerBetValue)
@@ -347,7 +347,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerWin(playerBetValue)));
 
-			await _playerRepository.UpdatePlayerPoints(playerId, newPointsValue);
+			await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
 		}
 	}
 }
