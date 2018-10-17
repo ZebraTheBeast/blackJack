@@ -13,5 +13,7 @@ namespace BlackJack.DataAccess.Interfaces
         Task<int> GetBetByPlayerId(long playerId, long gameId);
 		Task UpdateBet(List<long> playerId, long gameId, int betValue);
 		Task<long> GetHumanIdByGameId(long gameId);
-	}
+        Task<List<PlayerInGame>> GetPlayersInGamePlayerIds(List<long> playerIds);
+
+    }
 }

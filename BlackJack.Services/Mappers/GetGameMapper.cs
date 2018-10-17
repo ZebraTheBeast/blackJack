@@ -10,9 +10,14 @@ namespace BlackJack.BusinessLogic.Mappers
 {
 	public class GetGameMapper
 	{
-		public GetGameGameView GetView(Game game, List<long> deck)
+		public GetGameGameView GetView(Game game, List<PlayerInGame> playersInGame, List<long> deck)
 		{
-			var getGameViewModel = new GetGameGameView() { Bots = new List<PlayerViewItem>() };
+            foreach (var playerInGame in playersInGame)
+            {
+                game.PlayersInGame.Where(player => player.PlayerId == playerInGame.PlayerId).FirstOrDefault().CardsInHand = playerInGame.CardsInHand;
+            }
+
+            var getGameViewModel = new GetGameGameView() { Bots = new List<PlayerViewItem>() };
 
 			var human = game.PlayersInGame.Where(player => player.IsHuman == true).FirstOrDefault();
 			var dealer = game.PlayersInGame.Where(player => player.Player.Type == Entities.Enums.PlayerType.Dealer).FirstOrDefault();

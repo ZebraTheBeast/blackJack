@@ -41,9 +41,13 @@ namespace BlackJack.BusinessLogic.Services
 		{
 			var getGameMapper = new GetGameMapper();
 			Game game = await _gameRepository.GetById(gameId);
-			var deck = await GetDeckInGame(gameId);
+            var playerIds = game.PlayersInGame.Select(p => p.Id).ToList();
 
-			var getGameView = getGameMapper.GetView(game, deck);
+            var playersInGame = await _playerInGameRepository.GetPlayersInGamePlayerIds(playerIds);
+
+            var deck = await GetDeckInGame(gameId);
+
+			var getGameView = getGameMapper.GetView(game, playersInGame, deck);
 
 			if (getGameView.Human.Points <= Constant.MinPointsValueToPlay)
 			{
@@ -147,7 +151,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<StandGameView> Stand(long gameId)
 		{
-			var playersIds = new List<long>();
+			var playerIds = new List<long>();
 			var standGameView = new StandGameView();
 			var message = string.Empty;
 			var getGameView = await GetGame(gameId);
@@ -177,14 +181,14 @@ namespace BlackJack.BusinessLogic.Services
 			{
 				getGameView.Bots[i].Hand = await GetPlayerHand(getGameView.Bots[i].Id, gameId);
 				await UpdateScore(getGameView.Bots[i], getGameView.Dealer.Hand.CardsInHandValue, gameId);
-				playersIds.Add(getGameView.Bots[i].Id);
+				playerIds.Add(getGameView.Bots[i].Id);
 			}
 
-            playersIds.Add(getGameView.Human.Id);
+            playerIds.Add(getGameView.Human.Id);
 
 			message = await UpdateScore(getGameView.Human, getGameView.Dealer.Hand.CardsInHandValue, gameId);
 
-			await _playerInGameRepository.UpdateBet(playersIds, gameId, 0);
+			await _playerInGameRepository.UpdateBet(playerIds, gameId, 0);
 
 			getGameView = await GetGame(gameId);
 

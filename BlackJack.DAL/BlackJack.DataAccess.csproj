@@ -81,6 +81,8 @@
     <Compile Include="Interfaces\ILogMessageRepository.cs" />
     <Compile Include="Interfaces\IPlayerInGameRepository.cs" />
     <Compile Include="Interfaces\IPlayerRepository.cs" />
+    <Compile Include="Mappers\GameMapper.cs" />
+    <Compile Include="Mappers\PlayerInGameMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CardRepository.cs" />
     <Compile Include="Repositories\GameRepository.cs" />
