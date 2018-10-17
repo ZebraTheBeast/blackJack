@@ -34,14 +34,13 @@ namespace BlackJack.BusinessLogic.Services
 			_cardProvider = cardProvider;
 
 			_logger = LogManager.GetCurrentClassLogger();
-
 		}
 
 		public async Task<GetGameGameView> GetGame(long gameId)
 		{
 			var getGameMapper = new GetGameMapper();
 			Game game = await _gameRepository.GetById(gameId);
-            var playerIds = game.PlayersInGame.Select(p => p.Id).ToList();
+            var playerIds = game.PlayersInGame.Select(playerInGame => playerInGame.Id).ToList();
 
             var playersInGame = await _playerInGameRepository.GetPlayersInGamePlayerIds(playerIds);
 
@@ -102,8 +101,8 @@ namespace BlackJack.BusinessLogic.Services
 
 			foreach (var playerId in playersId)
 			{
-				deck = await GiveCardFromDeck(playerId, deck, requestBetGameView.GameId);
-				deck = await GiveCardFromDeck(playerId, deck, requestBetGameView.GameId);
+				deck = await GiveCardToPlayer(playerId, deck, requestBetGameView.GameId);
+				deck = await GiveCardToPlayer(playerId, deck, requestBetGameView.GameId);
 			}
 
 			var getGameView = await GetGame(requestBetGameView.GameId);
@@ -133,7 +132,7 @@ namespace BlackJack.BusinessLogic.Services
 				throw new Exception(StringHelper.NoBetValue);
 			}
 
-			deck = await GiveCardFromDeck(humanId, deck, gameId);
+			deck = await GiveCardToPlayer(humanId, deck, gameId);
 
 			var getGameView = await GetGame(gameId);
 			getGameView.Options = StringHelper.OptionDrawCard;
@@ -287,7 +286,7 @@ namespace BlackJack.BusinessLogic.Services
 			return hand;
 		}
 
-		private async Task<List<long>> GiveCardFromDeck(long playerId, List<long> deck, long gameId)
+		private async Task<List<long>> GiveCardToPlayer(long playerId, List<long> deck, long gameId)
 		{
 			await _handRepository.GiveCardToPlayerInGame(playerId, deck[0], gameId);
 			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDrawCard(deck[0])));

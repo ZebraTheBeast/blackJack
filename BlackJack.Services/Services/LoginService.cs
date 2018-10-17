@@ -51,7 +51,7 @@ namespace BlackJack.BusinessLogic.Services
 			}
 
 			List<Player> bots = await _playerRepository.GetBotsWithDealer(playerName, botsAmount);
-			var oldGame = await _gameRepository.GetGameIdByHumanId(human.Id);
+			var oldGameId = await _gameRepository.GetGameIdByHumanId(human.Id);
 			var playersIdWithoutPoints = new List<long>();
 
 			foreach (var bot in bots)
@@ -70,11 +70,11 @@ namespace BlackJack.BusinessLogic.Services
 
 			await _cardProvider.RestoreCardsInDb();
 
-			if (oldGame != 0)
+			if (oldGameId != 0)
 			{
-				await _handRepository.RemoveAllCardsInHand(oldGame);
-				await _playerInGameRepository.RemoveAllPlayersFromGame(oldGame);
-				await _gameRepository.DeleteGameById(oldGame);
+				await _handRepository.RemoveAllCardsInHand(oldGameId);
+				await _playerInGameRepository.RemoveAllPlayersFromGame(oldGameId);
+				await _gameRepository.DeleteGameById(oldGameId);
 			}
 
 			long gameId = await _gameRepository.Add(new Game());
