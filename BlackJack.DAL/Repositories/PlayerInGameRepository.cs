@@ -111,7 +111,7 @@ namespace BlackJack.DataAccess.Repositories
 
             using (var db = new SqlConnection(_connectionString))
             {
-                List<PlayerInGame> playersInGame = (await db.QueryAsync<PlayerInGame, Player, Hand, Card, PlayerInGame>(
+                List<PlayerInGame> playersInGame = (await db.QueryAsync(
                     sqlQuery,
                     playerInGameMapper.GetMap(playerInGameDictionary),
                     param: new { playerIds }
