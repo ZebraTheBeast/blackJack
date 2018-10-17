@@ -83,12 +83,12 @@ namespace BlackJack.BusinessLogic.Services
 			{
 				var botInGame = new PlayerInGame() { PlayerId = bot.Id, GameId = gameId, IsHuman = false };
 				await _playerInGameRepository.Add(botInGame);
-				_logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame()));
+				_logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame));
 			}
 
 			var humanInGame = new PlayerInGame() { PlayerId = human.Id, GameId = gameId, IsHuman = true };
 			await _playerInGameRepository.Add(humanInGame);
-			_logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame()));
+			_logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame));
 
 			return gameId;
 		}
@@ -99,7 +99,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (player == null)
 			{
-				throw new Exception(StringHelper.NoLastGame());
+				throw new Exception(StringHelper.NoLastGame);
 			}
 
 			if (player.Points <= Constant.MinPointsValueToPlay)
@@ -114,10 +114,10 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (gameId == 0)
 			{
-				throw new Exception(StringHelper.NoLastGame());
+				throw new Exception(StringHelper.NoLastGame);
 			}
 
-			_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerContinueGame()));
+			_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerContinueGame));
 			return gameId;
 		}
 	}

@@ -31,17 +31,17 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 
 				if (loginViewModel.BotsAmount < Constant.MinBotsAmount)
 				{
-					throw new Exception(StringHelper.MinBotsAmount());
+					throw new Exception(StringHelper.MinBotsAmount);
 				}
 
 				if (loginViewModel.BotsAmount > Constant.MaxBotsAmount)
 				{
-					throw new Exception(StringHelper.MaxBotsAmount());
+					throw new Exception(StringHelper.MaxBotsAmount);
 				}
 
 				if (String.IsNullOrEmpty(loginViewModel.PlayerName))
 				{
-					throw new Exception(StringHelper.EmptyName());
+					throw new Exception(StringHelper.EmptyName);
 				}
 
 				gameId = await _loginService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
@@ -63,7 +63,7 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 			{
 				if (String.IsNullOrEmpty(playerName))
 				{
-					throw new Exception(StringHelper.EmptyName());
+					throw new Exception(StringHelper.EmptyName);
 				}
 				long gameId = await _loginService.LoadGame(playerName);
 				var response = new { gameId };

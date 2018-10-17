@@ -25,7 +25,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (messages.Count() == 0)
 			{
-				throw new Exception(StringHelper.EmptyLog());
+				throw new Exception(StringHelper.EmptyLog);
 			}
 
 			foreach (var message in messages)
