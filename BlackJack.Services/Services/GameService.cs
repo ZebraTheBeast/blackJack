@@ -38,7 +38,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		public async Task<GetGameGameView> GetGame(long gameId)
 		{
-			var getGameMapper = new GetGameMapper();
+			var getGameMapper = new GameMapper();
 			Game game = await _gameRepository.GetById(gameId);
             var playerIds = game.PlayersInGame.Select(playerInGame => playerInGame.Id).ToList();
 
@@ -209,7 +209,7 @@ namespace BlackJack.BusinessLogic.Services
         {
             if(hand.CardsInHandValue >= Constant.ValueToStopDraw)
             {
-                await GiveMultipleCards(botId, hand.CardsInHand, gameId);
+                await RecordMultipleCards(botId, hand.CardsInHand, gameId);
                 return false;
             }
 
@@ -242,7 +242,7 @@ namespace BlackJack.BusinessLogic.Services
             return cardsInHandValue;
         }
 
-        private async Task GiveMultipleCards(long playerId, List<CardViewItem> cards, long gameId)
+        private async Task RecordMultipleCards(long playerId, List<CardViewItem> cards, long gameId)
         {
             var cardsInHandId = await _handRepository.GetCardsIdByPlayerId(playerId, gameId);
             var newCards = new List<long>();
@@ -288,7 +288,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		private async Task<List<long>> GiveCardToPlayer(long playerId, List<long> deck, long gameId)
 		{
-			await _handRepository.GiveCardToPlayerInGame(playerId, deck[0], gameId);
+			await _handRepository.AddCard(playerId, deck[0], gameId);
 			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDrawCard(deck[0])));
 			deck.Remove(deck[0]);
 			return deck;

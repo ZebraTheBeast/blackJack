@@ -44,7 +44,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task GiveCardToPlayerInGame(long playerId, long cardId, long gameId)
+		public async Task AddCard(long playerId, long cardId, long gameId)
 		{
 			var sqlQuery = @"INSERT INTO Hand (CardId, PlayerInGameId, CreationDate) VALUES(@cardId,
 				(SELECT Id FROM PlayerInGame WHERE GameId = @gameId AND PlayerId = @playerId), @date)";
