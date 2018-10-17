@@ -1,4 +1,5 @@
 ﻿using BlackJack.DataAccess.Interfaces;
+using BlackJack.Entities;
 using Dapper.Contrib.Extensions;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Repositories
 {
-	public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+	public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
 	{
 
 		private string _connectionString;
@@ -43,11 +44,11 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<long> Add(TEntity item)
+		public async Task<long> Add(TEntity entity)
 		{
 			using (var db = new SqlConnection(_connectionString))
 			{
-				long id = await db.InsertAsync<TEntity>(item);
+				long id = await db.InsertAsync<TEntity>(entity);
 				return id;
 			}
 		}

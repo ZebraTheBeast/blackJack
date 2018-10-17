@@ -43,18 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\DrawGameViewModel.cs" />
-    <Compile Include="Game\RequestBetGameViewModel.cs" />
-    <Compile Include="Game\GetGameViewModel.cs" />
-    <Compile Include="Shared\CardViewModelItem.cs" />
-    <Compile Include="Shared\DealerViewModelItem.cs" />
-    <Compile Include="Shared\HandViewModelItem.cs" />
-    <Compile Include="Shared\PlayerViewModelItem.cs" />
-    <Compile Include="Login\StartGameLoginViewModel.cs" />
-    <Compile Include="Log\GetLogsLogViewModel.cs" />
+    <Compile Include="Game\DrawGameView.cs" />
+    <Compile Include="Game\RequestBetGameView.cs" />
+    <Compile Include="Game\GetGameGameView.cs" />
+    <Compile Include="Shared\CardViewItem.cs" />
+    <Compile Include="Shared\DealerViewItem.cs" />
+    <Compile Include="Shared\HandViewItem.cs" />
+    <Compile Include="Shared\PlayerViewItem.cs" />
+    <Compile Include="Login\StartGameLoginView.cs" />
+    <Compile Include="Log\GetLogsLogView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Game\ResponseBetGameViewModel.cs" />
-    <Compile Include="Game\StandGameViewModel.cs" />
+    <Compile Include="Game\ResponseBetGameView.cs" />
+    <Compile Include="Game\StandGameView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
