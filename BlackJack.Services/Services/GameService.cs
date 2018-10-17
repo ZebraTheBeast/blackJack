@@ -63,7 +63,7 @@ namespace BlackJack.BusinessLogic.Services
 		{	
 			if (requestBetGameView.BetValue <= 0)
 			{
-				throw new Exception(StringHelper.NoBetValue());
+				throw new Exception(StringHelper.NoBetValue);
 			}
 			
 			var responseBetGameView = new ResponseBetGameView();
@@ -82,7 +82,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (humanBetValue != 0)
 			{
-				throw new Exception(StringHelper.AlreadyBet());
+				throw new Exception(StringHelper.AlreadyBet);
 			}
 
 			await _playerInGameRepository.UpdateBet(new List<long> { human.Id }, requestBetGameView.GameId, requestBetGameView.BetValue);
@@ -130,7 +130,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (humanBetValue == 0)
 			{
-				throw new Exception(StringHelper.NoBetValue());
+				throw new Exception(StringHelper.NoBetValue);
 			}
 
 			deck = await GiveCardFromDeck(humanId, deck, gameId);
@@ -159,7 +159,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (getGameView.Human.BetValue == 0)
 			{
-				throw new Exception(StringHelper.NoBetValue());
+				throw new Exception(StringHelper.NoBetValue);
 			}
 
 			if ((getGameView.Dealer.Hand.CardsInHandValue != Constant.WinValue)
@@ -326,7 +326,7 @@ namespace BlackJack.BusinessLogic.Services
 				return StringHelper.OptionLose;
 			}
 
-			_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerDraw()));
+			_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerDraw));
 			return StringHelper.OptionDraw;
 		}
 
