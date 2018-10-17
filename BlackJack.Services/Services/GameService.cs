@@ -37,7 +37,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		}
 
-		public async Task<GetGameViewModel> GetGame(long gameId)
+		public async Task<GetGameGameView> GetGame(long gameId)
 		{
 			var getGameMapper = new GetGameMapper();
 			Game game = await _gameRepository.GetById(gameId);
@@ -55,14 +55,14 @@ namespace BlackJack.BusinessLogic.Services
 		}
 
 
-		public async Task<ResponseBetGameViewModel> PlaceBet(RequestBetGameViewModel requestBetGameViewModel)
+		public async Task<ResponseBetGameView> PlaceBet(RequestBetGameView requestBetGameViewModel)
 		{	
 			if (requestBetGameViewModel.BetValue <= 0)
 			{
 				throw new Exception(StringHelper.NoBetValue());
 			}
 			
-			var responseBetGameViewModel = new ResponseBetGameViewModel();
+			var responseBetGameViewModel = new ResponseBetGameView();
 			
 			long humanId = await _playerInGameRepository.GetHumanIdByGameId(requestBetGameViewModel.GameId);
 			Player human = await _playerRepository.GetById(humanId);
@@ -108,15 +108,15 @@ namespace BlackJack.BusinessLogic.Services
 			if ((getGameViewModel.Human.Hand.CardsInHandValue >= Constant.WinValue)
 				|| (getGameViewModel.Dealer.Hand.CardsInHandValue >= Constant.WinValue))
 			{
-				StandGameViewModel standGameViewModel = await Stand(requestBetGameViewModel.GameId);
-				getGameViewModel = Mapper.Map<StandGameViewModel, GetGameViewModel>(standGameViewModel);
+				StandGameView standGameViewModel = await Stand(requestBetGameViewModel.GameId);
+				getGameViewModel = Mapper.Map<StandGameView, GetGameGameView>(standGameViewModel);
 			}
 
-			responseBetGameViewModel = Mapper.Map<GetGameViewModel, ResponseBetGameViewModel>(getGameViewModel);
+			responseBetGameViewModel = Mapper.Map<GetGameGameView, ResponseBetGameView>(getGameViewModel);
 			return responseBetGameViewModel;
 		}
 
-		public async Task<DrawGameViewModel> DrawCard(long gameId)
+		public async Task<DrawGameView> DrawCard(long gameId)
 		{
 			
 			long humanId = await _playerInGameRepository.GetHumanIdByGameId(gameId);
@@ -136,19 +136,19 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (getGameViewModel.Human.Hand.CardsInHandValue >= Constant.WinValue)
 			{
-				StandGameViewModel standGameViewModel = await Stand(gameId);
-				getGameViewModel = Mapper.Map<StandGameViewModel, GetGameViewModel>(standGameViewModel);
+				StandGameView standGameViewModel = await Stand(gameId);
+				getGameViewModel = Mapper.Map<StandGameView, GetGameGameView>(standGameViewModel);
 			}
 
-			var drawGameViewModel = Mapper.Map<GetGameViewModel, DrawGameViewModel>(getGameViewModel);
+			var drawGameViewModel = Mapper.Map<GetGameGameView, DrawGameView>(getGameViewModel);
 
 			return drawGameViewModel;
 		}
 
-		public async Task<StandGameViewModel> Stand(long gameId)
+		public async Task<StandGameView> Stand(long gameId)
 		{
 			var botsId = new List<long>();
-			var standGameViewModel = new StandGameViewModel();
+			var standGameViewModel = new StandGameView();
 			var message = string.Empty;
 			var getGameViewModel = await GetGame(gameId);
             var deck = await _cardProvider.GetCardsByIds(getGameViewModel.Deck);
@@ -189,7 +189,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			getGameViewModel.Options = StringHelper.OptionSetBet(message);
 
-			standGameViewModel = Mapper.Map<GetGameViewModel, StandGameViewModel>(getGameViewModel);
+			standGameViewModel = Mapper.Map<GetGameGameView, StandGameView>(getGameViewModel);
 
 			return standGameViewModel;
 		}
@@ -201,7 +201,7 @@ namespace BlackJack.BusinessLogic.Services
 			return deck;
 		}
 
-        private async Task<bool> BotTurn(long botId, List<Card> deck, long gameId, HandViewModelItem hand)
+        private async Task<bool> BotTurn(long botId, List<Card> deck, long gameId, HandViewItem hand)
         {
             if(hand.CardsInHandValue >= Constant.ValueToStopDraw)
             {
@@ -209,7 +209,7 @@ namespace BlackJack.BusinessLogic.Services
                 return false;
             }
 
-            var card = Mapper.Map<Card, CardViewModelItem>(deck[0]);
+            var card = Mapper.Map<Card, CardViewItem>(deck[0]);
             _logger.Log(LogHelper.GetEvent(botId, gameId, StringHelper.PlayerDrawCard(deck[0].Id)));
             deck.Remove(deck[0]);
             hand.CardsInHand.Add(card);
@@ -218,7 +218,7 @@ namespace BlackJack.BusinessLogic.Services
             return await BotTurn(botId, deck, gameId, hand);
         }
 
-        private int CalculateCardsValue(List<CardViewModelItem> cards)
+        private int CalculateCardsValue(List<CardViewItem> cards)
         {
             var cardsInHandValue = 0;
 
@@ -238,23 +238,21 @@ namespace BlackJack.BusinessLogic.Services
             return cardsInHandValue;
         }
 
-        private async Task GiveMultipleCards(long playerId, List<CardViewModelItem> cards, long gameId)
+        private async Task GiveMultipleCards(long playerId, List<CardViewItem> cards, long gameId)
         {
-            var cardsId = await _handRepository.GetCardsIdByPlayerId(playerId, gameId);
+            var cardsInHandId = await _handRepository.GetCardsIdByPlayerId(playerId, gameId);
             var newCards = new List<long>();
             var hands = new List<Hand>();
             var playerInGameId = await _playerInGameRepository.GetIdByPlayerIdAndGameId(playerId, gameId);
 
             foreach(var card in cards)
             {
-                newCards.Add(card.Id);
+                if (!cardsInHandId.Contains(card.Id))
+                {
+                    newCards.Add(card.Id);
+                }
             }
             
-            foreach(var cardId in cardsId)
-            {
-                newCards.Remove(cardId);
-            }
-
             foreach(var newCard in newCards)
             {
                 var hand = new Hand();
@@ -263,21 +261,21 @@ namespace BlackJack.BusinessLogic.Services
 
                 hands.Add(hand);
             }
-            await _handRepository.Add(hands);
 
+            await _handRepository.Add(hands);
         }
 
-		private async Task<HandViewModelItem> GetPlayerHand(long playerId, long gameId)
+		private async Task<HandViewItem> GetPlayerHand(long playerId, long gameId)
 		{
-			var hand = new HandViewModelItem
+			var hand = new HandViewItem
 			{
-				CardsInHand = new List<CardViewModelItem>()
+				CardsInHand = new List<CardViewItem>()
 			};
 
 			List<long> cardsIdInPlayersHand = await _handRepository.GetCardsIdByPlayerId(playerId, gameId);
 
 			var cards = await _cardProvider.GetCardsByIds(cardsIdInPlayersHand);
-			hand.CardsInHand = Mapper.Map<List<Card>, List<CardViewModelItem>>(cards);
+			hand.CardsInHand = Mapper.Map<List<Card>, List<CardViewItem>>(cards);
 
             hand.CardsInHandValue = CalculateCardsValue(hand.CardsInHand);
 
@@ -292,7 +290,7 @@ namespace BlackJack.BusinessLogic.Services
 			return deck;
 		}
 
-		private async Task<string> UpdateScore(PlayerViewModelItem player, int dealerCardsValue, long gameId)
+		private async Task<string> UpdateScore(PlayerViewItem player, int dealerCardsValue, long gameId)
 		{
 			_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerValue(player.Hand.CardsInHandValue, dealerCardsValue)));
 

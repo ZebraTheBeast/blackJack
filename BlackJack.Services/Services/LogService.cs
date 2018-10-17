@@ -18,9 +18,9 @@ namespace BlackJack.BusinessLogic.Services
 			_logMessageRepository = logMessageRepository;
 		}
 
-		public async Task<IEnumerable<GetLogsLogViewModel>> GetMessages()
+		public async Task<IEnumerable<GetLogsLogView>> GetMessages()
 		{
-			var messagesModel = new List<GetLogsLogViewModel>();
+			var messagesModel = new List<GetLogsLogView>();
 			var messages = (await _logMessageRepository.GetAll()).ToList();
 
 			if (messages.Count() == 0)
@@ -30,7 +30,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			foreach (var message in messages)
 			{
-				var messageModel = new GetLogsLogViewModel
+				var messageModel = new GetLogsLogView
 				{
 					Id = message.Id,
 					Message = message.Message,

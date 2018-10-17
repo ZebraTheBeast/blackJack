@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace BlackJack.ViewModels
 {
-	public class StandGameViewModel
+	public class GetGameGameView
 	{
 		[JsonProperty("dealer")]
-		public DealerViewModelItem Dealer { get; set; }
+		public DealerViewItem Dealer { get; set; }
 		[JsonProperty("human")]
-		public PlayerViewModelItem Human { get; set; }
+		public PlayerViewItem Human { get; set; }
 		[JsonProperty("bots")]
-		public List<PlayerViewModelItem> Bots { get; set; }
+		public List<PlayerViewItem> Bots { get; set; }
 		[JsonProperty("deck")]
 		public List<long> Deck { get; set; }
 		[JsonProperty("options")]

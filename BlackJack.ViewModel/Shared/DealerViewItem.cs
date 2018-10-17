@@ -2,13 +2,13 @@
 
 namespace BlackJack.ViewModels
 {
-	public class DealerViewModelItem
+	public class DealerViewItem
 	{
 		[JsonProperty("id")]
 		public int Id { get; set; }
 		[JsonProperty("name")]
 		public string Name { get; set; }
 		[JsonProperty("hand")]
-		public HandViewModelItem Hand { get; set; }
+		public HandViewItem Hand { get; set; }
 	}
 }

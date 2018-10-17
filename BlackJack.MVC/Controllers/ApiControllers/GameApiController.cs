@@ -27,7 +27,7 @@ namespace BlackJack.MVC.Controllers
 		{
 			try
 			{
-				var getGameViewModel = new GetGameViewModel();
+				var getGameViewModel = new GetGameGameView();
 				getGameViewModel = await _gameService.GetGame(gameId);
 
 				if (getGameViewModel.Dealer == null)
@@ -50,11 +50,11 @@ namespace BlackJack.MVC.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IHttpActionResult> Bet([FromBody]RequestBetGameViewModel betViewModel)
+		public async Task<IHttpActionResult> Bet([FromBody]RequestBetGameView betViewModel)
 		{
 			try
 			{
-				var responseBetGameViewModel = new ResponseBetGameViewModel();
+				var responseBetGameViewModel = new ResponseBetGameView();
 				responseBetGameViewModel = await _gameService.PlaceBet(betViewModel);
 				return Ok(responseBetGameViewModel);
 			}
@@ -70,7 +70,7 @@ namespace BlackJack.MVC.Controllers
 		{
 			try
 			{
-				var drawGameViewModel = new DrawGameViewModel();
+				var drawGameViewModel = new DrawGameView();
 				drawGameViewModel = await _gameService.DrawCard(gameId);
 
 				return Ok(drawGameViewModel);
@@ -87,7 +87,7 @@ namespace BlackJack.MVC.Controllers
 		{
 			try
 			{
-				var standGameViewModel = new StandGameViewModel();
+				var standGameViewModel = new StandGameView();
 				standGameViewModel = await _gameService.Stand(gameId);
 				return Ok(standGameViewModel);
 			}

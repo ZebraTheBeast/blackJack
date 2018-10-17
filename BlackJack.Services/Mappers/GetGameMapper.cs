@@ -10,24 +10,24 @@ namespace BlackJack.BusinessLogic.Mappers
 {
 	public class GetGameMapper
 	{
-		public GetGameViewModel GetViewModel(Game game, List<long> deck)
+		public GetGameGameView GetViewModel(Game game, List<long> deck)
 		{
-			var getGameViewModel = new GetGameViewModel() { Bots = new List<PlayerViewModelItem>() };
+			var getGameViewModel = new GetGameGameView() { Bots = new List<PlayerViewItem>() };
 
 			var human = game.PlayersInGame.Where(player => player.IsHuman == true).FirstOrDefault();
 			var dealer = game.PlayersInGame.Where(player => player.Player.Type == Entities.Enums.PlayerType.Dealer).FirstOrDefault();
 
-			getGameViewModel.Human = Mapper.Map<Player, PlayerViewModelItem>(human.Player);
+			getGameViewModel.Human = Mapper.Map<Player, PlayerViewItem>(human.Player);
 			getGameViewModel.Human.BetValue = human.BetValue;
 			getGameViewModel.Human.Hand = GetHand(game.PlayersInGame.Where(player => player.IsHuman == true).FirstOrDefault().CardsInHand);
-			getGameViewModel.Dealer = Mapper.Map<Player, DealerViewModelItem>(dealer.Player);
+			getGameViewModel.Dealer = Mapper.Map<Player, DealerViewItem>(dealer.Player);
 			getGameViewModel.Dealer.Hand = GetHand(game.PlayersInGame.Where(player => player.PlayerId == dealer.PlayerId).FirstOrDefault().CardsInHand);
 
 			foreach (var playerInGame in game.PlayersInGame.Where(player => player.Player.Type == Entities.Enums.PlayerType.Bot))
 			{
-				var bot = new PlayerViewModelItem();
+				var bot = new PlayerViewItem();
 
-				bot = Mapper.Map<Player, PlayerViewModelItem>(playerInGame.Player);
+				bot = Mapper.Map<Player, PlayerViewItem>(playerInGame.Player);
 				bot.BetValue = playerInGame.BetValue;
 
 				bot.Hand = GetHand(playerInGame.CardsInHand);
@@ -51,14 +51,14 @@ namespace BlackJack.BusinessLogic.Mappers
 			return getGameViewModel;
 		}
 
-		private HandViewModelItem GetHand(List<Hand> hands)
+		private HandViewItem GetHand(List<Hand> hands)
 		{
-			var hand = new HandViewModelItem { CardsInHand = new List<CardViewModelItem>() };
+			var hand = new HandViewItem { CardsInHand = new List<CardViewItem>() };
 			if (hands != null)
 			{
 				foreach (var cardInHand in hands)
 				{
-					hand.CardsInHand.Add(Mapper.Map<Card, CardViewModelItem>(cardInHand.Card));
+					hand.CardsInHand.Add(Mapper.Map<Card, CardViewItem>(cardInHand.Card));
 					hand.CardsInHandValue += cardInHand.Card.Value;
 				}
 

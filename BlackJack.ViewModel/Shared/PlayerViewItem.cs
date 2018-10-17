@@ -2,7 +2,7 @@
 
 namespace BlackJack.ViewModels
 {
-	public class PlayerViewModelItem
+	public class PlayerViewItem
 	{
 		[JsonProperty("id")]
 		public int Id { get; set; }
@@ -11,7 +11,7 @@ namespace BlackJack.ViewModels
 		[JsonProperty("points")]
 		public int Points { get; set; }
 		[JsonProperty("hand")]
-		public HandViewModelItem Hand { get; set; }
+		public HandViewItem Hand { get; set; }
 		[JsonProperty("betValue")]
 		public int BetValue { get; set; }
 	}

@@ -2,7 +2,7 @@
 
 namespace BlackJack.ViewModels
 {
-	public class CardViewModelItem
+	public class CardViewItem
 	{
 		[JsonProperty("id")]
 		public int Id { get; set; }

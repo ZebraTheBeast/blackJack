@@ -26,7 +26,7 @@ namespace BlackJack.MVC.Controllers.ApiControllers
 		{
 			try
 			{
-				List<GetLogsLogViewModel> logMessageViewModel = (await _logService.GetMessages()).ToList();
+				List<GetLogsLogView> logMessageViewModel = (await _logService.GetMessages()).ToList();
 				return Ok(logMessageViewModel);
 			}
 			catch (Exception exception)
