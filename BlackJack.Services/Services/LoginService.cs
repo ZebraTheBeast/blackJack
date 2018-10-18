@@ -50,7 +50,10 @@ namespace BlackJack.BusinessLogic.Services
 				human.Points = Constant.DefaultPointsValue;
 			}
 
-			List<Player> bots = await _playerRepository.GetBotsWithDealer(playerName, botsAmount);
+			List<Player> bots = await _playerRepository.GetBots(botsAmount);
+            var dealer = await _playerRepository.GetDealer();
+            bots.Add(dealer);
+
 			var oldGameId = await _gameRepository.GetGameIdByHumanId(human.Id);
 			var playersIdWithoutPoints = new List<long>();
 

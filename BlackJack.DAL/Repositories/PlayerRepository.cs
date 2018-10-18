@@ -19,13 +19,11 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task<List<Player>> GetBotsWithDealer(string playerName, int botsAmount)
+		public async Task<List<Player>> GetBots(int botsAmount)
 		{
 			var players = new List<Player>();
 			var playersIdWithoutPoints = new List<int>();
-			var dealer = await GetDealer();
 			var sqlQuery = "SELECT TOP(@botsAmount) * FROM Player WHERE Type = @playerType";
-			players.Add(dealer);
 
 			using (var db = new SqlConnection(_connectionString))
 			{
@@ -58,18 +56,7 @@ namespace BlackJack.DataAccess.Repositories
 			}
 		}
 
-		public async Task<List<Player>> GetPlayersByIds(List<long> idList)
-		{
-			var sqlQuery = "SELECT * FROM Player WHERE Id IN @idList";
-
-			using (var db = new SqlConnection(_connectionString))
-			{
-				var players = (await db.QueryAsync<Player>(sqlQuery, new { idList })).ToList();
-				return players;
-			}
-		}
-
-		private async Task<Player> GetDealer()
+		public async Task<Player> GetDealer()
 		{
 			var sqlQuery = "SELECT TOP(1) * FROM Player WHERE Type = @playerType";
 

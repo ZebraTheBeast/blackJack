@@ -85,18 +85,6 @@ namespace BlackJack.DataAccess.Repositories
             }
         }
 
-        public async Task<long> GetIdByPlayerIdAndGameId(long playerId, long gameId)
-        {
-            var sqlQuery = @"SELECT PlayerInGame.Id FROM PlayerInGame
-                INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id
-                WHERE PlayerId = @playerId AND GameId = @gameId";
-            using (var db = new SqlConnection(_connectionString))
-            {
-                var playerInGame = (await db.QueryAsync<long>(sqlQuery, new { playerId, gameId })).FirstOrDefault();
-                return playerInGame;
-            }
-        }
-
         public async Task<List<PlayerInGame>> GetPlayersInGameByPlayerIds(List<long> playerIds)
         {
             var sqlQuery = @"SELECT * FROM PlayerInGame 

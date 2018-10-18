@@ -7,8 +7,8 @@ namespace BlackJack.DataAccess.Interfaces
 	public interface IPlayerRepository : IGenericRepository<Player>
     {
         Task<Player> GetPlayerByName(string name);
-		Task<List<Player>> GetPlayersByIds(List<long> idList);
-        Task<List<Player>> GetBotsWithDealer(string name, int botsAmount);
+        Task<Player> GetDealer();
+        Task<List<Player>> GetBots(int botsAmount);
 		Task UpdatePlayersPoints(List<long> playersId, int newPointsValue);
 	}
 }

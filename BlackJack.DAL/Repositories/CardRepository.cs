@@ -18,14 +18,6 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task PopulateCards(List<Card> cards)
-		{
-			using (var db = new SqlConnection(_connectionString))
-			{
-				await db.InsertAsync(cards);
-			}
-		}
-
 		public async Task<List<Card>> GetCardsById(List<long> cardsId)
 		{
 			var sqlQuery = "SELECT * FROM Card WHERE Id IN @cardsId";
