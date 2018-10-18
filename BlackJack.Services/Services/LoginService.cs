@@ -14,18 +14,18 @@ namespace BlackJack.BusinessLogic.Services
 	{
 		private IPlayerInGameRepository _playerInGameRepository;
 		private IPlayerRepository _playerRepository;
-		private IHandRepository _handRepository;
+		private ICardInHandRepository _cardInHandRepository;
 		private IGameRepository _gameRepository;
 
 		private ICardProvider _cardProvider;
 
 		private Logger _logger;
 
-		public LoginService(ICardProvider cardProvider, IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, IHandRepository handRepository, IGameRepository gameRepository)
+		public LoginService(ICardProvider cardProvider, IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, ICardInHandRepository handRepository, IGameRepository gameRepository)
 		{
 			_playerInGameRepository = playerInGameRepository;
 			_playerRepository = playerRepository;
-			_handRepository = handRepository;
+			_cardInHandRepository = handRepository;
 			_gameRepository = gameRepository;
 
 			_cardProvider = cardProvider;
@@ -72,7 +72,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (oldGameId != 0)
 			{
-				await _handRepository.RemoveAllCardsInHand(oldGameId);
+				await _cardInHandRepository.RemoveAllCardsByGameId(oldGameId);
 				await _playerInGameRepository.RemoveAllPlayersFromGame(oldGameId);
 				await _gameRepository.DeleteGameById(oldGameId);
 			}

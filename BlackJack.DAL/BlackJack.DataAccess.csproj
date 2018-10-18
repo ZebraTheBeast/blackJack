@@ -77,7 +77,7 @@
     <Compile Include="Interfaces\ICardRepository.cs" />
     <Compile Include="Interfaces\IGameRepository.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
-    <Compile Include="Interfaces\IHandRepository.cs" />
+    <Compile Include="Interfaces\ICardInHandRepository.cs" />
     <Compile Include="Interfaces\ILogMessageRepository.cs" />
     <Compile Include="Interfaces\IPlayerInGameRepository.cs" />
     <Compile Include="Interfaces\IPlayerRepository.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="Repositories\CardRepository.cs" />
     <Compile Include="Repositories\GameRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
-    <Compile Include="Repositories\HandRepository.cs" />
+    <Compile Include="Repositories\CardInHandRepository.cs" />
     <Compile Include="Repositories\LogMessageRepository.cs" />
     <Compile Include="Repositories\PlayerInGameRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />

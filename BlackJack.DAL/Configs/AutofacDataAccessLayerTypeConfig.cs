@@ -8,7 +8,7 @@ namespace BlackJack.DataAccess.Configs
 	{
 		public static ContainerBuilder GetDataAccessLayerType(ContainerBuilder builder, string connectionString)
 		{
-			builder.RegisterType<HandRepository>().As<IHandRepository>().WithParameter("connectionString", connectionString);
+			builder.RegisterType<CardInHandRepository>().As<ICardInHandRepository>().WithParameter("connectionString", connectionString);
 			builder.RegisterType<PlayerInGameRepository>().As<IPlayerInGameRepository>().WithParameter("connectionString", connectionString);
 			builder.RegisterType<PlayerRepository>().As<IPlayerRepository>().WithParameter("connectionString", connectionString);
 			builder.RegisterType<LogMessageRepository>().As<ILogMessageRepository>().WithParameter("connectionString", connectionString);

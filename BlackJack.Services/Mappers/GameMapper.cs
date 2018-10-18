@@ -56,18 +56,19 @@ namespace BlackJack.BusinessLogic.Mappers
             return getGameViewModel;
         }
 
-        private HandViewItem GetHand(List<Hand> hands)
+        private HandViewItem GetHand(List<Card> cardsInHand)
         {
             var hand = new HandViewItem { CardsInHand = new List<CardViewItem>() };
-            if (hands == null)
+
+            if (cardsInHand == null)
             {
                 return hand;
             }
 
-            foreach (var cardInHand in hands)
+            foreach (var cardInHand in cardsInHand)
             {
-                hand.CardsInHand.Add(Mapper.Map<Card, CardViewItem>(cardInHand.Card));
-                hand.CardsInHandValue += cardInHand.Card.Value;
+                hand.CardsInHand.Add(Mapper.Map<Card, CardViewItem>(cardInHand));
+                hand.CardsInHandValue += cardInHand.Value;
             }
 
             foreach (var card in hand.CardsInHand)

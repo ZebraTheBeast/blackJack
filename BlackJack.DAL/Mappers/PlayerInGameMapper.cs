@@ -6,12 +6,12 @@ namespace BlackJack.DataAccess.Mappers
 {
     public class PlayerInGameMapper
     {
-        public Func<PlayerInGame, Player, Hand, Card, PlayerInGame> GetMap(Dictionary<long, PlayerInGame> playerInGameDictionary)
+        public Func<PlayerInGame, Player, CardInHand, Card, PlayerInGame> GetMap(Dictionary<long, PlayerInGame> playerInGameDictionary)
         {
-            Func<PlayerInGame, Player, Hand, Card, PlayerInGame> map = (playerInGame, player, hand, card) =>
+            Func<PlayerInGame, Player, CardInHand, Card, PlayerInGame> map = (playerInGame, player, hand, card) =>
             {
                 PlayerInGame playerInGameResult;
-                hand.Card = card;
+
                 if (!playerInGameDictionary.TryGetValue(playerInGame.Id, out playerInGameResult))
                 {
                     playerInGameDictionary.Add(playerInGame.Id, playerInGameResult = playerInGame);
@@ -19,10 +19,10 @@ namespace BlackJack.DataAccess.Mappers
 
                 if (playerInGameResult.CardsInHand == null)
                 {
-                    playerInGameResult.CardsInHand = new List<Hand>();
+                    playerInGameResult.CardsInHand = new List<Card>();
                 }
 
-                playerInGameResult.CardsInHand.Add(hand);
+                playerInGameResult.CardsInHand.Add(card);
                 return playerInGameResult;
             };
 

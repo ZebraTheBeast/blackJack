@@ -95,16 +95,15 @@ namespace BlackJack.DataAccess.Repositories
                 var playerInGame = (await db.QueryAsync<long>(sqlQuery, new { playerId, gameId })).FirstOrDefault();
                 return playerInGame;
             }
-
         }
 
-        public async Task<List<PlayerInGame>> GetPlayersInGamePlayerIds(List<long> playerIds)
+        public async Task<List<PlayerInGame>> GetPlayersInGameByPlayerIds(List<long> playerIds)
         {
             var sqlQuery = @"SELECT * FROM PlayerInGame 
-					INNER JOIN Hand ON PlayerInGame.Id = Hand.PlayerInGameId 
+					INNER JOIN CardInHand ON PlayerInGame.PlayerId = CardInHand.PlayerId AND PlayerInGame.GameId = CardInHand.GameId
 					INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id 
-					INNER JOIN Card ON Hand.CardId = Card.Id
-					WHERE PlayerInGameId in @playerIds";
+					INNER JOIN Card ON CardInHand.CardId = Card.Id
+					WHERE PlayerInGame.PlayerId in @playerIds";
 
             var playerInGameDictionary = new Dictionary<long, PlayerInGame>();
             var playerInGameMapper = new PlayerInGameMapper();
