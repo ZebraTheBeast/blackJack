@@ -3,9 +3,11 @@ using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.Configurations;
 using BlackJack.DataAccess.Interfaces;
 using BlackJack.Entities;
+using BlackJack.Entities.Enums;
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlackJack.BusinessLogic.Services
@@ -16,19 +18,17 @@ namespace BlackJack.BusinessLogic.Services
 		private IPlayerRepository _playerRepository;
 		private ICardInHandRepository _cardInHandRepository;
 		private IGameRepository _gameRepository;
-
-		private ICardProvider _cardProvider;
+        private ICardRepository _cardRepository;
 
 		private Logger _logger;
 
-		public LoginService(ICardProvider cardProvider, IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, ICardInHandRepository handRepository, IGameRepository gameRepository)
+		public LoginService(ICardRepository cardRepository, IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, ICardInHandRepository handRepository, IGameRepository gameRepository)
 		{
 			_playerInGameRepository = playerInGameRepository;
 			_playerRepository = playerRepository;
 			_cardInHandRepository = handRepository;
 			_gameRepository = gameRepository;
-
-			_cardProvider = cardProvider;
+            _cardRepository = cardRepository;
 
 			_logger = LogManager.GetCurrentClassLogger();
 		}
@@ -71,7 +71,7 @@ namespace BlackJack.BusinessLogic.Services
 				await _playerRepository.UpdatePlayersPoints(playersIdWithoutPoints, Constant.DefaultPointsValue);
 			}
 
-			await _cardProvider.RestoreCardsInDb();
+			await RestoreCardsInDb();
 
 			if (oldGameId != 0)
 			{
@@ -85,13 +85,13 @@ namespace BlackJack.BusinessLogic.Services
 			foreach (var bot in bots)
 			{
                 playersInGame.Add(new PlayerInGame() { PlayerId = bot.Id, GameId = gameId });
-				_logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame));
+				_logger.Log(LogHelper.GetEvent(bot.Id, gameId, UserMessages.BotJoinGame));
 			}
 
             playersInGame.Add(new PlayerInGame() { PlayerId = human.Id, GameId = gameId });
 
 			await _playerInGameRepository.Add(playersInGame);
-			_logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame));
+			_logger.Log(LogHelper.GetEvent(human.Id, gameId, UserMessages.HumanJoinGame));
 
 			return gameId;
 		}
@@ -102,7 +102,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (player == null)
 			{
-				throw new Exception(StringHelper.NoLastGame);
+				throw new Exception(UserMessages.NoLastGame);
 			}
 
 			if (player.Points <= Constant.MinPointsValueToPlay)
@@ -113,15 +113,74 @@ namespace BlackJack.BusinessLogic.Services
 
 			var gameId = await _gameRepository.GetGameIdByHumanId(player.Id);
 
-			await _cardProvider.RestoreCardsInDb();
+			await RestoreCardsInDb();
 
 			if (gameId == 0)
 			{
-				throw new Exception(StringHelper.NoLastGame);
+				throw new Exception(UserMessages.NoLastGame);
 			}
 
-			_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerContinueGame));
+			_logger.Log(LogHelper.GetEvent(player.Id, gameId, UserMessages.PlayerContinueGame));
 			return gameId;
 		}
-	}
+
+        private async Task RestoreCardsInDb()
+        {
+            var cardsInDb = await _cardRepository.GetAll();
+
+            if (cardsInDb.Count != Constant.DeckSize)
+            {
+                await _cardRepository.DeleteAll();
+                List<Card> cards = GenerateCards();
+                await _cardRepository.Add(cards);
+            }
+        }
+
+        private List<Card> GenerateCards()
+        {
+            var cardColorValue = 0;
+            var cardTitleValue = 0;
+            var cardColorSize = Enum.GetNames(typeof(CardSuit)).Length - 1;
+            var deck = new List<Card>();
+            var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.AmountNumberCard).ToList();
+            List<string> titleList = valueList.ConvertAll<string>(delegate (int value)
+            {
+                return value.ToString();
+            });
+
+            foreach (var value in Enum.GetNames(typeof(CardTitle)))
+            {
+                titleList.Add(value);
+            }
+
+            for (var i = 0; i < Enum.GetValues(typeof(CardTitle)).Length - 1; i++)
+            {
+                valueList.Add(Constant.ImageCardValue);
+            }
+
+            valueList.Add(Constant.AceCardValue);
+
+            for (var i = 0; i < Constant.DeckSize; i++)
+            {
+                var card = new Card
+                {
+                    Id = i + 1,
+                    Title = titleList[cardTitleValue],
+                    Value = valueList[cardTitleValue],
+                    Suit = (CardSuit)cardColorValue++
+                };
+
+                deck.Add(card);
+
+                if (cardColorValue > cardColorSize)
+                {
+                    cardColorValue = 0;
+                    cardTitleValue++;
+                }
+            }
+
+            return deck;
+        }
+
+    }
 }

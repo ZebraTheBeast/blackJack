@@ -16,8 +16,7 @@ namespace BlackJack.BusinessLogic.Services
 {
 	public class GameService : IGameService
 	{
-		private ICardProvider _cardProvider;
-
+        private ICardRepository _cardRepository;
 		private IPlayerInGameRepository _playerInGameRepository;
 		private IGameRepository _gameRepository;
 		private ICardInHandRepository _cardInHandRepository;
@@ -25,13 +24,13 @@ namespace BlackJack.BusinessLogic.Services
 
 		private Logger _logger;
 
-		public GameService(ICardProvider cardProvider, ICardInHandRepository cardInHandRepository, IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository, IGameRepository gameRepository)
+		public GameService(ICardRepository cardRepository, ICardInHandRepository cardInHandRepository, IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository, IGameRepository gameRepository)
 		{
 			_cardInHandRepository = cardInHandRepository;
 			_playerRepository = playerRepository;
 			_playerInGameRepository = playerInGameRepository;
 			_gameRepository = gameRepository;
-			_cardProvider = cardProvider;
+            _cardRepository = cardRepository;
 
 			_logger = LogManager.GetCurrentClassLogger();
 		}
@@ -62,7 +61,7 @@ namespace BlackJack.BusinessLogic.Services
 		{	
 			if (requestBetGameView.BetValue <= 0)
 			{
-				throw new Exception(StringHelper.NoBetValue);
+				throw new Exception(UserMessages.NoBetValue);
 			}
 			
 			var responseBetGameView = new ResponseBetGameView();
@@ -81,7 +80,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (humanBetValue != 0)
 			{
-				throw new Exception(StringHelper.AlreadyBet);
+				throw new Exception(UserMessages.AlreadyBet);
 			}
 
 			await _playerInGameRepository.UpdateBet(new List<long> { human.Id }, requestBetGameView.GameId, requestBetGameView.BetValue);
@@ -106,7 +105,7 @@ namespace BlackJack.BusinessLogic.Services
 			}
 
 			var getGameView = await GetGame(requestBetGameView.GameId);
-			getGameView.Options = StringHelper.OptionDrawCard;
+			getGameView.Options = UserMessages.OptionDrawCard;
 
 			if ((getGameView.Human.Hand.CardsInHandValue >= Constant.WinValue)
 				|| (getGameView.Dealer.Hand.CardsInHandValue >= Constant.WinValue))
@@ -129,13 +128,13 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (humanBetValue == 0)
 			{
-				throw new Exception(StringHelper.NoBetValue);
+				throw new Exception(UserMessages.NoBetValue);
 			}
 
 			deck = await GiveCardToPlayer(humanId, deck, gameId);
 
 			var getGameView = await GetGame(gameId);
-			getGameView.Options = StringHelper.OptionDrawCard;
+			getGameView.Options = UserMessages.OptionDrawCard;
 
 			if (getGameView.Human.Hand.CardsInHandValue >= Constant.WinValue)
 			{
@@ -154,11 +153,11 @@ namespace BlackJack.BusinessLogic.Services
 			var standGameView = new StandGameView();
 			var message = string.Empty;
 			var getGameView = await GetGame(gameId);
-            var deck = await _cardProvider.GetCardsByIds(getGameView.Deck);
+            var deck = await _cardRepository.GetCardsById(getGameView.Deck);
 
 			if (getGameView.Human.BetValue == 0)
 			{
-				throw new Exception(StringHelper.NoBetValue);
+				throw new Exception(UserMessages.NoBetValue);
 			}
 
 			if ((getGameView.Dealer.Hand.CardsInHandValue != Constant.WinValue)
@@ -302,31 +301,31 @@ namespace BlackJack.BusinessLogic.Services
 			&& (player.Hand.CardsInHandValue <= Constant.WinValue))
 			{
 				await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue);
-				return StringHelper.OptionWin;
+				return UserMessages.OptionWin;
 			}
 
 			if ((player.Hand.CardsInHandValue <= Constant.WinValue)
 			&& (dealerCardsValue > Constant.WinValue))
 			{
 				await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue);
-				return StringHelper.OptionWin;
+				return UserMessages.OptionWin;
 			}
 
 			if (player.Hand.CardsInHandValue > Constant.WinValue)
 			{
 				await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue);
-				return StringHelper.OptionLose;
+				return UserMessages.OptionLose;
 			}
 
 			if ((dealerCardsValue > player.Hand.CardsInHandValue)
 			&& (dealerCardsValue <= Constant.WinValue))
 			{
 				await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue);
-				return StringHelper.OptionLose;
+				return UserMessages.OptionLose;
 			}
 
-			_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerDraw));
-			return StringHelper.OptionDraw;
+			_logger.Log(LogHelper.GetEvent(player.Id, gameId, UserMessages.PlayerDraw));
+			return UserMessages.OptionDraw;
 		}
 
 		private async Task UpdateLostPlayersPoints(long playerId, long gameId, int playerBetValue)
@@ -348,5 +347,32 @@ namespace BlackJack.BusinessLogic.Services
 
 			await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
 		}
-	}
+
+        private async Task<List<long>> LoadInGameDeck(List<long> cardsInGame)
+        {
+            var deck = new List<long>();
+            Random randomNumericGenerator = new Random();
+            List<Card> cards = (await _cardRepository.GetAll()).ToList();
+
+            foreach (var cardId in cardsInGame)
+            {
+                cards.RemoveAll(c => c.Id == cardId);
+            }
+
+            foreach (var card in cards)
+            {
+                deck.Add(card.Id);
+            }
+
+            for (var i = 0; i < deck.Count(); i++)
+            {
+                var index = randomNumericGenerator.Next(deck.Count());
+                var value = deck[i];
+                deck[i] = deck[index];
+                deck[index] = value;
+            }
+
+            return deck;
+        }
+    }
 }
