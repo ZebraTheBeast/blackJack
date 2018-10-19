@@ -66,7 +66,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (human.Points < requestBetGameView.BetValue)
 			{
-				throw new Exception(StringHelper.NotEnoughPoints(requestBetGameView.BetValue));
+				throw new Exception(UserMessages.NotEnoughPoints(requestBetGameView.BetValue));
 			}
 
 			int humanBetValue = await _playerInGameRepository.GetBetByPlayerId(humanId, requestBetGameView.GameId);
@@ -77,12 +77,12 @@ namespace BlackJack.BusinessLogic.Services
 			}
 
 			await _playerInGameRepository.UpdateBet(new List<long> { human.Id }, requestBetGameView.GameId, requestBetGameView.BetValue);
-			_logger.Log(LogHelper.GetEvent(human.Id, requestBetGameView.GameId, StringHelper.PlayerPlaceBet(requestBetGameView.BetValue)));
+			_logger.Log(LogHelper.GetEvent(human.Id, requestBetGameView.GameId, UserMessages.PlayerPlaceBet(requestBetGameView.BetValue)));
 			List<long> botsId = await _playerInGameRepository.GetBotsIdByGameId(requestBetGameView.GameId);
 
 			foreach (var botId in botsId)
 			{
-				_logger.Log(LogHelper.GetEvent(botId, requestBetGameView.GameId, StringHelper.PlayerPlaceBet(Constant.BotsBetValue)));
+				_logger.Log(LogHelper.GetEvent(botId, requestBetGameView.GameId, UserMessages.PlayerPlaceBet(Constant.BotsBetValue)));
 			}
 
 			await _playerInGameRepository.UpdateBet(botsId, requestBetGameView.GameId, Constant.BotsBetValue);
@@ -174,7 +174,7 @@ namespace BlackJack.BusinessLogic.Services
 			message = await UpdateScore(getGameView.Human, getGameView.Dealer.Hand.CardsInHandValue, gameId);
 			await _playerInGameRepository.UpdateBet(playerIds, gameId, 0);
 			getGameView = await GetGame(gameId);
-			getGameView.Options = StringHelper.OptionSetBet(message);
+			getGameView.Options = UserMessages.OptionSetBet(message);
 			standGameView = Mapper.Map<GetGameGameView, StandGameView>(getGameView);
 
 			return standGameView;
@@ -198,7 +198,7 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             var card = Mapper.Map<Card, CardViewItem>(deck[0]);
-            _logger.Log(LogHelper.GetEvent(botId, gameId, StringHelper.PlayerDrawCard(deck[0].Id)));
+            _logger.Log(LogHelper.GetEvent(botId, gameId, UserMessages.PlayerDrawCard(deck[0].Id)));
             deck.Remove(deck[0]);
             hand.CardsInHand.Add(card);
             hand.CardsInHandValue = CalculateCardsValue(hand.CardsInHand);
@@ -272,7 +272,7 @@ namespace BlackJack.BusinessLogic.Services
         private async Task<List<long>> GiveCardToPlayer(long playerId, List<long> deck, long gameId)
         {
             await _cardInHandRepository.Add(new CardInHand() { PlayerId = playerId, CardId = deck[0], GameId = gameId });
-			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerDrawCard(deck[0])));
+			_logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerDrawCard(deck[0])));
 			deck.Remove(deck[0]);
 
 			return deck;
@@ -280,7 +280,7 @@ namespace BlackJack.BusinessLogic.Services
 
 		private async Task<string> UpdateScore(PlayerViewItem player, int dealerCardsValue, long gameId)
 		{
-			_logger.Log(LogHelper.GetEvent(player.Id, gameId, StringHelper.PlayerValue(player.Hand.CardsInHandValue, dealerCardsValue)));
+			_logger.Log(LogHelper.GetEvent(player.Id, gameId, UserMessages.PlayerValue(player.Hand.CardsInHandValue, dealerCardsValue)));
 
 			if ((player.Hand.CardsInHandValue > dealerCardsValue)
 			&& (player.Hand.CardsInHandValue <= Constant.WinValue))
@@ -318,7 +318,7 @@ namespace BlackJack.BusinessLogic.Services
 			Player player = await _playerRepository.GetById(playerId);
 			int newPointsValue = player.Points - playerBetValue;
 
-			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerLose(playerBetValue)));
+			_logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerLose(playerBetValue)));
 			await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
 		}
 
@@ -327,7 +327,7 @@ namespace BlackJack.BusinessLogic.Services
 			Player player = await _playerRepository.GetById(playerId);
 			int newPointsValue = player.Points + playerBetValue;
 
-			_logger.Log(LogHelper.GetEvent(playerId, gameId, StringHelper.PlayerWin(playerBetValue)));
+			_logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerWin(playerBetValue)));
 			await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
 		}
 

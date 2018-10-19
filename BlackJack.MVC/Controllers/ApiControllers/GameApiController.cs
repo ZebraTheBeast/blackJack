@@ -32,12 +32,12 @@ namespace BlackJack.MVC.Controllers
 
 				if (getGameViewModel.Dealer == null)
 				{
-					throw new Exception(StringHelper.DealerNotInGame);
+					throw new Exception(UserMessages.DealerNotInGame);
 				}
 
 				if (getGameViewModel.Human == null)
 				{
-					throw new Exception(StringHelper.PlayerNotInGame);
+					throw new Exception(UserMessages.PlayerNotInGame);
 				}
 
 				return Ok(getGameViewModel);
