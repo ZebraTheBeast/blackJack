@@ -15,7 +15,7 @@ export class LogService {
     constructor(private http: HttpClient) { }
 
     loadLogs(): Observable<any> {
-        var loadLogUrl = environment.logUrl + `GetLogs`;
+        var loadLogUrl = `${environment.logUrl}GetLogs`;
         return this.http.get<any>(loadLogUrl);
     }
 }

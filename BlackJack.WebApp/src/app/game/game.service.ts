@@ -22,17 +22,17 @@ export class GameService {
     constructor(private http: HttpClient) { }
 
     getGame(): Observable<GetGameView> {
-        var getGameUrl = environment.gameUrl + `GetGame`;
+        var getGameUrl = `${environment.gameUrl}GetGame`;
         return this.http.post<GetGameView>(getGameUrl, this.gameId, httpOptions);
     }
 
     stand(): Observable<StandGameView> {
-        var standUrl = environment.gameUrl + "Stand";
+        var standUrl = `${environment.gameUrl}Stand`;
         return this.http.post<StandGameView>(standUrl, this.gameId, httpOptions);
     }
 
     draw(): Observable<DrawGameView> {
-        var drawUrl = environment.gameUrl + "Draw";
+        var drawUrl = `${environment.gameUrl}Draw`;
         return this.http.post<DrawGameView>(drawUrl, this.gameId, httpOptions);
     }
 
@@ -41,7 +41,7 @@ export class GameService {
             betValue: betValue,
             gameId: this.gameId
         };
-        var drawUrl = environment.gameUrl + "Bet";
+        var drawUrl = `${environment.gameUrl}Bet`;
         return this.http.post<ResponseBetGameView>(drawUrl, requestBetGameViewModel, httpOptions);
     }
 
