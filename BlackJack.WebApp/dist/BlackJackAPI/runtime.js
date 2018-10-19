@@ -61,7 +61,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"src-game-game-module-ngfactory":"src-game-game-module-ngfactory","src-log-log-module-ngfactory":"src-log-log-module-ngfactory","src-login-login-module-ngfactory":"src-login-login-module-ngfactory"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"src-app-game-game-module-ngfactory":"src-app-game-game-module-ngfactory","src-app-log-log-module-ngfactory":"src-app-log-log-module-ngfactory","src-app-login-login-module-ngfactory":"src-app-login-login-module-ngfactory"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function

@@ -9,7 +9,7 @@ import { MessageService } from 'src/app/shared/services/message.service';
 @Component({
     selector: 'app-log',
     styleUrls: ['/Content/bootstrap.css', '/Content/Site.css'],
-    templateUrl: '/src/log/log.component.html'
+    templateUrl: '/src/app/log/log/log.component.html'
 })
 
 export class LogComponent {

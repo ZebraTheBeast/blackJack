@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'game', loadChildren: 'src/game/game.module#GameModule' },
-    { path: 'login', loadChildren: 'src/login/login.module#LoginModule' },
-    { path: 'log', loadChildren: 'src/log/log.module#LogModule' }
+    { path: 'game', loadChildren: 'src/app/game/game.module#GameModule' },
+    { path: 'login', loadChildren: 'src/app/login/login.module#LoginModule' },
+    { path: 'log', loadChildren: 'src/app/log/log.module#LogModule' }
 ];
 
 @NgModule({

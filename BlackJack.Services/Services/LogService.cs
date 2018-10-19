@@ -1,6 +1,7 @@
 ﻿using BlackJack.BusinessLogic.Helpers;
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.DataAccess.Interfaces;
+using BlackJack.Entities;
 using BlackJack.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace BlackJack.BusinessLogic.Services
 		public async Task<IEnumerable<GetLogsLogView>> GetMessages()
 		{
 			var messagesModel = new List<GetLogsLogView>();
-			var messages = (await _logMessageRepository.GetAll()).ToList();
+			List<LogMessage> messages = (await _logMessageRepository.GetAll()).ToList();
 
 			if (messages.Count() == 0)
 			{
@@ -40,6 +41,7 @@ namespace BlackJack.BusinessLogic.Services
 				};
 				messagesModel.Add(messageModel);
 			}
+
 			return messagesModel;
 		}
 	}

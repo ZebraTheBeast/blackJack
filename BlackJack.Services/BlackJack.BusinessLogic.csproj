@@ -78,9 +78,7 @@
     <Compile Include="Interfaces\Services\ILoginService.cs" />
     <Compile Include="Interfaces\Services\ILogService.cs" />
     <Compile Include="Configs\AutoMapperConfig.cs" />
-    <Compile Include="Interfaces\Providers\ICardProvider.cs" />
     <Compile Include="Mappers\GameMapper.cs" />
-    <Compile Include="Providers\CardProvider.cs" />
     <Compile Include="Services\GameService.cs" />
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="Services\LogService.cs" />

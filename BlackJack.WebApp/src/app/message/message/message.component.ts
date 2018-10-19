@@ -4,7 +4,7 @@ import { MessageService } from 'src/app/shared/services/message.service';
 
 @Component({
     selector: 'app-error-message',
-    templateUrl: '/src/message/message.component.html',
+    templateUrl: '/src/app/message/message/message.component.html',
     styleUrls: ['/Content/bootstrap.css', '/Content/Site.css']
 })
 

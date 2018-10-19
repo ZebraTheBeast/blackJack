@@ -7,7 +7,7 @@ import { MessageService } from 'src/app/shared/services/message.service';
 @Component({
     selector: 'app-game',
     styleUrls: ['/Content/bootstrap.css', '/Content/Site.css'],
-    templateUrl: '/src/game/game.component.html'
+    templateUrl: '/src/app/game/game/game.component.html'
 })
 
 export class GameComponent implements OnInit {

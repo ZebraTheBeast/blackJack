@@ -122,7 +122,7 @@ namespace BlackJack.BusinessLogic.Services
 
         private async Task RestoreCardsInDb()
         {
-            var cardsInDb = await _cardRepository.GetAll();
+            List<Card> cardsInDb = await _cardRepository.GetAll();
 
             if (cardsInDb.Count != Constant.DeckSize)
             {

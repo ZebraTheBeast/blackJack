@@ -8,7 +8,7 @@ import { GameService } from 'src/app/shared/services/game.service';
 @Component({
     selector: 'app-login',
     styleUrls: ['/Content/bootstrap.css', '/Content/Site.css'],
-    templateUrl: '/src/login/login.component.html'
+    templateUrl: '/src/app/login/login/login.component.html'
 })
 
 export class LoginComponent {
