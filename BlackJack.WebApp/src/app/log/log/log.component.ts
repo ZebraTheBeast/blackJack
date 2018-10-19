@@ -3,8 +3,8 @@
 import { State, process } from '@progress/kendo-data-query';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
-import { LogService } from 'src/app/log/log.service';
-import { MessageService } from 'src/app/message/message.service';
+import { LogService } from 'src/app/shared/services/log.service';
+import { MessageService } from 'src/app/shared/services/message.service';
 
 @Component({
     selector: 'app-log',

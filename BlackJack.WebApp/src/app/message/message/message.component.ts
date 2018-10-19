@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
-import { MessageService } from 'src/app/message/message.service';
+import { MessageService } from 'src/app/shared/services/message.service';
 
 @Component({
     selector: 'app-error-message',
