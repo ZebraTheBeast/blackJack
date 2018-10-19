@@ -2,6 +2,7 @@
 using BlackJack.BusinessLogic.Helpers;
 using BlackJack.Configurations;
 using BlackJack.Entities;
+using BlackJack.Entities.Enums;
 using BlackJack.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,16 +20,16 @@ namespace BlackJack.BusinessLogic.Mappers
 
             var getGameViewModel = new GetGameGameView() { Bots = new List<PlayerViewItem>() };
 
-            var human = game.PlayersInGame.Where(player => player.IsHuman == true).FirstOrDefault();
-            var dealer = game.PlayersInGame.Where(player => player.Player.Type == Entities.Enums.PlayerType.Dealer).FirstOrDefault();
+            var human = game.PlayersInGame.Where(player => player.Player.Type == PlayerType.Human).FirstOrDefault();
+            var dealer = game.PlayersInGame.Where(player => player.Player.Type == PlayerType.Dealer).FirstOrDefault();
 
             getGameViewModel.Human = Mapper.Map<Player, PlayerViewItem>(human.Player);
             getGameViewModel.Human.BetValue = human.BetValue;
-            getGameViewModel.Human.Hand = GetHand(game.PlayersInGame.Where(player => player.IsHuman == true).FirstOrDefault().CardsInHand);
+            getGameViewModel.Human.Hand = GetHand(human.CardsInHand);
             getGameViewModel.Dealer = Mapper.Map<Player, DealerViewItem>(dealer.Player);
             getGameViewModel.Dealer.Hand = GetHand(game.PlayersInGame.Where(player => player.PlayerId == dealer.PlayerId).FirstOrDefault().CardsInHand);
 
-            foreach (var playerInGame in game.PlayersInGame.Where(player => player.Player.Type == Entities.Enums.PlayerType.Bot))
+            foreach (var playerInGame in game.PlayersInGame.Where(player => player.Player.Type == PlayerType.Bot))
             {
                 var bot = new PlayerViewItem();
 

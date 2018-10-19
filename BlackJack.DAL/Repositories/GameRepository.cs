@@ -7,6 +7,7 @@ using Dapper.Contrib.Extensions;
 using BlackJack.Entities;
 using System.Collections.Generic;
 using BlackJack.DataAccess.Mappers;
+using BlackJack.Entities.Enums;
 
 namespace BlackJack.DataAccess.Repositories
 {
@@ -31,8 +32,7 @@ namespace BlackJack.DataAccess.Repositories
 		{
 			var sqlQuery = @"SELECT Game.Id FROM Game 
 				INNER JOIN PlayerInGame ON Game.Id = PlayerInGame.GameId 
-				WHERE PlayerId = @humanId 
-				AND IsHuman = 1";
+				WHERE PlayerId = @humanId";
 			using (var db = new SqlConnection(_connectionString))
 			{
 				var gameId = (await db.QueryAsync<long>(sqlQuery, new { humanId })).FirstOrDefault();

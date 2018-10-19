@@ -36,7 +36,7 @@ namespace BlackJack.BusinessLogic.Services
 		public async Task<long> StartGame(string playerName, int botsAmount)
 		{
 			Player human = await _playerRepository.GetPlayerByName(playerName);
-
+            var playersInGame = new List<PlayerInGame>();
 			if (human == null)
 			{
 				var player = new Player { Name = playerName, Type = Entities.Enums.PlayerType.Human };
@@ -84,13 +84,13 @@ namespace BlackJack.BusinessLogic.Services
 
 			foreach (var bot in bots)
 			{
-				var botInGame = new PlayerInGame() { PlayerId = bot.Id, GameId = gameId, IsHuman = false };
-				await _playerInGameRepository.Add(botInGame);
+                playersInGame.Add(new PlayerInGame() { PlayerId = bot.Id, GameId = gameId });
 				_logger.Log(LogHelper.GetEvent(bot.Id, gameId, StringHelper.BotJoinGame));
 			}
 
-			var humanInGame = new PlayerInGame() { PlayerId = human.Id, GameId = gameId, IsHuman = true };
-			await _playerInGameRepository.Add(humanInGame);
+            playersInGame.Add(new PlayerInGame() { PlayerId = human.Id, GameId = gameId });
+
+			await _playerInGameRepository.Add(playersInGame);
 			_logger.Log(LogHelper.GetEvent(human.Id, gameId, StringHelper.HumanJoinGame));
 
 			return gameId;
