@@ -43,7 +43,7 @@ namespace BlackJack.BusinessLogic.Mappers
 
             if (getGameViewModel.Human.Hand.CardsInHand.Count() != 0)
             {
-                getGameViewModel.Options = StringHelper.OptionDrawCard;
+                getGameViewModel.Options = UserMessages.OptionDrawCard;
             }
 
             if ((getGameViewModel.Human.Hand.CardsInHand.Count() == 0)
