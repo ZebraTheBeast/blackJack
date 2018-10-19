@@ -7,11 +7,10 @@ using Dapper.Contrib.Extensions;
 using BlackJack.Entities;
 using System.Collections.Generic;
 using BlackJack.DataAccess.Mappers;
-using BlackJack.Entities.Enums;
 
 namespace BlackJack.DataAccess.Repositories
 {
-	public class GameRepository : GenericRepository<Game>, IGameRepository
+    public class GameRepository : GenericRepository<Game>, IGameRepository
 	{
 		private string _connectionString;
 

@@ -4,12 +4,11 @@ using System.Data.SqlClient;
 using BlackJack.DataAccess.Interfaces;
 using Dapper;
 using System.Linq;
-using System;
 using BlackJack.Entities;
 
 namespace BlackJack.DataAccess.Repositories
 {
-	public class CardInHandRepository : GenericRepository<CardInHand>, ICardInHandRepository
+    public class CardInHandRepository : GenericRepository<CardInHand>, ICardInHandRepository
 	{
 		private string _connectionString;
 

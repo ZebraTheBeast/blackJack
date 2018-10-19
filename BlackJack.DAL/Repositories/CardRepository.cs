@@ -1,7 +1,6 @@
 ﻿using BlackJack.DataAccess.Interfaces;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Dapper.Contrib.Extensions;
 using BlackJack.Entities;
 using System.Linq;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using Dapper;
 
 namespace BlackJack.DataAccess.Repositories
 {
-	public class CardRepository : GenericRepository<Card>, ICardRepository
+    public class CardRepository : GenericRepository<Card>, ICardRepository
 	{
 		private string _connectionString;
 

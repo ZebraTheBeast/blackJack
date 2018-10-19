@@ -5,12 +5,11 @@ using BlackJack.Entities;
 using BlackJack.DataAccess.Interfaces;
 using Dapper;
 using System.Data.SqlClient;
-using BlackJack.Configurations;
 using BlackJack.Entities.Enums;
 
 namespace BlackJack.DataAccess.Repositories
 {
-	public class PlayerRepository : GenericRepository<Player>, IPlayerRepository
+    public class PlayerRepository : GenericRepository<Player>, IPlayerRepository
 	{
 		private string _connectionString;
 
