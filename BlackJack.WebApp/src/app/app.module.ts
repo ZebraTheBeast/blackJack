@@ -4,13 +4,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AppComponent } from 'src/app.component';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { GameModule } from 'src/app/game/game.module';
+import { LogModule } from 'src/app/log/log.module';
+import { LoginModule } from 'src/app/login/login.module';
+import { MessageModule } from 'src/app/message/message.module';
 
-import { AppRoutingModule } from 'src/app-routing.module';
-import { GameModule } from 'src/game/game.module';
-import { LogModule } from 'src/log/log.module';
-import { LoginModule } from 'src/login/login.module';
-import { MessageModule } from 'src/message/message.module';
+import { AppComponent } from 'src/app/app.component';
 
 @NgModule({
     declarations: [

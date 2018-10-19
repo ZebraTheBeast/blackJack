@@ -37,6 +37,7 @@ namespace BlackJack.DataAccess.Repositories
             var sqlQuery = @"SELECT PlayerId FROM PlayerInGame 
                 INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id
                 WHERE PlayerInGame.GameId = @gameId AND Player.Type = @playerType";
+
             using (var db = new SqlConnection(_connectionString))
             {
                 long humanId = (await db.QueryAsync<long>(sqlQuery, new { gameId, playerType = PlayerType.Human })).FirstOrDefault();
@@ -47,6 +48,7 @@ namespace BlackJack.DataAccess.Repositories
         public async Task<List<long>> GetAllPlayersIdByGameId(long gameId)
         {
             var sqlQuery = "SELECT PlayerId FROM PlayerInGame WHERE GameId = @gameId";
+
             using (var db = new SqlConnection(_connectionString))
             {
                 var playersId = (await db.QueryAsync<long>(sqlQuery, new { gameId })).ToList();
@@ -81,6 +83,7 @@ namespace BlackJack.DataAccess.Repositories
         {
             var sqlQuery = @"UPDATE PlayerInGame SET BetValue = @betValue 
 				WHERE GameId = @gameId AND PlayerId IN @playersId";
+
             using (var db = new SqlConnection(_connectionString))
             {
                 await db.QueryAsync(sqlQuery, new { betValue, gameId, playersId });
@@ -94,7 +97,6 @@ namespace BlackJack.DataAccess.Repositories
 					INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id 
 					INNER JOIN Card ON CardInHand.CardId = Card.Id
 					WHERE PlayerInGame.PlayerId in @playerIds";
-
             var playerInGameDictionary = new Dictionary<long, PlayerInGame>();
             var playerInGameMapper = new PlayerInGameMapper();
 

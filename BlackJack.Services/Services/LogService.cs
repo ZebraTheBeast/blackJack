@@ -25,7 +25,7 @@ namespace BlackJack.BusinessLogic.Services
 
 			if (messages.Count() == 0)
 			{
-				throw new Exception(StringHelper.EmptyLog);
+				throw new Exception(UserMessages.EmptyLog);
 			}
 
 			foreach (var message in messages)
@@ -38,10 +38,8 @@ namespace BlackJack.BusinessLogic.Services
 					GameId = message.GameId,
 					PlayerId = message.PlayerId
 				};
-
 				messagesModel.Add(messageModel);
 			}
-
 			return messagesModel;
 		}
 	}

@@ -32,6 +32,7 @@ namespace BlackJack.DataAccess.Repositories
 			var sqlQuery = @"SELECT Game.Id FROM Game 
 				INNER JOIN PlayerInGame ON Game.Id = PlayerInGame.GameId 
 				WHERE PlayerId = @humanId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
 				var gameId = (await db.QueryAsync<long>(sqlQuery, new { humanId })).FirstOrDefault();
@@ -41,17 +42,15 @@ namespace BlackJack.DataAccess.Repositories
 
         public override async Task<Game> GetById(long gameId)
         {
-            using (var db = new SqlConnection(_connectionString))
-            {
-                var sqlQuery = @"SELECT * FROM Game 
+            var sqlQuery = @"SELECT * FROM Game 
 					INNER JOIN PlayerInGame ON Game.Id = PlayerInGame.GameId 
 					INNER JOIN Player ON PlayerInGame.PlayerId = Player.Id 
 					WHERE Game.Id = @gameId";
+            var gameDictionary = new Dictionary<long, Game>();
+            var gameMapper = new GameMapper();
 
-                var gameDictionary = new Dictionary<long, Game>();
-
-                var gameMapper = new GameMapper();
-
+            using (var db = new SqlConnection(_connectionString))
+            {
                 Game currentGame = (await db.QueryAsync(
                 sqlQuery,
                 gameMapper.GetMap(gameDictionary),

@@ -34,6 +34,7 @@ namespace BlackJack.DataAccess.Repositories
 		{
 			var sqlQuery = @"SELECT CardId FROM CardInHand 
 				WHERE GameId = @gameId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
 				var cards = (await db.QueryAsync<long>(sqlQuery, new { gameId })).ToList();
@@ -44,6 +45,7 @@ namespace BlackJack.DataAccess.Repositories
 		public async Task RemoveAllCardsByGameId(long gameId)
 		{
 			var sqlQuery = "DELETE FROM CardInHand WHERE GameId = @gameId";
+
 			using (var db = new SqlConnection(_connectionString))
 			{
 				await db.ExecuteAsync(sqlQuery, new { gameId });

@@ -1,7 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
-import { SharedModule } from 'src/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
-import { MessageComponent } from 'src/message/message.component';
+import { MessageComponent } from 'src/app/message/message/message.component';
 
 @NgModule({
     imports: [

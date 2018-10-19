@@ -23,6 +23,7 @@ namespace BlackJack.DataAccess.Mappers
                 }
 
                 playerInGameResult.CardsInHand.Add(card);
+
                 return playerInGameResult;
             };
 

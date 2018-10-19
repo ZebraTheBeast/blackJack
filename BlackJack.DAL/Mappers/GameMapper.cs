@@ -11,7 +11,6 @@ namespace BlackJack.DataAccess.Mappers
             Func<Game, PlayerInGame, Player, Game> map = (game, playerInGame, player) =>
             {
                 Game gameResult;
-
                 playerInGame.Player = player;
 
                 if (!gameDictionary.TryGetValue(game.Id, out gameResult))
@@ -23,6 +22,7 @@ namespace BlackJack.DataAccess.Mappers
                 {
                     gameResult.PlayersInGame = new List<PlayerInGame>();
                 }
+
                 gameResult.PlayersInGame.Add(playerInGame);
 
                 return gameResult;

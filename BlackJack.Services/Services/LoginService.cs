@@ -19,7 +19,6 @@ namespace BlackJack.BusinessLogic.Services
 		private ICardInHandRepository _cardInHandRepository;
 		private IGameRepository _gameRepository;
         private ICardRepository _cardRepository;
-
 		private Logger _logger;
 
 		public LoginService(ICardRepository cardRepository, IPlayerInGameRepository playerInGameRepository, IPlayerRepository playerRepository, ICardInHandRepository handRepository, IGameRepository gameRepository)
@@ -29,7 +28,6 @@ namespace BlackJack.BusinessLogic.Services
 			_cardInHandRepository = handRepository;
 			_gameRepository = gameRepository;
             _cardRepository = cardRepository;
-
 			_logger = LogManager.GetCurrentClassLogger();
 		}
 
@@ -37,6 +35,7 @@ namespace BlackJack.BusinessLogic.Services
 		{
 			Player human = await _playerRepository.GetPlayerByName(playerName);
             var playersInGame = new List<PlayerInGame>();
+
 			if (human == null)
 			{
 				var player = new Player { Name = playerName, Type = Entities.Enums.PlayerType.Human };
@@ -53,7 +52,6 @@ namespace BlackJack.BusinessLogic.Services
 			List<Player> bots = await _playerRepository.GetBots(botsAmount);
             var dealer = await _playerRepository.GetDealer();
             bots.Add(dealer);
-
 			var oldGameId = await _gameRepository.GetGameIdByHumanId(human.Id);
 			var playersIdWithoutPoints = new List<long>();
 
@@ -89,7 +87,6 @@ namespace BlackJack.BusinessLogic.Services
 			}
 
             playersInGame.Add(new PlayerInGame() { PlayerId = human.Id, GameId = gameId });
-
 			await _playerInGameRepository.Add(playersInGame);
 			_logger.Log(LogHelper.GetEvent(human.Id, gameId, UserMessages.HumanJoinGame));
 
@@ -112,7 +109,6 @@ namespace BlackJack.BusinessLogic.Services
 			}
 
 			var gameId = await _gameRepository.GetGameIdByHumanId(player.Id);
-
 			await RestoreCardsInDb();
 
 			if (gameId == 0)
@@ -169,7 +165,6 @@ namespace BlackJack.BusinessLogic.Services
                     Value = valueList[cardTitleValue],
                     Suit = (CardSuit)cardColorValue++
                 };
-
                 deck.Add(card);
 
                 if (cardColorValue > cardColorSize)

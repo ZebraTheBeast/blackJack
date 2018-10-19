@@ -1,4 +1,4 @@
-export class Card {
+export class CardViewItem {
     id: number;
     title: string;
     value: number;
