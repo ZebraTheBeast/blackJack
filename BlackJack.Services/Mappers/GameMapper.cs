@@ -49,7 +49,7 @@ namespace BlackJack.BusinessLogic.Mappers
             if ((getGameViewModel.Human.Hand.CardsInHand.Count() == 0)
                 || (getGameViewModel.Human.BetValue == 0))
             {
-                getGameViewModel.Options = StringHelper.OptionSetBet(string.Empty);
+                getGameViewModel.Options = UserMessages.OptionSetBet(string.Empty);
             }
 
             getGameViewModel.Deck = deck;

@@ -91,8 +91,8 @@ namespace BlackJack.BusinessLogic.Services
 
 			foreach (var playerId in playersId)
 			{
-				deck = await GiveCardToPlayer(playerId, deck, requestBetGameView.GameId);
-				deck = await GiveCardToPlayer(playerId, deck, requestBetGameView.GameId);
+				deck = await AddCardToPlayerHand(playerId, deck, requestBetGameView.GameId);
+				deck = await AddCardToPlayerHand(playerId, deck, requestBetGameView.GameId);
 			}
 
 			GetGameGameView getGameGameView = await GetGame(requestBetGameView.GameId);
@@ -121,7 +121,7 @@ namespace BlackJack.BusinessLogic.Services
 				throw new Exception(UserMessages.NoBetValue);
 			}
 
-			deck = await GiveCardToPlayer(humanId, deck, gameId);
+			deck = await AddCardToPlayerHand(humanId, deck, gameId);
             GetGameGameView getGameView = await GetGame(gameId);
 			getGameView.Options = UserMessages.OptionDrawCard;
 
@@ -192,7 +192,7 @@ namespace BlackJack.BusinessLogic.Services
         {
             if(hand.CardsInHandValue >= Constant.ValueToStopDraw)
             {
-                await RecordMultipleCards(botId, hand.CardsInHand, gameId);
+                await AddMultipleCardsInHand(botId, hand.CardsInHand, gameId);
 
                 return false;
             }
@@ -227,7 +227,7 @@ namespace BlackJack.BusinessLogic.Services
             return cardsInHandValue;
         }
 
-        private async Task RecordMultipleCards(long playerId, List<CardViewItem> cards, long gameId)
+        private async Task AddMultipleCardsInHand(long playerId, List<CardViewItem> cards, long gameId)
         {
             List<long> cardsInHandId = await _cardInHandRepository.GetCardsIdByPlayerIdAndGameId(playerId, gameId);
             var newCards = new List<long>();
@@ -269,7 +269,7 @@ namespace BlackJack.BusinessLogic.Services
 			return hand;
 		}
 
-        private async Task<List<long>> GiveCardToPlayer(long playerId, List<long> deck, long gameId)
+        private async Task<List<long>> AddCardToPlayerHand(long playerId, List<long> deck, long gameId)
         {
             await _cardInHandRepository.Add(new CardInHand() { PlayerId = playerId, CardId = deck[0], GameId = gameId });
 			_logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerDrawCard(deck[0])));
@@ -285,27 +285,27 @@ namespace BlackJack.BusinessLogic.Services
 			if ((player.Hand.CardsInHandValue > dealerCardsValue)
 			&& (player.Hand.CardsInHandValue <= Constant.WinValue))
 			{
-				await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue);
+				await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
 				return UserMessages.OptionWin;
 			}
 
 			if ((player.Hand.CardsInHandValue <= Constant.WinValue)
 			&& (dealerCardsValue > Constant.WinValue))
 			{
-				await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue);
+				await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
 				return UserMessages.OptionWin;
 			}
 
 			if (player.Hand.CardsInHandValue > Constant.WinValue)
 			{
-				await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue);
+				await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
 				return UserMessages.OptionLose;
 			}
 
 			if ((dealerCardsValue > player.Hand.CardsInHandValue)
 			&& (dealerCardsValue <= Constant.WinValue))
 			{
-				await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue);
+				await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
 				return UserMessages.OptionLose;
 			}
 
@@ -313,19 +313,17 @@ namespace BlackJack.BusinessLogic.Services
 			return UserMessages.OptionDraw;
 		}
 
-		private async Task UpdateLostPlayersPoints(long playerId, long gameId, int playerBetValue)
+		private async Task UpdateLostPlayersPoints(long playerId, long gameId, int playerBetValue, int playerPoints)
 		{
-			Player player = await _playerRepository.GetById(playerId);
-			int newPointsValue = player.Points - playerBetValue;
+			int newPointsValue = playerPoints - playerBetValue;
 
 			_logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerLose(playerBetValue)));
 			await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
 		}
 
-		private async Task UpdateWonPlayersPoints(long playerId, long gameId, int playerBetValue)
+		private async Task UpdateWonPlayersPoints(long playerId, long gameId, int playerBetValue, int playerPoints)
 		{
-			Player player = await _playerRepository.GetById(playerId);
-			int newPointsValue = player.Points + playerBetValue;
+			int newPointsValue = playerPoints + playerBetValue;
 
 			_logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerWin(playerBetValue)));
 			await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
