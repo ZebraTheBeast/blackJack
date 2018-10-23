@@ -44,8 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\DrawGameView.cs" />
+    <Compile Include="Game\LoadGameGameView.cs" />
     <Compile Include="Game\RequestBetGameView.cs" />
     <Compile Include="Game\GetGameGameView.cs" />
+    <Compile Include="Game\RequestStartGameGameView.cs" />
+    <Compile Include="Game\ResponseStartGameGameView.cs" />
     <Compile Include="Shared\CardViewItem.cs" />
     <Compile Include="Shared\DealerViewItem.cs" />
     <Compile Include="Shared\HandViewItem.cs" />

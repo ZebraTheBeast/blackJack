@@ -10,7 +10,7 @@ using BlackJack.DataAccess.Mappers;
 
 namespace BlackJack.DataAccess.Repositories
 {
-    public class PlayerInGameRepository : GenericRepository<PlayerInGame>, IPlayerInGameRepository
+    public class PlayerInGameRepository : BaseRepository<PlayerInGame>, IPlayerInGameRepository
     {
         private string _connectionString;
 

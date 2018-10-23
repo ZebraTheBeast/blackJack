@@ -14,7 +14,7 @@ namespace BlackJack.MVC
 
 			bundles.Add(new ScriptBundle("~/bundles/game").Include(
 						"~/Scripts/site/game.js",
-						"~/Scripts/site/game.helper.js"));
+						"~/Scripts/site/gameHelper.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 						"~/Scripts/modernizr-*"));

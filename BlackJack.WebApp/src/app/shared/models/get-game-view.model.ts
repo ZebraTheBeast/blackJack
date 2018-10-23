@@ -1,7 +1,7 @@
 import { DealerViewItem } from "src/app/shared/models/dealer-view-item.model";
 import { PlayerViewItem } from "src/app/shared/models/player-view-item.model";
 
-export class GetGameView {
+export class GetGameGameView {
     dealer: DealerViewItem;
     human: PlayerViewItem;
     bots: PlayerViewItem[];

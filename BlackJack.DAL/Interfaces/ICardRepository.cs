@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Interfaces
 {
-	public interface ICardRepository : IGenericRepository<Card>
+	public interface ICardRepository : IBaseRepository<Card>
 	{
-		Task<List<Card>> GetCardsById(List<long> cardsId);
+
 	}
 }

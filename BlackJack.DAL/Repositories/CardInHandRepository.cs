@@ -8,7 +8,7 @@ using BlackJack.Entities;
 
 namespace BlackJack.DataAccess.Repositories
 {
-    public class CardInHandRepository : GenericRepository<CardInHand>, ICardInHandRepository
+    public class CardInHandRepository : BaseRepository<CardInHand>, ICardInHandRepository
 	{
 		private string _connectionString;
 

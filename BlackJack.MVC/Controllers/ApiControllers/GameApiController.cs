@@ -7,6 +7,7 @@ using BlackJack.ViewModels;
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.BusinessLogic.Helpers;
 using NLog;
+using BlackJack.Configurations;
 
 namespace BlackJack.MVC.Controllers
 {
@@ -22,34 +23,58 @@ namespace BlackJack.MVC.Controllers
 			_logger = LogManager.GetCurrentClassLogger();
 		}
 
-		[HttpPost]
-		public async Task<IHttpActionResult> GetGame([FromBody]long gameId)
-		{
-			try
-			{
-				var getGameViewModel = new GetGameGameView();
-				getGameViewModel = await _gameService.GetGame(gameId);
+        [HttpPost]
+        public async Task<IHttpActionResult> StartGame([FromBody]RequestStartGameLoginView loginViewModel)
+        {
+            try
+            {
+                if (loginViewModel.BotsAmount < Constant.MinBotsAmount)
+                {
+                    throw new Exception(UserMessages.MinBotsAmount);
+                }
 
-				if (getGameViewModel.Dealer == null)
-				{
-					throw new Exception(UserMessages.DealerNotInGame);
-				}
+                if (loginViewModel.BotsAmount > Constant.MaxBotsAmount)
+                {
+                    throw new Exception(UserMessages.MaxBotsAmount);
+                }
 
-				if (getGameViewModel.Human == null)
-				{
-					throw new Exception(UserMessages.PlayerNotInGame);
-				}
+                if (String.IsNullOrEmpty(loginViewModel.PlayerName))
+                {
+                    throw new Exception(UserMessages.EmptyName);
+                }
 
-				return Ok(getGameViewModel);
-			}
-			catch (Exception exception)
-			{
-				_logger.Error(exception.Message);
-				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
-			}
-		}
+                var startGameGameView = await _gameService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
 
-		[HttpPost]
+                return Ok(startGameGameView);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception.Message);
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
+            }
+        }
+
+        [HttpGet]
+        public async Task<IHttpActionResult> LoadGame(string playerName)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(playerName))
+                {
+                    throw new Exception(UserMessages.EmptyName);
+                }
+                var loadGameGameView = await _gameService.LoadGame(playerName);
+
+                return Ok(loadGameGameView);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception.Message);
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
+            }
+        }
+
+        [HttpPost]
 		public async Task<IHttpActionResult> Bet([FromBody]RequestBetGameView betViewModel)
 		{
 			try

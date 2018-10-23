@@ -7,6 +7,7 @@ using BlackJack.ViewModels;
 using BlackJack.BusinessLogic.Interfaces;
 using BlackJack.BusinessLogic.Helpers;
 using NLog;
+using BlackJack.Configurations;
 
 namespace BlackJack.WebApp.Controllers
 {
@@ -23,24 +24,48 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> GetGame([FromBody]long gameId)
+        public async Task<IHttpActionResult> StartGame([FromBody]RequestStartGameLoginView loginViewModel)
         {
             try
             {
-                var getGameViewModel = new GetGameGameView();
-                getGameViewModel = await _gameService.GetGame(gameId);
-
-                if (getGameViewModel.Dealer == null)
+                if (loginViewModel.BotsAmount < Constant.MinBotsAmount)
                 {
-                    throw new Exception(UserMessages.DealerNotInGame);
+                    throw new Exception(UserMessages.MinBotsAmount);
                 }
 
-                if (getGameViewModel.Human == null)
+                if (loginViewModel.BotsAmount > Constant.MaxBotsAmount)
                 {
-                    throw new Exception(UserMessages.PlayerNotInGame);
+                    throw new Exception(UserMessages.MaxBotsAmount);
                 }
 
-                return Ok(getGameViewModel);
+                if (String.IsNullOrEmpty(loginViewModel.PlayerName))
+                {
+                    throw new Exception(UserMessages.EmptyName);
+                }
+
+                var startGameGameView = await _gameService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
+
+                return Ok(startGameGameView);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception.Message);
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exception.Message));
+            }
+        }
+
+        [HttpGet]
+        public async Task<IHttpActionResult> LoadGame(string playerName)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(playerName))
+                {
+                    throw new Exception(UserMessages.EmptyName);
+                }
+                var loadGameGameView = await _gameService.LoadGame(playerName);
+
+                return Ok(loadGameGameView);
             }
             catch (Exception exception)
             {

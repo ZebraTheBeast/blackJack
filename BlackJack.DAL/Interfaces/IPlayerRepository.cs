@@ -4,7 +4,7 @@ using BlackJack.Entities;
 
 namespace BlackJack.DataAccess.Interfaces
 {
-	public interface IPlayerRepository : IGenericRepository<Player>
+	public interface IPlayerRepository : IBaseRepository<Player>
     {
         Task<Player> GetPlayerByName(string name);
         Task<Player> GetDealer();

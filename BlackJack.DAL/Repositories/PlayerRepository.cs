@@ -9,7 +9,7 @@ using BlackJack.Entities.Enums;
 
 namespace BlackJack.DataAccess.Repositories
 {
-    public class PlayerRepository : GenericRepository<Player>, IPlayerRepository
+    public class PlayerRepository : BaseRepository<Player>, IPlayerRepository
 	{
 		private string _connectionString;
 

@@ -10,7 +10,6 @@ namespace BlackJack.BusinessLogic.Configs
 		public static ContainerBuilder GetBuilderTypes(ContainerBuilder builder, string connectionString)
 		{
 			builder.RegisterType<LogService>().As<ILogService>();
-			builder.RegisterType<LoginService>().As<ILoginService>();
 			builder.RegisterType<GameService>().As<IGameService>();
 
 			builder = AutofacDataAccessLayerTypeConfig.GetDataAccessLayerType(builder, connectionString);

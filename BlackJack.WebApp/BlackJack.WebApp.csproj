@@ -194,7 +194,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\LogController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configs\AutofacConfig.cs" />
@@ -279,7 +278,6 @@
     <TypeScriptCompile Include="src\app\shared\services\game.service.ts" />
     <TypeScriptCompile Include="src\app\login\login\login.component.ts" />
     <TypeScriptCompile Include="src\app\shared\services\log.service.ts" />
-    <TypeScriptCompile Include="src\app\shared\services\login.service.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
     <TypeScriptCompile Include="src\app\shared\services\message.service.ts" />

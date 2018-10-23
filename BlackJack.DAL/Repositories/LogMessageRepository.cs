@@ -3,7 +3,7 @@ using BlackJack.Entities;
 
 namespace BlackJack.DataAccess.Repositories
 {
-	public class LogMessageRepository : GenericRepository<LogMessage>, ILogMessageRepository
+	public class LogMessageRepository : BaseRepository<LogMessage>, ILogMessageRepository
 	{
 		private string _connectionString;
 

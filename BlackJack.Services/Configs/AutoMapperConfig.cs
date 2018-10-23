@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using BlackJack.Entities;
 using BlackJack.ViewModels;
-using System.Collections.Generic;
 
 namespace BlackJack.BusinessLogic.Mappers
 {
-	public static class AutoMapperConfig
+    public static class AutoMapperConfig
 	{
 		public static void Initialize()
 		{
@@ -17,7 +16,9 @@ namespace BlackJack.BusinessLogic.Mappers
 				cfg.CreateMap<GetGameGameView, ResponseBetGameView>();
 				cfg.CreateMap<GetGameGameView, DrawGameView>();
 				cfg.CreateMap<GetGameGameView, StandGameView>();
-				cfg.CreateMap<StandGameView, GetGameGameView>();
+                cfg.CreateMap<GetGameGameView, ResponseStartGameGameView>();
+                cfg.CreateMap<GetGameGameView, LoadGameGameView>();
+                cfg.CreateMap<StandGameView, GetGameGameView>();
 			});
 		}
 	}

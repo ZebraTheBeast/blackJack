@@ -19,19 +19,40 @@ export class GameComponent implements OnInit {
     constructor(private gameService: GameService, private router: Router, private messageService: MessageService) { }
 
     ngOnInit() {
-        this.getGame();
+        if (this.gameService.isStartGame) {
+            this.startGame();
+        }
+        if (this.gameService.isLoadGame) {
+            this.loadGame();
+        }
     }
 
-    getGame(): void {
-        this.gameService.getGame().subscribe(
+    startGame(): void {
+        this.gameService.startGame().subscribe(
             game => {
                 this.game = game;
                 this.checkGameStatus();
+                this.gameService.setGameId(game.gameId);
             },
             response => {
                 this.messageService.showError(response);
                 this.router.navigate([`login`]);
-            });
+            }
+        );
+    }
+
+    loadGame(): void {
+        this.gameService.loadGame().subscribe(
+            game => {
+                this.game = game;
+                this.checkGameStatus();
+                this.gameService.setGameId(game.gameId);
+            },
+            response => {
+                this.messageService.showError(response);
+                this.router.navigate([`login`]);
+            }
+        );
     }
 
     stand(): void {
@@ -43,7 +64,8 @@ export class GameComponent implements OnInit {
             },
             response => {
                 this.messageService.showError(response);
-            });
+            }
+        );
     }
 
     draw(): void {
@@ -54,7 +76,8 @@ export class GameComponent implements OnInit {
             },
             response => {
                 this.messageService.showError(response);
-            });
+            }
+        );
     }
 
     bet(): void {
@@ -66,7 +89,8 @@ export class GameComponent implements OnInit {
             },
             response => {
                 this.messageService.showError(response);
-            });
+            }
+        );
     }
 
     disableDraw(): void {

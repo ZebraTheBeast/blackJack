@@ -1,7 +1,15 @@
 ﻿$(document).ready(function () {
-	
-	GetGameViewModel();
-	
+
+    var jsonData = $.cookie("start-game");
+    var gameData = JSON.parse(jsonData);
+
+    if (gameData.isStartGame) {
+        StartGame(gameData.playerName, gameData.botsAmount);
+    }
+
+    if (gameData.isLoadGame) {
+        LoadGame(gameData.playerName);
+    }
 
     $("#placeBetButton").click(function (event) {
         event.preventDefault();
@@ -24,6 +32,44 @@
     });
 
 });
+
+function StartGame(playerName, botsAmount) {
+    var startGameView = {
+        playerName: playerName,
+        botsAmount: botsAmount
+    }
+    $.ajax({
+        url: '/api/gameApi/StartGame',
+        type: 'POST',
+        data: JSON.stringify(startGameView),
+        contentType: "application/json;charset=utf-8",
+        success: function (gameView) {
+            disableDraw();
+            WriteResponse(gameView);
+            $.cookie("game-data", JSON.stringify(gameView.gameId));
+        },
+        error: function (exception) {
+            showError(exception.responseJSON.Message);
+        }
+    });
+}
+
+function LoadGame(playerName) {
+    
+    $.ajax({
+        url: '/api/gameApi/LoadGame',
+        type: 'POST',
+        data: JSON.stringify(playerName),
+        contentType: "application/json;charset=utf-8",
+        success: function (gameView) {
+            WriteResponse(gameView);
+            $.cookie("game-data", JSON.stringify(gameView.gameId));
+        },
+        error: function (exception) {
+            showError(exception.responseJSON.Message);
+        }
+    });
+}
 
 function Stand() {
     var gameId = $.cookie("game-data");

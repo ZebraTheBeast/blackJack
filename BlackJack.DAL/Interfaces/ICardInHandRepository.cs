@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.DataAccess.Interfaces
 {
-	public interface ICardInHandRepository : IGenericRepository<CardInHand>
+	public interface ICardInHandRepository : IBaseRepository<CardInHand>
 	{
         Task<List<long>> GetCardsIdByPlayerIdAndGameId(long playerId, long gameId);
         Task RemoveAllCardsByGameId(long gameId);

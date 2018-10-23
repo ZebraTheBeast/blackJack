@@ -11,6 +11,7 @@ using NLog;
 using AutoMapper;
 using BlackJack.Entities;
 using BlackJack.BusinessLogic.Mappers;
+using BlackJack.Entities.Enums;
 
 namespace BlackJack.BusinessLogic.Services
 {
@@ -33,24 +34,92 @@ namespace BlackJack.BusinessLogic.Services
 			_logger = LogManager.GetCurrentClassLogger();
 		}
 
-		public async Task<GetGameGameView> GetGame(long gameId)
-		{
-			var getGameMapper = new GameMapper();
-			Game game = await _gameRepository.GetById(gameId);
-            List<long> playerIds = game.PlayersInGame.Select(playerInGame => playerInGame.PlayerId).ToList();
-            List<PlayerInGame> playersInGame = await _playerInGameRepository.GetPlayersInGameByPlayerIds(playerIds);
-            List<long> deck = await GetDeckInGame(gameId);
-			GetGameGameView getGameGameView = getGameMapper.GetView(game, playersInGame, deck);
+        public async Task<ResponseStartGameGameView> StartGame(string playerName, int botsAmount)
+        {
+            Player human = await _playerRepository.GetPlayerByName(playerName);
+            var playersInGame = new List<PlayerInGame>();
 
-			if (getGameGameView.Human.Points <= Constant.MinPointsValueToPlay)
-			{
-				await _playerRepository.UpdatePlayersPoints(new List<long> { getGameGameView.Human.Id }, Constant.DefaultPointsValue);
-				getGameGameView.Human.Points = Constant.DefaultPointsValue;
-			}
+            if (human == null)
+            {
+                var player = new Player { Name = playerName, Type = PlayerType.Human, Points = Constant.DefaultPointsValue };
+                await _playerRepository.Add(player);
+                human = await _playerRepository.GetPlayerByName(playerName);
+            }
 
-			return getGameGameView;
-		}
+            List<Player> bots = await _playerRepository.GetBots(botsAmount);
+            Player dealer = await _playerRepository.GetDealer();
+            bots.Add(dealer);
+            long oldGameId = await _gameRepository.GetGameIdByHumanId(human.Id);
+            var playersIdWithoutPoints = new List<long>();
 
+            foreach (var bot in bots)
+            {
+                if (bot.Points < Constant.MinPointsValueToPlay)
+                {
+                    playersIdWithoutPoints.Add(bot.Id);
+                    bot.Points = Constant.DefaultPointsValue;
+                }
+            }
+
+            if (playersIdWithoutPoints.Count != 0)
+            {
+                await _playerRepository.UpdatePlayersPoints(playersIdWithoutPoints, Constant.DefaultPointsValue);
+            }
+
+            await RestoreCardsInDb();
+
+            if (oldGameId != 0)
+            {
+                await _cardInHandRepository.RemoveAllCardsByGameId(oldGameId);
+                await _playerInGameRepository.RemoveAllPlayersFromGame(oldGameId);
+                await _gameRepository.DeleteGameById(oldGameId);
+            }
+
+            long gameId = await _gameRepository.Add(new Game());
+
+            foreach (var bot in bots)
+            {
+                playersInGame.Add(new PlayerInGame() { PlayerId = bot.Id, GameId = gameId });
+                _logger.Log(LogHelper.GetEvent(bot.Id, gameId, UserMessages.BotJoinGame));
+            }
+
+            playersInGame.Add(new PlayerInGame() { PlayerId = human.Id, GameId = gameId });
+            await _playerInGameRepository.Add(playersInGame);
+            _logger.Log(LogHelper.GetEvent(human.Id, gameId, UserMessages.HumanJoinGame));
+
+            ResponseStartGameGameView responseStartGameGameView = new ResponseStartGameGameView();
+            var getGameGameView = await GetGame(gameId);
+            responseStartGameGameView = Mapper.Map<GetGameGameView, ResponseStartGameGameView>(getGameGameView);
+            responseStartGameGameView.GameId = gameId;
+
+            return responseStartGameGameView;
+        }
+
+        public async Task<LoadGameGameView> LoadGame(string playerName)
+        {
+            Player player = await _playerRepository.GetPlayerByName(playerName);
+
+            if (player == null)
+            {
+                throw new Exception(UserMessages.NoLastGame);
+            }
+
+            var gameId = await _gameRepository.GetGameIdByHumanId(player.Id);
+            await RestoreCardsInDb();
+
+            if (gameId == 0)
+            {
+                throw new Exception(UserMessages.NoLastGame);
+            }
+
+            _logger.Log(LogHelper.GetEvent(player.Id, gameId, UserMessages.PlayerContinueGame));
+
+            LoadGameGameView loadGameGameView = new LoadGameGameView();
+            var getGameGameView = await GetGame(gameId);
+            loadGameGameView = Mapper.Map<GetGameGameView, LoadGameGameView>(getGameGameView);
+            loadGameGameView.GameId = gameId;
+            return loadGameGameView;
+        }
 
 		public async Task<ResponseBetGameView> PlaceBet(RequestBetGameView requestBetGameView)
 		{	
@@ -142,7 +211,7 @@ namespace BlackJack.BusinessLogic.Services
 			var standGameView = new StandGameView();
 			var message = string.Empty;
             GetGameGameView getGameView = await GetGame(gameId);
-            List<Card> deck = await _cardRepository.GetCardsById(getGameView.Deck);
+            List<Card> deck = await _cardRepository.GetByIds(getGameView.Deck);
 
 			if (getGameView.Human.BetValue == 0)
 			{
@@ -180,7 +249,82 @@ namespace BlackJack.BusinessLogic.Services
 			return standGameView;
 		}
 
-		private async Task<List<long>> GetDeckInGame(long gameId)
+        private async Task<GetGameGameView> GetGame(long gameId)
+        {
+            var getGameMapper = new GameMapper();
+            Game game = await _gameRepository.GetById(gameId);
+            List<long> playerIds = game.PlayersInGame.Select(playerInGame => playerInGame.PlayerId).ToList();
+            List<PlayerInGame> playersInGame = await _playerInGameRepository.GetPlayersInGameByPlayerIds(playerIds);
+            List<long> deck = await GetDeckInGame(gameId);
+            GetGameGameView getGameGameView = getGameMapper.GetView(game, playersInGame, deck);
+
+            if (getGameGameView.Human.Points <= Constant.MinPointsValueToPlay)
+            {
+                await _playerRepository.UpdatePlayersPoints(new List<long> { getGameGameView.Human.Id }, Constant.DefaultPointsValue);
+                getGameGameView.Human.Points = Constant.DefaultPointsValue;
+            }
+
+            return getGameGameView;
+        }
+
+        private async Task RestoreCardsInDb()
+        {
+            List<Card> cardsInDb = await _cardRepository.GetAll();
+
+            if (cardsInDb.Count != Constant.DeckSize)
+            {
+                await _cardRepository.DeleteAll();
+                List<Card> cards = GenerateCards();
+                await _cardRepository.Add(cards);
+            }
+        }
+
+        private List<Card> GenerateCards()
+        {
+            var cardColorValue = 0;
+            var cardTitleValue = 0;
+            var cardColorSize = Enum.GetNames(typeof(CardSuit)).Length - 1;
+            var deck = new List<Card>();
+            var valueList = Enumerable.Range(Constant.NumberStartCard, Constant.AmountNumberCard).ToList();
+            List<string> titleList = valueList.ConvertAll<string>(delegate (int value)
+            {
+                return value.ToString();
+            });
+
+            foreach (var value in Enum.GetNames(typeof(CardTitle)))
+            {
+                titleList.Add(value);
+            }
+
+            for (var i = 0; i < Enum.GetValues(typeof(CardTitle)).Length - 1; i++)
+            {
+                valueList.Add(Constant.ImageCardValue);
+            }
+
+            valueList.Add(Constant.AceCardValue);
+
+            for (var i = 0; i < Constant.DeckSize; i++)
+            {
+                var card = new Card
+                {
+                    Id = i + 1,
+                    Title = titleList[cardTitleValue],
+                    Value = valueList[cardTitleValue],
+                    Suit = (CardSuit)cardColorValue++
+                };
+                deck.Add(card);
+
+                if (cardColorValue > cardColorSize)
+                {
+                    cardColorValue = 0;
+                    cardTitleValue++;
+                }
+            }
+
+            return deck;
+        }
+
+        private async Task<List<long>> GetDeckInGame(long gameId)
 		{
 			List<long> cardsInGameId = await _cardInHandRepository.GetCardsIdByGameId(gameId);
 			List<long> deck = await LoadInGameDeck(cardsInGameId);
@@ -262,7 +406,7 @@ namespace BlackJack.BusinessLogic.Services
 			};
 
 			List<long> cardsIdInPlayersHand = await _cardInHandRepository.GetCardsIdByPlayerIdAndGameId(playerId, gameId);
-			var cards = await _cardRepository.GetCardsById(cardsIdInPlayersHand);
+			var cards = await _cardRepository.GetByIds(cardsIdInPlayersHand);
 			hand.CardsInHand = Mapper.Map<List<Card>, List<CardViewItem>>(cards);
             hand.CardsInHandValue = CalculateCardsValue(hand.CardsInHand);
 

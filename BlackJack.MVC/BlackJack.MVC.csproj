@@ -448,7 +448,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ApiControllers\LogApiController.cs" />
-    <Compile Include="Controllers\ApiControllers\LoginApiController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\ApiControllers\GameApiController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -519,7 +518,7 @@
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\site\game.js" />
-    <Content Include="Scripts\site\game.helper.js" />
+    <Content Include="Scripts\site\gameHelper.js" />
     <Content Include="Scripts\site\login.js" />
     <Content Include="Scripts\site\logs.js" />
     <Content Include="Scripts\umd\popper-utils.js" />

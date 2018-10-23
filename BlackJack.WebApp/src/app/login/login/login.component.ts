@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LoginService } from 'src/app/shared/services/login.service';
 import { MessageService } from 'src/app/shared/services/message.service';
 import { GameService } from 'src/app/shared/services/game.service';
 
@@ -12,33 +11,19 @@ import { GameService } from 'src/app/shared/services/game.service';
 })
 
 export class LoginComponent {
-    name: any;
-    humanId: any;
+    playerName: string;
+    humanId: number;
     botsAmount = 3;
 
-    constructor(private loginService: LoginService, private router: Router, private messageService: MessageService, private gameService: GameService) { }
+    constructor(private router: Router, private gameService: GameService) { }
 
     startGame(): void {
-        this.loginService.startGame(this.name, this.botsAmount).subscribe(
-            response => {
-                this.gameService.setGameId(response.gameId);
-                this.router.navigate([`game`]);
-            },
-            errorResponse => {
-                this.messageService.showError(errorResponse);
-            }
-        )
+        this.gameService.setStartGameFlag(this.playerName, this.botsAmount);
+        this.router.navigate([`game`]);
     }
 
     loadGame(): void {
-        this.loginService.loadGame(this.name).subscribe(
-            response => {
-                this.gameService.setGameId(response.gameId);
-                this.router.navigate([`game`]);
-            },
-            errorResponse => {
-                this.messageService.showError(errorResponse);
-            }
-        )
+        this.gameService.setLoadGameFlag(this.playerName);
+        this.router.navigate([`game`]);
     }
 }

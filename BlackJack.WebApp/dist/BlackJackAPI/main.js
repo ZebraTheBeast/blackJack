@@ -437,7 +437,7 @@ var RenderType_GameComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt
 
 function View_GameComponent_2(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "li", [["class", "list-group-item"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, [" ", " of ", " "]))], null, function (_ck, _v) { var currVal_0 = _v.context.$implicit.title; var currVal_1 = _v.context.$implicit.suit; _ck(_v, 1, 0, currVal_0, currVal_1); }); }
 function View_GameComponent_3(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, ["Value: ", ""]))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.game.dealer.hand.cardsInHandValue; _ck(_v, 1, 0, currVal_0); }); }
-function View_GameComponent_4(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 3, "li", [["class", "list-group-item d-flex justify-content-between"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, [" ", " "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](2, 0, null, null, 1, "span", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](3, null, [" ", " "]))], null, function (_ck, _v) { var currVal_0 = _v.context.$implicit.name; _ck(_v, 1, 0, currVal_0); var currVal_1 = _v.context.$implicit.points; _ck(_v, 3, 0, currVal_1); }); }
+function View_GameComponent_4(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 2, "li", [["class", "list-group-item d-flex justify-content-between"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, [" ", " "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](2, 0, null, null, 0, "span", [], null, null, null, null, null))], null, function (_ck, _v) { var currVal_0 = _v.context.$implicit.name; _ck(_v, 1, 0, currVal_0); }); }
 function View_GameComponent_6(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "li", [["class", "list-group-item"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, [" ", " of ", " "]))], null, function (_ck, _v) { var currVal_0 = _v.context.$implicit.title; var currVal_1 = _v.context.$implicit.suit; _ck(_v, 1, 0, currVal_0, currVal_1); }); }
 function View_GameComponent_7(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, ["Value: ", ""]))], null, function (_ck, _v) { var currVal_0 = _v.parent.context.$implicit.hand.cardsInHandValue; _ck(_v, 1, 0, currVal_0); }); }
 function View_GameComponent_8(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, ["Bet: ", ""]))], null, function (_ck, _v) { var currVal_0 = _v.parent.context.$implicit.betValue; _ck(_v, 1, 0, currVal_0); }); }
@@ -515,13 +515,30 @@ var GameComponent = /** @class */ (function () {
         this.isBetDisabled = false;
     }
     GameComponent.prototype.ngOnInit = function () {
-        this.getGame();
+        if (this.gameService.isStartGame) {
+            this.startGame();
+        }
+        if (this.gameService.isLoadGame) {
+            this.loadGame();
+        }
     };
-    GameComponent.prototype.getGame = function () {
+    GameComponent.prototype.startGame = function () {
         var _this = this;
-        this.gameService.getGame().subscribe(function (game) {
+        this.gameService.startGame().subscribe(function (game) {
             _this.game = game;
             _this.checkGameStatus();
+            _this.gameService.setGameId(game.gameId);
+        }, function (response) {
+            _this.messageService.showError(response);
+            _this.router.navigate(["login"]);
+        });
+    };
+    GameComponent.prototype.loadGame = function () {
+        var _this = this;
+        this.gameService.loadGame().subscribe(function (game) {
+            _this.game = game;
+            _this.checkGameStatus();
+            _this.gameService.setGameId(game.gameId);
         }, function (response) {
             _this.messageService.showError(response);
             _this.router.navigate(["login"]);
@@ -806,18 +823,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _login_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./login.component */ "./src/app/login/login/login.component.ts");
-/* harmony import */ var _shared_services_login_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/services/login.service */ "./src/app/shared/services/login.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _shared_services_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/services/message.service */ "./src/app/shared/services/message.service.ts");
-/* harmony import */ var _shared_services_game_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../shared/services/game.service */ "./src/app/shared/services/game.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _shared_services_game_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/services/game.service */ "./src/app/shared/services/game.service.ts");
 /**
  * @fileoverview This file was generated by the Angular template compiler. Do not edit.
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
  */ 
-
-
 
 
 
@@ -839,7 +852,7 @@ function View_LoginComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODU
         var pd_3 = (_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 5)._compositionEnd($event.target.value) !== false);
         ad = (pd_3 && ad);
     } if (("ngModelChange" === en)) {
-        var pd_4 = ((_co.name = $event) !== false);
+        var pd_4 = ((_co.playerName = $event) !== false);
         ad = (pd_4 && ad);
     } return ad; }, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](5, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], [_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], [2, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["COMPOSITION_BUFFER_MODE"]]], null, null), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵprd"](1024, null, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NG_VALUE_ACCESSOR"], function (p0_0) { return [p0_0]; }, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"]]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](7, 671744, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgModel"], [[8, null], [8, null], [8, null], [6, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NG_VALUE_ACCESSOR"]]], { model: [0, "model"] }, { update: "ngModelChange" }), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵprd"](2048, null, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControl"], null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgModel"]]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](9, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], [[4, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControl"]]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](10, 0, null, null, 1, "h3", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](-1, null, ["Choose bots amount"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](12, 0, null, null, 6, "input", [["class", "custom-range"], ["max", "5"], ["min", "0"], ["step", "1"], ["type", "range"]], [[2, "ng-untouched", null], [2, "ng-touched", null], [2, "ng-pristine", null], [2, "ng-dirty", null], [2, "ng-valid", null], [2, "ng-invalid", null], [2, "ng-pending", null]], [[null, "ngModelChange"], [null, "input"], [null, "blur"], [null, "compositionstart"], [null, "compositionend"], [null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("input" === en)) {
         var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 13)._handleInput($event.target.value) !== false);
@@ -871,8 +884,8 @@ function View_LoginComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODU
     } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](21, 0, null, null, 1, "h3", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](-1, null, ["or"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](23, 0, null, null, 0, "input", [["class", "btn btn-outline-info custombutton"], ["type", "submit"], ["value", "Load last game"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
         var pd_0 = (_co.loadGame() !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null))], function (_ck, _v) { var _co = _v.component; var currVal_7 = _co.name; _ck(_v, 7, 0, currVal_7); var currVal_15 = _co.botsAmount; _ck(_v, 16, 0, currVal_15); }, function (_ck, _v) { var _co = _v.component; var currVal_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassUntouched; var currVal_1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassTouched; var currVal_2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassPristine; var currVal_3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassDirty; var currVal_4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassValid; var currVal_5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassInvalid; var currVal_6 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassPending; _ck(_v, 4, 0, currVal_0, currVal_1, currVal_2, currVal_3, currVal_4, currVal_5, currVal_6); var currVal_8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassUntouched; var currVal_9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassTouched; var currVal_10 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassPristine; var currVal_11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassDirty; var currVal_12 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassValid; var currVal_13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassInvalid; var currVal_14 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassPending; _ck(_v, 12, 0, currVal_8, currVal_9, currVal_10, currVal_11, currVal_12, currVal_13, currVal_14); var currVal_16 = _co.botsAmount; _ck(_v, 19, 0, currVal_16); }); }
-function View_LoginComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "app-login", [], null, null, null, View_LoginComponent_0, RenderType_LoginComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 49152, null, 0, _login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"], [_shared_services_login_service__WEBPACK_IMPORTED_MODULE_3__["LoginService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _shared_services_message_service__WEBPACK_IMPORTED_MODULE_5__["MessageService"], _shared_services_game_service__WEBPACK_IMPORTED_MODULE_6__["GameService"]], null, null)], null, null); }
+    } return ad; }, null, null))], function (_ck, _v) { var _co = _v.component; var currVal_7 = _co.playerName; _ck(_v, 7, 0, currVal_7); var currVal_15 = _co.botsAmount; _ck(_v, 16, 0, currVal_15); }, function (_ck, _v) { var _co = _v.component; var currVal_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassUntouched; var currVal_1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassTouched; var currVal_2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassPristine; var currVal_3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassDirty; var currVal_4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassValid; var currVal_5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassInvalid; var currVal_6 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 9).ngClassPending; _ck(_v, 4, 0, currVal_0, currVal_1, currVal_2, currVal_3, currVal_4, currVal_5, currVal_6); var currVal_8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassUntouched; var currVal_9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassTouched; var currVal_10 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassPristine; var currVal_11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassDirty; var currVal_12 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassValid; var currVal_13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassInvalid; var currVal_14 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 18).ngClassPending; _ck(_v, 12, 0, currVal_8, currVal_9, currVal_10, currVal_11, currVal_12, currVal_13, currVal_14); var currVal_16 = _co.botsAmount; _ck(_v, 19, 0, currVal_16); }); }
+function View_LoginComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "app-login", [], null, null, null, View_LoginComponent_0, RenderType_LoginComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 49152, null, 0, _login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"], [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _shared_services_game_service__WEBPACK_IMPORTED_MODULE_4__["GameService"]], null, null)], null, null); }
 var LoginComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("app-login", _login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"], View_LoginComponent_Host_0, {}, {}, []);
 
 
@@ -890,38 +903,22 @@ var LoginComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_shared_services_login_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/shared/services/login.service */ "./src/app/shared/services/login.service.ts");
-/* harmony import */ var src_app_shared_services_message_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/services/message.service */ "./src/app/shared/services/message.service.ts");
-/* harmony import */ var src_app_shared_services_game_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/services/game.service */ "./src/app/shared/services/game.service.ts");
-
-
+/* harmony import */ var src_app_shared_services_game_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/shared/services/game.service */ "./src/app/shared/services/game.service.ts");
 
 
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(loginService, router, messageService, gameService) {
-        this.loginService = loginService;
+    function LoginComponent(router, gameService) {
         this.router = router;
-        this.messageService = messageService;
         this.gameService = gameService;
         this.botsAmount = 3;
     }
     LoginComponent.prototype.startGame = function () {
-        var _this = this;
-        this.loginService.startGame(this.name, this.botsAmount).subscribe(function (response) {
-            _this.gameService.setGameId(response.gameId);
-            _this.router.navigate(["game"]);
-        }, function (errorResponse) {
-            _this.messageService.showError(errorResponse);
-        });
+        this.gameService.setStartGameFlag(this.playerName, this.botsAmount);
+        this.router.navigate(["game"]);
     };
     LoginComponent.prototype.loadGame = function () {
-        var _this = this;
-        this.loginService.loadGame(this.name).subscribe(function (response) {
-            _this.gameService.setGameId(response.gameId);
-            _this.router.navigate(["game"]);
-        }, function (errorResponse) {
-            _this.messageService.showError(errorResponse);
-        });
+        this.gameService.setLoadGameFlag(this.playerName);
+        this.router.navigate(["game"]);
     };
     return LoginComponent;
 }());
@@ -1041,10 +1038,20 @@ var GameService = /** @class */ (function () {
     function GameService(http) {
         this.http = http;
         this.gameId = 0;
+        this.isStartGame = false;
+        this.isLoadGame = false;
     }
-    GameService.prototype.getGame = function () {
-        var getGameUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "GetGame";
-        return this.http.post(getGameUrl, this.gameId, httpOptions);
+    GameService.prototype.startGame = function () {
+        var requestStartGameGameView = {
+            playerName: this.playerName,
+            botsAmount: this.botsAmount
+        };
+        var startGameUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "StartGame";
+        return this.http.post(startGameUrl, requestStartGameGameView, httpOptions);
+    };
+    GameService.prototype.loadGame = function () {
+        var loadGameUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "LoadGame";
+        return this.http.post(loadGameUrl, this.playerName, httpOptions);
     };
     GameService.prototype.stand = function () {
         var standUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "Stand";
@@ -1064,6 +1071,17 @@ var GameService = /** @class */ (function () {
     };
     GameService.prototype.setGameId = function (gameId) {
         this.gameId = gameId;
+    };
+    GameService.prototype.setStartGameFlag = function (playerName, botsAmount) {
+        this.playerName = playerName;
+        this.botsAmount = botsAmount;
+        this.isStartGame = true;
+        this.isLoadGame = false;
+    };
+    GameService.prototype.setLoadGameFlag = function (playerName) {
+        this.playerName = playerName;
+        this.isStartGame = false;
+        this.isLoadGame = true;
     };
     GameService.ngInjectableDef = _angular_core__WEBPACK_IMPORTED_MODULE_3__["defineInjectable"]({ factory: function GameService_Factory() { return new GameService(_angular_core__WEBPACK_IMPORTED_MODULE_3__["inject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"])); }, token: GameService, providedIn: "root" });
     return GameService;
@@ -1105,55 +1123,6 @@ var LogService = /** @class */ (function () {
     };
     LogService.ngInjectableDef = _angular_core__WEBPACK_IMPORTED_MODULE_3__["defineInjectable"]({ factory: function LogService_Factory() { return new LogService(_angular_core__WEBPACK_IMPORTED_MODULE_3__["inject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"])); }, token: LogService, providedIn: "root" });
     return LogService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/shared/services/login.service.ts":
-/*!**************************************************!*\
-  !*** ./src/app/shared/services/login.service.ts ***!
-  \**************************************************/
-/*! exports provided: LoginService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginService", function() { return LoginService; });
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-
-
-
-var httpOptions = {
-    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({ 'Content-Type': 'application/json' })
-};
-var LoginService = /** @class */ (function () {
-    function LoginService(http) {
-        this.http = http;
-    }
-    LoginService.prototype.startGame = function (playerName, botsAmount) {
-        var loginViewModel = {
-            playerName: playerName,
-            botsAmount: botsAmount
-        };
-        var startGameUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].loginUrl + "StartGame";
-        return this.http.post(startGameUrl, loginViewModel, httpOptions);
-    };
-    LoginService.prototype.loadGame = function (playerName) {
-        if (playerName == undefined) {
-            playerName = "";
-        }
-        var loadGameUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].loginUrl + ("LoadGame?playerName=" + playerName);
-        return this.http.get(loadGameUrl);
-    };
-    LoginService.ngInjectableDef = _angular_core__WEBPACK_IMPORTED_MODULE_3__["defineInjectable"]({ factory: function LoginService_Factory() { return new LoginService(_angular_core__WEBPACK_IMPORTED_MODULE_3__["inject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"])); }, token: LoginService, providedIn: "root" });
-    return LoginService;
 }());
 
 

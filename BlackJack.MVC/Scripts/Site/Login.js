@@ -12,40 +12,26 @@
 });
 
 function StartGame() {
-	var loginViewModel = {
+	var startGameData = {
 		playerName: $("#playerName").val(),
-		botsAmount: $("#botsAmount").val()
-	};
-    $.ajax({
-        url: '/api/loginApi/StartGame',
-        type: 'POST',
-		data: JSON.stringify(loginViewModel),
-        contentType: "application/json;charset=utf-8",
-        success: function (data) {
-            $.cookie("game-data", JSON.stringify(data.gameId));
-			$("#loginForm").submit();
-        },
-		error: function (exception) {
-			showError(exception.responseJSON.Message);
-        }
-    });
+        botsAmount: $("#botsAmount").val(),
+        isStartGame: true,
+        isLoadGame: false
+    };
+
+    $.cookie("start-game", JSON.stringify(startGameData));
+    $("#loginForm").submit();
 }
 
 function LoadGame() {
-    var playerName = $("#playerName").val();
-    $.ajax({
-        url: '/api/loginApi/LoadGame',
-        type: 'POST',
-        data: JSON.stringify(playerName),
-        contentType: "application/json;charset=utf-8",
-        success: function (data) {
-            $.cookie("game-data", JSON.stringify(data.gameId));
-            $("#loginForm").submit();
-        },
-        error: function (exception) {
-			showError(exception.responseJSON.Message);
-        }
-    });
+    var loadGameData = {
+        playerName: $("#playerName").val(),
+        isStartGame: false,
+        isLoadGame: true
+    };
+
+    $.cookie("start-game", JSON.stringify(loadGameData));
+    $("#loginForm").submit();
 }
 
 function showError(message) {

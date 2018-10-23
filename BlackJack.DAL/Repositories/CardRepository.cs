@@ -8,7 +8,7 @@ using Dapper;
 
 namespace BlackJack.DataAccess.Repositories
 {
-    public class CardRepository : GenericRepository<Card>, ICardRepository
+    public class CardRepository : BaseRepository<Card>, ICardRepository
 	{
 		private string _connectionString;
 
@@ -17,15 +17,5 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task<List<Card>> GetCardsById(List<long> cardsId)
-		{
-			var sqlQuery = "SELECT * FROM Card WHERE Id IN @cardsId";
-
-			using (var db = new SqlConnection(_connectionString))
-			{
-				var cards = (await db.QueryAsync<Card>(sqlQuery, new { cardsId })).ToList();
-				return cards;
-			}
-		}
 	}
 }
