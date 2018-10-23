@@ -257,3 +257,6 @@ C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\Autofac.Integration
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\Autofac.Integration.WebApi.Owin.dll
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\Autofac.Integration.Owin.xml
 C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\Autofac.Integration.WebApi.Owin.xml
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\System.Web.Cors.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\System.Web.Http.Cors.dll
+C:\Users\Anuitex\source\repos\blackJack\BlackJack.WebApp\bin\System.Web.Http.Cors.xml

@@ -19,6 +19,7 @@ namespace BlackJack.WebApp.Configs
             builder = AutofacTypeConfig.GetBuilderTypes(builder, ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
             var container = builder.Build();
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             return container;
         }
     }

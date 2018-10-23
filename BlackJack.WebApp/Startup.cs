@@ -4,6 +4,10 @@ using BlackJack.BusinessLogic.Mappers;
 using BlackJack.WebApp.Configs;
 using Microsoft.Owin;
 using Owin;
+using System.Web.Http.Cors;
+using Newtonsoft.Json.Serialization;
+using System.ComponentModel;
+using System.Web.Routing;
 
 [assembly: OwinStartup(typeof(BlackJack.WebApp.Startup))]
 
@@ -16,20 +20,14 @@ namespace BlackJack.WebApp
             AutoMapperConfig.Initialize();
 
             var container = AutofacConfig.ConfigureContainer();
-
             var config = new HttpConfiguration();
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            WebApiConfig.Register(config);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             app.UseAutofacMiddleware(container);
             app.UseAutofacWebApi(config);
             app.UseWebApi(config);
+
         }
     }
 }
