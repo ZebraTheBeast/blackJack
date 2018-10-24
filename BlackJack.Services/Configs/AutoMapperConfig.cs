@@ -13,12 +13,12 @@ namespace BlackJack.BusinessLogic.Mappers
 				cfg.CreateMap<Player, PlayerViewItem>();
 				cfg.CreateMap<Player, DealerViewItem>();
 				cfg.CreateMap<Card, CardViewItem>();
-				cfg.CreateMap<GetGameGameView, ResponseBetGameView>();
-				cfg.CreateMap<GetGameGameView, DrawGameView>();
-				cfg.CreateMap<GetGameGameView, StandGameView>();
-                cfg.CreateMap<GetGameGameView, ResponseStartGameGameView>();
-                cfg.CreateMap<GetGameGameView, LoadGameGameView>();
-                cfg.CreateMap<StandGameView, GetGameGameView>();
+				cfg.CreateMap<GameViewItem, ResponseBetGameView>();
+				cfg.CreateMap<GameViewItem, DrawGameView>();
+				cfg.CreateMap<GameViewItem, StandGameView>();
+                cfg.CreateMap<GameViewItem, ResponseStartGameGameView>();
+                cfg.CreateMap<GameViewItem, LoadGameGameView>();
+                cfg.CreateMap<StandGameView, GameViewItem>();
 			});
 		}
 	}

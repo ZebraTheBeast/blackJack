@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BlackJack.ViewModels
 {
-	public class GetGameGameView
+	public class GameViewItem
 	{
 		[JsonProperty("dealer")]
 		public DealerViewItem Dealer { get; set; }

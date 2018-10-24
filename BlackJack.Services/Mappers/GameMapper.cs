@@ -11,14 +11,14 @@ namespace BlackJack.BusinessLogic.Mappers
 {
     public class GameMapper
     {
-        public GetGameGameView GetView(Game game, List<PlayerInGame> playersInGame, List<long> deck)
+        public GameViewItem GetView(Game game, List<PlayerInGame> playersInGame, List<long> deck)
         {
             foreach (var playerInGame in playersInGame)
             {
                 game.PlayersInGame.Where(player => player.PlayerId == playerInGame.PlayerId).FirstOrDefault().CardsInHand = playerInGame.CardsInHand;
             }
 
-            var getGameViewModel = new GetGameGameView() { Bots = new List<PlayerViewItem>() };
+            var getGameViewModel = new GameViewItem() { Bots = new List<PlayerViewItem>() };
 
             var human = game.PlayersInGame.Where(player => player.Player.Type == PlayerType.Human).FirstOrDefault();
             var dealer = game.PlayersInGame.Where(player => player.Player.Type == PlayerType.Dealer).FirstOrDefault();
