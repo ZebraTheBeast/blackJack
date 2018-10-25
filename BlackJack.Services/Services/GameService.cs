@@ -34,13 +34,13 @@ namespace BlackJack.BusinessLogic.Services
             _logger = LogManager.GetCurrentClassLogger();
         }
 
-
-
         public async Task<ResponseStartMatchGameView> StartGame(string playerName, int botsAmount)
         {
             Player human = await _playerRepository.GetPlayerByName(playerName);
             var bots = new List<Player>();
             var responseStartMatchGameView = new ResponseStartMatchGameView();
+            long gameId;
+            long oldGameId;
 
             if (human == null)
             {
@@ -48,14 +48,14 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             await RestoreCardsInDb();
-            long oldGameId = await _gameRepository.GetGameIdByHumanId(human.Id);
+            oldGameId = await _gameRepository.GetGameIdByHumanId(human.Id);
 
             if (oldGameId != 0)
             {
                 await DeleteGameById(oldGameId);
             }
 
-            long gameId = await _gameRepository.Add(new Game());
+            gameId = await _gameRepository.Add(new Game());
             await AddPlayerToGame(human, gameId, botsAmount);
 
             responseStartMatchGameView = await GetResponseStartMatchGameView(gameId);
@@ -412,7 +412,6 @@ namespace BlackJack.BusinessLogic.Services
             if (hand.CardsInHandValue >= Constant.ValueToStopDraw)
             {
                 await AddMultipleCardsInHand(botId, hand.CardsInHand, gameId);
-
                 return false;
             }
 
