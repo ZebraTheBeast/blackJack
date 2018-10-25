@@ -57,7 +57,6 @@ namespace BlackJack.BusinessLogic.Services
 
             gameId = await _gameRepository.Add(new Game());
             await AddPlayerToGame(human, gameId, botsAmount);
-
             responseStartMatchGameView = await GetResponseStartMatchGameView(gameId);
 
             return responseStartMatchGameView;
@@ -83,7 +82,6 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             _logger.Log(LogHelper.GetEvent(player.Id, gameId, UserMessages.PlayerContinueGame));
-
             loadMatchGameView = await GetLoadMathcGameView(gameId);
 
             return loadMatchGameView;
@@ -113,7 +111,6 @@ namespace BlackJack.BusinessLogic.Services
             _logger.Log(LogHelper.GetEvent(humanId, requestBetGameView.GameId, UserMessages.PlayerPlaceBet(requestBetGameView.BetValue)));
             await UpdateBotsBetValue(requestBetGameView.GameId);
             await DealingCards(requestBetGameView.GameId);
-
             responseBetGameView = await GetResponseBetGameView(requestBetGameView.GameId);
 
             return responseBetGameView;
@@ -132,7 +129,6 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             deck = await AddCardToPlayerHand(humanId, deck, gameId);
-
             drawGameView = await GetDrawGameView(gameId);
 
             return drawGameView;
@@ -176,6 +172,7 @@ namespace BlackJack.BusinessLogic.Services
             await _playerInGameRepository.UpdateBet(playerIds, gameId, 0);
 
             standGameView = await GetStandGameView(gameId, userMessage);
+
             return standGameView;
         }
 
@@ -185,6 +182,7 @@ namespace BlackJack.BusinessLogic.Services
             GameViewItem gameViewItem = await GetGame(gameId);
             gameViewItem.Options = UserMessages.OptionSetBet(userMessage);
             standGameView = Mapper.Map<GameViewItem, StandGameView>(gameViewItem);
+
             return standGameView;
         }
 
@@ -229,6 +227,7 @@ namespace BlackJack.BusinessLogic.Services
             var gameViewItem = await GetGame(gameId);
             responseStartMatchGameView = Mapper.Map<GameViewItem, ResponseStartMatchGameView>(gameViewItem);
             responseStartMatchGameView.GameId = gameId;
+
             return responseStartMatchGameView;
         }
 
@@ -238,6 +237,7 @@ namespace BlackJack.BusinessLogic.Services
             var gameViewItem = await GetGame(gameId);
             loadMatchGameView = Mapper.Map<GameViewItem, LoadMatchGameView>(gameViewItem);
             loadMatchGameView.GameId = gameId;
+
             return loadMatchGameView;
         }
 
@@ -270,6 +270,7 @@ namespace BlackJack.BusinessLogic.Services
             var player = new Player { Name = playerName, Type = PlayerType.Human, Points = Constant.DefaultPointsValue };
             var playerId = await _playerRepository.Add(player);
             player.Id = playerId;
+
             return player;
         }
 
@@ -544,7 +545,6 @@ namespace BlackJack.BusinessLogic.Services
         private async Task UpdateWonPlayersPoints(long playerId, long gameId, int playerBetValue, int playerPoints)
         {
             int newPointsValue = playerPoints + playerBetValue;
-
             _logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerWin(playerBetValue)));
             await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
         }
