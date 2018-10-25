@@ -202,8 +202,8 @@
     <Compile Include="Configs\RouteConfig.cs" />
     <Compile Include="Configs\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LogController.cs" />
-    <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\ApiControllers\LogController.cs" />
+    <Compile Include="Controllers\ApiControllers\GameController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configs\AutofacConfig.cs" />
     <Compile Include="Startup.cs" />
@@ -246,18 +246,17 @@
     <Content Include="src\tsconfig.app.json" />
     <Content Include="tsconfig.json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Home\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\shared\models\draw-game-view.model.ts" />
+    <TypeScriptCompile Include="src\app\shared\models\response-load-match-game-view.model.ts" />
     <TypeScriptCompile Include="src\app\shared\models\stand-game-view.model.ts" />
     <TypeScriptCompile Include="src\app\shared\models\response-bet-game-view.model.ts" />
-    <TypeScriptCompile Include="src\app\shared\models\get-game-view.model.ts" />
+    <TypeScriptCompile Include="src\app\shared\models\start-match-game-view.model.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\app\shared\models\card-view-item.model.ts" />
     <TypeScriptCompile Include="src\app\shared\models\dealer-view-item.model.ts" />

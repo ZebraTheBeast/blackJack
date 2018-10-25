@@ -24,7 +24,7 @@ namespace BlackJack.MVC.Controllers
 		}
 
         [HttpPost]
-        public async Task<IHttpActionResult> StartGame([FromBody]RequestStartMatchGameView loginViewModel)
+        public async Task<IHttpActionResult> StartMatch([FromBody]RequestStartMatchGameView loginViewModel)
         {
             try
             {
@@ -43,9 +43,9 @@ namespace BlackJack.MVC.Controllers
                     throw new Exception(UserMessages.EmptyName);
                 }
 
-                var startGameGameView = await _gameService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
+                var startMatchGameView = await _gameService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
 
-                return Ok(startGameGameView);
+                return Ok(startMatchGameView);
             }
             catch (Exception exception)
             {
@@ -63,9 +63,9 @@ namespace BlackJack.MVC.Controllers
                 {
                     throw new Exception(UserMessages.EmptyName);
                 }
-                var loadGameGameView = await _gameService.LoadGame(playerName);
+                var loadMatchGameView = await _gameService.LoadGame(playerName);
 
-                return Ok(loadGameGameView);
+                return Ok(loadMatchGameView);
             }
             catch (Exception exception)
             {

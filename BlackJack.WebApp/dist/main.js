@@ -437,7 +437,7 @@ var RenderType_GameComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt
 
 function View_GameComponent_2(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "li", [["class", "list-group-item"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, [" ", " of ", " "]))], null, function (_ck, _v) { var currVal_0 = _v.context.$implicit.title; var currVal_1 = _v.context.$implicit.suit; _ck(_v, 1, 0, currVal_0, currVal_1); }); }
 function View_GameComponent_3(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, ["Value: ", ""]))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.game.dealer.hand.cardsInHandValue; _ck(_v, 1, 0, currVal_0); }); }
-function View_GameComponent_4(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 2, "li", [["class", "list-group-item d-flex justify-content-between"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, [" ", " "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](2, 0, null, null, 0, "span", [], null, null, null, null, null))], null, function (_ck, _v) { var currVal_0 = _v.context.$implicit.name; _ck(_v, 1, 0, currVal_0); }); }
+function View_GameComponent_4(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 3, "li", [["class", "list-group-item d-flex justify-content-between"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, [" ", " "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](2, 0, null, null, 1, "span", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](3, null, [" ", ""]))], null, function (_ck, _v) { var currVal_0 = _v.context.$implicit.name; _ck(_v, 1, 0, currVal_0); var currVal_1 = _v.context.$implicit.points; _ck(_v, 3, 0, currVal_1); }); }
 function View_GameComponent_6(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "li", [["class", "list-group-item"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, [" ", " of ", " "]))], null, function (_ck, _v) { var currVal_0 = _v.context.$implicit.title; var currVal_1 = _v.context.$implicit.suit; _ck(_v, 1, 0, currVal_0, currVal_1); }); }
 function View_GameComponent_7(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, ["Value: ", ""]))], null, function (_ck, _v) { var currVal_0 = _v.parent.context.$implicit.hand.cardsInHandValue; _ck(_v, 1, 0, currVal_0); }); }
 function View_GameComponent_8(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](1, null, ["Bet: ", ""]))], null, function (_ck, _v) { var currVal_0 = _v.parent.context.$implicit.betValue; _ck(_v, 1, 0, currVal_0); }); }
@@ -1047,12 +1047,12 @@ var GameService = /** @class */ (function () {
             playerName: this.playerName,
             botsAmount: this.botsAmount
         };
-        var startGameUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "StartGame";
-        return this.http.post(startGameUrl, requestStartGameGameView, httpOptions);
+        var startMatchUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "StartMatch";
+        return this.http.post(startMatchUrl, requestStartGameGameView, httpOptions);
     };
     GameService.prototype.loadGame = function () {
-        var loadGameUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "LoadGame";
-        return this.http.post(loadGameUrl, this.playerName, httpOptions);
+        var loadMatchUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "LoadMatch";
+        return this.http.post(loadMatchUrl, this.playerName, httpOptions);
     };
     GameService.prototype.stand = function () {
         var standUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "Stand";

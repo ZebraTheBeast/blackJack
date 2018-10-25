@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-import { GetGameGameView } from 'src/app/shared/models/get-game-view.model';
+import { StartMatchGameView } from 'src/app/shared/models/start-match-game-view.model';
 import { StandGameView } from 'src/app/shared/models/stand-game-view.model';
 import { DrawGameView } from 'src/app/shared/models/draw-game-view.model';
 import { ResponseBetGameView } from 'src/app/shared/models/response-bet-game-view.model';
+import { ResponseLoadMatchGameView } from 'src/app/shared/models/response-load-match-game-view.model';
 
 import { environment } from 'src/environments/environment';
 
@@ -25,18 +26,18 @@ export class GameService {
 
     constructor(private http: HttpClient) { }
 
-    startGame(): Observable<any> {
+    startGame(): Observable<StartMatchGameView> {
         var requestStartGameGameView = {
             playerName: this.playerName,
             botsAmount: this.botsAmount
         }
-        var startGameUrl = `${environment.gameUrl}StartGame`;
-        return this.http.post<any>(startGameUrl, requestStartGameGameView, httpOptions);
+        var startMatchUrl = `${environment.gameUrl}StartMatch`;
+        return this.http.post<StartMatchGameView>(startMatchUrl, requestStartGameGameView, httpOptions);
     }
 
-    loadGame(): Observable<any> {
-        var loadGameUrl = `${environment.gameUrl}LoadGame`;
-        return this.http.post<any>(loadGameUrl, this.playerName, httpOptions);
+    loadGame(): Observable<ResponseLoadMatchGameView> {
+        var loadMatchUrl = `${environment.gameUrl}LoadMatch`;
+        return this.http.post<ResponseLoadMatchGameView>(loadMatchUrl, this.playerName, httpOptions);
     }
 
     stand(): Observable<StandGameView> {

@@ -74,13 +74,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configs\AutofacDataAccessLayerTypeConfig.cs" />
-    <Compile Include="Interfaces\ICardRepository.cs" />
-    <Compile Include="Interfaces\IGameRepository.cs" />
-    <Compile Include="Interfaces\IBaseRepository.cs" />
-    <Compile Include="Interfaces\ICardInHandRepository.cs" />
-    <Compile Include="Interfaces\ILogMessageRepository.cs" />
-    <Compile Include="Interfaces\IPlayerInGameRepository.cs" />
-    <Compile Include="Interfaces\IPlayerRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICardRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IGameRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IBaseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICardInHandRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ILogMessageRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPlayerInGameRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPlayerRepository.cs" />
     <Compile Include="Mappers\GameMapper.cs" />
     <Compile Include="Mappers\PlayerInGameMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -73,8 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\LogHelper.cs" />
-    <Compile Include="Interfaces\Services\IGameService.cs" />
-    <Compile Include="Interfaces\Services\ILogService.cs" />
+    <Compile Include="Services\Interfaces\IGameService.cs" />
+    <Compile Include="Services\Interfaces\ILogService.cs" />
     <Compile Include="Configs\AutoMapperConfig.cs" />
     <Compile Include="Mappers\GameMapper.cs" />
     <Compile Include="Services\GameService.cs" />

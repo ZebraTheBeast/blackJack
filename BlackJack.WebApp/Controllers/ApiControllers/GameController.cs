@@ -43,9 +43,9 @@ namespace BlackJack.WebApp.Controllers
                     throw new Exception(UserMessages.EmptyName);
                 }
 
-                var startGameGameView = await _gameService.StartGame(requestStartMatchGameView.PlayerName, requestStartMatchGameView.BotsAmount);
+                var startMatchGameView = await _gameService.StartGame(requestStartMatchGameView.PlayerName, requestStartMatchGameView.BotsAmount);
 
-                return Ok(startGameGameView);
+                return Ok(startMatchGameView);
             }
             catch (Exception exception)
             {
@@ -63,9 +63,9 @@ namespace BlackJack.WebApp.Controllers
                 {
                     throw new Exception(UserMessages.EmptyName);
                 }
-                var loadGameGameView = await _gameService.LoadGame(playerName);
+                var loadMatchGameView = await _gameService.LoadGame(playerName);
 
-                return Ok(loadGameGameView);
+                return Ok(loadMatchGameView);
             }
             catch (Exception exception)
             {

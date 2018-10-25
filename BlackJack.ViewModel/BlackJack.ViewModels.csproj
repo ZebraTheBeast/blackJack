@@ -44,16 +44,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\DrawGameView.cs" />
-    <Compile Include="Game\LoadGameGameView.cs" />
+    <Compile Include="Game\LoadMatchGameView.cs" />
     <Compile Include="Game\RequestBetGameView.cs" />
-    <Compile Include="Game\GetGameGameView.cs" />
-    <Compile Include="Game\RequestStartGameGameView.cs" />
-    <Compile Include="Game\ResponseStartGameGameView.cs" />
+    <Compile Include="Shared\GameViewItem.cs" />
+    <Compile Include="Game\RequestStartMatchGameView.cs" />
+    <Compile Include="Game\ResponseStartMatchGameView.cs" />
     <Compile Include="Shared\CardViewItem.cs" />
     <Compile Include="Shared\DealerViewItem.cs" />
     <Compile Include="Shared\HandViewItem.cs" />
     <Compile Include="Shared\PlayerViewItem.cs" />
-    <Compile Include="Login\StartGameLoginView.cs" />
     <Compile Include="Log\GetLogsLogView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game\ResponseBetGameView.cs" />

@@ -39,7 +39,7 @@ function StartGame(playerName, botsAmount) {
         botsAmount: botsAmount
     }
     $.ajax({
-        url: '/api/gameApi/StartGame',
+        url: '/api/gameApi/StartMatch',
         type: 'POST',
         data: JSON.stringify(startGameView),
         contentType: "application/json;charset=utf-8",
@@ -57,7 +57,7 @@ function StartGame(playerName, botsAmount) {
 function LoadGame(playerName) {
     
     $.ajax({
-        url: '/api/gameApi/LoadGame',
+        url: '/api/gameApi/LoadMatch',
         type: 'POST',
         data: JSON.stringify(playerName),
         contentType: "application/json;charset=utf-8",
