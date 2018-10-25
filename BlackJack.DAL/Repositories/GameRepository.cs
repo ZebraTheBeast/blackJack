@@ -19,14 +19,6 @@ namespace BlackJack.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public async Task DeleteGameById(long id)
-		{
-			using (var db = new SqlConnection(_connectionString))
-			{
-				await db.DeleteAsync(new Game() { Id = id });
-			}
-		}
-
 		public async Task<long> GetGameIdByHumanId(long humanId)
 		{
 			var sqlQuery = @"SELECT Game.Id FROM Game 

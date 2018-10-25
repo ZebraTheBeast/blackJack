@@ -16,5 +16,6 @@
         public const int BotsBetValue = 50;
 		public const int MinBotsAmount = 0;
 		public const int MaxBotsAmount = 5;
+        public const int DealerAmount = 1;
 	}
 }

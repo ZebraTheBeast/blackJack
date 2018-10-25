@@ -275,8 +275,8 @@ namespace BlackJack.BusinessLogic.Services
 
         private async Task<List<Player>> GetBotsAndDealer(int botsAmount)
         {
-            List<Player> bots = await _playerRepository.GetBots(botsAmount);
-            Player dealer = await _playerRepository.GetDealer();
+            List<Player> bots = await _playerRepository.GetByAmountAndType(botsAmount, PlayerType.Bot);
+            Player dealer = (await _playerRepository.GetByAmountAndType(Constant.DealerAmount, PlayerType.Dealer)).FirstOrDefault();
             bots.Add(dealer);
             await CheckAndRestorePoints(bots);
 
@@ -287,7 +287,7 @@ namespace BlackJack.BusinessLogic.Services
         {
             var bots = await GetBotsAndDealer(botsAmount);
             var playersInGame = new List<PlayerInGame>();
-            
+
             foreach (var bot in bots)
             {
                 playersInGame.Add(new PlayerInGame() { PlayerId = bot.Id, GameId = gameId });
@@ -303,7 +303,7 @@ namespace BlackJack.BusinessLogic.Services
         {
             await _cardInHandRepository.RemoveAllCardsByGameId(gameId);
             await _playerInGameRepository.RemoveAllPlayersFromGame(gameId);
-            await _gameRepository.DeleteGameById(gameId);
+            await _gameRepository.Delete(new Game() { Id = gameId });
         }
 
         private async Task CheckAndRestorePoints(List<Player> bots)
@@ -461,10 +461,12 @@ namespace BlackJack.BusinessLogic.Services
 
             foreach (var newCard in newCards)
             {
-                var cardInHand = new CardInHand();
-                cardInHand.CardId = newCard;
-                cardInHand.PlayerId = playerId;
-                cardInHand.GameId = gameId;
+                var cardInHand = new CardInHand
+                {
+                    CardId = newCard,
+                    PlayerId = playerId,
+                    GameId = gameId
+                };
 
                 CardsInHand.Add(cardInHand);
             }

@@ -73,5 +73,13 @@ namespace BlackJack.DataAccess.Repositories
                 return items;
             }
         }
+
+        public async Task Delete(TEntity item)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                await db.DeleteAsync(item);
+            }
+        }
     }
 }

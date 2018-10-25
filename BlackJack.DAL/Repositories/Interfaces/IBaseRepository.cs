@@ -12,5 +12,6 @@ namespace BlackJack.DataAccess.Interfaces
 		Task DeleteAll();
 		Task<long> Add(TEntity item);
         Task Add(List<TEntity> items);
+        Task Delete(TEntity item);
 	}
 }
