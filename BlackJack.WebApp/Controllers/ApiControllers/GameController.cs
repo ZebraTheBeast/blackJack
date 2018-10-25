@@ -24,26 +24,26 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> StartGame([FromBody]RequestStartGameLoginView loginViewModel)
+        public async Task<IHttpActionResult> StartMatch([FromBody]RequestStartMatchGameView requestStartMatchGameView)
         {
             try
             {
-                if (loginViewModel.BotsAmount < Constant.MinBotsAmount)
+                if (requestStartMatchGameView.BotsAmount < Constant.MinBotsAmount)
                 {
                     throw new Exception(UserMessages.MinBotsAmount);
                 }
 
-                if (loginViewModel.BotsAmount > Constant.MaxBotsAmount)
+                if (requestStartMatchGameView.BotsAmount > Constant.MaxBotsAmount)
                 {
                     throw new Exception(UserMessages.MaxBotsAmount);
                 }
 
-                if (String.IsNullOrEmpty(loginViewModel.PlayerName))
+                if (String.IsNullOrEmpty(requestStartMatchGameView.PlayerName))
                 {
                     throw new Exception(UserMessages.EmptyName);
                 }
 
-                var startGameGameView = await _gameService.StartGame(loginViewModel.PlayerName, loginViewModel.BotsAmount);
+                var startGameGameView = await _gameService.StartGame(requestStartMatchGameView.PlayerName, requestStartMatchGameView.BotsAmount);
 
                 return Ok(startGameGameView);
             }
@@ -55,7 +55,7 @@ namespace BlackJack.WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> LoadGame(string playerName)
+        public async Task<IHttpActionResult> LoadMatch(string playerName)
         {
             try
             {

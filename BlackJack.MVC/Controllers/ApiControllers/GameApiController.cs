@@ -24,7 +24,7 @@ namespace BlackJack.MVC.Controllers
 		}
 
         [HttpPost]
-        public async Task<IHttpActionResult> StartGame([FromBody]RequestStartGameLoginView loginViewModel)
+        public async Task<IHttpActionResult> StartGame([FromBody]RequestStartMatchGameView loginViewModel)
         {
             try
             {

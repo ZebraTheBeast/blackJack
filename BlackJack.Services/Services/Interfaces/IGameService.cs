@@ -8,7 +8,7 @@ namespace BlackJack.BusinessLogic.Interfaces
         Task<ResponseBetGameView> PlaceBet(RequestBetGameView requestBetGameViewModel);
         Task<DrawGameView> DrawCard(long humanId);
         Task<StandGameView> Stand(long humanId);
-        Task<ResponseStartGameGameView> StartGame(string playerName, int botsAmount);
-        Task<LoadGameGameView> LoadGame(string playerName);
+        Task<ResponseStartMatchGameView> StartGame(string playerName, int botsAmount);
+        Task<LoadMatchGameView> LoadGame(string playerName);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace BlackJack.ViewModels
 {
-    public class RequestStartGameGameView
+    public class RequestStartMatchGameView
     {
         [JsonProperty("playerName")]
         public string PlayerName { get; set; }

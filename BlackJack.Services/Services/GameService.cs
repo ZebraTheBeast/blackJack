@@ -15,87 +15,57 @@ using BlackJack.Entities.Enums;
 
 namespace BlackJack.BusinessLogic.Services
 {
-	public class GameService : IGameService
-	{
+    public class GameService : IGameService
+    {
         private ICardRepository _cardRepository;
-		private IPlayerInGameRepository _playerInGameRepository;
-		private IGameRepository _gameRepository;
-		private ICardInHandRepository _cardInHandRepository;
-		private IPlayerRepository _playerRepository;
-		private Logger _logger;
+        private IPlayerInGameRepository _playerInGameRepository;
+        private IGameRepository _gameRepository;
+        private ICardInHandRepository _cardInHandRepository;
+        private IPlayerRepository _playerRepository;
+        private Logger _logger;
 
-		public GameService(ICardRepository cardRepository, ICardInHandRepository cardInHandRepository, IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository, IGameRepository gameRepository)
-		{
-			_cardInHandRepository = cardInHandRepository;
-			_playerRepository = playerRepository;
-			_playerInGameRepository = playerInGameRepository;
-			_gameRepository = gameRepository;
+        public GameService(ICardRepository cardRepository, ICardInHandRepository cardInHandRepository, IPlayerRepository playerRepository, IPlayerInGameRepository playerInGameRepository, IGameRepository gameRepository)
+        {
+            _cardInHandRepository = cardInHandRepository;
+            _playerRepository = playerRepository;
+            _playerInGameRepository = playerInGameRepository;
+            _gameRepository = gameRepository;
             _cardRepository = cardRepository;
-			_logger = LogManager.GetCurrentClassLogger();
-		}
+            _logger = LogManager.GetCurrentClassLogger();
+        }
 
-        public async Task<ResponseStartGameGameView> StartGame(string playerName, int botsAmount)
+
+
+        public async Task<ResponseStartMatchGameView> StartGame(string playerName, int botsAmount)
         {
             Player human = await _playerRepository.GetPlayerByName(playerName);
-            var playersInGame = new List<PlayerInGame>();
+            var bots = new List<Player>();
 
             if (human == null)
             {
-                human = new Player { Name = playerName, Type = PlayerType.Human, Points = Constant.DefaultPointsValue };
-                var humanId = await _playerRepository.Add(human);
-                human.Id = humanId;
-            }
-
-            List<Player> bots = await _playerRepository.GetBots(botsAmount);
-            Player dealer = await _playerRepository.GetDealer();
-            bots.Add(dealer);
-            long oldGameId = await _gameRepository.GetGameIdByHumanId(human.Id);
-            var playersIdWithoutPoints = new List<long>();
-
-            foreach (var bot in bots)
-            {
-                if (bot.Points < Constant.MinPointsValueToPlay)
-                {
-                    playersIdWithoutPoints.Add(bot.Id);
-                    bot.Points = Constant.DefaultPointsValue;
-                }
-            }
-
-            if (playersIdWithoutPoints.Count != 0)
-            {
-                await _playerRepository.UpdatePlayersPoints(playersIdWithoutPoints, Constant.DefaultPointsValue);
+                human = await AddNewPlayer(playerName);
             }
 
             await RestoreCardsInDb();
+            long oldGameId = await _gameRepository.GetGameIdByHumanId(human.Id);
 
             if (oldGameId != 0)
             {
-                await _cardInHandRepository.RemoveAllCardsByGameId(oldGameId);
-                await _playerInGameRepository.RemoveAllPlayersFromGame(oldGameId);
-                await _gameRepository.DeleteGameById(oldGameId);
+                await DeleteGameById(oldGameId);
             }
 
             long gameId = await _gameRepository.Add(new Game());
+            await AddPlayerToGame(human, gameId, botsAmount);
 
-            foreach (var bot in bots)
-            {
-                playersInGame.Add(new PlayerInGame() { PlayerId = bot.Id, GameId = gameId });
-                _logger.Log(LogHelper.GetEvent(bot.Id, gameId, UserMessages.BotJoinGame));
-            }
-
-            playersInGame.Add(new PlayerInGame() { PlayerId = human.Id, GameId = gameId });
-            await _playerInGameRepository.Add(playersInGame);
-            _logger.Log(LogHelper.GetEvent(human.Id, gameId, UserMessages.HumanJoinGame));
-
-            ResponseStartGameGameView responseStartGameGameView = new ResponseStartGameGameView();
+            ResponseStartMatchGameView responseStartGameGameView = new ResponseStartMatchGameView();
             var getGameGameView = await GetGame(gameId);
-            responseStartGameGameView = Mapper.Map<GameViewItem, ResponseStartGameGameView>(getGameGameView);
+            responseStartGameGameView = Mapper.Map<GameViewItem, ResponseStartMatchGameView>(getGameGameView);
             responseStartGameGameView.GameId = gameId;
 
             return responseStartGameGameView;
         }
 
-        public async Task<LoadGameGameView> LoadGame(string playerName)
+        public async Task<LoadMatchGameView> LoadGame(string playerName)
         {
             Player player = await _playerRepository.GetPlayerByName(playerName);
 
@@ -114,117 +84,117 @@ namespace BlackJack.BusinessLogic.Services
 
             _logger.Log(LogHelper.GetEvent(player.Id, gameId, UserMessages.PlayerContinueGame));
 
-            LoadGameGameView loadGameGameView = new LoadGameGameView();
+            LoadMatchGameView loadGameGameView = new LoadMatchGameView();
             var getGameGameView = await GetGame(gameId);
-            loadGameGameView = Mapper.Map<GameViewItem, LoadGameGameView>(getGameGameView);
+            loadGameGameView = Mapper.Map<GameViewItem, LoadMatchGameView>(getGameGameView);
             loadGameGameView.GameId = gameId;
             return loadGameGameView;
         }
 
-		public async Task<ResponseBetGameView> PlaceBet(RequestBetGameView requestBetGameView)
-		{	
-			if (requestBetGameView.BetValue <= 0)
-			{
-				throw new Exception(UserMessages.NoBetValue);   
-			}
-			
-			var responseBetGameView = new ResponseBetGameView();
-			long humanId = await _playerInGameRepository.GetHumanIdByGameId(requestBetGameView.GameId);
-			await _cardInHandRepository.RemoveAllCardsByGameId(requestBetGameView.GameId);
+        public async Task<ResponseBetGameView> PlaceBet(RequestBetGameView requestBetGameView)
+        {
+            if (requestBetGameView.BetValue <= 0)
+            {
+                throw new Exception(UserMessages.NoBetValue);
+            }
 
-			int humanBetValue = await _playerInGameRepository.GetBetByPlayerId(humanId, requestBetGameView.GameId);
+            var responseBetGameView = new ResponseBetGameView();
+            long humanId = await _playerInGameRepository.GetHumanIdByGameId(requestBetGameView.GameId);
+            await _cardInHandRepository.RemoveAllCardsByGameId(requestBetGameView.GameId);
 
-			if (humanBetValue != 0)
-			{
-				throw new Exception(UserMessages.AlreadyBet);
-			}
+            int humanBetValue = await _playerInGameRepository.GetBetByPlayerId(humanId, requestBetGameView.GameId);
 
-			await _playerInGameRepository.UpdateBet(new List<long> { humanId }, requestBetGameView.GameId, requestBetGameView.BetValue);
-			_logger.Log(LogHelper.GetEvent(humanId, requestBetGameView.GameId, UserMessages.PlayerPlaceBet(requestBetGameView.BetValue)));
-			List<long> botsId = await _playerInGameRepository.GetBotsIdByGameId(requestBetGameView.GameId);
+            if (humanBetValue != 0)
+            {
+                throw new Exception(UserMessages.AlreadyBet);
+            }
 
-			foreach (var botId in botsId)
-			{
-				_logger.Log(LogHelper.GetEvent(botId, requestBetGameView.GameId, UserMessages.PlayerPlaceBet(Constant.BotsBetValue)));
-			}
+            await _playerInGameRepository.UpdateBet(new List<long> { humanId }, requestBetGameView.GameId, requestBetGameView.BetValue);
+            _logger.Log(LogHelper.GetEvent(humanId, requestBetGameView.GameId, UserMessages.PlayerPlaceBet(requestBetGameView.BetValue)));
+            List<long> botsId = await _playerInGameRepository.GetBotsIdByGameId(requestBetGameView.GameId);
 
-			await _playerInGameRepository.UpdateBet(botsId, requestBetGameView.GameId, Constant.BotsBetValue);
-			List<long> deck = await GetDeckInGame(requestBetGameView.GameId);
-			List<long> playersId = await _playerInGameRepository.GetAllPlayersIdByGameId(requestBetGameView.GameId);
+            foreach (var botId in botsId)
+            {
+                _logger.Log(LogHelper.GetEvent(botId, requestBetGameView.GameId, UserMessages.PlayerPlaceBet(Constant.BotsBetValue)));
+            }
 
-			foreach (var playerId in playersId)
-			{
-				deck = await AddCardToPlayerHand(playerId, deck, requestBetGameView.GameId);
-				deck = await AddCardToPlayerHand(playerId, deck, requestBetGameView.GameId);
-			}
+            await _playerInGameRepository.UpdateBet(botsId, requestBetGameView.GameId, Constant.BotsBetValue);
+            List<long> deck = await GetDeckInGame(requestBetGameView.GameId);
+            List<long> playersId = await _playerInGameRepository.GetAllPlayersIdByGameId(requestBetGameView.GameId);
 
-			GameViewItem getGameGameView = await GetGame(requestBetGameView.GameId);
-			getGameGameView.Options = UserMessages.OptionDrawCard;
+            foreach (var playerId in playersId)
+            {
+                deck = await AddCardToPlayerHand(playerId, deck, requestBetGameView.GameId);
+                deck = await AddCardToPlayerHand(playerId, deck, requestBetGameView.GameId);
+            }
 
-			if ((getGameGameView.Human.Hand.CardsInHandValue >= Constant.WinValue)
-				|| (getGameGameView.Dealer.Hand.CardsInHandValue >= Constant.WinValue))
-			{
-				StandGameView standGameView = await Stand(requestBetGameView.GameId);
-				getGameGameView = Mapper.Map<StandGameView, GameViewItem>(standGameView);
-			}
+            GameViewItem getGameGameView = await GetGame(requestBetGameView.GameId);
+            getGameGameView.Options = UserMessages.OptionDrawCard;
 
-			responseBetGameView = Mapper.Map<GameViewItem, ResponseBetGameView>(getGameGameView);
-			return responseBetGameView;
-		}
+            if ((getGameGameView.Human.Hand.CardsInHandValue >= Constant.WinValue)
+                || (getGameGameView.Dealer.Hand.CardsInHandValue >= Constant.WinValue))
+            {
+                StandGameView standGameView = await Stand(requestBetGameView.GameId);
+                getGameGameView = Mapper.Map<StandGameView, GameViewItem>(standGameView);
+            }
 
-		public async Task<DrawGameView> DrawCard(long gameId)
-		{
-			
-			long humanId = await _playerInGameRepository.GetHumanIdByGameId(gameId);
-			List<long> deck = await GetDeckInGame(gameId);
-			int humanBetValue = await _playerInGameRepository.GetBetByPlayerId(humanId, gameId);
+            responseBetGameView = Mapper.Map<GameViewItem, ResponseBetGameView>(getGameGameView);
+            return responseBetGameView;
+        }
 
-			if (humanBetValue == 0)
-			{
-				throw new Exception(UserMessages.NoBetValue);
-			}
+        public async Task<DrawGameView> DrawCard(long gameId)
+        {
 
-			deck = await AddCardToPlayerHand(humanId, deck, gameId);
+            long humanId = await _playerInGameRepository.GetHumanIdByGameId(gameId);
+            List<long> deck = await GetDeckInGame(gameId);
+            int humanBetValue = await _playerInGameRepository.GetBetByPlayerId(humanId, gameId);
+
+            if (humanBetValue == 0)
+            {
+                throw new Exception(UserMessages.NoBetValue);
+            }
+
+            deck = await AddCardToPlayerHand(humanId, deck, gameId);
             GameViewItem getGameView = await GetGame(gameId);
-			getGameView.Options = UserMessages.OptionDrawCard;
+            getGameView.Options = UserMessages.OptionDrawCard;
 
-			if (getGameView.Human.Hand.CardsInHandValue >= Constant.WinValue)
-			{
-				StandGameView standGameView = await Stand(gameId);
-				getGameView = Mapper.Map<StandGameView, GameViewItem>(standGameView);
-			}
+            if (getGameView.Human.Hand.CardsInHandValue >= Constant.WinValue)
+            {
+                StandGameView standGameView = await Stand(gameId);
+                getGameView = Mapper.Map<StandGameView, GameViewItem>(standGameView);
+            }
 
-			var drawGameView = Mapper.Map<GameViewItem, DrawGameView>(getGameView);
+            var drawGameView = Mapper.Map<GameViewItem, DrawGameView>(getGameView);
 
-			return drawGameView;
-		}
+            return drawGameView;
+        }
 
-		public async Task<StandGameView> Stand(long gameId)
-		{
-			var playerIds = new List<long>();
-			var standGameView = new StandGameView();
-			var message = string.Empty;
+        public async Task<StandGameView> Stand(long gameId)
+        {
+            var playerIds = new List<long>();
+            var standGameView = new StandGameView();
+            var message = string.Empty;
             GameViewItem gameViewItem = await GetGame(gameId);
             List<Card> deck = await _cardRepository.GetByIds(gameViewItem.Deck);
 
-			if (gameViewItem.Human.BetValue == 0)
-			{
-				throw new Exception(UserMessages.NoBetValue);
-			}
+            if (gameViewItem.Human.BetValue == 0)
+            {
+                throw new Exception(UserMessages.NoBetValue);
+            }
 
-			if ((gameViewItem.Dealer.Hand.CardsInHandValue != Constant.WinValue)
-				|| (gameViewItem.Dealer.Hand.CardsInHand.Count() != Constant.NumberCardForBlackJack))
-			{
-                foreach(var bot in gameViewItem.Bots)
+            if ((gameViewItem.Dealer.Hand.CardsInHandValue != Constant.WinValue)
+                || (gameViewItem.Dealer.Hand.CardsInHand.Count() != Constant.NumberCardForBlackJack))
+            {
+                foreach (var bot in gameViewItem.Bots)
                 {
                     bot.Hand = await GetPlayerHand(bot.Id, gameId);
                     await BotTurn(bot.Id, deck, gameId, bot.Hand);
                 }
-			}
+            }
 
             HandViewItem dealerHand = await GetPlayerHand(gameViewItem.Dealer.Id, gameId);
             await BotTurn(gameViewItem.Dealer.Id, deck, gameId, dealerHand);
-			gameViewItem.Dealer.Hand = await GetPlayerHand(gameViewItem.Dealer.Id, gameId);
+            gameViewItem.Dealer.Hand = await GetPlayerHand(gameViewItem.Dealer.Id, gameId);
 
             foreach (var bot in gameViewItem.Bots)
             {
@@ -234,14 +204,73 @@ namespace BlackJack.BusinessLogic.Services
             }
 
             playerIds.Add(gameViewItem.Human.Id);
-			message = await UpdateScore(gameViewItem.Human, gameViewItem.Dealer.Hand.CardsInHandValue, gameId);
-			await _playerInGameRepository.UpdateBet(playerIds, gameId, 0);
-			gameViewItem = await GetGame(gameId);
-			gameViewItem.Options = UserMessages.OptionSetBet(message);
-			standGameView = Mapper.Map<GameViewItem, StandGameView>(gameViewItem);
+            message = await UpdateScore(gameViewItem.Human, gameViewItem.Dealer.Hand.CardsInHandValue, gameId);
+            await _playerInGameRepository.UpdateBet(playerIds, gameId, 0);
+            gameViewItem = await GetGame(gameId);
+            gameViewItem.Options = UserMessages.OptionSetBet(message);
+            standGameView = Mapper.Map<GameViewItem, StandGameView>(gameViewItem);
 
-			return standGameView;
-		}
+            return standGameView;
+        }
+
+        private async Task<Player> AddNewPlayer(string playerName)
+        {
+            var player = new Player { Name = playerName, Type = PlayerType.Human, Points = Constant.DefaultPointsValue };
+            var playerId = await _playerRepository.Add(player);
+            player.Id = playerId;
+            return player;
+        }
+
+        private async Task<List<Player>> GetBotsAndDealer(int botsAmount)
+        {
+            List<Player> bots = await _playerRepository.GetBots(botsAmount);
+            Player dealer = await _playerRepository.GetDealer();
+            bots.Add(dealer);
+            await CheckAndRestorePoints(bots);
+
+            return bots;
+        }
+
+        private async Task AddPlayerToGame(Player human, long gameId, int botsAmount)
+        {
+            var bots = await GetBotsAndDealer(botsAmount);
+            var playersInGame = new List<PlayerInGame>();
+            
+            foreach (var bot in bots)
+            {
+                playersInGame.Add(new PlayerInGame() { PlayerId = bot.Id, GameId = gameId });
+                _logger.Log(LogHelper.GetEvent(bot.Id, gameId, UserMessages.BotJoinGame));
+            }
+
+            playersInGame.Add(new PlayerInGame() { PlayerId = human.Id, GameId = gameId });
+            await _playerInGameRepository.Add(playersInGame);
+            _logger.Log(LogHelper.GetEvent(human.Id, gameId, UserMessages.HumanJoinGame));
+        }
+
+        private async Task DeleteGameById(long gameId)
+        {
+            await _cardInHandRepository.RemoveAllCardsByGameId(gameId);
+            await _playerInGameRepository.RemoveAllPlayersFromGame(gameId);
+            await _gameRepository.DeleteGameById(gameId);
+        }
+
+        private async Task CheckAndRestorePoints(List<Player> bots)
+        {
+            var playersIdWithoutPoints = new List<long>();
+            foreach (var bot in bots)
+            {
+                if (bot.Points < Constant.MinPointsValueToPlay)
+                {
+                    playersIdWithoutPoints.Add(bot.Id);
+                    bot.Points = Constant.DefaultPointsValue;
+                }
+            }
+
+            if (playersIdWithoutPoints.Count != 0)
+            {
+                await _playerRepository.UpdatePlayersPoints(playersIdWithoutPoints, Constant.DefaultPointsValue);
+            }
+        }
 
         private async Task<GameViewItem> GetGame(long gameId)
         {
@@ -319,16 +348,16 @@ namespace BlackJack.BusinessLogic.Services
         }
 
         private async Task<List<long>> GetDeckInGame(long gameId)
-		{
-			List<long> cardsInGameId = await _cardInHandRepository.GetCardsIdByGameId(gameId);
-			List<long> deck = await LoadInGameDeck(cardsInGameId);
+        {
+            List<long> cardsInGameId = await _cardInHandRepository.GetCardsIdByGameId(gameId);
+            List<long> deck = await LoadInGameDeck(cardsInGameId);
 
-			return deck;
-		}
+            return deck;
+        }
 
         private async Task<bool> BotTurn(long botId, List<Card> deck, long gameId, HandViewItem hand)
         {
-            if(hand.CardsInHandValue >= Constant.ValueToStopDraw)
+            if (hand.CardsInHandValue >= Constant.ValueToStopDraw)
             {
                 await AddMultipleCardsInHand(botId, hand.CardsInHand, gameId);
 
@@ -371,20 +400,20 @@ namespace BlackJack.BusinessLogic.Services
             var newCards = new List<long>();
             var CardsInHand = new List<CardInHand>();
 
-            foreach(var card in cards)
+            foreach (var card in cards)
             {
                 if (!cardsInHandId.Contains(card.Id))
                 {
                     newCards.Add(card.Id);
                 }
             }
-            
-            foreach(var newCard in newCards)
+
+            foreach (var newCard in newCards)
             {
                 var cardInHand = new CardInHand();
                 cardInHand.CardId = newCard;
                 cardInHand.PlayerId = playerId;
-                cardInHand.GameId = gameId; 
+                cardInHand.GameId = gameId;
 
                 CardsInHand.Add(cardInHand);
             }
@@ -392,80 +421,80 @@ namespace BlackJack.BusinessLogic.Services
             await _cardInHandRepository.Add(CardsInHand);
         }
 
-		private async Task<HandViewItem> GetPlayerHand(long playerId, long gameId)
-		{
-			var hand = new HandViewItem
-			{
-				CardsInHand = new List<CardViewItem>()
-			};
+        private async Task<HandViewItem> GetPlayerHand(long playerId, long gameId)
+        {
+            var hand = new HandViewItem
+            {
+                CardsInHand = new List<CardViewItem>()
+            };
 
-			List<long> cardsIdInPlayersHand = await _cardInHandRepository.GetCardsIdByPlayerIdAndGameId(playerId, gameId);
-			var cards = await _cardRepository.GetByIds(cardsIdInPlayersHand);
-			hand.CardsInHand = Mapper.Map<List<Card>, List<CardViewItem>>(cards);
+            List<long> cardsIdInPlayersHand = await _cardInHandRepository.GetCardsIdByPlayerIdAndGameId(playerId, gameId);
+            var cards = await _cardRepository.GetByIds(cardsIdInPlayersHand);
+            hand.CardsInHand = Mapper.Map<List<Card>, List<CardViewItem>>(cards);
             hand.CardsInHandValue = CalculateCardsValue(hand.CardsInHand);
 
-			return hand;
-		}
+            return hand;
+        }
 
         private async Task<List<long>> AddCardToPlayerHand(long playerId, List<long> deck, long gameId)
         {
             await _cardInHandRepository.Add(new CardInHand() { PlayerId = playerId, CardId = deck[0], GameId = gameId });
-			_logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerDrawCard(deck[0])));
-			deck.Remove(deck[0]);
+            _logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerDrawCard(deck[0])));
+            deck.Remove(deck[0]);
 
-			return deck;
-		}
+            return deck;
+        }
 
-		private async Task<string> UpdateScore(PlayerViewItem player, int dealerCardsValue, long gameId)
-		{
-			_logger.Log(LogHelper.GetEvent(player.Id, gameId, UserMessages.PlayerValue(player.Hand.CardsInHandValue, dealerCardsValue)));
+        private async Task<string> UpdateScore(PlayerViewItem player, int dealerCardsValue, long gameId)
+        {
+            _logger.Log(LogHelper.GetEvent(player.Id, gameId, UserMessages.PlayerValue(player.Hand.CardsInHandValue, dealerCardsValue)));
 
-			if ((player.Hand.CardsInHandValue > dealerCardsValue)
-			&& (player.Hand.CardsInHandValue <= Constant.WinValue))
-			{
-				await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
-				return UserMessages.OptionWin;
-			}
+            if ((player.Hand.CardsInHandValue > dealerCardsValue)
+            && (player.Hand.CardsInHandValue <= Constant.WinValue))
+            {
+                await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
+                return UserMessages.OptionWin;
+            }
 
-			if ((player.Hand.CardsInHandValue <= Constant.WinValue)
-			&& (dealerCardsValue > Constant.WinValue))
-			{
-				await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
-				return UserMessages.OptionWin;
-			}
+            if ((player.Hand.CardsInHandValue <= Constant.WinValue)
+            && (dealerCardsValue > Constant.WinValue))
+            {
+                await UpdateWonPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
+                return UserMessages.OptionWin;
+            }
 
-			if (player.Hand.CardsInHandValue > Constant.WinValue)
-			{
-				await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
-				return UserMessages.OptionLose;
-			}
+            if (player.Hand.CardsInHandValue > Constant.WinValue)
+            {
+                await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
+                return UserMessages.OptionLose;
+            }
 
-			if ((dealerCardsValue > player.Hand.CardsInHandValue)
-			&& (dealerCardsValue <= Constant.WinValue))
-			{
-				await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
-				return UserMessages.OptionLose;
-			}
+            if ((dealerCardsValue > player.Hand.CardsInHandValue)
+            && (dealerCardsValue <= Constant.WinValue))
+            {
+                await UpdateLostPlayersPoints(player.Id, gameId, player.BetValue, player.Points);
+                return UserMessages.OptionLose;
+            }
 
-			_logger.Log(LogHelper.GetEvent(player.Id, gameId, UserMessages.PlayerDraw));
-			return UserMessages.OptionDraw;
-		}
+            _logger.Log(LogHelper.GetEvent(player.Id, gameId, UserMessages.PlayerDraw));
+            return UserMessages.OptionDraw;
+        }
 
-		private async Task UpdateLostPlayersPoints(long playerId, long gameId, int playerBetValue, int playerPoints)
-		{
-			int newPointsValue = playerPoints - playerBetValue;
+        private async Task UpdateLostPlayersPoints(long playerId, long gameId, int playerBetValue, int playerPoints)
+        {
+            int newPointsValue = playerPoints - playerBetValue;
 
-			_logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerLose(playerBetValue)));
-			await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
-		}
+            _logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerLose(playerBetValue)));
+            await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
+        }
 
-		private async Task UpdateWonPlayersPoints(long playerId, long gameId, int playerBetValue, int playerPoints)
-		{
-			int newPointsValue = playerPoints + playerBetValue;
+        private async Task UpdateWonPlayersPoints(long playerId, long gameId, int playerBetValue, int playerPoints)
+        {
+            int newPointsValue = playerPoints + playerBetValue;
 
-			_logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerWin(playerBetValue)));
-			await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
-		}
+            _logger.Log(LogHelper.GetEvent(playerId, gameId, UserMessages.PlayerWin(playerBetValue)));
+            await _playerRepository.UpdatePlayersPoints(new List<long> { playerId }, newPointsValue);
+        }
 
         private async Task<List<long>> LoadInGameDeck(List<long> cardsInGame)
         {

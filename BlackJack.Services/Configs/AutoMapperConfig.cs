@@ -16,8 +16,8 @@ namespace BlackJack.BusinessLogic.Mappers
 				cfg.CreateMap<GameViewItem, ResponseBetGameView>();
 				cfg.CreateMap<GameViewItem, DrawGameView>();
 				cfg.CreateMap<GameViewItem, StandGameView>();
-                cfg.CreateMap<GameViewItem, ResponseStartGameGameView>();
-                cfg.CreateMap<GameViewItem, LoadGameGameView>();
+                cfg.CreateMap<GameViewItem, ResponseStartMatchGameView>();
+                cfg.CreateMap<GameViewItem, LoadMatchGameView>();
                 cfg.CreateMap<StandGameView, GameViewItem>();
 			});
 		}

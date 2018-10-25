@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BlackJack.ViewModels
 {
-    public class ResponseStartGameGameView
+    public class LoadMatchGameView
     {
         [JsonProperty("gameId")]
         public long GameId { get; set; }
