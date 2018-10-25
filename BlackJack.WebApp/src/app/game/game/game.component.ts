@@ -36,7 +36,6 @@ export class GameComponent implements OnInit {
             },
             response => {
                 this.messageService.showError(response);
-                console.log(response);
                 this.router.navigate([`login`]);
             }
         );

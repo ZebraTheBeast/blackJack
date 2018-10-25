@@ -57,9 +57,9 @@ function StartGame(playerName, botsAmount) {
 function LoadGame(playerName) {
     
     $.ajax({
-        url: '/api/gameApi/LoadMatch',
-        type: 'POST',
-        data: JSON.stringify(playerName),
+        url: '/api/gameApi/LoadMatch?playerName=',
+        type: 'GET',
+        data: playerName,
         contentType: "application/json;charset=utf-8",
         success: function (gameView) {
             WriteResponse(gameView);

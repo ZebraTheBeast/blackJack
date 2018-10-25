@@ -55,7 +55,7 @@ namespace BlackJack.MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> LoadGame(string playerName)
+        public async Task<IHttpActionResult> LoadMatch(string playerName)
         {
             try
             {

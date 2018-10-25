@@ -530,7 +530,6 @@ var GameComponent = /** @class */ (function () {
             _this.gameService.setGameId(game.gameId);
         }, function (response) {
             _this.messageService.showError(response);
-            console.log(response);
             _this.router.navigate(["login"]);
         });
     };
@@ -1051,8 +1050,8 @@ var GameService = /** @class */ (function () {
         return this.http.post(startMatchUrl, requestStartGameGameView, httpOptions);
     };
     GameService.prototype.loadGame = function () {
-        var loadMatchUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "LoadMatch";
-        return this.http.post(loadMatchUrl, this.playerName, httpOptions);
+        var loadMatchUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "LoadMatch?playerName=" + this.playerName;
+        return this.http.get(loadMatchUrl, httpOptions);
     };
     GameService.prototype.stand = function () {
         var standUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].gameUrl + "Stand";
@@ -1151,7 +1150,7 @@ var MessageService = /** @class */ (function () {
         this.modalService = modalService;
     }
     MessageService.prototype.showError = function (message) {
-        this.errorMessage = message.error.Message;
+        this.errorMessage = message.error.message;
         this.modalService.open(this.content);
     };
     MessageService.ngInjectableDef = _angular_core__WEBPACK_IMPORTED_MODULE_1__["defineInjectable"]({ factory: function MessageService_Factory() { return new MessageService(_angular_core__WEBPACK_IMPORTED_MODULE_1__["inject"](_ng_bootstrap_ng_bootstrap_modal_modal__WEBPACK_IMPORTED_MODULE_2__["NgbModal"])); }, token: MessageService, providedIn: "root" });

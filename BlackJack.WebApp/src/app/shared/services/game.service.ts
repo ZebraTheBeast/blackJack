@@ -36,8 +36,8 @@ export class GameService {
     }
 
     loadGame(): Observable<ResponseLoadMatchGameView> {
-        var loadMatchUrl = `${environment.gameUrl}LoadMatch`;
-        return this.http.post<ResponseLoadMatchGameView>(loadMatchUrl, this.playerName, httpOptions);
+        var loadMatchUrl = `${environment.gameUrl}LoadMatch?playerName=${this.playerName}`;
+        return this.http.get<ResponseLoadMatchGameView>(loadMatchUrl, httpOptions);
     }
 
     stand(): Observable<StandGameView> {
