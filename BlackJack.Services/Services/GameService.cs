@@ -92,6 +92,7 @@ namespace BlackJack.BusinessLogic.Services
             var responseBetGameView = new ResponseBetGameView();
             var gameViewItem = new GameViewItem();
             long humanId;
+            int humanBetValue;
 
             if (requestBetGameView.BetValue <= 0)
             {
@@ -100,7 +101,7 @@ namespace BlackJack.BusinessLogic.Services
 
             humanId = await _playerInGameRepository.GetHumanIdByGameId(requestBetGameView.GameId);
             await _cardInHandRepository.RemoveAllCardsByGameId(requestBetGameView.GameId);
-            int humanBetValue = await _playerInGameRepository.GetBetByPlayerId(humanId, requestBetGameView.GameId);
+            humanBetValue = await _playerInGameRepository.GetBetByPlayerId(humanId, requestBetGameView.GameId);
 
             if (humanBetValue != 0)
             {

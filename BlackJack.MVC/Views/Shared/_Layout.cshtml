@@ -4,11 +4,9 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width" />
 	<title>BlackJack</title>
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/Scripts/jquery.cookie.js")
+	@Scripts.Render("~/bundles/main")
 	@Styles.Render("~/Content/css")
-	@Styles.Render("~/Content/kendo.common.min.css")
-	@Styles.Render("~/Content/kendo.bootstrap.min.css")
+	
 </head>
 <body>
 	<div class="container body-content">
@@ -26,9 +24,6 @@
 		</footer>
 	</div>
 
-	@Scripts.Render("~/Scripts/kendo.all.min.js")
-	@Scripts.Render("~/bundles/bootstrap")
-	@Scripts.Render("~/bundles/modernizr")
 	@RenderSection("scripts", required: false)
 </body>
 </html>
