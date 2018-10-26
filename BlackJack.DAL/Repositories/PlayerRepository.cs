@@ -21,7 +21,7 @@ namespace BlackJack.DataAccess.Repositories
 		public async Task<List<Player>> GetByAmountAndType(int amount, PlayerType playerType)
 		{
 			var players = new List<Player>();
-			var sqlQuery = "SELECT TOP(@botsAmount) * FROM Player WHERE Type = @playerType";
+			var sqlQuery = "SELECT TOP(@amount) * FROM Player WHERE Type = @playerType";
 
 			using (var db = new SqlConnection(_connectionString))
 			{

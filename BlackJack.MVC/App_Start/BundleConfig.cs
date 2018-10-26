@@ -12,16 +12,15 @@ namespace BlackJack.MVC
                         "~/Scripts/modernizr-*",
                         "~/Scripts/bootstrap.js"));
 
-			bundles.Add(new ScriptBundle("~/bundles/login").Include(
+			bundles.Add(new ScriptBundle("~/bundles/logs").Include(
                     "~/Scripts/kendo.all.min.js",
-                    "~/Scripts/site/logs.js"));
+                    "~/Scripts/logs/logs.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/logs").Include(
-                    "~/Scripts/site/login.js"));
+            bundles.Add(new ScriptBundle("~/bundles/login").Include(
+                    "~/Scripts/game/login.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/game").Include(
-						"~/Scripts/site/game.js",
-						"~/Scripts/site/gameHelper.js"));
+						"~/Scripts/game/game.js"));
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",

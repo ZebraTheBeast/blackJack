@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
-
-    var jsonData = $.cookie("start-game");
-    var gameData = JSON.parse(jsonData);
+    
+    var jsonGameData = $.cookie("start-game");
+    var gameData = JSON.parse(jsonGameData);
 
     if (gameData.isStartGame) {
         StartGame(gameData.playerName, gameData.botsAmount);
@@ -55,11 +55,11 @@ function StartGame(playerName, botsAmount) {
 }
 
 function LoadGame(playerName) {
-    
+    var loadGameUrl = '/api/gameApi/LoadMatch?playerName=' + playerName; 
     $.ajax({
-        url: '/api/gameApi/LoadMatch?playerName=',
+        url: loadGameUrl,
         type: 'GET',
-        data: playerName,
+      
         contentType: "application/json;charset=utf-8",
         success: function (gameView) {
             WriteResponse(gameView);

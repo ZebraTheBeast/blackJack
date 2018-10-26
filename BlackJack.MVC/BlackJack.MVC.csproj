@@ -517,10 +517,9 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\site\game.js" />
-    <Content Include="Scripts\site\gameHelper.js" />
-    <Content Include="Scripts\site\login.js" />
-    <Content Include="Scripts\site\logs.js" />
+    <Content Include="Scripts\game\game.js" />
+    <Content Include="Scripts\game\login.js" />
+    <Content Include="Scripts\logs\logs.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />

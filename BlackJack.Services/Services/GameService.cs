@@ -275,19 +275,14 @@ namespace BlackJack.BusinessLogic.Services
             return player;
         }
 
-        private async Task<List<Player>> GetBotsAndDealer(int botsAmount)
+
+        private async Task AddPlayerToGame(Player human, long gameId, int botsAmount)
         {
             List<Player> bots = await _playerRepository.GetByAmountAndType(botsAmount, PlayerType.Bot);
             Player dealer = (await _playerRepository.GetByAmountAndType(Constant.DealerAmount, PlayerType.Dealer)).FirstOrDefault();
             bots.Add(dealer);
             await CheckAndRestorePoints(bots);
 
-            return bots;
-        }
-
-        private async Task AddPlayerToGame(Player human, long gameId, int botsAmount)
-        {
-            var bots = await GetBotsAndDealer(botsAmount);
             var playersInGame = new List<PlayerInGame>();
 
             foreach (var bot in bots)
