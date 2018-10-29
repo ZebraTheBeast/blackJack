@@ -13,8 +13,8 @@ import { MessageService } from 'src/app/shared/services/message.service';
 })
 
 export class LogComponent {
-    gridData: GridDataResult;
     data: any[];
+    gridData: GridDataResult;
     state: State = {
         skip: 0,
         take: 12,

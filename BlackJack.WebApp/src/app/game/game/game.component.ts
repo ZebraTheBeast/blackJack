@@ -11,8 +11,8 @@ import { MessageService } from 'src/app/shared/services/message.service';
 })
 
 export class GameComponent implements OnInit {
-    betValue = 10;
     game: any;
+    betValue = 10;
     isDrawDisabled = false;
     isBetDisabled = false;
 
